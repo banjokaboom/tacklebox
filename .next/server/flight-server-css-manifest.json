@@ -1,0 +1,18 @@
+{
+  "cssImports": {
+    "/home/banjokaboom/Documents/dev/tacklebox/app/layout.tsx": [
+      "/home/banjokaboom/Documents/dev/tacklebox/node_modules/next/font/google/target.css?{\"path\":\"app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}",
+      "/home/banjokaboom/Documents/dev/tacklebox/app/globals.css"
+    ]
+  },
+  "cssModules": {
+    "/home/banjokaboom/Documents/dev/tacklebox/app/what-to-fish/page": [
+      "/home/banjokaboom/Documents/dev/tacklebox/app/globals.css",
+      "/home/banjokaboom/Documents/dev/tacklebox/node_modules/next/font/google/target.css?{\"path\":\"app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}"
+    ],
+    "/home/banjokaboom/Documents/dev/tacklebox/app/page": [
+      "/home/banjokaboom/Documents/dev/tacklebox/app/globals.css",
+      "/home/banjokaboom/Documents/dev/tacklebox/node_modules/next/font/google/target.css?{\"path\":\"app/layout.tsx\",\"import\":\"Inter\",\"arguments\":[{\"subsets\":[\"latin\"]}],\"variableName\":\"inter\"}"
+    ]
+  }
+}
