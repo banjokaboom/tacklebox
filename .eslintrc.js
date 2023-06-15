@@ -5,18 +5,22 @@ module.exports = {
     node: true,
   },
   extends: [
-    "prettier",
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "next",
+    'prettier',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'next',
+    'next/core-web-vitals',
   ],
   parserOptions: {
-    ecmaVersion: "latest",
-    parser: "@babel/eslint-parser",
+    ecmaVersion: 'latest',
+    parser: '@babel/eslint-parser',
     requireConfigFile: false,
-    sourceType: "module",
+    sourceType: 'module',
   },
-  plugins: ["json-format", "eslint-plugin-react"],
+  plugins: ['json-format', 'eslint-plugin-react'],
   root: true,
-  rules: {},
-};
+  rules: {
+    quotes: 'single',
+    semi: 'never',
+  },
+}

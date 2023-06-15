@@ -7,5 +7,5 @@ export default function Nav() {
       <a href="/what-to-fish">What To Fish</a>
       <a href="/what-to-make">What To Make</a>
     </main>
-  );
+  )
 }

@@ -7,5 +7,5 @@ export default function WhatToMake() {
         <Nav></Nav>
       </div>
     </main>
-  );
+  )
 }

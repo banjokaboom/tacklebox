@@ -1,242 +1,242 @@
-import * as tackleList from "./tackle.json";
-import Nav from "../nav";
+import * as tackleList from './tackle.json'
+import Nav from '../nav'
 
-const waterTempMultiplier = 0.87;
+const waterTempMultiplier = 0.87
 
 class FishingData {
-  public colors: string;
-  public seasons: string;
-  public tackle: object[];
-  public weather: WeatherData;
+  public colors: string
+  public seasons: string
+  public tackle: object[]
+  public weather: WeatherData
 }
 
 class WeatherData {
-  public outdoorTemp: string;
-  public waterTemp: string;
-  public conditions: string;
-  public wind: string;
-  public current: WeatherData;
-  public forecast: WeatherData;
+  public outdoorTemp: string
+  public waterTemp: string
+  public conditions: string
+  public wind: string
+  public current: WeatherData
+  public forecast: WeatherData
 }
 
 async function getData() {
-  let data = new FishingData();
+  let data = new FishingData()
 
-  const weather = await getWeather();
+  const weather = await getWeather()
 
-  console.log("Weather received.");
-  console.log(weather);
+  console.log('Weather received.')
+  console.log(weather)
 
-  data.colors = pickColors(weather);
-  data.seasons = getSeasons();
-  data.tackle = await pickTackle(weather);
-  data.weather = getWeatherValues(weather);
+  data.colors = pickColors(weather)
+  data.seasons = getSeasons()
+  data.tackle = await pickTackle(weather)
+  data.weather = getWeatherValues(weather)
 
-  return data;
+  return data
 }
 
 async function getWeather() {
   const res = await fetch(
-    "http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=01516"
-  );
+    'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=01516'
+  )
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data')
   }
 
-  return res.json();
+  return res.json()
 }
 
 async function pickTackle(weather: WeatherData): Promise<object[]> {
-  console.log("Tackle loaded.");
-  console.log(JSON.stringify(tackleList));
+  console.log('Tackle loaded.')
+  console.log(JSON.stringify(tackleList))
 
-  let tackleToUse: object[] = [];
+  let tackleToUse: object[] = []
 
   tackleList.forEach(function (tackle) {
-    console.log(tackle);
+    console.log(tackle)
 
     if (isTackleForWeather(tackle, weather)) {
-      tackleToUse.push(tackle);
+      tackleToUse.push(tackle)
     }
-  });
+  })
 
-  return tackleToUse;
+  return tackleToUse
 }
 
 function pickColors(weather: any): string {
-  const seasons = getSeasons();
-  let colorsToUse: string[] = [];
+  const seasons = getSeasons()
+  let colorsToUse: string[] = []
 
-  if (seasons.includes("spring")) {
-    colorsToUse.push("craw", "orange", "red");
+  if (seasons.includes('spring')) {
+    colorsToUse.push('craw', 'orange', 'red')
   } else {
-    colorsToUse.push("shad", "baitfish", "white", "blue");
+    colorsToUse.push('shad', 'baitfish', 'white', 'blue')
   }
 
   if (weather.current.cloud >= 75) {
-    colorsToUse.push("bright", "yellow", "pink");
+    colorsToUse.push('bright', 'yellow', 'pink')
   } else {
-    colorsToUse.push("natural", "gold", "silver", "green");
+    colorsToUse.push('natural', 'gold', 'silver', 'green')
   }
 
-  let colorString = "";
+  let colorString = ''
 
   colorsToUse.forEach(function (color, index) {
-    colorString += color;
+    colorString += color
     if (index < colorsToUse.length - 1) {
-      colorString += ", ";
+      colorString += ', '
     }
-  });
+  })
 
-  return colorString;
+  return colorString
 }
 
 function isTackleForWeather(tackle: any, weather: any): boolean {
-  const seasons = getSeasons();
-  let warmWaterMax = 75;
-  let warmWaterMin = 55;
+  const seasons = getSeasons()
+  let warmWaterMax = 75
+  let warmWaterMin = 55
   let waterTemp =
-    weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier;
+    weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier
 
   if (
-    seasons.includes("bass pre-spawn") ||
-    seasons.includes("bass spawn") ||
-    seasons.includes("fall")
+    seasons.includes('bass pre-spawn') ||
+    seasons.includes('bass spawn') ||
+    seasons.includes('fall')
   ) {
-    console.log("It's growing season for bass! Bring out the reaction baits!");
-    if (tackle.speed.includes("fast") || tackle.depth.includes("shallow")) {
-      return true;
+    console.log("It's growing season for bass! Bring out the reaction baits!")
+    if (tackle.speed.includes('fast') || tackle.depth.includes('shallow')) {
+      return true
     }
   }
 
   if (waterTemp >= warmWaterMax) {
-    console.log("Water is very warm, need to fish deep and slow!");
+    console.log('Water is very warm, need to fish deep and slow!')
 
-    if (!tackle.waterTemp.includes("warm")) {
-      return false;
+    if (!tackle.waterTemp.includes('warm')) {
+      return false
     }
 
-    if (!tackle.depth.includes("deep")) {
-      return false;
+    if (!tackle.depth.includes('deep')) {
+      return false
     }
   } else if (waterTemp >= warmWaterMin) {
-    console.log("Water temp is ideal for fishing most lures and rigs!");
+    console.log('Water temp is ideal for fishing most lures and rigs!')
 
-    if (!tackle.waterTemp.includes("warm")) {
-      return false;
+    if (!tackle.waterTemp.includes('warm')) {
+      return false
     }
 
-    if (!tackle.depth.includes("shallow")) {
-      return false;
+    if (!tackle.depth.includes('shallow')) {
+      return false
     }
   } else {
-    console.log("Water temp is cold! At least for bass and most panfish.");
+    console.log('Water temp is cold! At least for bass and most panfish.')
 
-    if (!tackle.waterTemp.includes("cold")) {
-      return false;
+    if (!tackle.waterTemp.includes('cold')) {
+      return false
     }
 
-    if (!tackle.speed.includes("still") && !tackle.speed.includes("slow")) {
-      return false;
+    if (!tackle.speed.includes('still') && !tackle.speed.includes('slow')) {
+      return false
     }
 
-    if (!tackle.depth.includes("deep")) {
-      return false;
+    if (!tackle.depth.includes('deep')) {
+      return false
     }
   }
 
-  return true;
+  return true
 }
 
 function getSeasons(): string {
-  let today = new Date();
-  let todayMonth = today.getMonth() + 1;
-  let seasons: string[] = [];
+  let today = new Date()
+  let todayMonth = today.getMonth() + 1
+  let seasons: string[] = []
 
   switch (todayMonth) {
     case 1:
-      seasons.push("winter");
-      break;
+      seasons.push('winter')
+      break
     case 2:
-      seasons.push("winter");
-      break;
+      seasons.push('winter')
+      break
     case 3:
-      seasons.push(today.getDate() > 21 ? "spring" : "winter");
-      break;
+      seasons.push(today.getDate() > 21 ? 'spring' : 'winter')
+      break
     case 4:
-      seasons.push("spring");
-      break;
+      seasons.push('spring')
+      break
     case 5:
-      seasons.push("spring");
-      seasons.push("bass pre-spawn");
-      break;
+      seasons.push('spring')
+      seasons.push('bass pre-spawn')
+      break
     case 6:
-      seasons.push(today.getDate() > 21 ? "summer" : "spring");
-      seasons.push("bass spawn");
-      break;
+      seasons.push(today.getDate() > 21 ? 'summer' : 'spring')
+      seasons.push('bass spawn')
+      break
     case 7:
-      seasons.push("summer");
-      break;
+      seasons.push('summer')
+      break
     case 8:
-      seasons.push("summer");
-      break;
+      seasons.push('summer')
+      break
     case 9:
-      seasons.push(today.getDate() > 21 ? "fall" : "summer");
-      break;
+      seasons.push(today.getDate() > 21 ? 'fall' : 'summer')
+      break
     case 10:
-      seasons.push("fall");
-      break;
+      seasons.push('fall')
+      break
     case 11:
-      seasons.push("fall");
-      break;
+      seasons.push('fall')
+      break
     case 12:
-      seasons.push(today.getDate() > 21 ? "winter" : "fall");
-      break;
+      seasons.push(today.getDate() > 21 ? 'winter' : 'fall')
+      break
     default:
-      break;
+      break
   }
 
-  let seasonString = "";
+  let seasonString = ''
 
   seasons.forEach(function (season, index) {
-    seasonString += season;
+    seasonString += season
     if (index < seasons.length - 1) {
-      seasonString += ", ";
+      seasonString += ', '
     }
-  });
+  })
 
-  return seasonString;
+  return seasonString
 }
 
 function getWeatherValues(weather): WeatherData {
-  let data = new WeatherData();
-  let current = new WeatherData();
-  let forecast = new WeatherData();
+  let data = new WeatherData()
+  let current = new WeatherData()
+  let forecast = new WeatherData()
 
-  current.outdoorTemp = weather.current.temp_f + "F";
+  current.outdoorTemp = weather.current.temp_f + 'F'
   current.waterTemp =
-    (weather.current.feelslike_f * waterTempMultiplier).toFixed(0) + "F";
-  current.conditions = weather.current.condition.text;
-  current.wind = weather.current.wind_mph + "mph";
+    (weather.current.feelslike_f * waterTempMultiplier).toFixed(0) + 'F'
+  current.conditions = weather.current.condition.text
+  current.wind = weather.current.wind_mph + 'mph'
 
-  forecast.outdoorTemp = weather.forecast.forecastday[0].day.maxtemp_f + "F";
+  forecast.outdoorTemp = weather.forecast.forecastday[0].day.maxtemp_f + 'F'
   forecast.waterTemp =
     (
       weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier
-    ).toFixed(0) + "F";
-  forecast.conditions = weather.forecast.forecastday[0].day.condition.text;
-  forecast.wind = weather.forecast.forecastday[0].day.maxwind_mph + "mph";
+    ).toFixed(0) + 'F'
+  forecast.conditions = weather.forecast.forecastday[0].day.condition.text
+  forecast.wind = weather.forecast.forecastday[0].day.maxwind_mph + 'mph'
 
-  data.current = current;
-  data.forecast = forecast;
+  data.current = current
+  data.forecast = forecast
 
-  return data;
+  return data
 }
 
 export default async function WhatToFish() {
-  const data = await getData();
+  const data = await getData()
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-cyan-600 mx-auto">
@@ -299,5 +299,5 @@ export default async function WhatToFish() {
         <Nav></Nav>
       </div>
     </main>
-  );
+  )
 }

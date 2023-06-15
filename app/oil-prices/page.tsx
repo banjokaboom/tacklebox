@@ -1,38 +1,38 @@
-import Nav from "../nav";
+import Nav from '../nav'
 
 class OilPriceData {
-  public price: string;
-  public company: string;
-  public url: string;
-  public oilPrices: object[];
+  public price: string
+  public company: string
+  public url: string
+  public oilPrices: object[]
 }
 
 async function getOilPrices() {
-  const res = await fetch("http://localhost:5555/api/oilprices");
+  const res = await fetch('http://localhost:5555/api/oilprices')
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
+    throw new Error('Failed to fetch data')
   }
 
-  return res.json();
+  return res.json()
 }
 
 async function getData() {
-  let oilPriceData = new OilPriceData();
+  let oilPriceData = new OilPriceData()
 
-  const data = await getOilPrices();
+  const data = await getOilPrices()
 
-  (oilPriceData.price = "$" + data.price),
+  ;(oilPriceData.price = '$' + data.price),
     (oilPriceData.company = data.company),
     (oilPriceData.url = data.url),
-    (oilPriceData.oilPrices = data.allOilPrices);
+    (oilPriceData.oilPrices = data.allOilPrices)
 
-  return data;
+  return data
 }
 
 export default async function OilPrices() {
-  const data = await getData();
+  const data = await getData()
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-cyan-600 mx-auto">
@@ -49,5 +49,5 @@ export default async function OilPrices() {
         <Nav></Nav>
       </div>
     </main>
-  );
+  )
 }
