@@ -48,7 +48,7 @@ async function getWeather() {
   return res.json();
 }
 
-async function pickTackle(weather): Promise<object[]> {
+async function pickTackle(weather:WeatherData): Promise<object[]> {
   console.log("Tackle loaded.");
   console.log(JSON.stringify(tackleList));
 
@@ -65,7 +65,7 @@ async function pickTackle(weather): Promise<object[]> {
   return tackleToUse;
 }
 
-function pickColors(weather): string {
+function pickColors(weather:any): string {
   const seasons = getSeasons();
   let colorsToUse: string[] = [];
 
@@ -93,7 +93,7 @@ function pickColors(weather): string {
   return colorString;
 }
 
-function isTackleForWeather(tackle, weather): boolean {
+function isTackleForWeather(tackle:any, weather:any): boolean {
   const seasons = getSeasons();
   let warmWaterMax = 75;
   let warmWaterMin = 55;
@@ -262,10 +262,10 @@ export default async function WhatToFish() {
 
             <h2 className="text-xl pb-8 pt-8">Current Weather</h2>
             <p className="pb-4">
-              Outdoor Temperature:{data.weather.current.outdoorTemp}
+              Outdoor Temperature: {data.weather.current.outdoorTemp}
             </p>
             <p className="pb-4">
-              Estimated Water Temperature:{data.weather.current.waterTemp}
+              Estimated Water Temperature: {data.weather.current.waterTemp}
             </p>
             <p className="pb-4">
               Conditions: {data.weather.current.conditions}
