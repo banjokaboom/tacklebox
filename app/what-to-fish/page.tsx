@@ -48,7 +48,7 @@ async function getWeather() {
   return res.json();
 }
 
-async function pickTackle(weather:WeatherData): Promise<object[]> {
+async function pickTackle(weather: WeatherData): Promise<object[]> {
   console.log("Tackle loaded.");
   console.log(JSON.stringify(tackleList));
 
@@ -65,7 +65,7 @@ async function pickTackle(weather:WeatherData): Promise<object[]> {
   return tackleToUse;
 }
 
-function pickColors(weather:any): string {
+function pickColors(weather: any): string {
   const seasons = getSeasons();
   let colorsToUse: string[] = [];
 
@@ -93,7 +93,7 @@ function pickColors(weather:any): string {
   return colorString;
 }
 
-function isTackleForWeather(tackle:any, weather:any): boolean {
+function isTackleForWeather(tackle: any, weather: any): boolean {
   const seasons = getSeasons();
   let warmWaterMax = 75;
   let warmWaterMin = 55;
@@ -151,7 +151,8 @@ function isTackleForWeather(tackle:any, weather:any): boolean {
 }
 
 function getSeasons(): string {
-  let todayMonth = new Date().getMonth() + 1;
+  let today = new Date();
+  let todayMonth = today.getMonth() + 1;
   let seasons: string[] = [];
 
   switch (todayMonth) {
@@ -162,7 +163,7 @@ function getSeasons(): string {
       seasons.push("winter");
       break;
     case 3:
-      seasons.push("winter");
+      seasons.push(today.getDate() > 21 ? "spring" : "winter");
       break;
     case 4:
       seasons.push("spring");
@@ -172,7 +173,7 @@ function getSeasons(): string {
       seasons.push("bass pre-spawn");
       break;
     case 6:
-      seasons.push("spring");
+      seasons.push(today.getDate() > 21 ? "summer" : "spring");
       seasons.push("bass spawn");
       break;
     case 7:
@@ -182,7 +183,7 @@ function getSeasons(): string {
       seasons.push("summer");
       break;
     case 9:
-      seasons.push("summer");
+      seasons.push(today.getDate() > 21 ? "fall" : "summer");
       break;
     case 10:
       seasons.push("fall");
@@ -191,7 +192,7 @@ function getSeasons(): string {
       seasons.push("fall");
       break;
     case 12:
-      seasons.push("fall");
+      seasons.push(today.getDate() > 21 ? "winter" : "fall");
       break;
     default:
       break;
@@ -241,14 +242,14 @@ export default async function WhatToFish() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-cyan-600 mx-auto">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl">What to Fish</h1>
-        <div className="flex min-h-screen flex-row justify-between">
+        <div className="flex min-h-screen flex-col lg:flex-row justify-between">
           <div>
             <h2 className="text-xl pb-8 pt-8">
-              Lures, Rigs, and Tackle to use today:
+              Lures, Rigs, and Tackle to use today
             </h2>
-            <div id="tackle-results">
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               {data.tackle.map((t) => (
-                <p className="pb-4" key={t.name}>
+                <p className="pb-4 last:pb-0" key={t.name}>
                   {t.name}
                 </p>
               ))}
@@ -256,36 +257,42 @@ export default async function WhatToFish() {
           </div>
           <div>
             <h2 className="text-xl pb-8 pt-8">Season</h2>
-            <p className="pb-4" id="season">
-              {data.seasons}
-            </p>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p>{data.seasons}</p>
+            </div>
 
             <h2 className="text-xl pb-8 pt-8">Current Weather</h2>
-            <p className="pb-4">
-              Outdoor Temperature: {data.weather.current.outdoorTemp}
-            </p>
-            <p className="pb-4">
-              Estimated Water Temperature: {data.weather.current.waterTemp}
-            </p>
-            <p className="pb-4">
-              Conditions: {data.weather.current.conditions}
-            </p>
-            <p className="pb-4">Wind: {data.weather.current.wind}</p>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p className="pb-4">
+                Outdoor Temperature: {data.weather.current.outdoorTemp}
+              </p>
+              <p className="pb-4">
+                Estimated Water Temperature: {data.weather.current.waterTemp}
+              </p>
+              <p className="pb-4">
+                Conditions: {data.weather.current.conditions}
+              </p>
+              <p>Wind: {data.weather.current.wind}</p>
+            </div>
 
-            <h2 className="text-xl pb-8 pt-8">Today's Weather</h2>
-            <p className="pb-4">
-              Outdoor Temperature: {data.weather.forecast.outdoorTemp}
-            </p>
-            <p className="pb-4">
-              Estimated Water Temperature: {data.weather.forecast.waterTemp}
-            </p>
-            <p className="pb-4">
-              Conditions: {data.weather.forecast.conditions}
-            </p>
-            <p className="pb-4">Wind: {data.weather.forecast.wind}</p>
+            <h2 className="text-xl pb-8 pt-8">Today&apos;s Weather</h2>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p className="pb-4">
+                Outdoor Temperature: {data.weather.forecast.outdoorTemp}
+              </p>
+              <p className="pb-4">
+                Estimated Water Temperature: {data.weather.forecast.waterTemp}
+              </p>
+              <p className="pb-4">
+                Conditions: {data.weather.forecast.conditions}
+              </p>
+              <p>Wind: {data.weather.forecast.wind}</p>
+            </div>
 
-            <h2 className="text-xl pb-8 pt-8">Lure Colors to use now:</h2>
-            <div id="color-results">{data.colors}</div>
+            <h2 className="text-xl pb-8 pt-8">Lure Colors to use now</h2>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p>{data.colors}</p>
+            </div>
           </div>
         </div>
 
