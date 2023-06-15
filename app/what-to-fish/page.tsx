@@ -239,12 +239,12 @@ export default async function WhatToFish() {
   const data = await getData()
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-cyan-600 mx-auto">
+    <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl">What to Fish</h1>
-        <div className="flex min-h-screen flex-col lg:flex-row justify-between">
+        <div className="flex flex-col lg:flex-row justify-between">
           <div>
-            <h2 className="text-xl pb-8 pt-8">
+            <h2 className="text-2xl pb-8 pt-8">
               Lures, Rigs, and Tackle to use today
             </h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
@@ -256,12 +256,12 @@ export default async function WhatToFish() {
             </div>
           </div>
           <div>
-            <h2 className="text-xl pb-8 pt-8">Season</h2>
+            <h2 className="text-2xl pb-8 pt-8">Season</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p>{data.seasons}</p>
             </div>
 
-            <h2 className="text-xl pb-8 pt-8">Current Weather</h2>
+            <h2 className="text-2xl pb-8 pt-8">Current Weather</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p className="pb-4">
                 Outdoor Temperature: {data.weather.current.outdoorTemp}
@@ -275,7 +275,7 @@ export default async function WhatToFish() {
               <p>Wind: {data.weather.current.wind}</p>
             </div>
 
-            <h2 className="text-xl pb-8 pt-8">Today&apos;s Weather</h2>
+            <h2 className="text-2xl pb-8 pt-8">Today&apos;s Weather</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p className="pb-4">
                 Outdoor Temperature: {data.weather.forecast.outdoorTemp}
@@ -289,15 +289,13 @@ export default async function WhatToFish() {
               <p>Wind: {data.weather.forecast.wind}</p>
             </div>
 
-            <h2 className="text-xl pb-8 pt-8">Lure Colors to use now</h2>
+            <h2 className="text-2xl pb-8 pt-8">Lure Colors to use now</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p>{data.colors}</p>
             </div>
           </div>
         </div>
-
-        <Nav></Nav>
       </div>
-    </main>
+    </div>
   )
 }

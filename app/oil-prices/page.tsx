@@ -35,19 +35,23 @@ export default async function OilPrices() {
   const data = await getData()
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-cyan-600 mx-auto">
+    <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl">Oil Prices</h1>
 
-        <h2 className="text-xl pb-8 pt-8">Best Price</h2>
-        <p className="pb-4">Price: {data.price}</p>
-        <p className="pb-4">Company: {data.company}</p>
-        <a className="pb-4" href={data.url} target="_blank">
-          Buy
-        </a>
-
-        <Nav></Nav>
+        <h2 className="text-2xl pb-8 pt-8">Best Price</h2>
+        <div className="border border-slate-50 bg-slate-700 p-4 rounded-md flex flex-col lg:items-center justify-between">
+          <h3 className="pb-4 text-2xl">Price: {data.price}</h3>
+          <p className="pb-4">Company: {data.company}</p>
+          <a
+            className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+            href={data.url}
+            target="_blank"
+          >
+            Buy
+          </a>
+        </div>
       </div>
-    </main>
+    </div>
   )
 }
