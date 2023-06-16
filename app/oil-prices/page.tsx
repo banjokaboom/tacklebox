@@ -1,5 +1,3 @@
-import Nav from '../nav'
-
 class OilPriceData {
   public price: string
   public company: string

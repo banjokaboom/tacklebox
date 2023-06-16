@@ -9,6 +9,7 @@ module.exports = {
     'css',
     'filetypes',
     'npm',
+    'misc',
   ],
   ignorePaths: ['node_modules', '.next', 'public', 'yarn*', 'package.json'],
   words: [
@@ -28,5 +29,6 @@ module.exports = {
     'maxtemp',
     'feelslike',
     'maxwind',
+    'hoisin',
   ],
 }

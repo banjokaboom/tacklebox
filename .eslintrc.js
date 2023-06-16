@@ -16,6 +16,9 @@ module.exports = {
     parser: '@babel/eslint-parser',
     requireConfigFile: false,
     sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
   plugins: ['json-format', 'eslint-plugin-react'],
   root: true,

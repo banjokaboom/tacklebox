@@ -43,22 +43,6 @@ jobs:
 
       - name: Run js linting
         run: yarn lint:js
-  lint-style:
-    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.13.x
-
-      - name: Install
-        run: yarn install --ignore-engines
-
-      - name: Run style linting
-        run: yarn lint:style
   lint-prettier:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
