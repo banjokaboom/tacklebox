@@ -1,5 +1,4 @@
 import * as tackleList from './tackle.json'
-import Nav from '../nav'
 
 const waterTempMultiplier = 0.87
 

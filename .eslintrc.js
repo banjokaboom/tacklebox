@@ -19,8 +19,5 @@ module.exports = {
   },
   plugins: ['json-format', 'eslint-plugin-react'],
   root: true,
-  rules: {
-    quotes: 'single',
-    semi: 'never',
-  },
+  rules: {},
 }
