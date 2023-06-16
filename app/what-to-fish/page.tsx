@@ -36,7 +36,8 @@ async function getData() {
 
 async function getWeather() {
   const res = await fetch(
-    'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=01516'
+    'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=01516',
+    {cache: "no-store"}
   )
 
   if (!res.ok) {

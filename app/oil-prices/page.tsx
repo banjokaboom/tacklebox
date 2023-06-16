@@ -6,7 +6,7 @@ class OilPriceData {
 }
 
 async function getOilPrices() {
-  const res = await fetch('http://localhost:5555/api/oilprices')
+  const res = await fetch('http://localhost:5555/api/oilprices', {cache: "no-store"})
 
   if (!res.ok) {
     // This will activate the closest `error.js` Error Boundary
