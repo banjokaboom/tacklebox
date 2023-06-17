@@ -1,6 +1,6 @@
 export default function Nav() {
   return (
-    <nav className="p-24 pt-16 pb-16 bg-cyan-600 mx-auto">
+    <nav className="p-24 pt-16 pb-16 bg-cyan-700 mx-auto">
       <div className="mx-auto max-w-5xl flex lg:flex-row flex-col lg:items-center justify-between ">
         <a className="lg:pb-0 pb-4 w-fit" href="/">
           Home
