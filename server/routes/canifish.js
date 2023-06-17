@@ -106,8 +106,6 @@ router.use('/canifish/freshMA', (req, res) => {
         }
       })
 
-      console.log(fishingData)
-
       res.json({ fishingData, regulationsLink: url })
     })
     .catch((err) => {

@@ -1,4 +1,4 @@
-import { compareDates } from '../helpers/date'
+import { compareDates } from '../../helpers/date'
 
 class Regulations {
   public freshwaterRegulations: object[]
@@ -100,12 +100,10 @@ function getCreelLimitForIndex(seasonLimits, index) {
       while (i > 0) {
         i--
         if (seasonLimits[i].trim() !== '') {
-          console.log(seasonLimits[i])
           return seasonLimits[i]
         }
       }
     } else {
-      console.log(seasonLimits[index])
       return seasonLimits[index].trim()
     }
   } else {
@@ -113,7 +111,6 @@ function getCreelLimitForIndex(seasonLimits, index) {
     while (i > 0) {
       i--
       if (seasonLimits[i].trim() !== '') {
-        console.log(seasonLimits[i])
         return seasonLimits[i]
       }
     }

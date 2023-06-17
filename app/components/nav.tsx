@@ -7,19 +7,19 @@ export default function Nav() {
         </a>
         <div className="flex flex-col justify-between lg:pb-0 pb-4">
           <h4 className="text-lg pb-4 underline">Fishing</h4>
-          <a className="w-fit" href="/can-i-fish">
+          <a className="w-fit" href="/pages/can-i-fish">
             Can I Fish
           </a>
-          <a className="w-fit" href="/what-to-fish">
+          <a className="w-fit" href="/pages/what-to-fish">
             What To Fish
           </a>
         </div>
         <div className="flex flex-col justify-between lg:pb-0 pb-4">
           <h4 className="text-lg pb-4 underline">Miscellaneous</h4>
-          <a className="w-fit" href="/oil-prices">
+          <a className="w-fit" href="/pages/oil-prices">
             Oil Prices
           </a>
-          <a className="w-fit" href="/what-to-make">
+          <a className="w-fit" href="/pages/what-to-make">
             What To Make
           </a>
         </div>

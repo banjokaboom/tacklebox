@@ -23,7 +23,7 @@ jobs:
           node-version: 16.13.x
 
       - name: Install
-        run: yarn install --ignore-engines
+        run: yarn install --ignore-engines --silent --ignore-optional
 
       - name: Run audit
         run: yarn audit
@@ -39,7 +39,7 @@ jobs:
           node-version: 16.13.x
 
       - name: Install
-        run: yarn install --ignore-engines
+        run: yarn install --ignore-engines --silent --ignore-optional
 
       - name: Run js linting
         run: yarn lint:js
@@ -55,7 +55,7 @@ jobs:
           node-version: 16.13.x
 
       - name: Install
-        run: yarn install --ignore-engines
+        run: yarn install --ignore-engines --silent --ignore-optional
 
       - name: Run prettier linting
         run: yarn lint:prettier
@@ -71,7 +71,7 @@ jobs:
           node-version: 16.13.x
 
       - name: Install
-        run: yarn install --ignore-engines
+        run: yarn install --ignore-engines --silent --ignore-optional
 
       - name: Run spellcheck
         run: yarn cspell
