@@ -136,7 +136,7 @@ export default async function CanIFish() {
         <hr />
         <div>
           <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
-          <div className="grid gap-4 grid-cols-3 grid-rows-3">
+          <div className="grid gap-4 lg:grid-cols-3 gril-cols-1">
             {data.freshwaterRegulations.map((f: object, findex: number) => (
               <div key={findex} className="pb-8">
                 <h3 className="pb-4 text-xl">{f.species}</h3>
@@ -159,7 +159,7 @@ export default async function CanIFish() {
         <hr />
         <div>
           <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
-          <div className="grid gap-4 grid-cols-3 grid-rows-3">
+          <div className="grid gap-4 lg:grid-cols-3 gril-cols-1">
             {data.saltwaterRegulations.map((s, sindex) => (
               <div key={sindex} className="pb-8">
                 <h3 className="pb-4 text-xl">{s.species}</h3>
