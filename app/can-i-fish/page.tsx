@@ -169,8 +169,15 @@ export default async function CanIFish() {
                   {s.description.trim() !== s.species.trim() && (
                     <p className="pb-4">{s.description}</p>
                   )}
-                  <p className="pb-4">Fishing dates: {s.seasonDates}</p>
-                  <p>Creel limit: {s.seasonLimits}</p>
+                  <p className="pb-4">Fishing dates:</p>
+                  <div>
+                    {s.seasonDates.map((sd: string, sdindex: number) => (
+                      <p key={sdindex} className="indent-4">
+                        {sd.replace(', ', '').trim()}, Limit:{' '}
+                        {getCreelLimitForIndex(s.seasonLimits, sdindex)}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
