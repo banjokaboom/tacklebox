@@ -1,4 +1,7 @@
-import * as tackleList from './tackle.json'
+'use client'
+
+import * as tackleList from './tackle.js'
+import { useState } from 'react'
 
 const waterTempMultiplier = 0.87
 
@@ -269,13 +272,24 @@ function getWeatherValues(weather): WeatherData {
 }
 
 export default async function WhatToFish() {
+  const [zip, setZip] = useState('01516')
   const data = await getData()
 
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl pb-4">What to Fish</h1>
-        <hr />
+        <hr className="pb-4" />
+        <div className="pb-4">
+          <label htmlFor="zip">ZIP Code</label>
+          <input
+            type="text"
+            name="zip"
+            id="zip"
+            onChange={setZip}
+            className="text-slate-700 ml-4"
+          />
+        </div>
         <div className="flex flex-col lg:flex-row justify-between">
           <div>
             <h2 className="text-2xl pb-8 pt-8">

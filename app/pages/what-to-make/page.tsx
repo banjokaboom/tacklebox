@@ -1,4 +1,4 @@
-import * as recipesList from './recipes.json'
+import * as recipesList from './recipes.js'
 
 class CookingData {
   public recipes: Recipe[]
