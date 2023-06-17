@@ -5,6 +5,10 @@ import _ from 'lodash'
 
 const router = express.Router()
 
+const charsRegex = /(\n|\t|<\/?p>|&nbsp;|\(\d?,?\s?\d?\)|\*|:)+/gim
+const newLineRegex = /(\n|\t|<\/?p>|<br\/?>|&nbsp;)+/gim
+const extraRegex = /(\s,\s|,\s,)+/gim
+
 router.use('/canifish/freshMA', (req, res) => {
   let url = 'https://www.mass.gov/guides/freshwater-fishing-regulations'
   axios
@@ -18,7 +22,12 @@ router.use('/canifish/freshMA', (req, res) => {
         // Get the fish species
         let speciesQuery = $(element).find('strong')
         if (speciesQuery[0] && speciesQuery.text().trim() != '') {
-          species = speciesQuery.text().replace(/\n+\t+/gim, '')
+          species = speciesQuery
+            .text()
+            .replace(charsRegex, '')
+            .replace(newLineRegex, ', ')
+            .replace(extraRegex, ', ')
+            .trim()
         }
 
         // Get the open season dates, limits, and minimum lengths
@@ -26,13 +35,16 @@ router.use('/canifish/freshMA', (req, res) => {
         let seasonDates = $(element).children('td:nth-child(2)')
         let seasonLimits = $(element).children('td:nth-child(3)')
         let minimumLength = $(element).children('td:nth-child(4)')
-        let htmlReplaceRegex = /(\n|\t|<\/?p>|<br\/?>)+/gim
         let speciesSeasonInfo = { species: species }
 
         if (description[0]) {
           speciesSeasonInfo['description'] = description
             .text()
-            .replace(/(\n|\t|\d,?)+/gim, '')
+            .replace(charsRegex, '')
+            .replace(newLineRegex, ', ')
+            .replace(extraRegex, ', ')
+            .replace(extraRegex, '')
+            .trim()
         }
 
         if (seasonDates[0]) {
@@ -42,40 +54,59 @@ router.use('/canifish/freshMA', (req, res) => {
             let speciesSeasonDates = []
 
             _.each(seasonDatesHTML.split('</p><p>'), (value) => {
-              speciesSeasonDates.push(value.replace(htmlReplaceRegex, ''))
+              let speciesSeasonDate = value
+                .replace(charsRegex, '')
+                .replace(newLineRegex, ', ')
+                .replace(extraRegex, ', ')
+                .trim()
+              if (speciesSeasonDate.trim() !== '') {
+                speciesSeasonDates.push(speciesSeasonDate)
+              }
             })
 
             speciesSeasonInfo['seasonDates'] = speciesSeasonDates
           } else if (seasonDatesHTML.indexOf('<br>') >= 0) {
             let speciesSeasonDates = []
 
-            _.each(seasonDatesHTML.split('</p><p>'), (value) => {
-              speciesSeasonDates.push(value.replace(htmlReplaceRegex, ''))
+            _.each(seasonDatesHTML.split('<br>'), (value) => {
+              let speciesSeasonDate = value
+                .replace(charsRegex, '')
+                .replace(newLineRegex, ', ')
+                .replace(extraRegex, ', ')
+                .trim()
+              if (speciesSeasonDate.trim() !== '') {
+                speciesSeasonDates.push(speciesSeasonDate)
+              }
             })
 
             speciesSeasonInfo['seasonDates'] = speciesSeasonDates
           } else {
-            speciesSeasonInfo['seasonDates'] = seasonDatesHTML.replace(
-              htmlReplaceRegex,
-              ''
-            )
+            speciesSeasonInfo['seasonDates'] = [
+              seasonDatesHTML.replace(charsRegex, ''),
+            ]
           }
         }
         if (seasonLimits[0]) {
           speciesSeasonInfo['seasonLimits'] = seasonLimits
             .html()
-            .replace(htmlReplaceRegex, '')
+            .replace(charsRegex, '')
+            .replace(newLineRegex, ', ')
+            .replace(extraRegex, ', ')
+            .split(',')
         }
         if (minimumLength[0]) {
           speciesSeasonInfo['minimumLength'] = minimumLength
             .html()
-            .replace(htmlReplaceRegex, '')
+            .replace(charsRegex, '')
+            .replace('Only one fish may,', 'Only one fish may')
         }
 
         if (seasonDates[0] || seasonLimits[0] || minimumLength[0]) {
           fishingData.push(speciesSeasonInfo)
         }
       })
+
+      console.log(fishingData)
 
       res.json({ fishingData, regulationsLink: url })
     })
@@ -94,67 +125,91 @@ router.use('/canifish/saltMA', (req, res) => {
       const $ = cheerio.load(ares.data)
       let fishingData = []
 
-      $(
-        '#main-content section.ma__rich-text__container:nth-of-type(1) table tbody tr'
-      ).each(function (index, element) {
-        // Get the open season dates, limits, and minimum lengths
-        let description = $(element).children('td:nth-child(1)')
-        let seasonDates = $(element).children('td:nth-child(3)')
-        let seasonLimits = $(element).children('td:nth-child(5)')
-        let minimumLength = $(element).children('td:nth-child(4)')
-        let htmlReplaceRegex = /(\n|\t|<\/?p>|<br\/?>)+/gim
-        let speciesSeasonInfo = {}
+      $('#648cb6054160c > table:nth-child(1) > tbody:nth-child(2) > tr').each(
+        function (index, element) {
+          // Get the open season dates, limits, and minimum lengths
+          let description = $(element).children('td:nth-child(1)')
+          let seasonDates = $(element).children('td:nth-child(3)')
+          let seasonLimits = $(element).children('td:nth-child(4)')
+          let minimumLength = $(element).children('td:nth-child(2)')
+          let speciesSeasonInfo = {}
 
-        if (description[0]) {
-          speciesSeasonInfo['species'] = description
-            .text()
-            .replace(/(\n|\t|\d,?|\(.+\)|\*)+/gim, '')
-          speciesSeasonInfo['description'] = description
-            .text()
-            .replace(/(\n|\t|\d,?)+/gim, '')
-        }
+          if (description[0]) {
+            speciesSeasonInfo['species'] = description
+              .text()
+              .replace(charsRegex, '')
+              .replace(newLineRegex, ', ')
+              .replace(extraRegex, ', ')
+              .trim()
+            speciesSeasonInfo['description'] = description
+              .text()
+              .replace(charsRegex, '')
+              .replace(newLineRegex, ', ')
+              .replace(extraRegex, ', ')
+              .trim()
+          }
 
-        if (seasonDates[0]) {
-          let seasonDatesHTML = seasonDates.html().replace(/(\n|\t)+/gim, '')
+          if (seasonDates[0]) {
+            let seasonDatesHTML = seasonDates
+              .html()
+              .replace(/(\n|\t)+/gim, '<br>')
 
-          if (seasonDatesHTML.indexOf('</p><p>') >= 0) {
-            let speciesSeasonDates = []
+            if (seasonDatesHTML.indexOf('</p><p>') >= 0) {
+              let speciesSeasonDates = []
 
-            _.each(seasonDatesHTML.split('</p><p>'), (value) => {
-              speciesSeasonDates.push(value.replace(htmlReplaceRegex, ''))
-            })
+              _.each(seasonDatesHTML.split('</p><p>'), (value) => {
+                let speciesSeasonDate = value
+                  .replace(charsRegex, '')
+                  .replace(newLineRegex, ', ')
+                  .replace(extraRegex, ', ')
+                  .trim()
+                if (speciesSeasonDate.trim() !== '') {
+                  speciesSeasonDates.push(speciesSeasonDate)
+                }
+              })
 
-            speciesSeasonInfo['seasonDates'] = speciesSeasonDates
-          } else if (seasonDatesHTML.indexOf('<br>') >= 0) {
-            let speciesSeasonDates = []
+              speciesSeasonInfo['seasonDates'] = speciesSeasonDates
+            } else if (seasonDatesHTML.indexOf('<br>') >= 0) {
+              let speciesSeasonDates = []
 
-            _.each(seasonDatesHTML.split('</p><p>'), (value) => {
-              speciesSeasonDates.push(value.replace(htmlReplaceRegex, ''))
-            })
+              _.each(seasonDatesHTML.split('<br>'), (value) => {
+                let speciesSeasonDate = value
+                  .replace(charsRegex, '')
+                  .replace(newLineRegex, ', ')
+                  .replace(extraRegex, ', ')
+                  .trim()
+                if (speciesSeasonDate.trim() !== '') {
+                  speciesSeasonDates.push(speciesSeasonDate)
+                }
+              })
 
-            speciesSeasonInfo['seasonDates'] = speciesSeasonDates
-          } else {
-            speciesSeasonInfo['seasonDates'] = seasonDatesHTML.replace(
-              htmlReplaceRegex,
-              ''
-            )
+              speciesSeasonInfo['seasonDates'] = speciesSeasonDates
+            } else {
+              speciesSeasonInfo['seasonDates'] = [
+                seasonDatesHTML.replace(charsRegex, ''),
+              ]
+            }
+          }
+          if (seasonLimits[0]) {
+            speciesSeasonInfo['seasonLimits'] = seasonLimits
+              .html()
+              .replace(newLineRegex, ', ')
+              .replace(extraRegex, ', ')
+              .split(',')
+          }
+          if (minimumLength[0]) {
+            speciesSeasonInfo['minimumLength'] = minimumLength
+              .html()
+              .replace(newLineRegex, ', ')
+              .replace(extraRegex, ', ')
+              .replace('Only one fish may,', 'Only one fish may')
+          }
+
+          if (seasonDates[0] || seasonLimits[0] || minimumLength[0]) {
+            fishingData.push(speciesSeasonInfo)
           }
         }
-        if (seasonLimits[0]) {
-          speciesSeasonInfo['seasonLimits'] = seasonLimits
-            .html()
-            .replace(htmlReplaceRegex, '')
-        }
-        if (minimumLength[0]) {
-          speciesSeasonInfo['minimumLength'] = minimumLength
-            .html()
-            .replace(htmlReplaceRegex, '')
-        }
-
-        if (seasonDates[0] || seasonLimits[0] || minimumLength[0]) {
-          fishingData.push(speciesSeasonInfo)
-        }
-      })
+      )
 
       res.json({ fishingData, regulationsLink: url })
     })

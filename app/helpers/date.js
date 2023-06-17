@@ -1,3 +1,5 @@
+import { split } from 'postcss/lib/list'
+
 /**
  *  Parses date range from passes string and compares to see if today is between the range
  *
@@ -8,7 +10,7 @@ export function compareDates(dates) {
   let endsInYearRegex = /\d{4}$/
   let isDateInRange = false
 
-  let splitDates = dates.split('–')
+  let splitDates = dates.split(/\s\W{1}\s/)
 
   if (splitDates.length > 1) {
     let firstDateStr = splitDates[0].replace('.', '').trim()

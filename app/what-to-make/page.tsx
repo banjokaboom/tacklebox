@@ -131,7 +131,8 @@ export default async function WhatToMake() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl">What to Make</h1>
+        <h1 className="text-3xl pb-4">What to Make</h1>
+        <hr />
         <div className="flex flex-col lg:flex-row justify-between">
           <div>
             <h2 className="text-2xl pb-8 pt-8">Meals to cook this week</h2>

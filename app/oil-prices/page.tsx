@@ -37,8 +37,8 @@ export default async function OilPrices() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl">Oil Prices</h1>
-
+        <h1 className="text-3xl pb-4">Oil Prices</h1>
+        <hr />
         <h2 className="text-2xl pb-8 pt-8">Best Price</h2>
         <div className="border border-slate-50 bg-slate-700 p-4 rounded-md flex flex-col lg:items-center justify-between">
           <h3 className="pb-4 text-2xl">Price: {data.price}</h3>

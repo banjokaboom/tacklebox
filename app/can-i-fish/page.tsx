@@ -17,11 +17,9 @@ async function getMARegulations() {
   let canIFish = false
   let regulations = new Regulations()
 
-  await fetch('http://localhost:5555/canifish/freshMA')
+  await fetch('http://localhost:5555/canifish/freshMA', { cache: 'no-store' })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data)
-
       let fishingRegulations: object[] = []
 
       data.fishingData.forEach((regulation) => {
@@ -54,7 +52,7 @@ async function getMARegulations() {
       }
     })
 
-  await fetch('http://localhost:5555/canifish/saltMA')
+  await fetch('http://localhost:5555/canifish/saltMA', { cache: 'no-store' })
     .then((res) => res.json())
     .then((data) => {
       let fishingRegulations: object[] = []
@@ -95,45 +93,83 @@ async function getMARegulations() {
   return regulations
 }
 
+function getCreelLimitForIndex(seasonLimits, index) {
+  if (seasonLimits[index]) {
+    if (seasonLimits[index].trim() == '') {
+      let i = index
+      while (i > 0) {
+        i--
+        if (seasonLimits[i].trim() !== '') {
+          console.log(seasonLimits[i])
+          return seasonLimits[i]
+        }
+      }
+    } else {
+      console.log(seasonLimits[index])
+      return seasonLimits[index].trim()
+    }
+  } else {
+    let i = index
+    while (i > 0) {
+      i--
+      if (seasonLimits[i].trim() !== '') {
+        console.log(seasonLimits[i])
+        return seasonLimits[i]
+      }
+    }
+  }
+}
+
 export default async function CanIFish() {
   const data = await getData()
-  console.log(data)
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl">
+        <h1 className="text-3xl pb-4">
           Can I Fish:{' '}
           {data.freshwaterRegulations.length > 0 ||
           data.saltwaterRegulations.length > 0
             ? 'Yes'
             : 'No'}
         </h1>
-        <div className="flex flex-col lg:flex-row justify-between">
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md max-w-[50%]">
-              {data.freshwaterRegulations.map((f) => (
-                <div key={f.species}>
-                  <p className="pb-4">{f.species}</p>
+        <hr />
+        <div>
+          <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
+          <div className="grid gap-4 grid-cols-3 grid-rows-3">
+            {data.freshwaterRegulations.map((f: object, findex: number) => (
+              <div key={findex} className="pb-8">
+                <h3 className="pb-4 text-xl">{f.species}</h3>
+                <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
                   <p className="pb-4">Description: {f.description}</p>
-                  <p className="pb-4">Fishing dates: {f.seasonDates}</p>
-                  <p className="pb-8">Creel limit: {f.seasonLimits}</p>
+                  <p className="pb-4">Fishing dates:</p>
+                  <div>
+                    {f.seasonDates.map((sd: string, sdindex: number) => (
+                      <p key={sdindex} className="indent-4">
+                        {sd.replace(', ', '').trim()}, Limit:{' '}
+                        {getCreelLimitForIndex(f.seasonLimits, sdindex)}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              {data.saltwaterRegulations.map((s) => (
-                <div key={s.species}>
-                  <p className="pb-4">{s.species}</p>
+        </div>
+        <hr />
+        <div>
+          <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
+          <div className="grid gap-4 grid-cols-3 grid-rows-3">
+            {data.saltwaterRegulations.map((s, sindex) => (
+              <div key={sindex} className="pb-8">
+                <h3 className="pb-4 text-xl">{s.species}</h3>
+                <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
                   <p className="pb-4">Description: {s.description}</p>
                   <p className="pb-4">Fishing dates: {s.seasonDates}</p>
-                  <p className="pb-8">Creel limit: {s.seasonLimits}</p>
+                  <p>Creel limit: {s.seasonLimits}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
