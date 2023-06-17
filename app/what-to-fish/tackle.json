@@ -106,23 +106,5 @@
     "waterTemp": ["cold"],
     "speed": ["slow", "fast"],
     "depth": ["shallow", "deep"]
-  },
-  {
-    "name": "Live Bait",
-    "waterTemp": ["warm", "cold"],
-    "speed": ["slow", "fast", "still"],
-    "depth": ["shallow", "deep"]
-  },
-  {
-    "name": "Soft Plastics",
-    "waterTemp": ["warm", "cold"],
-    "speed": ["slow", "fast", "still"],
-    "depth": ["shallow", "deep"]
-  },
-  {
-    "name": "Powerbait",
-    "waterTemp": ["warm", "cold"],
-    "speed": ["slow", "still"],
-    "depth": ["shallow", "deep"]
   }
 ]

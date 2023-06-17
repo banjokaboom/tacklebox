@@ -1,6 +1,7 @@
 import express from 'express'
 
-import router from './routes/oilprices.js'
+import oilprices from './routes/oilprices.js'
+import canifish from './routes/canifish.js'
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.use((_, res, next) => {
   next()
 })
 
-app.use(router)
+app.use(oilprices)
+app.use(canifish)
 
 app.listen(5555)

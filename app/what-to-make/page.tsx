@@ -33,7 +33,7 @@ function pickRecipes() {
   ]
   let countNumOfBeefRecipes = 0
   let countNumOfPastaRecipes = 0
-  const numMealsToCook = 7
+  const numMealsToCook = 5
 
   recipesList.forEach(function (recipe: Recipe) {
     if (recipe.frequency == 1 && isRecipeForSeason(recipe)) {

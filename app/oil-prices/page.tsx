@@ -6,7 +6,7 @@ class OilPriceData {
 }
 
 async function getOilPrices() {
-  const res = await fetch('http://localhost:5555/api/oilprices', {
+  const res = await fetch('http://localhost:5555/oilprices/oilPrices', {
     cache: 'no-store',
   })
 

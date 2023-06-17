@@ -4,7 +4,7 @@ import cheerio from 'cheerio'
 
 const router = express.Router()
 
-router.use('/api/oilPrices', (req, res) => {
+router.use('/oilprices/oilPrices', (req, res) => {
   let url = 'https://www.newenglandoil.com/massachusetts/zone10.asp?x=0'
   axios
     .get(url)
@@ -49,11 +49,6 @@ router.use('/api/oilPrices', (req, res) => {
       console.error(err)
       res.status(500).json({ error: err })
     })
-})
-
-// will match any other path
-router.use('/', (req, res) => {
-  res.status(404).json({ error: 'page not found' })
 })
 
 export default router

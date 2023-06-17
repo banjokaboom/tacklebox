@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "checks": "yarn cspell ; yarn lint",
     "cspell": "cspell -u --gitignore .",
     "lint": "yarn lint:js ; yarn lint:prettier",
     "lint:js": "eslint -f compact .",

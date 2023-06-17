@@ -3,7 +3,7 @@ import * as tackleList from './tackle.json'
 const waterTempMultiplier = 0.87
 
 class FishingData {
-  public colors: string
+  public baitRecommendations: BaitRecommendations
   public seasons: string
   public tackle: object[]
   public weather: WeatherData
@@ -18,6 +18,11 @@ class WeatherData {
   public forecast: WeatherData
 }
 
+class BaitRecommendations {
+  public colorsToUse: string
+  public baitsToUse: string
+}
+
 async function getData() {
   let data = new FishingData()
 
@@ -26,7 +31,7 @@ async function getData() {
   console.log('Weather received.')
   console.log(weather)
 
-  data.colors = pickColors(weather)
+  data.baitRecommendations = pickBaitRecommendations(weather)
   data.seasons = getSeasons()
   data.tackle = await pickTackle(weather)
   data.weather = getWeatherValues(weather)
@@ -65,14 +70,28 @@ async function pickTackle(weather: WeatherData): Promise<object[]> {
   return tackleToUse
 }
 
-function pickColors(weather: any): string {
+function pickBaitRecommendations(weather: any): BaitRecommendations {
   const seasons = getSeasons()
+  let baitRecommendations = new BaitRecommendations()
   let colorsToUse: string[] = []
+  let baitToUse: string[] = []
+
+  baitToUse.push('live worms, soft plastic worms')
 
   if (seasons.includes('spring')) {
     colorsToUse.push('craw', 'orange', 'red')
+    baitToUse.push('powerbait, soft plastic craws')
   } else {
     colorsToUse.push('shad', 'baitfish', 'white', 'blue')
+    baitToUse.push(
+      'soft plastic swimbaits, soft plastic flukes, soft plastic fish'
+    )
+
+    if (seasons.includes('summer')) {
+      baitToUse.push('soft plastic frogs, soft plastic lizards')
+    } else {
+      baitToUse.push('powerbait')
+    }
   }
 
   if (weather.current.cloud >= 75) {
@@ -90,7 +109,19 @@ function pickColors(weather: any): string {
     }
   })
 
-  return colorString
+  let baitString = ''
+
+  baitToUse.forEach(function (color, index) {
+    baitString += color
+    if (index < baitToUse.length - 1) {
+      baitString += ', '
+    }
+  })
+
+  baitRecommendations.colorsToUse = colorString
+  baitRecommendations.baitsToUse = baitString
+
+  return baitRecommendations
 }
 
 function isTackleForWeather(tackle: any, weather: any): boolean {
@@ -175,9 +206,11 @@ function getSeasons(): string {
     case 6:
       seasons.push(today.getDate() > 21 ? 'summer' : 'spring')
       seasons.push('bass spawn')
+      seasons.push('sunfish pre-spawn')
       break
     case 7:
       seasons.push('summer')
+      seasons.push('sunfish spawn')
       break
     case 8:
       seasons.push('summer')
@@ -245,7 +278,7 @@ export default async function WhatToFish() {
         <div className="flex flex-col lg:flex-row justify-between">
           <div>
             <h2 className="text-2xl pb-8 pt-8">
-              Lures, Rigs, and Tackle to use today
+              Lures, Rigs, and Bait to use today
             </h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               {data.tackle.map((t) => (
@@ -253,6 +286,16 @@ export default async function WhatToFish() {
                   {t.name}
                 </p>
               ))}
+            </div>
+
+            <h2 className="text-2xl pb-8 pt-8">Lure Colors to use now</h2>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p>{data.baitRecommendations.colorsToUse}</p>
+            </div>
+
+            <h2 className="text-2xl pb-8 pt-8">Baits to use now</h2>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              <p>{data.baitRecommendations.baitsToUse}</p>
             </div>
           </div>
           <div>
@@ -287,11 +330,6 @@ export default async function WhatToFish() {
                 Conditions: {data.weather.forecast.conditions}
               </p>
               <p>Wind: {data.weather.forecast.wind}</p>
-            </div>
-
-            <h2 className="text-2xl pb-8 pt-8">Lure Colors to use now</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p>{data.colors}</p>
             </div>
           </div>
         </div>

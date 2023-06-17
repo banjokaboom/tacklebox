@@ -30,5 +30,7 @@ module.exports = {
     'feelslike',
     'maxwind',
     'hoisin',
+    'swimbaits',
+    'canifish',
   ],
 }
