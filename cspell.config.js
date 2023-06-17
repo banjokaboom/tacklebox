@@ -11,7 +11,7 @@ module.exports = {
     'npm',
     'misc',
   ],
-  ignorePaths: ['node_modules', '.next', 'public', 'yarn*', 'package.json'],
+  ignorePaths: ['node_modules', '.next', 'public', 'yarn*', 'package.json', 'cypress/videos'],
   words: [
     'tailwindcss',
     'fortawesome',
