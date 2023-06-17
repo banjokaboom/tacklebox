@@ -141,7 +141,9 @@ export default async function CanIFish() {
               <div key={findex} className="pb-8">
                 <h3 className="pb-4 text-xl">{f.species}</h3>
                 <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                  <p className="pb-4">Description: {f.description}</p>
+                  {f.description.trim() !== f.species.trim() && (
+                    <p className="pb-4">{f.description}</p>
+                  )}
                   <p className="pb-4">Fishing dates:</p>
                   <div>
                     {f.seasonDates.map((sd: string, sdindex: number) => (
@@ -164,7 +166,9 @@ export default async function CanIFish() {
               <div key={sindex} className="pb-8">
                 <h3 className="pb-4 text-xl">{s.species}</h3>
                 <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                  <p className="pb-4">Description: {s.description}</p>
+                  {s.description.trim() !== s.species.trim() && (
+                    <p className="pb-4">{s.description}</p>
+                  )}
                   <p className="pb-4">Fishing dates: {s.seasonDates}</p>
                   <p>Creel limit: {s.seasonLimits}</p>
                 </div>

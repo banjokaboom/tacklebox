@@ -1,5 +1,3 @@
-import { split } from 'postcss/lib/list'
-
 /**
  *  Parses date range from passes string and compares to see if today is between the range
  *
