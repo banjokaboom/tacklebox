@@ -136,9 +136,9 @@ export default async function CanIFish() {
         <hr />
         <div>
           <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
-          <div className="grid gap-4 lg:grid-cols-3 gril-cols-1">
-            {data.freshwaterRegulations.map((f: object, findex: number) => (
-              <div key={findex} className="pb-8">
+          <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
+            {data.freshwaterRegulations.map((f: object, fIndex: number) => (
+              <div key={fIndex} className="pb-8">
                 <h3 className="pb-4 text-xl">{f.species}</h3>
                 <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
                   {f.description.trim() !== f.species.trim() && (
@@ -146,10 +146,10 @@ export default async function CanIFish() {
                   )}
                   <p className="pb-4">Fishing dates:</p>
                   <div>
-                    {f.seasonDates.map((sd: string, sdindex: number) => (
-                      <p key={sdindex} className="indent-4">
+                    {f.seasonDates.map((sd: string, sdIndex: number) => (
+                      <p key={sdIndex} className="indent-4">
                         {sd.replace(', ', '').trim()}, Limit:{' '}
-                        {getCreelLimitForIndex(f.seasonLimits, sdindex)}
+                        {getCreelLimitForIndex(f.seasonLimits, sdIndex)}
                       </p>
                     ))}
                   </div>
@@ -161,9 +161,9 @@ export default async function CanIFish() {
         <hr />
         <div>
           <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
-          <div className="grid gap-4 lg:grid-cols-3 gril-cols-1">
-            {data.saltwaterRegulations.map((s, sindex) => (
-              <div key={sindex} className="pb-8">
+          <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
+            {data.saltwaterRegulations.map((s, sIndex) => (
+              <div key={sIndex} className="pb-8">
                 <h3 className="pb-4 text-xl">{s.species}</h3>
                 <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
                   {s.description.trim() !== s.species.trim() && (
@@ -171,10 +171,10 @@ export default async function CanIFish() {
                   )}
                   <p className="pb-4">Fishing dates:</p>
                   <div>
-                    {s.seasonDates.map((sd: string, sdindex: number) => (
-                      <p key={sdindex} className="indent-4">
+                    {s.seasonDates.map((sd: string, sdIndex: number) => (
+                      <p key={sdIndex} className="indent-4">
                         {sd.replace(', ', '').trim()}, Limit:{' '}
-                        {getCreelLimitForIndex(s.seasonLimits, sdindex)}
+                        {getCreelLimitForIndex(s.seasonLimits, sdIndex)}
                       </p>
                     ))}
                   </div>
