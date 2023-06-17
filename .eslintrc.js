@@ -10,6 +10,7 @@ module.exports = {
     'plugin:react/recommended',
     'next',
     'next/core-web-vitals',
+    'plugin:jsx-a11y/strict',
   ],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -20,7 +21,7 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['json-format', 'eslint-plugin-react'],
+  plugins: ['json-format', 'eslint-plugin-react', 'jsx-a11y'],
   root: true,
   rules: {},
 }
