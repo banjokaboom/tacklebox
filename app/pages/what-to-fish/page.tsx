@@ -1,6 +1,7 @@
 'use client'
 
 import * as tackleJSON from './tackle.js'
+import * as cityStateJSON from './cityStates.js'
 import { useState, useEffect, useMemo } from 'react'
 
 class Tackle {
@@ -14,6 +15,17 @@ class Tackle {
     this.waterTemp = []
     this.speed = []
     this.depth = []
+  }
+}
+class CityState {
+  public state: string
+  public capital: string
+  public location: string[]
+
+  constructor() {
+    this.state = ''
+    this.capital = ''
+    this.location = []
   }
 }
 
@@ -77,20 +89,26 @@ class FishingData {
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('01516')
+  let [cityState, setCityState] = useState('')
   let [data, setData] = useState(new FishingData())
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON), [])
+  const cityStateList: CityState[] = useMemo(
+    () => Array.from(cityStateJSON),
+    []
+  )
 
   useEffect(() => {
     const waterTempMultiplier = 0.87
 
-    async function getWeather(zip: string) {
-      if (!zip || zip.length !== 5) {
+    async function getWeather(zip: string, cityState: string) {
+      if (cityState == '' && (!zip || zip.length !== 5)) {
         return
       }
+      let query = cityState !== '' ? cityState : zip
       const res = await fetch(
         'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=' +
-          zip,
+          query,
         { cache: 'no-store' }
       )
 
@@ -102,13 +120,16 @@ export default function WhatToFish() {
       return res.json()
     }
 
-    async function pickTackle(weather: WeatherData): Promise<Tackle[]> {
+    async function pickTackle(
+      weather: WeatherData,
+      cityState: string
+    ): Promise<Tackle[]> {
       console.log('Tackle loaded.')
 
       let tackleToUse: Tackle[] = []
 
       tackleList.forEach(function (tackle: Tackle) {
-        if (isTackleForWeather(tackle, weather)) {
+        if (isTackleForWeather(tackle, weather, cityState)) {
           tackleToUse.push(tackle)
         }
       })
@@ -116,8 +137,11 @@ export default function WhatToFish() {
       return tackleToUse
     }
 
-    function pickBaitRecommendations(weather: any): BaitRecommendations {
-      const seasons = getSeasons()
+    function pickBaitRecommendations(
+      weather: any,
+      cityState: string
+    ): BaitRecommendations {
+      const seasons = getSeasons(cityState)
       let baitRecommendations = new BaitRecommendations()
       let colorsToUse: string[] = []
       let baitToUse: string[] = []
@@ -170,8 +194,12 @@ export default function WhatToFish() {
       return baitRecommendations
     }
 
-    function isTackleForWeather(tackle: any, weather: any): boolean {
-      const seasons = getSeasons()
+    function isTackleForWeather(
+      tackle: any,
+      weather: any,
+      cityState: string
+    ): boolean {
+      const seasons = getSeasons(cityState)
       let warmWaterMax = 75
       let warmWaterMin = 55
       let waterTemp =
@@ -229,10 +257,20 @@ export default function WhatToFish() {
       return true
     }
 
-    function getSeasons(): string {
+    function getSeasons(cityStateString: string): string {
       let today = new Date()
       let todayMonth = today.getMonth() + 1
       let seasons: string[] = []
+      let city = ''
+      let cityState: CityState | undefined = new CityState()
+
+      if (cityStateString && cityStateString !== '') {
+        city = cityStateString.split(',')[0]
+
+        cityState = cityStateList.find((cs) => {
+          return cs.capital == city
+        })
+      }
 
       switch (todayMonth) {
         case 1:
@@ -243,22 +281,48 @@ export default function WhatToFish() {
           break
         case 3:
           seasons.push(today.getDate() > 21 ? 'spring' : 'winter')
+          if (cityState && cityState.location.includes('south')) {
+            seasons.push('bass pre-spawn')
+          }
           break
         case 4:
           seasons.push('spring')
+          if (cityState && cityState.location.includes('mid')) {
+            seasons.push('bass pre-spawn')
+          }
+          if (cityState && cityState.location.includes('south')) {
+            seasons.push('bass spawn')
+            seasons.push('sunfish pre-spawn')
+          }
           break
         case 5:
           seasons.push('spring')
-          seasons.push('bass pre-spawn')
+          if (cityState && cityState.location.includes('north')) {
+            seasons.push('bass pre-spawn')
+          }
+          if (cityState && cityState.location.includes('mid')) {
+            seasons.push('bass spawn')
+            seasons.push('sunfish pre-spawn')
+          }
+          if (cityState && cityState.location.includes('south')) {
+            seasons.push('sunfish spawn')
+          }
           break
         case 6:
           seasons.push(today.getDate() > 21 ? 'summer' : 'spring')
-          seasons.push('bass spawn')
-          seasons.push('sunfish pre-spawn')
+          if (cityState && cityState.location.includes('north')) {
+            seasons.push('bass spawn')
+            seasons.push('sunfish pre-spawn')
+          }
+          if (cityState && cityState.location.includes('mid')) {
+            seasons.push('sunfish spawn')
+          }
           break
         case 7:
           seasons.push('summer')
-          seasons.push('sunfish spawn')
+          if (cityState && cityState.location.includes('north')) {
+            seasons.push('sunfish spawn')
+          }
           break
         case 8:
           seasons.push('summer')
@@ -318,17 +382,20 @@ export default function WhatToFish() {
       return weatherData
     }
 
-    async function getData(zip: string) {
+    async function getData(zip: string, cityState: string) {
       let fishingData = new FishingData()
 
-      const weather = await getWeather(zip)
+      const weather = await getWeather(zip, cityState)
 
       if (weather) {
         console.log('Weather received.')
 
-        fishingData.baitRecommendations = pickBaitRecommendations(weather)
-        fishingData.seasons = getSeasons()
-        fishingData.tackle = await pickTackle(weather)
+        fishingData.baitRecommendations = pickBaitRecommendations(
+          weather,
+          cityState
+        )
+        fishingData.seasons = getSeasons(cityState)
+        fishingData.tackle = await pickTackle(weather, cityState)
         fishingData.weather = getWeatherValues(weather)
 
         if (!isDataLoaded) {
@@ -339,34 +406,61 @@ export default function WhatToFish() {
 
     let isDataLoaded = false
 
-    getData(zip)
+    getData(zip, cityState)
 
     return () => {
       isDataLoaded = true
     }
-  }, [zip, tackleList])
+  }, [zip, tackleList, cityState, cityStateList])
 
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl pb-4">What to Fish</h1>
         <hr className="pb-4" />
-        <div className="pb-4">
-          <label htmlFor="zip" className="pb-4 block">
-            ZIP Code
-          </label>
-          <input
-            type="text"
-            name="zip"
-            id="zip"
-            inputMode="numeric"
-            onChange={(e) => {
-              setZip(e.target.value)
-            }}
-            className="text-slate-700 leading-4 p-2 block max-w-full"
-          />
-          <p>{data.weather.location}</p>
+        <div className="flex flex-col lg:flex-row justify-between lg:items-end">
+          <div className="pb-4">
+            <label htmlFor="zip" className="pb-4 block">
+              ZIP Code
+            </label>
+            <input
+              type="text"
+              name="zip"
+              id="zip"
+              inputMode="numeric"
+              onChange={(e) => {
+                setZip(e.target.value)
+                setCityState('')
+                document.getElementById('state').selectedIndex = 0
+              }}
+              className="text-slate-700 leading-4 p-2 block max-w-full"
+            />
+          </div>
+          <div className="pb-4">OR</div>
+          <div className="pb-4">
+            <label htmlFor="state" className="pb-4 block">
+              State
+            </label>
+            <select
+              name="state"
+              id="state"
+              onChange={(e) => {
+                setZip('')
+                setCityState(e.target.value)
+                document.getElementById('zip').value = ''
+              }}
+              className="text-slate-700 leading-4 p-2 block max-w-full"
+            >
+              <option value=""></option>
+              {cityStateList.map((cs, csIndex) => (
+                <option key={csIndex} value={cs.capital + ',' + cs.state}>
+                  {cs.state}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <p>Data loaded for {data.weather.location}</p>
 
         <div className="flex flex-col lg:flex-row justify-between">
           <div>
