@@ -161,6 +161,20 @@ export default function WhatToMake() {
     }
   }, [numRecipes])
 
+  function copyIngredients() {
+    let copyString = ''
+    document
+      .querySelectorAll(
+        'input[type="checkbox"][name="ingredient"]:not(:checked) ~ label'
+      )
+      .forEach((label) => {
+        copyString += label.textContent + '\n'
+      })
+
+    navigator.clipboard.writeText(copyString)
+    alert('Copied ingredients to the clipboard!')
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
@@ -216,6 +230,12 @@ export default function WhatToMake() {
                   </label>
                 </div>
               ))}
+              <button
+                onClick={copyIngredients}
+                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+              >
+                Copy Ingredients
+              </button>
             </div>
           </div>
         </div>
