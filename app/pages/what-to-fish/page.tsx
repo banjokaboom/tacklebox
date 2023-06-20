@@ -334,18 +334,19 @@ export default function WhatToFish() {
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl pb-4">What to Fish</h1>
         <hr className="pb-4" />
-        <div className="pb-4 flex-col lg:flex-row justify-between">
-          <label htmlFor="zip" className="pb-4 lg:pb-0">
+        <div className="pb-4">
+          <label htmlFor="zip" className="pb-4 block">
             ZIP Code
           </label>
           <input
             type="text"
             name="zip"
             id="zip"
+            inputMode="numeric"
             onChange={(e) => {
               setZip(e.target.value)
             }}
-            className="text-slate-700 lg:ml-4 leading-4 p-2"
+            className="text-slate-700 leading-4 p-2 block max-w-full"
           />
         </div>
 
