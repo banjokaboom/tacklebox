@@ -22,6 +22,7 @@ class WeatherData {
   public waterTemp: string
   public conditions: string
   public wind: string
+  public location: string
   public current: WeatherDataChild
   public forecast: WeatherDataChild
 
@@ -30,6 +31,7 @@ class WeatherData {
     this.waterTemp = ''
     this.conditions = ''
     this.wind = ''
+    this.location = ''
     this.current = new WeatherDataChild()
     this.forecast = new WeatherDataChild()
   }
@@ -297,6 +299,8 @@ export default function WhatToFish() {
 
       weatherData.current = current
       weatherData.forecast = forecast
+      weatherData.location =
+        weather.location.name + ', ' + weather.location.region
 
       return weatherData
     }
@@ -348,6 +352,7 @@ export default function WhatToFish() {
             }}
             className="text-slate-700 leading-4 p-2 block max-w-full"
           />
+          <p>{data.weather.location}</p>
         </div>
 
         <div className="flex flex-col lg:flex-row justify-between">
