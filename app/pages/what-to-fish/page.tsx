@@ -3,20 +3,6 @@
 import * as tackleJSON from './tackle.js'
 import { useState, useEffect, useMemo } from 'react'
 
-class FishingData {
-  public baitRecommendations: BaitRecommendations
-  public seasons: string
-  public tackle: object[]
-  public weather: WeatherData
-
-  constructor() {
-    this.baitRecommendations = new BaitRecommendations()
-    this.seasons = ''
-    this.tackle = []
-    this.weather = new WeatherData()
-  }
-}
-
 class Tackle {
   public name: string
   public waterTemp: string[]
@@ -75,6 +61,20 @@ class BaitRecommendations {
   }
 }
 
+class FishingData {
+  public baitRecommendations: BaitRecommendations
+  public seasons: string
+  public tackle: Tackle[]
+  public weather: WeatherData
+
+  constructor() {
+    this.baitRecommendations = new BaitRecommendations()
+    this.seasons = ''
+    this.tackle = []
+    this.weather = new WeatherData()
+  }
+}
+
 export default function WhatToFish() {
   let [zip, setZip] = useState('01516')
   let [data, setData] = useState(new FishingData())
@@ -102,12 +102,12 @@ export default function WhatToFish() {
       return res.json()
     }
 
-    async function pickTackle(weather: WeatherData): Promise<object[]> {
+    async function pickTackle(weather: WeatherData): Promise<Tackle[]> {
       console.log('Tackle loaded.')
 
-      let tackleToUse: object[] = []
+      let tackleToUse: Tackle[] = []
 
-      tackleList.forEach(function (tackle: object) {
+      tackleList.forEach(function (tackle: Tackle) {
         if (isTackleForWeather(tackle, weather)) {
           tackleToUse.push(tackle)
         }
@@ -291,7 +291,7 @@ export default function WhatToFish() {
       return seasonString
     }
 
-    function getWeatherValues(weather): WeatherData {
+    function getWeatherValues(weather: any): WeatherData {
       let weatherData = new WeatherData()
       let current = new WeatherDataChild()
       let forecast = new WeatherDataChild()
