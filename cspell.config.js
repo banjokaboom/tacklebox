@@ -39,6 +39,6 @@ module.exports = {
     'hoisin',
     'swimbaits',
     'canifish',
-    'smallmouth'
+    'smallmouth',
   ],
 }

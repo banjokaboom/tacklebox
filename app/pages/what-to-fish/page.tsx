@@ -3,6 +3,7 @@
 import * as tackleJSON from './tackle.js'
 import * as cityStateJSON from './cityStates.js'
 import { useState, useEffect, useMemo } from 'react'
+import Loader from '../../components/loading'
 
 class Tackle {
   public name: string
@@ -389,6 +390,7 @@ export default function WhatToFish() {
     }
 
     async function getData(zip: string, cityState: string) {
+      setData(new FishingData())
       let fishingData = new FishingData()
 
       const weather = await getWeather(zip, cityState)
@@ -494,69 +496,75 @@ export default function WhatToFish() {
             </select>
           </div>
         </div>
-        <p>Data loaded for {data.weather.location}</p>
+        {data.tackle.length == 0 && <Loader />}
+        {data.tackle.length > 0 && (
+          <p>Data loaded for {data.weather.location}</p>
+        )}
+        {data.tackle.length > 0 && (
+          <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
+            <div>
+              <h2 className="text-2xl pb-8 pt-8">Species to target</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p>{getSpecies(parseFloat(data.weather.current.waterTemp))}</p>
+              </div>
 
-        <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">Species to target</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p>{getSpecies(parseFloat(data.weather.current.waterTemp))}</p>
+              <h2 className="text-2xl pb-8 pt-8">Lure colors to use now</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p>{data.baitRecommendations.colorsToUse}</p>
+              </div>
+
+              <h2 className="text-2xl pb-8 pt-8">Baits to use now</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p>{data.baitRecommendations.baitsToUse}</p>
+              </div>
+
+              <h2 className="text-2xl pb-8 pt-8">
+                Lures and rigs to use today
+              </h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                {data.tackle.map((t) => (
+                  <p className="pb-4 last:pb-0" key={t.name}>
+                    {t.name}
+                  </p>
+                ))}
+              </div>
             </div>
+            <div>
+              <h2 className="text-2xl pb-8 pt-8">Season</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p>{data.seasons}</p>
+              </div>
 
-            <h2 className="text-2xl pb-8 pt-8">Lure colors to use now</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p>{data.baitRecommendations.colorsToUse}</p>
-            </div>
-
-            <h2 className="text-2xl pb-8 pt-8">Baits to use now</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p>{data.baitRecommendations.baitsToUse}</p>
-            </div>
-
-            <h2 className="text-2xl pb-8 pt-8">Lures and rigs to use today</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              {data.tackle.map((t) => (
-                <p className="pb-4 last:pb-0" key={t.name}>
-                  {t.name}
+              <h2 className="text-2xl pb-8 pt-8">Current Weather</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p className="pb-4">
+                  Outdoor Temperature: {data.weather.current.outdoorTemp}
                 </p>
-              ))}
+                <p className="pb-4">
+                  Estimated Water Temperature: {data.weather.current.waterTemp}
+                </p>
+                <p className="pb-4">
+                  Conditions: {data.weather.current.conditions}
+                </p>
+                <p>Wind: {data.weather.current.wind}</p>
+              </div>
+
+              <h2 className="text-2xl pb-8 pt-8">Today&apos;s Weather</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p className="pb-4">
+                  Outdoor Temperature: {data.weather.forecast.outdoorTemp}
+                </p>
+                <p className="pb-4">
+                  Estimated Water Temperature: {data.weather.forecast.waterTemp}
+                </p>
+                <p className="pb-4">
+                  Conditions: {data.weather.forecast.conditions}
+                </p>
+                <p>Wind: {data.weather.forecast.wind}</p>
+              </div>
             </div>
           </div>
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">Season</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p>{data.seasons}</p>
-            </div>
-
-            <h2 className="text-2xl pb-8 pt-8">Current Weather</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p className="pb-4">
-                Outdoor Temperature: {data.weather.current.outdoorTemp}
-              </p>
-              <p className="pb-4">
-                Estimated Water Temperature: {data.weather.current.waterTemp}
-              </p>
-              <p className="pb-4">
-                Conditions: {data.weather.current.conditions}
-              </p>
-              <p>Wind: {data.weather.current.wind}</p>
-            </div>
-
-            <h2 className="text-2xl pb-8 pt-8">Today&apos;s Weather</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              <p className="pb-4">
-                Outdoor Temperature: {data.weather.forecast.outdoorTemp}
-              </p>
-              <p className="pb-4">
-                Estimated Water Temperature: {data.weather.forecast.waterTemp}
-              </p>
-              <p className="pb-4">
-                Conditions: {data.weather.forecast.conditions}
-              </p>
-              <p>Wind: {data.weather.forecast.wind}</p>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )

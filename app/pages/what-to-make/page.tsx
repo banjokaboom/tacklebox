@@ -2,6 +2,7 @@
 
 import * as recipesJSON from './recipes.js'
 import { useState, useEffect, useMemo } from 'react'
+import Loader from '../../components/loading'
 
 class CookingData {
   public recipes: Recipe[]
@@ -35,6 +36,7 @@ export default function WhatToMake() {
 
   useEffect(() => {
     async function getData(numRecipes: number) {
+      setData(new CookingData())
       const data = await pickRecipes(numRecipes)
 
       if (!isDataLoaded) {
@@ -225,48 +227,52 @@ export default function WhatToMake() {
             className="text-slate-700 leading-4 p-2 block max-w-full"
           />
         </div>
-        <div className="flex flex-col lg:flex-row justify-between">
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">Meals to cook this week</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              {data.recipes.map((r) => (
-                <p className="pb-4 last:pb-0" key={r.name}>
-                  {r.name}
-                </p>
-              ))}
+
+        {data.recipes.length == 0 && <Loader />}
+        {data.recipes.length > 0 && (
+          <div className="flex flex-col lg:flex-row justify-between">
+            <div>
+              <h2 className="text-2xl pb-8 pt-8">Meals to cook this week</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                {data.recipes.map((r) => (
+                  <p className="pb-4 last:pb-0" key={r.name}>
+                    {r.name}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h2 className="text-2xl pb-8 pt-8">
+                Ingredients to add to the shopping list
+              </h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                {data.ingredients.map((i) => (
+                  <div className="pb-4 last:pb-0" key={i}>
+                    <input
+                      type="checkbox"
+                      name="ingredient"
+                      id={'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()}
+                    />
+                    <label
+                      htmlFor={
+                        'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()
+                      }
+                      className="ml-4"
+                    >
+                      {i}
+                    </label>
+                  </div>
+                ))}
+                <button
+                  onClick={copyIngredients}
+                  className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                >
+                  Copy Ingredients
+                </button>
+              </div>
             </div>
           </div>
-          <div>
-            <h2 className="text-2xl pb-8 pt-8">
-              Ingredients to add to the shopping list
-            </h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              {data.ingredients.map((i) => (
-                <div className="pb-4 last:pb-0" key={i}>
-                  <input
-                    type="checkbox"
-                    name="ingredient"
-                    id={'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()}
-                  />
-                  <label
-                    htmlFor={
-                      'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()
-                    }
-                    className="ml-4"
-                  >
-                    {i}
-                  </label>
-                </div>
-              ))}
-              <button
-                onClick={copyIngredients}
-                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
-              >
-                Copy Ingredients
-              </button>
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   )
