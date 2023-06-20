@@ -304,7 +304,10 @@ export default function WhatToFish() {
           break
         case 5:
           seasons.push('spring')
-          if (cityState && cityState.location.includes('north')) {
+          if (
+            (cityState && cityState.capital == '') ||
+            (cityState && cityState.location.includes('north'))
+          ) {
             seasons.push('bass pre-spawn')
           }
           if (cityState && cityState.location.includes('mid')) {
@@ -317,7 +320,10 @@ export default function WhatToFish() {
           break
         case 6:
           seasons.push(today.getDate() > 21 ? 'summer' : 'spring')
-          if (cityState && cityState.location.includes('north')) {
+          if (
+            (cityState && cityState.capital == '') ||
+            (cityState && cityState.location.includes('north'))
+          ) {
             seasons.push('bass spawn')
             seasons.push('sunfish pre-spawn')
           }
@@ -327,7 +333,10 @@ export default function WhatToFish() {
           break
         case 7:
           seasons.push('summer')
-          if (cityState && cityState.location.includes('north')) {
+          if (
+            (cityState && cityState.capital == '') ||
+            (cityState && cityState.location.includes('north'))
+          ) {
             seasons.push('sunfish spawn')
           }
           break
