@@ -220,6 +220,7 @@ export default function WhatToMake() {
             id="numRecipes"
             min="1"
             max="7"
+            value={numRecipes}
             inputMode="numeric"
             onChange={(e) => {
               setNumRecipes(parseInt(e.target.value))

@@ -439,7 +439,7 @@ export default function WhatToFish() {
         species += 'trout, '
       }
 
-      species += 'pickerel, pike, muskies, '
+      species += 'pickerel, pike, muskellunge, '
 
       species = species.replace(/,\s$/, '') // remove trailing comma
     }
@@ -464,10 +464,10 @@ export default function WhatToFish() {
               name="zip"
               id="zip"
               inputMode="numeric"
+              value={zip}
               onChange={(e) => {
                 setZip(e.target.value)
                 setCityState('')
-                document.getElementById('state').selectedIndex = 0
               }}
               className="text-slate-700 leading-4 p-2 block max-w-full"
             />
@@ -483,9 +483,9 @@ export default function WhatToFish() {
               onChange={(e) => {
                 setZip('')
                 setCityState(e.target.value)
-                document.getElementById('zip').value = ''
               }}
               className="text-slate-700 leading-4 p-2 block max-w-full"
+              value={cityState}
             >
               <option value=""></option>
               {cityStateList.map((cs, csIndex) => (

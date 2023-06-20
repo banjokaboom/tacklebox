@@ -9,7 +9,7 @@ export default function Header() {
           <a href="/" className="text-3xl">
             Tacklebox
           </a>
-          <FontAwesomeIcon icon={faFishFins} className="max-h-8 ml-4" />
+          <FontAwesomeIcon icon={faFishFins} className="max-h-8 h-8 ml-4" />
         </div>
       </div>
     </header>
