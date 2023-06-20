@@ -171,8 +171,12 @@ export default function WhatToMake() {
         copyString += label.textContent + '\n'
       })
 
-    navigator.clipboard.writeText(copyString)
-    alert('Copied ingredients to the clipboard!')
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText(copyString)
+      alert('Copied ingredients to the clipboard!')
+    } else {
+      alert('Copying not supported.')
+    }
   }
 
   return (
