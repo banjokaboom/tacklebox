@@ -7,13 +7,13 @@ import { useState, useEffect, useMemo } from 'react'
 class Tackle {
   public name: string
   public waterTemp: string[]
-  public speed: string[]
+  public type: string[]
   public depth: string[]
 
   constructor() {
     this.name = ''
     this.waterTemp = []
-    this.speed = []
+    this.type = []
     this.depth = []
   }
 }
@@ -213,7 +213,10 @@ export default function WhatToFish() {
         console.log(
           "It's growing season for bass! Bring out the reaction baits!"
         )
-        if (tackle.speed.includes('fast') || tackle.depth.includes('shallow')) {
+        if (
+          tackle.type.includes('reaction') ||
+          tackle.depth.includes('shallow')
+        ) {
           return true
         }
       }
@@ -245,7 +248,10 @@ export default function WhatToFish() {
           return false
         }
 
-        if (!tackle.speed.includes('still') && !tackle.speed.includes('slow')) {
+        if (
+          !tackle.type.includes('still') &&
+          !tackle.type.includes('finesse')
+        ) {
           return false
         }
 
@@ -413,6 +419,34 @@ export default function WhatToFish() {
     }
   }, [zip, tackleList, cityState, cityStateList])
 
+  function getSpecies(waterTemp: number): string {
+    let species = ''
+
+    if (waterTemp >= 34 && waterTemp <= 80) {
+      if (waterTemp >= 60) {
+        species += 'largemouth bass, '
+      }
+
+      if (waterTemp >= 50 && waterTemp <= 70) {
+        species += 'smallmouth bass, '
+      }
+
+      if (waterTemp > 64) {
+        species += 'sunfish, '
+      } else {
+        species += 'trout, '
+      }
+
+      species += 'pickerel, pike, muskies, '
+
+      species = species.replace(/,\s$/, '') // remove trailing comma
+    }
+
+    return species !== ''
+      ? species
+      : 'Not ideal fishing weather for any species'
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
@@ -462,20 +496,14 @@ export default function WhatToFish() {
         </div>
         <p>Data loaded for {data.weather.location}</p>
 
-        <div className="flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
           <div>
-            <h2 className="text-2xl pb-8 pt-8">
-              Lures, Rigs, and Bait to use today
-            </h2>
+            <h2 className="text-2xl pb-8 pt-8">Species to target</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-              {data.tackle.map((t) => (
-                <p className="pb-4 last:pb-0" key={t.name}>
-                  {t.name}
-                </p>
-              ))}
+              <p>{getSpecies(parseFloat(data.weather.current.waterTemp))}</p>
             </div>
 
-            <h2 className="text-2xl pb-8 pt-8">Lure Colors to use now</h2>
+            <h2 className="text-2xl pb-8 pt-8">Lure colors to use now</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p>{data.baitRecommendations.colorsToUse}</p>
             </div>
@@ -483,6 +511,15 @@ export default function WhatToFish() {
             <h2 className="text-2xl pb-8 pt-8">Baits to use now</h2>
             <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
               <p>{data.baitRecommendations.baitsToUse}</p>
+            </div>
+
+            <h2 className="text-2xl pb-8 pt-8">Lures and rigs to use today</h2>
+            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+              {data.tackle.map((t) => (
+                <p className="pb-4 last:pb-0" key={t.name}>
+                  {t.name}
+                </p>
+              ))}
             </div>
           </div>
           <div>
