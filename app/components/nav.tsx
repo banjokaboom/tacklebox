@@ -11,7 +11,7 @@ export default function Nav() {
             Can I Fish
           </a>
           <a className="w-fit" href="/pages/what-to-fish">
-            What To Fish
+            What to Fish
           </a>
         </div>
         <div className="flex flex-col justify-between lg:pb-0 pb-4">
@@ -20,7 +20,7 @@ export default function Nav() {
             Oil Prices
           </a>
           <a className="w-fit" href="/pages/what-to-make">
-            What To Make
+            What to Make
           </a>
         </div>
       </div>

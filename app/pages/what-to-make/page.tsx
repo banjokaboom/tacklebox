@@ -1,7 +1,7 @@
 'use client'
 
-import * as recipesList from './recipes.js'
-import { useState, useEffect } from 'react'
+import * as recipesJSON from './recipes.js'
+import { useState, useEffect, useMemo } from 'react'
 
 class CookingData {
   public recipes: Recipe[]
@@ -31,8 +31,10 @@ export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
 
+  const recipesList: Recipe[] = useMemo(() => Array.from(recipesJSON), [])
+
   useEffect(() => {
-    async function getData(numRecipes) {
+    async function getData(numRecipes: number) {
       const data = await pickRecipes(numRecipes)
 
       if (!isDataLoaded) {
@@ -40,7 +42,7 @@ export default function WhatToMake() {
       }
     }
 
-    function pickRecipes(numRecipes) {
+    function pickRecipes(numRecipes: number) {
       let cookingData = new CookingData()
 
       cookingData.recipes = []
@@ -129,6 +131,10 @@ export default function WhatToMake() {
     }
 
     function isRecipeForSeason(recipe: Recipe) {
+      if (!recipe) {
+        return false
+      }
+
       let todayMonth = new Date().getMonth() + 1
       const isWinter = todayMonth >= 1 && todayMonth <= 3
       const isSpring = todayMonth >= 4 && todayMonth <= 6
@@ -159,7 +165,7 @@ export default function WhatToMake() {
     return () => {
       isDataLoaded = true
     }
-  }, [numRecipes])
+  }, [numRecipes, recipesList])
 
   function copyIngredients() {
     let copyString = ''
@@ -173,9 +179,27 @@ export default function WhatToMake() {
 
     if (navigator && navigator.clipboard) {
       navigator.clipboard.writeText(copyString)
-      alert('Copied ingredients to the clipboard!')
     } else {
-      alert('Copying not supported.')
+      // Use the 'out of viewport hidden text area' trick
+      const textArea = document.createElement('textarea')
+      textArea.value = copyString
+
+      // Move textarea out of the viewport so it's not visible
+      textArea.style.position = 'absolute'
+      textArea.style.left = '-999999px'
+
+      document.body.prepend(textArea)
+      textArea.select()
+
+      try {
+        document.execCommand('copy')
+        alert('Copied ingredients to the clipboard!')
+      } catch (error) {
+        console.error(error)
+        alert('Copying not supported. Check log for details.')
+      } finally {
+        textArea.remove()
+      }
     }
   }
 

@@ -1,7 +1,7 @@
 'use client'
 
-import * as tackleList from './tackle.js'
-import { useState, useEffect } from 'react'
+import * as tackleJSON from './tackle.js'
+import { useState, useEffect, useMemo } from 'react'
 
 class FishingData {
   public baitRecommendations: BaitRecommendations
@@ -14,6 +14,20 @@ class FishingData {
     this.seasons = ''
     this.tackle = []
     this.weather = new WeatherData()
+  }
+}
+
+class Tackle {
+  public name: string
+  public waterTemp: string[]
+  public speed: string[]
+  public depth: string[]
+
+  constructor() {
+    this.name = ''
+    this.waterTemp = []
+    this.speed = []
+    this.depth = []
   }
 }
 
@@ -62,11 +76,10 @@ class BaitRecommendations {
 }
 
 export default function WhatToFish() {
-  /**
-   * Render running infinitely
-   */
   let [zip, setZip] = useState('01516')
   let [data, setData] = useState(new FishingData())
+
+  const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON), [])
 
   useEffect(() => {
     const waterTempMultiplier = 0.87
@@ -331,7 +344,7 @@ export default function WhatToFish() {
     return () => {
       isDataLoaded = true
     }
-  }, [zip])
+  }, [zip, tackleList])
 
   return (
     <div className="flex flex-col items-center justify-between">
