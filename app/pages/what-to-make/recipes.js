@@ -327,4 +327,16 @@ module.exports = [
       'sriracha',
     ],
   },
+  {
+    name: 'Pot Roast',
+    seasons: ['fall', 'winter'],
+    frequency: 0.1,
+    ingredients: [
+      'beef roast',
+      'onion soup mix',
+      'gravy mix',
+      'beef bouillon',
+      'potatoes'
+    ],
+  },
 ]
