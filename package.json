@@ -10,11 +10,11 @@
     "test:coverage": "jest --coverage",
     "checks": "yarn cspell ; yarn lint",
     "cspell": "cspell -u --gitignore .",
-    "lint": "yarn lint:js ; yarn lint:prettier",
+    "lint": "yarn lint:js ; yarn lint:prettier ; yarn lint:style",
     "lint:js": "eslint -f compact .",
     "lint:prettier": "prettier --check .",
-    "lint:style": "stylelint -f compact \"**/*.{css,js,jsx}\"",
-    "lintfix": "yarn lint:js --fix ; prettier --write --list-different ."
+    "lint:style": "stylelint -f compact \"**/*.css\"",
+    "lintfix": "yarn lint:js --fix ; prettier --write --list-different . ; yarn lint:style --fix"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",

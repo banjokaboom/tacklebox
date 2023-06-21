@@ -59,6 +59,22 @@ jobs:
 
       - name: Run prettier linting
         run: yarn lint:prettier
+  lint-style:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.13.x
+
+      - name: Install
+        run: yarn install --ignore-engines --silent --ignore-optional
+
+      - name: Run style linting
+        run: yarn lint:style
   cspell:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:

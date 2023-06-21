@@ -292,16 +292,18 @@ export default function WhatToFish() {
           seasons.push(today.getDate() > 21 ? 'spring' : 'winter')
           if (cityState && cityState.location.includes('south')) {
             seasons.push('bass pre-spawn')
+            seasons.push('sunfish pre-spawn')
           }
           break
         case 4:
           seasons.push('spring')
           if (cityState && cityState.location.includes('mid')) {
             seasons.push('bass pre-spawn')
+            seasons.push('sunfish pre-spawn')
           }
           if (cityState && cityState.location.includes('south')) {
             seasons.push('bass spawn')
-            seasons.push('sunfish pre-spawn')
+            seasons.push('sunfish spawn')
           }
           break
         case 5:
@@ -311,12 +313,10 @@ export default function WhatToFish() {
             (cityState && cityState.location.includes('north'))
           ) {
             seasons.push('bass pre-spawn')
+            seasons.push('sunfish pre-spawn')
           }
           if (cityState && cityState.location.includes('mid')) {
             seasons.push('bass spawn')
-            seasons.push('sunfish pre-spawn')
-          }
-          if (cityState && cityState.location.includes('south')) {
             seasons.push('sunfish spawn')
           }
           break
@@ -327,20 +327,11 @@ export default function WhatToFish() {
             (cityState && cityState.location.includes('north'))
           ) {
             seasons.push('bass spawn')
-            seasons.push('sunfish pre-spawn')
-          }
-          if (cityState && cityState.location.includes('mid')) {
             seasons.push('sunfish spawn')
           }
           break
         case 7:
           seasons.push('summer')
-          if (
-            (cityState && cityState.capital == '') ||
-            (cityState && cityState.location.includes('north'))
-          ) {
-            seasons.push('sunfish spawn')
-          }
           break
         case 8:
           seasons.push('summer')
@@ -437,11 +428,11 @@ export default function WhatToFish() {
 
     if (waterTemp >= 34 && waterTemp <= 80) {
       if (waterTemp >= 60) {
-        species += 'largemouth bass, '
+        species += 'largemouth bass, catfish, '
       }
 
       if (waterTemp >= 50 && waterTemp <= 70) {
-        species += 'smallmouth bass, '
+        species += 'smallmouth bass, carp, '
       }
 
       if (waterTemp > 64) {
@@ -544,6 +535,25 @@ export default function WhatToFish() {
               <h2 className="text-2xl pb-8 pt-8">Season</h2>
               <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
                 <p>{data.seasons}</p>
+              </div>
+
+              <h2 className="text-2xl pb-8 pt-8">Best times to fish</h2>
+              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
+                <p>
+                  Bad:{' '}
+                  {data.seasons.includes('spring') ||
+                  data.seasons.includes('fall')
+                    ? 'early morning'
+                    : 'late morning/early afternoon'}
+                </p>
+                <p>
+                  Good:{' '}
+                  {data.seasons.includes('spring') ||
+                  data.seasons.includes('fall')
+                    ? 'late morning/early afternoon'
+                    : 'early morning'}
+                </p>
+                <p>Best: late afternoon/early evening</p>
               </div>
 
               <h2 className="text-2xl pb-8 pt-8">Current Weather</h2>

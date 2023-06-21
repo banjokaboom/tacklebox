@@ -40,5 +40,6 @@ module.exports = {
     'swimbaits',
     'canifish',
     'smallmouth',
+    'stylelint',
   ],
 }
