@@ -142,7 +142,7 @@ export default function WhatToFish() {
       weather: any,
       cityState: string
     ): BaitRecommendations {
-      const seasons = getSeasons(cityState)
+      const seasons = getSeasons(weather, cityState)
       let baitRecommendations = new BaitRecommendations()
       let colorsToUse: string[] = []
       let baitToUse: string[] = []
@@ -200,9 +200,9 @@ export default function WhatToFish() {
       weather: any,
       cityState: string
     ): boolean {
-      const seasons = getSeasons(cityState)
-      let warmWaterMax = 75
-      let warmWaterMin = 55
+      const seasons = getSeasons(weather, cityState)
+      let warmWaterMax = 80
+      let warmWaterMin = 60
       let waterTemp =
         weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier
 
@@ -222,7 +222,7 @@ export default function WhatToFish() {
         }
       }
 
-      if (waterTemp >= warmWaterMax) {
+      if (waterTemp > warmWaterMax) {
         console.log('Water is very warm, need to fish deep and slow!')
 
         if (!tackle.waterTemp.includes('warm')) {
@@ -232,7 +232,7 @@ export default function WhatToFish() {
         if (!tackle.depth.includes('deep')) {
           return false
         }
-      } else if (waterTemp >= warmWaterMin) {
+      } else if (waterTemp > warmWaterMin) {
         console.log('Water temp is ideal for fishing most lures and rigs!')
 
         if (!tackle.waterTemp.includes('warm')) {
@@ -264,20 +264,22 @@ export default function WhatToFish() {
       return true
     }
 
-    function getSeasons(cityStateString: string): string {
+    function getSeasons(weather: any, cityStateString: string): string {
       let today = new Date()
       let todayMonth = today.getMonth() + 1
       let seasons: string[] = []
-      let city = ''
+      let state = ''
       let cityState: CityState | undefined = new CityState()
 
       if (cityStateString && cityStateString !== '') {
-        city = cityStateString.split(',')[0]
-
-        cityState = cityStateList.find((cs) => {
-          return cs.capital == city
-        })
+        state = cityStateString.split(',')[1]
+      } else {
+        state = weather.location.region
       }
+
+      cityState = cityStateList.find((cs) => {
+        return cs.state == state
+      })
 
       switch (todayMonth) {
         case 1:
@@ -411,7 +413,7 @@ export default function WhatToFish() {
           weather,
           cityState
         )
-        fishingData.seasons = getSeasons(cityState)
+        fishingData.seasons = getSeasons(weather, cityState)
         fishingData.tackle = await pickTackle(weather, cityState)
         fishingData.weather = getWeatherValues(weather)
 
