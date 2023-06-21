@@ -2,7 +2,7 @@
 
 import * as recipesJSON from './recipes.js'
 import { useState, useEffect, useMemo } from 'react'
-import Loader from '../../components/loader.jsx'
+import Loader from '../../components/loader'
 
 class CookingData {
   public recipes: Recipe[]

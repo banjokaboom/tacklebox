@@ -3,7 +3,7 @@
 import * as tackleJSON from './tackle.js'
 import * as cityStateJSON from './cityStates.js'
 import { useState, useEffect, useMemo } from 'react'
-import Loader from '../../components/loader.jsx'
+import Loader from '../../components/loader'
 
 class Tackle {
   public name: string
