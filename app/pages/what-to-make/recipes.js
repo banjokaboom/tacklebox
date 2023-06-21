@@ -336,7 +336,7 @@ module.exports = [
       'onion soup mix',
       'gravy mix',
       'beef bouillon',
-      'potatoes'
+      'potatoes',
     ],
   },
 ]
