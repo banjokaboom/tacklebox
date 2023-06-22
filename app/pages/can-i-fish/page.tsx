@@ -1,4 +1,8 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import { compareDates } from '../../helpers/date'
+import Loader from '../../components/loader'
 
 class Regulations {
   public freshwaterRegulations: object[]
@@ -12,68 +16,6 @@ class Regulations {
     this.saltwaterRegulations = []
     this.saltwaterRegulationsLink = ''
   }
-}
-
-async function getData() {
-  let data = await getMARegulations()
-
-  return data
-}
-
-async function fetchRegulations(endpoint: string) {
-  let regulations: any[] = []
-
-  await fetch('http://localhost:5555/canifish/' + endpoint, {
-    cache: 'no-store',
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
-      let fishingRegulations: object[] = []
-      let canIFish = false
-
-      data.fishingData.forEach((regulation) => {
-        let dates = regulation.seasonDates
-
-        if (typeof dates == 'object') {
-          dates.forEach((date: object) => {
-            if (compareDates(date)) {
-              fishingRegulations.push(regulation)
-
-              canIFish = true
-            }
-          })
-        } else {
-          if (compareDates(dates)) {
-            fishingRegulations.push(regulation)
-
-            canIFish = true
-          }
-        }
-      })
-
-      if (canIFish) {
-        regulations.push(fishingRegulations)
-        regulations.push(data.regulationsLink)
-      }
-    })
-
-  return regulations
-}
-
-async function getMARegulations() {
-  let regulations = new Regulations()
-
-  const freshResults = await fetchRegulations('freshMA')
-  const saltResults = await fetchRegulations('saltMA')
-
-  regulations.freshwaterRegulations = freshResults[0]
-  regulations.freshwaterRegulationsLink = freshResults[1]
-
-  regulations.saltwaterRegulations = saltResults[0]
-  regulations.saltwaterRegulationsLink = saltResults[1]
-
-  return regulations
 }
 
 function getCreelLimitForIndex(seasonLimits, index) {
@@ -100,8 +42,83 @@ function getCreelLimitForIndex(seasonLimits, index) {
   }
 }
 
-export default async function CanIFish() {
-  const data = await getData()
+export default function CanIFish() {
+  let [data, setData] = useState(new Regulations())
+
+  useEffect(() => {
+    async function getData() {
+      setData(new Regulations())
+      let data = await getMARegulations()
+
+      if (!isDataLoaded) {
+        setData(data)
+      }
+    }
+
+    async function fetchRegulations(endpoint: string) {
+      let regulations: any[] = []
+
+      await fetch('http://localhost:5555/canifish/' + endpoint, {
+        cache: 'no-store',
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          let fishingRegulations: object[] = []
+          let canIFish = false
+
+          data.fishingData.forEach((regulation) => {
+            let dates = regulation.seasonDates
+
+            if (typeof dates == 'object') {
+              dates.forEach((date: object) => {
+                if (compareDates(date)) {
+                  fishingRegulations.push(regulation)
+
+                  canIFish = true
+                }
+              })
+            } else {
+              if (compareDates(dates)) {
+                fishingRegulations.push(regulation)
+
+                canIFish = true
+              }
+            }
+          })
+
+          if (canIFish) {
+            regulations.push(fishingRegulations)
+            regulations.push(data.regulationsLink)
+          }
+        })
+
+      return regulations
+    }
+
+    async function getMARegulations() {
+      let regulations = new Regulations()
+
+      const freshResults = await fetchRegulations('freshMA')
+      const saltResults = await fetchRegulations('saltMA')
+
+      regulations.freshwaterRegulations = freshResults[0]
+      regulations.freshwaterRegulationsLink = freshResults[1]
+
+      regulations.saltwaterRegulations = saltResults[0]
+      regulations.saltwaterRegulationsLink = saltResults[1]
+
+      return regulations
+    }
+
+    let isDataLoaded = false
+
+    getData()
+
+    return () => {
+      isDataLoaded = true
+    }
+  }, [])
 
   return (
     <div className="flex flex-col items-center justify-between">
@@ -114,6 +131,10 @@ export default async function CanIFish() {
             : 'No'}
         </h1>
         <hr />
+        {(!data.freshwaterRegulations ||
+          data.freshwaterRegulations.length == 0) &&
+          (!data.saltwaterRegulations ||
+            data.saltwaterRegulations.length == 0) && <Loader />}
         {data.freshwaterRegulations &&
           data.freshwaterRegulations.length > 0 && (
             <div>
