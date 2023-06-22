@@ -123,7 +123,7 @@ router.use('/canifish/saltMA', (req, res) => {
       const $ = cheerio.load(ares.data)
       let fishingData = []
 
-      $('#648cb6054160c > table:nth-child(1) > tbody:nth-child(2) > tr').each(
+      $('#649475cdc5f43 > table:nth-child(1) > tbody:nth-child(2) > tr').each(
         function (index, element) {
           // Get the open season dates, limits, and minimum lengths
           let description = $(element).children('td:nth-child(1)')

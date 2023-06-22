@@ -105,7 +105,7 @@ jobs:
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
 
-      - name: Run spellcheck
+      - name: Run copy paste detection
         run: yarn jscpd
   jest:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}

@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "checks": "yarn cspell ; yarn lint",
+    "checks": "yarn cspell ; yarn lint ; yarn jscpd",
     "cspell": "cspell -u --gitignore .",
     "jscpd": "jscpd .",
     "lint": "yarn lint:js ; yarn lint:prettier ; yarn lint:style",
