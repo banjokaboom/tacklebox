@@ -7,12 +7,14 @@ import Loader from '../../components/loader'
 
 class Tackle {
   public name: string
+  public species: string[]
   public waterTemp: string[]
   public type: string[]
   public depth: string[]
 
   constructor() {
     this.name = ''
+    this.species = []
     this.waterTemp = []
     this.type = []
     this.depth = []
@@ -79,12 +81,14 @@ class FishingData {
   public seasons: string
   public tackle: Tackle[]
   public weather: WeatherData
+  public species: string
 
   constructor() {
     this.baitRecommendations = new BaitRecommendations()
     this.seasons = ''
     this.tackle = []
     this.weather = new WeatherData()
+    this.species = ''
   }
 }
 
@@ -101,6 +105,8 @@ export default function WhatToFish() {
 
   useEffect(() => {
     const waterTempMultiplier = 0.87
+    const warmWaterMax = 80
+    const warmWaterMin = 60
 
     async function getWeather(zip: string, cityState: string) {
       if (cityState == '' && (!zip || zip.length !== 5)) {
@@ -122,15 +128,32 @@ export default function WhatToFish() {
     }
 
     async function pickTackle(
-      weather: WeatherData,
-      cityState: string
+      seasons: string,
+      species: string[],
+      waterTemp: number
     ): Promise<Tackle[]> {
       console.log('Tackle loaded.')
 
       let tackleToUse: Tackle[] = []
 
       tackleList.forEach(function (tackle: Tackle) {
-        if (isTackleForWeather(tackle, weather, cityState)) {
+        let isTackleForSpecies = false
+
+        for (
+          let speciesIndex = 0;
+          speciesIndex < tackle.species.length;
+          speciesIndex++
+        ) {
+          if (species.includes(tackle.species[speciesIndex])) {
+            isTackleForSpecies = true
+            break
+          }
+        }
+
+        if (
+          isTackleForSpecies &&
+          isTackleForWeather(tackle, seasons, waterTemp)
+        ) {
           tackleToUse.push(tackle)
         }
       })
@@ -140,7 +163,8 @@ export default function WhatToFish() {
 
     function pickBaitRecommendations(
       weather: any,
-      cityState: string
+      cityState: string,
+      species: string[]
     ): BaitRecommendations {
       const seasons = getSeasons(weather, cityState)
       let baitRecommendations = new BaitRecommendations()
@@ -150,16 +174,23 @@ export default function WhatToFish() {
       baitToUse.push('live worms, soft plastic worms')
 
       if (seasons.includes('spring')) {
-        colorsToUse.push('craw', 'orange', 'red')
-        baitToUse.push('powerbait, soft plastic craws')
+        if (
+          species.includes('largemouth bass') ||
+          species.includes('smallmouth bass')
+        ) {
+          colorsToUse.push('craw')
+          baitToUse.push('soft plastic craws')
+        }
+        colorsToUse.push('orange', 'red')
+        baitToUse.push('powerbait', 'soft plastic insects')
       } else {
         colorsToUse.push('shad', 'baitfish', 'white', 'blue')
-        baitToUse.push(
-          'soft plastic swimbaits, soft plastic flukes, soft plastic fish'
-        )
+        baitToUse.push('soft plastic swimbaits')
 
         if (seasons.includes('summer')) {
-          baitToUse.push('soft plastic frogs, soft plastic lizards')
+          if (species.includes('largemouth bass')) {
+            baitToUse.push('soft plastic frogs', 'soft plastic lizards')
+          }
         } else {
           baitToUse.push('powerbait')
         }
@@ -196,26 +227,17 @@ export default function WhatToFish() {
     }
 
     function isTackleForWeather(
-      tackle: any,
-      weather: any,
-      cityState: string
+      tackle: Tackle,
+      seasons: string,
+      waterTemp: number
     ): boolean {
-      const seasons = getSeasons(weather, cityState)
-      let warmWaterMax = 80
-      let warmWaterMin = 60
-      let waterTemp =
-        weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier
-
       if (
         seasons.includes('bass pre-spawn') ||
         seasons.includes('bass spawn') ||
         seasons.includes('fall')
       ) {
-        console.log(
-          "It's growing season for bass! Bring out the reaction baits!"
-        )
         if (
-          tackle.type.includes('reaction') ||
+          tackle.type.includes('reaction') &&
           tackle.depth.includes('shallow')
         ) {
           return true
@@ -223,8 +245,6 @@ export default function WhatToFish() {
       }
 
       if (waterTemp > warmWaterMax) {
-        console.log('Water is very warm, need to fish deep and slow!')
-
         if (!tackle.waterTemp.includes('warm')) {
           return false
         }
@@ -233,8 +253,6 @@ export default function WhatToFish() {
           return false
         }
       } else if (waterTemp > warmWaterMin) {
-        console.log('Water temp is ideal for fishing most lures and rigs!')
-
         if (!tackle.waterTemp.includes('warm')) {
           return false
         }
@@ -243,8 +261,6 @@ export default function WhatToFish() {
           return false
         }
       } else {
-        console.log('Water temp is cold! At least for bass and most panfish.')
-
         if (!tackle.waterTemp.includes('cold')) {
           return false
         }
@@ -283,8 +299,6 @@ export default function WhatToFish() {
 
       switch (todayMonth) {
         case 1:
-          seasons.push('winter')
-          break
         case 2:
           seasons.push('winter')
           break
@@ -308,10 +322,7 @@ export default function WhatToFish() {
           break
         case 5:
           seasons.push('spring')
-          if (
-            (cityState && cityState.capital == '') ||
-            (cityState && cityState.location.includes('north'))
-          ) {
+          if (cityState && cityState.location.includes('north')) {
             seasons.push('bass pre-spawn')
             seasons.push('sunfish pre-spawn')
           }
@@ -322,17 +333,12 @@ export default function WhatToFish() {
           break
         case 6:
           seasons.push(today.getDate() > 21 ? 'summer' : 'spring')
-          if (
-            (cityState && cityState.capital == '') ||
-            (cityState && cityState.location.includes('north'))
-          ) {
+          if (cityState && cityState.location.includes('north')) {
             seasons.push('bass spawn')
             seasons.push('sunfish spawn')
           }
           break
         case 7:
-          seasons.push('summer')
-          break
         case 8:
           seasons.push('summer')
           break
@@ -340,8 +346,6 @@ export default function WhatToFish() {
           seasons.push(today.getDate() > 21 ? 'fall' : 'summer')
           break
         case 10:
-          seasons.push('fall')
-          break
         case 11:
           seasons.push('fall')
           break
@@ -400,13 +404,40 @@ export default function WhatToFish() {
       if (weather) {
         console.log('Weather received.')
 
+        fishingData.seasons = getSeasons(weather, cityState)
+        fishingData.weather = getWeatherValues(weather)
+
+        const waterTemp = parseFloat(fishingData.weather.current.waterTemp)
+
+        if (
+          fishingData.seasons.includes('bass pre-spawn') ||
+          fishingData.seasons.includes('bass spawn') ||
+          fishingData.seasons.includes('fall')
+        ) {
+          console.log(
+            "It's growing season for bass! Bring out the reaction baits!"
+          )
+        }
+
+        if (waterTemp > warmWaterMax) {
+          console.log('Water is very warm, need to fish deep and slow!')
+        } else if (waterTemp > warmWaterMin) {
+          console.log('Water temp is ideal for fishing most lures and rigs!')
+        } else {
+          console.log('Water temp is cold! At least for bass and most panfish.')
+        }
+
+        fishingData.species = getSpecies(waterTemp)
         fishingData.baitRecommendations = pickBaitRecommendations(
           weather,
-          cityState
+          cityState,
+          fishingData.species.split(',')
         )
-        fishingData.seasons = getSeasons(weather, cityState)
-        fishingData.tackle = await pickTackle(weather, cityState)
-        fishingData.weather = getWeatherValues(weather)
+        fishingData.tackle = await pickTackle(
+          fishingData.seasons,
+          fishingData.species.split(','),
+          waterTemp
+        )
 
         if (!isDataLoaded) {
           setData(fishingData)
@@ -441,9 +472,7 @@ export default function WhatToFish() {
         species += 'trout, '
       }
 
-      species += 'pickerel, pike, muskellunge, '
-
-      species = species.replace(/,\s$/, '') // remove trailing comma
+      species += 'pickerel, pike, muskellunge'
     }
 
     return species !== ''
@@ -507,7 +536,7 @@ export default function WhatToFish() {
             <div>
               <h2 className="text-2xl pb-8 pt-8">Species to target</h2>
               <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>{getSpecies(parseFloat(data.weather.current.waterTemp))}</p>
+                <p>{data.species}</p>
               </div>
 
               <h2 className="text-2xl pb-8 pt-8">Lure colors to use now</h2>
@@ -523,13 +552,21 @@ export default function WhatToFish() {
               <h2 className="text-2xl pb-8 pt-8">
                 Lures and rigs to use today
               </h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                {data.tackle.map((t) => (
-                  <p className="pb-4 last:pb-0" key={t.name}>
-                    {t.name}
-                  </p>
-                ))}
-              </div>
+              {data.species.split(',').map((s) => (
+                <div key={s}>
+                  <h3 className="pb-4 text-xl">{s.toUpperCase()}</h3>
+                  <div className="border border-slate-50 bg-slate-700 p-4 rounded-md mb-4">
+                    {data.tackle.map(
+                      (t) =>
+                        t.species.includes(s.trim()) && (
+                          <p className="pb-4 last:pb-0" key={t.name}>
+                            {t.name}
+                          </p>
+                        )
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
             <div>
               <h2 className="text-2xl pb-8 pt-8">Season</h2>
