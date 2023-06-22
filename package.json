@@ -10,6 +10,7 @@
     "test:coverage": "jest --coverage",
     "checks": "yarn cspell ; yarn lint",
     "cspell": "cspell -u --gitignore .",
+    "jscpd": "jscpd .",
     "lint": "yarn lint:js ; yarn lint:prettier ; yarn lint:style",
     "lint:js": "eslint -f compact .",
     "lint:prettier": "prettier --check .",
@@ -45,6 +46,7 @@
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "jest-fetch-mock": "^3.0.3",
+    "jscpd": "^3.5.9",
     "prettier": "^2.8.8",
     "stylelint": "^15.6.2",
     "stylelint-config-standard": "^33.0.0"

@@ -1,0 +1,6 @@
+{
+  "threshold": 10,
+  "ignore": ["**/node_modules", "coverage", ".next"],
+  "pattern": "**/*.{js,tsx}",
+  "absolute": true
+}
