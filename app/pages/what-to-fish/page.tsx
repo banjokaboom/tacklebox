@@ -95,6 +95,7 @@ class FishingData {
 export default function WhatToFish() {
   let [zip, setZip] = useState('01516')
   let [cityState, setCityState] = useState('')
+  let [useCurrentWeather, setUseCurrentWeather] = useState(true)
   let [data, setData] = useState(new FishingData())
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON), [])
@@ -180,7 +181,7 @@ export default function WhatToFish() {
         baitToUse.push('powerbait', 'soft plastic insects')
       } else {
         colorsToUse.push('shad', 'baitfish', 'white', 'blue')
-        baitToUse.push('soft plastic swimbaits')
+        baitToUse.push('soft plastic swimbaits', 'shiners')
 
         if (seasons.includes('summer')) {
           if (species.includes('largemouth bass')) {
@@ -402,7 +403,9 @@ export default function WhatToFish() {
         fishingData.seasons = getSeasons(weather, cityState)
         fishingData.weather = getWeatherValues(weather)
 
-        const waterTemp = parseFloat(fishingData.weather.current.waterTemp)
+        const waterTemp = useCurrentWeather
+          ? parseFloat(fishingData.weather.current.waterTemp)
+          : parseFloat(fishingData.weather.forecast.waterTemp)
 
         if (
           fishingData.seasons.includes('bass pre-spawn') ||
@@ -447,7 +450,7 @@ export default function WhatToFish() {
     return () => {
       isDataLoaded = true
     }
-  }, [zip, tackleList, cityState, cityStateList])
+  }, [zip, tackleList, cityState, cityStateList, useCurrentWeather])
 
   function getSpecies(waterTemp: number): string {
     let species = ''
@@ -467,7 +470,7 @@ export default function WhatToFish() {
         species += 'trout, '
       }
 
-      species += 'pickerel, pike, muskellunge'
+      species += 'pickerel/pike/muskies'
     }
 
     return species !== ''
@@ -478,7 +481,7 @@ export default function WhatToFish() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl pb-4">What to Fish</h1>
+        <h1 className="text-3xl pb-4">What to Fish (Freshwater)</h1>
         <hr className="pb-4" />
         <div className="flex flex-col lg:flex-row justify-between lg:items-end">
           <div className="pb-4">
@@ -524,7 +527,24 @@ export default function WhatToFish() {
         </div>
         {data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
-          <p>Data loaded for {data.weather.location}</p>
+          <div>
+            <p className="pb-4">Data loaded for {data.weather.location}</p>
+            <label htmlFor="useCurrentWeather" className="pb-4 block">
+              Use current weather or forecast?
+            </label>
+            <select
+              name="useCurrentWeather"
+              id="useCurrentWeather"
+              onChange={(e) => {
+                setUseCurrentWeather(e.target.value == 'true')
+              }}
+              className="text-slate-700 leading-4 p-2 block max-w-full"
+              value={'' + useCurrentWeather}
+            >
+              <option value="true">Current</option>
+              <option value="false">Forecast</option>
+            </select>
+          </div>
         )}
         {data.tackle.length > 0 && (
           <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
