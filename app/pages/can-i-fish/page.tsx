@@ -63,7 +63,6 @@ export default function CanIFish() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
           let fishingRegulations: object[] = []
           let canIFish = false
 
