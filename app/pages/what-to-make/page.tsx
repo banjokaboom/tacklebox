@@ -29,6 +29,8 @@ class Recipe {
 }
 
 export default function WhatToMake() {
+  console.log('In default function...')
+
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
   let [refreshCount, setRefreshCount] = useState(0)
@@ -36,14 +38,7 @@ export default function WhatToMake() {
   const recipesList: Recipe[] = useMemo(() => Array.from(recipesJSON), [])
 
   useEffect(() => {
-    async function getData(numRecipes: number) {
-      setData(new CookingData())
-      const data = await pickRecipes(numRecipes)
-
-      if (!isDataLoaded) {
-        setData(data)
-      }
-    }
+    console.log('In useEffect...')
 
     function pickRecipes(numRecipes: number) {
       let cookingData = new CookingData()
@@ -163,7 +158,11 @@ export default function WhatToMake() {
 
     let isDataLoaded = false
 
-    getData(numRecipes)
+    const data = pickRecipes(numRecipes)
+
+    if (!isDataLoaded) {
+      setData(data)
+    }
 
     return () => {
       isDataLoaded = true

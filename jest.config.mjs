@@ -18,7 +18,7 @@ const config = {
   coveragePathIgnorePatterns: [
     '<rootDir>/app/pages/what-to-fish/cityStates.js',
     '<rootDir>/app/pages/what-to-fish/tackle.js',
-    '<rootDir>/app/pages/what-to-make/recipes.js'
+    '<rootDir>/app/pages/what-to-make/recipes.js',
   ],
   coverageThreshold: {
     global: {
