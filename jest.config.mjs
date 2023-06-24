@@ -15,6 +15,11 @@ const config = {
     'app/{pages,components,helpers}/**/*.{js,jsx,ts,tsx}',
     'app/page.{js,jsx,ts,tsx}',
   ],
+  coveragePathIgnorePatterns: [
+    '<rootDir>/app/pages/what-to-fish/cityStates.js',
+    '<rootDir>/app/pages/what-to-fish/tackle.js',
+    '<rootDir>/app/pages/what-to-make/recipes.js'
+  ],
   coverageThreshold: {
     global: {
       branches: 80,

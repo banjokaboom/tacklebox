@@ -71,4 +71,12 @@ describe('Home', () => {
 
     expect(result).toBeTruthy()
   })
+
+  it('allows for Year Round text', () => {
+    const dates = 'Year Round'
+
+    const result = compareDates(dates)
+
+    expect(result).toBeTruthy()
+  })
 })

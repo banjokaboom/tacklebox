@@ -21,6 +21,7 @@ jest.mock('../../../../app/pages/what-to-fish/cityStates.js', () => [], {
   virtual: true,
 })
 
+/* cSpell:disable */
 let weatherData = {
   location: {
     name: 'Boston',
@@ -96,6 +97,7 @@ let weatherData = {
     ],
   },
 }
+/* cSpell:enable */
 
 const server = setupServer(
   rest.get('http://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {

@@ -143,9 +143,10 @@ export default function CanIFish() {
                   <div key={fIndex} className="pb-8">
                     <h3 className="pb-4 text-xl">{f.species}</h3>
                     <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                      {f.description.trim() !== f.species.trim() && (
-                        <p className="pb-4">{f.description}</p>
-                      )}
+                      {f.description &&
+                        f.description.trim() !== f.species.trim() && (
+                          <p className="pb-4">{f.description}</p>
+                        )}
                       <p className="pb-4">Fishing dates:</p>
                       <div>
                         {f.seasonDates.map((sd: string, sdIndex: number) => (

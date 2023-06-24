@@ -31,6 +31,7 @@ class Recipe {
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
+  let [refreshCount, setRefreshCount] = useState(0)
 
   const recipesList: Recipe[] = useMemo(() => Array.from(recipesJSON), [])
 
@@ -167,7 +168,7 @@ export default function WhatToMake() {
     return () => {
       isDataLoaded = true
     }
-  }, [numRecipes, recipesList])
+  }, [numRecipes, recipesList, refreshCount])
 
   function copyIngredients() {
     let copyString = ''
@@ -205,6 +206,10 @@ export default function WhatToMake() {
     }
   }
 
+  function refresh() {
+    setRefreshCount(refreshCount + 1)
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
@@ -225,8 +230,14 @@ export default function WhatToMake() {
             onChange={(e) => {
               setNumRecipes(parseInt(e.target.value))
             }}
-            className="text-slate-700 leading-4 p-2 block max-w-full"
+            className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
           />
+          <button
+            onClick={refresh}
+            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+          >
+            Refresh
+          </button>
         </div>
 
         {data.recipes.length == 0 && <Loader />}

@@ -34,7 +34,10 @@ export function compareDates(dates) {
     isDateInRange =
       today.getTime() >= firstDate.getTime() &&
       today.getTime() < secondDate.getTime()
-  } else if (dates.trim().toUpperCase() == 'ALL YEAR') {
+  } else if (
+    dates.trim().toUpperCase() == 'ALL YEAR' ||
+    dates.trim().toUpperCase() == 'YEAR ROUND'
+  ) {
     isDateInRange = true
   }
 
