@@ -26,8 +26,6 @@ export function getDescription(description) {
 export function getSeasonDates(seasonDates) {
   let seasonDatesHTML = seasonDates.html().replace(newLineRegex, '<br>')
 
-  console.log(seasonDatesHTML)
-
   if (
     seasonDatesHTML.indexOf('</p><p>') >= 0 ||
     seasonDatesHTML.indexOf('<br>') >= 0

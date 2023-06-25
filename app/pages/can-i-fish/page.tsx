@@ -18,19 +18,18 @@ class Regulations {
   }
 }
 
-function getCreelLimitForIndex(seasonLimits, index) {
-  if (seasonLimits[index]) {
-    if (seasonLimits[index].trim() == '') {
-      let i = index
-      while (i > 0) {
-        i--
-        if (seasonLimits[i].trim() !== '') {
-          return seasonLimits[i]
-        }
+function getCreelLimitForIndex(seasonLimits: string[], index: number) {
+  console.log(seasonLimits[index])
+  if (seasonLimits[index] && seasonLimits[index].trim() == '') {
+    let i = index
+    while (i > 0) {
+      i--
+      if (seasonLimits[i].trim() !== '') {
+        return seasonLimits[i]
       }
-    } else {
-      return seasonLimits[index].trim()
     }
+  } else if (seasonLimits[index]) {
+    return seasonLimits[index].trim()
   } else {
     let i = index
     while (i > 0) {
@@ -77,12 +76,6 @@ export default function CanIFish() {
                   canIFish = true
                 }
               })
-            } else {
-              if (compareDates(dates)) {
-                fishingRegulations.push(regulation)
-
-                canIFish = true
-              }
             }
           })
 
