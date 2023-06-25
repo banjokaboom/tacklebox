@@ -1,9 +1,6 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import {
-  render,
-  screen,
-} from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import {
   describe,
   it,
@@ -23,7 +20,6 @@ jest.mock('../../../../app/pages/what-to-fish/tackle.js', () => [], {
 jest.mock('../../../../app/pages/what-to-fish/cityStates.js', () => [], {
   virtual: true,
 })
-
 
 let weatherData = {}
 let date = new Date()
