@@ -11,29 +11,14 @@ import {
 import '@testing-library/jest-dom'
 import { getFishingData } from '../../../../app/pages/what-to-fish/useFishingData'
 
-let tackleList = [
+let tackleList = []
+let cityStatesList = [
   {
-    name: 'Fixed Bobber Rig',
-    species: [
-      'largemouth bass',
-      'smallmouth bass',
-      'sunfish',
-      'trout',
-      'pickerel/pike/muskies',
-    ],
-    waterTemp: ['cold', 'warm'],
-    type: ['still'],
-    depth: ['shallow'],
-  },
-  {
-    name: 'Dropshot Rig',
-    species: ['largemouth bass', 'sunfish', 'trout'],
-    waterTemp: ['cold', 'warm'],
-    type: ['finesse'],
-    depth: ['deep'],
+    state: 'Massachusetts',
+    capital: 'Boston',
+    location: ['north'],
   },
 ]
-let cityStatesList = []
 let date = new Date()
 let weatherData = {}
 
@@ -72,6 +57,35 @@ function resetTestData() {
   // eslint-disable-next-line
   jest.useRealTimers()
 
+  tackleList = [
+    {
+      name: 'Fixed Bobber Rig',
+      species: [
+        'largemouth bass',
+        'smallmouth bass',
+        'sunfish',
+        'trout',
+        'pickerel/pike/muskies',
+      ],
+      waterTemp: ['cold', 'warm'],
+      type: ['still'],
+      depth: ['shallow'],
+    },
+    {
+      name: 'Dropshot Rig',
+      species: ['largemouth bass', 'sunfish', 'trout'],
+      waterTemp: ['cold', 'warm'],
+      type: ['finesse'],
+      depth: ['deep'],
+    },
+    {
+      name: 'Whopper Plopper',
+      species: ['largemouth bass', 'pickerel/pike/muskies'],
+      waterTemp: ['warm'],
+      type: ['reaction'],
+      depth: ['shallow'],
+    },
+  ]
   /* cSpell:disable */
   weatherData = {
     location: {
@@ -116,7 +130,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -132,7 +146,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -148,7 +162,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -164,7 +178,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -180,7 +194,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -196,7 +210,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -212,7 +226,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -228,7 +242,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -244,7 +258,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -260,7 +274,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -276,7 +290,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -292,7 +306,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -308,7 +322,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -324,7 +338,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -340,7 +354,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -356,7 +370,7 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
@@ -370,13 +384,11 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
     )
-
-    console.log(result)
 
     expect(result.species).toBe('Not ideal fishing weather for any species')
   })
@@ -386,18 +398,30 @@ describe('useFishingData', () => {
 
     const result = await getFishingData(
       '01516',
-      null,
+      '',
       true,
       tackleList,
       cityStatesList
     )
 
-    console.log(result)
-
     expect(result.species).toBe('Not ideal fishing weather for any species')
   })
 
   it('loads recommendations using cityState', async () => {
+    const result = await getFishingData(
+      '',
+      'Boston, Massachusetts',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBeGreaterThan(0)
+  })
+
+  it('recommends appropriate colors for clear weather', async () => {
+    weatherData.current.cloud = 0
+
     const result = await getFishingData(
       '01516',
       'Boston, Massachusetts',
@@ -406,8 +430,252 @@ describe('useFishingData', () => {
       cityStatesList
     )
 
-    console.log(result)
+    expect(
+      result.baitRecommendations.colorsToUse.includes('natural')
+    ).toBeTruthy()
+  })
 
-    expect(result.tackle.length).toBeGreaterThan(0)
+  it('recommends appropriate colors for cloudy weather', async () => {
+    weatherData.current.cloud = 80
+
+    const result = await getFishingData(
+      '01516',
+      'Boston, Massachusetts',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(
+      result.baitRecommendations.colorsToUse.includes('bright')
+    ).toBeTruthy()
+  })
+
+  it("doesn't load when state not selected and zip length < 5", async () => {
+    const result = await getFishingData(
+      '015',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is really warm and tackleList has no warm tackle', async () => {
+    date.setMonth('7')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold'],
+        type: ['finesse'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 100
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is really warm and tackleList has no deep tackle', async () => {
+    date.setMonth('7')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold', 'warm'],
+        type: ['finesse'],
+        depth: ['shallow'],
+      },
+    ]
+    weatherData.current.feelslike_f = 100
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is cold and tackleList has no cold tackle', async () => {
+    date.setMonth('1')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['warm'],
+        type: ['finesse'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 50
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is cold and tackleList has no deep tackle', async () => {
+    date.setMonth('1')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold'],
+        type: ['finesse'],
+        depth: ['shallow'],
+      },
+    ]
+    weatherData.current.feelslike_f = 50
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is cold and tackleList has no still tackle', async () => {
+    date.setMonth('1')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold'],
+        type: ['reaction'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 50
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is cold and tackleList has no finesse tackle', async () => {
+    date.setMonth('1')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold'],
+        type: ['reaction'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 50
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is warm and tackleList has no warm tackle', async () => {
+    date.setMonth('7')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold'],
+        type: ['finesse'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 80
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
+  })
+
+  it('shows no tackle when water is warm and tackleList has no shallow tackle', async () => {
+    date.setMonth('7')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    tackleList = [
+      {
+        name: 'Dropshot Rig',
+        species: ['largemouth bass', 'sunfish', 'trout'],
+        waterTemp: ['cold', 'warm'],
+        type: ['finesse'],
+        depth: ['deep'],
+      },
+    ]
+    weatherData.current.feelslike_f = 80
+
+    const result = await getFishingData(
+      '01516',
+      '',
+      true,
+      tackleList,
+      cityStatesList
+    )
+
+    expect(result.tackle.length).toBe(0)
   })
 })

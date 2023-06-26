@@ -25,7 +25,7 @@ export class CityState {
   }
 }
 
-export class WeatherData {
+class WeatherData {
   public outdoorTemp: string
   public waterTemp: string
   public conditions: string
@@ -45,7 +45,7 @@ export class WeatherData {
   }
 }
 
-export class WeatherDataChild {
+class WeatherDataChild {
   public outdoorTemp: string
   public waterTemp: string
   public conditions: string
@@ -59,7 +59,7 @@ export class WeatherDataChild {
   }
 }
 
-export class BaitRecommendations {
+class BaitRecommendations {
   public colorsToUse: string
   public baitsToUse: string
 
@@ -89,7 +89,7 @@ const waterTempMultiplier = 0.87
 const warmWaterMax = 80
 const warmWaterMin = 60
 
-export async function getWeather(zip: string, cityState: string) {
+async function getWeather(zip: string, cityState: string) {
   if (cityState == '' && (!zip || zip.length !== 5)) {
     return
   }
@@ -103,12 +103,12 @@ export async function getWeather(zip: string, cityState: string) {
   return res.json()
 }
 
-export async function pickTackle(
+function pickTackle(
   tackleList: Tackle[],
   seasons: string,
   species: string[],
   waterTemp: number
-): Promise<Tackle[]> {
+): Tackle[] {
   console.log('Tackle loaded.')
 
   let tackleToUse: Tackle[] = []
@@ -303,7 +303,7 @@ function getSeasons(
       }
       break
     case 6:
-      seasons.push('summer', 'spring')
+      seasons.push('spring', 'summer')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('bass spawn')
         seasons.push('sunfish spawn')
@@ -314,14 +314,14 @@ function getSeasons(
       seasons.push('summer')
       break
     case 9:
-      seasons.push('fall', 'summer')
+      seasons.push('summer', 'fall')
       break
     case 10:
     case 11:
       seasons.push('fall')
       break
     case 12:
-      seasons.push('winter', 'fall')
+      seasons.push('fall', 'winter')
       break
     default:
       break
@@ -393,6 +393,8 @@ export async function getFishingData(
     ) {
       console.log("It's growing season for bass! Bring out the reaction baits!")
     }
+
+    console.log(waterTemp)
 
     if (waterTemp > warmWaterMax) {
       console.log('Water is very warm, need to fish deep and slow!')
