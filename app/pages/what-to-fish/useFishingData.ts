@@ -394,8 +394,6 @@ export async function getFishingData(
       console.log("It's growing season for bass! Bring out the reaction baits!")
     }
 
-    console.log(waterTemp)
-
     if (waterTemp > warmWaterMax) {
       console.log('Water is very warm, need to fish deep and slow!')
     } else if (waterTemp > warmWaterMin) {

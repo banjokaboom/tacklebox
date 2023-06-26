@@ -37,7 +37,6 @@ router.use('/canifish/freshMA', (req, res) => {
         }
       })
 
-      console.log('fwFishingData= ' + JSON.stringify(fishingData))
       res.json({ fishingData, regulationsLink: url })
     })
     .catch((err) => {
@@ -80,7 +79,6 @@ router.use('/canifish/saltMA', (req, res) => {
         }
       })
 
-      console.log('swFishingData= ' + JSON.stringify(fishingData))
       res.json({ fishingData, regulationsLink: url })
     })
     .catch((err) => {

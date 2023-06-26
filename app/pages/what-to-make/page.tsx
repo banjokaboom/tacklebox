@@ -29,8 +29,6 @@ class Recipe {
 }
 
 export default function WhatToMake() {
-  console.log('In default function...')
-
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
   let [refreshCount, setRefreshCount] = useState(0)
@@ -38,8 +36,6 @@ export default function WhatToMake() {
   const recipesList: Recipe[] = useMemo(() => Array.from(recipesJSON), [])
 
   useEffect(() => {
-    console.log('In useEffect...')
-
     function pickRecipes(numRecipes: number) {
       let cookingData = new CookingData()
 
@@ -114,8 +110,6 @@ export default function WhatToMake() {
           console.log('Better luck next time, ' + recipe.name + '!')
         }
       }
-
-      console.log(cookingData.recipes)
 
       cookingData.recipes.forEach(function (recipe: Recipe) {
         recipe.ingredients.forEach(function (ingredient) {
