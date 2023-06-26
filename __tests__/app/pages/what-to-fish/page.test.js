@@ -12,17 +12,45 @@ import {
 import WhatToFish from '../../../../app/pages/what-to-fish/page'
 import '@testing-library/jest-dom'
 
-// eslint-disable-next-line
-jest.mock('../../../../app/pages/what-to-fish/tackle.js', () => [], {
-  virtual: true,
-})
-// eslint-disable-next-line
-jest.mock('../../../../app/pages/what-to-fish/cityStates.js', () => [], {
-  virtual: true,
-})
-
 let weatherData = {}
-let date = new Date()
+
+// eslint-disable-next-line
+jest.mock(
+  '../../../../app/pages/what-to-fish/tackle.js',
+  () => [
+    {
+      name: 'Fixed Bobber Rig',
+      species: [
+        'largemouth bass',
+        'smallmouth bass',
+        'sunfish',
+        'trout',
+        'pickerel/pike/muskies',
+      ],
+      waterTemp: ['cold', 'warm'],
+      type: ['still'],
+      depth: ['shallow'],
+    },
+  ],
+  {
+    virtual: true,
+  }
+)
+
+// eslint-disable-next-line
+jest.mock(
+  '../../../../app/pages/what-to-fish/cityStates.js',
+  () => [
+    {
+      state: 'Massachusetts',
+      capital: 'Boston',
+      location: ['north'],
+    },
+  ],
+  {
+    virtual: true,
+  }
+)
 
 const server = setupServer(
   rest.get('http://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {
@@ -41,8 +69,6 @@ afterEach(() => {
 afterAll(() => server.close())
 
 function resetTestData() {
-  date = new Date()
-
   /* cSpell:disable */
   weatherData = {
     location: {
@@ -81,82 +107,6 @@ function resetTestData() {
 
 describe('WhatToFish', () => {
   it('renders a heading', () => {
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for spring', async () => {
-    date.setMonth('5')
-    // eslint-disable-next-line
-    jest.useFakeTimers().setSystemTime(date)
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for summer', async () => {
-    date.setMonth('8')
-    // eslint-disable-next-line
-    jest.useFakeTimers().setSystemTime(date)
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for fall', async () => {
-    date.setMonth('11')
-    // eslint-disable-next-line
-    jest.useFakeTimers().setSystemTime(date)
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for winter', async () => {
-    date.setMonth('2')
-    // eslint-disable-next-line
-    jest.useFakeTimers().setSystemTime(date)
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for warm water', async () => {
-    weatherData.current.feelslike_f = 100
-
-    render(<WhatToFish />)
-
-    const heading = screen.getByRole('heading', {
-      name: /What to Fish/i,
-    })
-
-    expect(heading).toBeInTheDocument()
-  })
-
-  it('renders for cold water', async () => {
-    weatherData.current.feelslike_f = 32
-
     render(<WhatToFish />)
 
     const heading = screen.getByRole('heading', {

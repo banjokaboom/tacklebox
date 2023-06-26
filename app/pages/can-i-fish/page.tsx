@@ -19,7 +19,6 @@ class Regulations {
 }
 
 function getCreelLimitForIndex(seasonLimits: string[], index: number) {
-  console.log(seasonLimits[index])
   if (seasonLimits[index] && seasonLimits[index].trim() == '') {
     let i = index
     while (i > 0) {
