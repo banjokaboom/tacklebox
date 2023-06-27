@@ -10,32 +10,13 @@ import {
 } from '@jest/globals'
 import '@testing-library/jest-dom'
 import { getFishingData } from '../../../../app/pages/what-to-fish/useFishingData'
+import * as tackleJSON from '../../../../app/pages/what-to-fish/tackle.json'
+import * as cityStateJSON from '../../../../app/pages/what-to-fish/cityStates.json'
 
 let tackleList = []
-let cityStatesList = [
-  {
-    state: 'Massachusetts',
-    capital: 'Boston',
-    location: ['north'],
-  },
-]
+let cityStatesList = []
 let date = new Date()
 let weatherData = {}
-
-// eslint-disable-next-line
-jest.mock(
-  '../../../../app/pages/what-to-fish/cityStates.js',
-  () => [
-    {
-      state: 'Massachusetts',
-      capital: 'Boston',
-      location: ['north'],
-    },
-  ],
-  {
-    virtual: true,
-  }
-)
 
 const server = setupServer(
   rest.get('http://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {
@@ -57,35 +38,9 @@ function resetTestData() {
   // eslint-disable-next-line
   jest.useRealTimers()
 
-  tackleList = [
-    {
-      name: 'Fixed Bobber Rig',
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'sunfish',
-        'trout',
-        'pickerel/pike/muskies',
-      ],
-      waterTemp: ['cold', 'warm'],
-      type: ['still'],
-      depth: ['shallow'],
-    },
-    {
-      name: 'Dropshot Rig',
-      species: ['largemouth bass', 'sunfish', 'trout'],
-      waterTemp: ['cold', 'warm'],
-      type: ['finesse'],
-      depth: ['deep'],
-    },
-    {
-      name: 'Whopper Plopper',
-      species: ['largemouth bass', 'pickerel/pike/muskies'],
-      waterTemp: ['warm'],
-      type: ['reaction'],
-      depth: ['shallow'],
-    },
-  ]
+  tackleList = tackleJSON.tackle
+  cityStatesList = cityStateJSON.cityStates
+
   /* cSpell:disable */
   weatherData = {
     location: {

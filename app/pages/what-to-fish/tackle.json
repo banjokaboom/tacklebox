@@ -1,0 +1,184 @@
+{
+  "tackle": [
+    {
+      "name": "Fixed Bobber Rig",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "sunfish",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["cold", "warm"],
+      "type": ["still"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Ned Rig",
+      "species": ["largemouth bass", "sunfish"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Texas Rig",
+      "species": ["largemouth bass", "sunfish"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse", "reaction"],
+      "depth": ["shallow", "deep"]
+    },
+    {
+      "name": "Carolina Rig",
+      "species": ["largemouth bass", "sunfish", "trout"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse", "still"],
+      "depth": ["shallow", "deep"]
+    },
+    {
+      "name": "Dropshot Rig",
+      "species": ["largemouth bass", "sunfish", "trout"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse"],
+      "depth": ["deep"]
+    },
+    {
+      "name": "Wacky Rig",
+      "species": ["largemouth bass"],
+      "waterTemp": ["warm"],
+      "type": ["finesse"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Whopper Plopper",
+      "species": ["largemouth bass", "pickerel/pike/muskies"],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Popper",
+      "species": ["largemouth bass", "pickerel/pike/muskies"],
+      "waterTemp": ["warm"],
+      "type": ["finesse", "reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Frog",
+      "species": ["largemouth bass"],
+      "waterTemp": ["warm"],
+      "type": ["finesse"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Shallow-Diving Crankbait",
+      "species": ["largemouth bass", "pickerel/pike/muskies"],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Deep-Diving Crankbait",
+      "species": ["largemouth bass"],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["deep"]
+    },
+    {
+      "name": "Lipless Crankbait",
+      "species": ["largemouth bass"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["reaction"],
+      "depth": ["shallow", "deep"]
+    },
+    {
+      "name": "Crickhopper",
+      "species": ["largemouth bass", "smallmouth bass", "sunfish", "trout"],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Jig",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "sunfish",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse", "reaction", "still"],
+      "depth": ["shallow", "deep"]
+    },
+    {
+      "name": "Spoon",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "sunfish",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["cold", "warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Spinnerbait",
+      "species": ["largemouth bass", "pickerel/pike/muskies"],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Inline Spinner",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "sunfish",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["warm"],
+      "type": ["reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Split Shot Rig",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "sunfish",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["warm", "cold"],
+      "type": ["finesse", "reaction"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Jerkbait",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["cold", "warm"],
+      "type": ["finesse", "reaction"],
+      "depth": ["shallow", "deep"]
+    },
+    {
+      "name": "Suspended Jerkbait",
+      "species": [
+        "largemouth bass",
+        "smallmouth bass",
+        "trout",
+        "pickerel/pike/muskies"
+      ],
+      "waterTemp": ["cold"],
+      "type": ["finesse", "reaction"],
+      "depth": ["shallow", "deep"]
+    }
+  ]
+}

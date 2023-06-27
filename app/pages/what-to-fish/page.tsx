@@ -1,7 +1,7 @@
 'use client'
 
-import * as tackleJSON from './tackle.js'
-import * as cityStateJSON from './cityStates.js'
+import * as tackleJSON from './tackle.json'
+import * as cityStateJSON from './cityStates.json'
 import { useState, useEffect, useMemo } from 'react'
 import Loader from '../../components/loader'
 import {
@@ -10,6 +10,7 @@ import {
   FishingData,
   CityState,
 } from './useFishingData'
+import ContentSection from '@/app/components/content'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('01516')
@@ -17,9 +18,9 @@ export default function WhatToFish() {
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
   let [data, setData] = useState(new FishingData())
 
-  const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON), [])
+  const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
-    () => Array.from(cityStateJSON),
+    () => Array.from(cityStateJSON.cityStates),
     []
   )
 
@@ -29,9 +30,7 @@ export default function WhatToFish() {
         return
       }
 
-      let fishingData = new FishingData()
-
-      fishingData = await getFishingData(
+      const fishingData = await getFishingData(
         zip,
         cityState,
         useCurrentWeather,
@@ -122,92 +121,96 @@ export default function WhatToFish() {
         {data.tackle.length > 0 && (
           <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
             <div>
-              <h2 className="text-2xl pb-8 pt-8">Species to target</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>{data.species}</p>
-              </div>
+              <ContentSection
+                title="Species to target"
+                content={data.species}
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">Lure colors to use now</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>{data.baitRecommendations.colorsToUse}</p>
-              </div>
+              <ContentSection
+                title="Lure colors to use now"
+                content={data.baitRecommendations.colorsToUse}
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">Baits to use now</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>{data.baitRecommendations.baitsToUse}</p>
-              </div>
+              <ContentSection
+                title="Baits to use now"
+                content={data.baitRecommendations.baitsToUse}
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">
-                Lures and rigs to use today
-              </h2>
-              {data.species.split(',').map((s) => (
-                <div key={s}>
-                  <h3 className="pb-4 text-xl">{s.toUpperCase()}</h3>
-                  <div className="border border-slate-50 bg-slate-700 p-4 rounded-md mb-4">
-                    {data.tackle.map(
-                      (t) =>
-                        t.species.includes(s.trim()) && (
-                          <p className="pb-4 last:pb-0" key={t.name}>
-                            {t.name}
-                          </p>
-                        )
-                    )}
-                  </div>
-                </div>
-              ))}
+              <ContentSection
+                title="Lures and rigs to use today"
+                content={data.tackle.map((t) => (
+                  <p className="pb-4" key={t.name}>
+                    {t.name}
+                  </p>
+                ))}
+              ></ContentSection>
             </div>
             <div>
-              <h2 className="text-2xl pb-8 pt-8">Season</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>{data.seasons}</p>
-              </div>
+              <ContentSection
+                title="Season"
+                content={data.seasons}
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">Best times to fish</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p>
-                  Bad:{' '}
-                  {data.seasons.includes('spring') ||
-                  data.seasons.includes('fall')
-                    ? 'early morning'
-                    : 'late morning/early afternoon'}
-                </p>
-                <p>
-                  Good:{' '}
-                  {data.seasons.includes('spring') ||
-                  data.seasons.includes('fall')
-                    ? 'late morning/early afternoon'
-                    : 'early morning'}
-                </p>
-                <p>Best: late afternoon/early evening</p>
-              </div>
+              <ContentSection
+                title="Best times to fish"
+                content={
+                  <div>
+                    <p>
+                      Bad:{' '}
+                      {data.seasons.includes('spring') ||
+                      data.seasons.includes('fall')
+                        ? 'early morning'
+                        : 'late morning/early afternoon'}
+                    </p>
+                    <p>
+                      Good:{' '}
+                      {data.seasons.includes('spring') ||
+                      data.seasons.includes('fall')
+                        ? 'late morning/early afternoon'
+                        : 'early morning'}
+                    </p>
+                    <p>Best: late afternoon/early evening</p>
+                  </div>
+                }
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">Current Weather</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p className="pb-4">
-                  Outdoor Temperature: {data.weather.current.outdoorTemp}
-                </p>
-                <p className="pb-4">
-                  Estimated Water Temperature: {data.weather.current.waterTemp}
-                </p>
-                <p className="pb-4">
-                  Conditions: {data.weather.current.conditions}
-                </p>
-                <p>Wind: {data.weather.current.wind}</p>
-              </div>
+              <ContentSection
+                title="Current Weather"
+                content={
+                  <div>
+                    <p className="pb-4">
+                      Outdoor Temperature: {data.weather.current.outdoorTemp}
+                    </p>
+                    <p className="pb-4">
+                      Estimated Water Temperature:{' '}
+                      {data.weather.current.waterTemp}
+                    </p>
+                    <p className="pb-4">
+                      Conditions: {data.weather.current.conditions}
+                    </p>
+                    <p>Wind: {data.weather.current.wind}</p>
+                  </div>
+                }
+              ></ContentSection>
 
-              <h2 className="text-2xl pb-8 pt-8">Today&apos;s Weather</h2>
-              <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                <p className="pb-4">
-                  Outdoor Temperature: {data.weather.forecast.outdoorTemp}
-                </p>
-                <p className="pb-4">
-                  Estimated Water Temperature: {data.weather.forecast.waterTemp}
-                </p>
-                <p className="pb-4">
-                  Conditions: {data.weather.forecast.conditions}
-                </p>
-                <p>Wind: {data.weather.forecast.wind}</p>
-              </div>
+              <ContentSection
+                title="Today's Weather"
+                content={
+                  <div>
+                    <p className="pb-4">
+                      Outdoor Temperature: {data.weather.forecast.outdoorTemp}
+                    </p>
+                    <p className="pb-4">
+                      Estimated Water Temperature:{' '}
+                      {data.weather.forecast.waterTemp}
+                    </p>
+                    <p className="pb-4">
+                      Conditions: {data.weather.forecast.conditions}
+                    </p>
+                    <p>Wind: {data.weather.forecast.wind}</p>
+                  </div>
+                }
+              ></ContentSection>
             </div>
           </div>
         )}

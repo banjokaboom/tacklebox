@@ -14,44 +14,6 @@ import '@testing-library/jest-dom'
 
 let weatherData = {}
 
-// eslint-disable-next-line
-jest.mock(
-  '../../../../app/pages/what-to-fish/tackle.js',
-  () => [
-    {
-      name: 'Fixed Bobber Rig',
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'sunfish',
-        'trout',
-        'pickerel/pike/muskies',
-      ],
-      waterTemp: ['cold', 'warm'],
-      type: ['still'],
-      depth: ['shallow'],
-    },
-  ],
-  {
-    virtual: true,
-  }
-)
-
-// eslint-disable-next-line
-jest.mock(
-  '../../../../app/pages/what-to-fish/cityStates.js',
-  () => [
-    {
-      state: 'Massachusetts',
-      capital: 'Boston',
-      location: ['north'],
-    },
-  ],
-  {
-    virtual: true,
-  }
-)
-
 const server = setupServer(
   rest.get('http://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {
     return res(ctx.json(weatherData))

@@ -20,7 +20,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -36,7 +36,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -52,7 +52,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -68,7 +68,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -84,7 +84,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -100,7 +100,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent --ignore-optional
@@ -116,7 +116,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: 16.13.x
+          node-version: 20.3.x
 
       - name: Install
         run: yarn install --ignore-engines --silent

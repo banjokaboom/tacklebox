@@ -109,8 +109,6 @@ function pickTackle(
   species: string[],
   waterTemp: number
 ): Tackle[] {
-  console.log('Tackle loaded.')
-
   let tackleToUse: Tackle[] = []
 
   tackleList.forEach(function (tackle: Tackle) {
@@ -377,30 +375,12 @@ export async function getFishingData(
   const weather = await getWeather(zip, cityState)
 
   if (weather) {
-    console.log('Weather received.')
-
     fishingData.seasons = getSeasons(weather, cityState, cityStateList)
     fishingData.weather = getWeatherValues(weather)
 
     const waterTemp = useCurrentWeather
       ? parseFloat(fishingData.weather.current.waterTemp)
       : parseFloat(fishingData.weather.forecast.waterTemp)
-
-    if (
-      fishingData.seasons.includes('bass pre-spawn') ||
-      fishingData.seasons.includes('bass spawn') ||
-      fishingData.seasons.includes('fall')
-    ) {
-      console.log("It's growing season for bass! Bring out the reaction baits!")
-    }
-
-    if (waterTemp > warmWaterMax) {
-      console.log('Water is very warm, need to fish deep and slow!')
-    } else if (waterTemp > warmWaterMin) {
-      console.log('Water temp is ideal for fishing most lures and rigs!')
-    } else {
-      console.log('Water temp is cold! At least for bass and most panfish.')
-    }
 
     fishingData.species = getSpecies(waterTemp)
     fishingData.baitRecommendations = pickBaitRecommendations(

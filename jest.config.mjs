@@ -16,9 +16,9 @@ const config = {
     'app/page.{js,jsx,ts,tsx}',
   ],
   coveragePathIgnorePatterns: [
-    '<rootDir>/app/pages/what-to-fish/cityStates.js',
-    '<rootDir>/app/pages/what-to-fish/tackle.js',
-    '<rootDir>/app/pages/what-to-make/recipes.js',
+    '<rootDir>/app/pages/what-to-fish/cityStates.json',
+    '<rootDir>/app/pages/what-to-fish/tackle.json',
+    '<rootDir>/app/pages/what-to-make/recipes.json',
   ],
   coverageThreshold: {
     global: {
