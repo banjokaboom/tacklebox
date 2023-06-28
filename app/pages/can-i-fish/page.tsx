@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { compareDates } from '../../helpers/date'
 import Loader from '../../components/loader'
+import ContentSection from '@/app/components/content'
 
 class Regulations {
   public freshwaterRegulations: object[]
@@ -133,22 +134,32 @@ export default function CanIFish() {
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
                 {data.freshwaterRegulations.map((f: object, fIndex: number) => (
                   <div key={fIndex} className="pb-8">
-                    <h3 className="pb-4 text-xl">{f.species}</h3>
-                    <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                      {f.description &&
-                        f.description.trim() !== f.species.trim() && (
-                          <p className="pb-4">{f.description}</p>
-                        )}
-                      <p className="pb-4">Fishing dates:</p>
-                      <div>
-                        {f.seasonDates.map((sd: string, sdIndex: number) => (
-                          <p key={sdIndex} className="indent-4">
-                            {sd.replace(', ', '').trim()}, Limit:{' '}
-                            {getCreelLimitForIndex(f.seasonLimits, sdIndex)}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
+                    <ContentSection
+                      title={null}
+                      subtitle={f.species}
+                      content={
+                        <div>
+                          {f.description &&
+                            f.description.trim() !== f.species.trim() && (
+                              <p className="pb-4">{f.description}</p>
+                            )}
+                          <p className="pb-4">Fishing dates:</p>
+                          <div>
+                            {f.seasonDates.map(
+                              (sd: string, sdIndex: number) => (
+                                <p key={sdIndex} className="indent-4">
+                                  {sd.replace(', ', '').trim()}, Limit:{' '}
+                                  {getCreelLimitForIndex(
+                                    f.seasonLimits,
+                                    sdIndex
+                                  )}
+                                </p>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      }
+                    ></ContentSection>
                   </div>
                 ))}
               </div>
@@ -160,21 +171,26 @@ export default function CanIFish() {
             <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
               {data.saltwaterRegulations.map((s, sIndex) => (
                 <div key={sIndex} className="pb-8">
-                  <h3 className="pb-4 text-xl">{s.species}</h3>
-                  <div className="border border-slate-50 bg-slate-700 p-4 rounded-md">
-                    {s.description.trim() !== s.species.trim() && (
-                      <p className="pb-4">{s.description}</p>
-                    )}
-                    <p className="pb-4">Fishing dates:</p>
-                    <div>
-                      {s.seasonDates.map((sd: string, sdIndex: number) => (
-                        <p key={sdIndex} className="indent-4">
-                          {sd.replace(', ', '').trim()}, Limit:{' '}
-                          {getCreelLimitForIndex(s.seasonLimits, sdIndex)}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
+                  <ContentSection
+                    title={null}
+                    subtitle={s.species}
+                    content={
+                      <div>
+                        {s.description.trim() !== s.species.trim() && (
+                          <p className="pb-4">{s.description}</p>
+                        )}
+                        <p className="pb-4">Fishing dates:</p>
+                        <div>
+                          {s.seasonDates.map((sd: string, sdIndex: number) => (
+                            <p key={sdIndex} className="indent-4">
+                              {sd.replace(', ', '').trim()}, Limit:{' '}
+                              {getCreelLimitForIndex(s.seasonLimits, sdIndex)}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    }
+                  ></ContentSection>
                 </div>
               ))}
             </div>

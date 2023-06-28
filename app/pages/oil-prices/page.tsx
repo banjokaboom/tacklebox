@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Loader from '../../components/loader'
+import ContentSection from '@/app/components/content'
 
 class OilPriceData {
   public price: string
@@ -62,18 +63,23 @@ export default function OilPrices() {
         {data.price == '' && <Loader />}
         {data.price !== '' && (
           <div>
-            <h2 className="text-2xl pb-8 pt-8">Best Price</h2>
-            <div className="border border-slate-50 bg-slate-700 p-4 rounded-md flex flex-col lg:items-center justify-between">
-              <h3 className="pb-4 text-2xl">Price: {data.price}</h3>
-              <p className="pb-4">Company: {data.company}</p>
-              <a
-                className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
-                href={data.url}
-                target="_blank"
-              >
-                Buy
-              </a>
-            </div>
+            <ContentSection
+              title="Best Price"
+              subtitle={null}
+              content={
+                <div>
+                  <h3 className="pb-4 text-2xl">Price: {data.price}</h3>
+                  <p className="pb-4">Company: {data.company}</p>
+                  <a
+                    className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                    href={data.url}
+                    target="_blank"
+                  >
+                    Buy
+                  </a>
+                </div>
+              }
+            ></ContentSection>
           </div>
         )}
       </div>
