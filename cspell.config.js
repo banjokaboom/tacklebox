@@ -43,5 +43,6 @@ module.exports = {
     'stylelint',
     'Crickhopper',
     'CICD',
+    'Crosshairs',
   ],
 }

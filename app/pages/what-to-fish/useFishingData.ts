@@ -89,11 +89,23 @@ const waterTempMultiplier = 0.87
 const warmWaterMax = 80
 const warmWaterMin = 60
 
-async function getWeather(zip: string, cityState: string) {
+async function getWeather(zip: string, cityState: string, useGeolocation) {
   if (cityState == '' && (!zip || zip.length !== 5)) {
     return
   }
-  let query = cityState !== '' ? cityState : zip
+  let query = ''
+
+  if (useGeolocation && navigator.geolocation) {
+    await navigator.geolocation.getCurrentPosition((position) => {
+      query = position.coords.latitude + ',' + position.coords.longitude
+    })
+  }
+
+  if (query == '' && cityState !== '') {
+    query = cityState
+  } else {
+    query = zip
+  }
   const res = await fetch('/api/weather?q=' + query, { cache: 'no-store' })
 
   return res.json()
@@ -364,11 +376,12 @@ export async function getFishingData(
   cityState: string,
   useCurrentWeather: boolean,
   tackleList: Tackle[],
-  cityStateList: CityState[]
+  cityStateList: CityState[],
+  useGeolocation?: boolean
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
-  const weather = await getWeather(zip, cityState)
+  const weather = await getWeather(zip, cityState, useGeolocation)
 
   if (weather) {
     fishingData.seasons = getSeasons(weather, cityState, cityStateList)

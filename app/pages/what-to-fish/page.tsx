@@ -11,11 +11,14 @@ import {
   CityState,
 } from './useFishingData'
 import ContentSection from '@/app/components/content'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('01516')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
+  let [useGeolocation, setUseGeolocation] = useState(false)
   let [data, setData] = useState(new FishingData())
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
@@ -35,10 +38,12 @@ export default function WhatToFish() {
         cityState,
         useCurrentWeather,
         tackleList,
-        cityStateList
+        cityStateList,
+        useGeolocation
       )
 
       setData(fishingData)
+      setUseGeolocation(false)
     }
 
     let isDataLoaded = false
@@ -48,7 +53,14 @@ export default function WhatToFish() {
     return () => {
       isDataLoaded = true
     }
-  }, [zip, cityState, useCurrentWeather, tackleList, cityStateList])
+  }, [
+    zip,
+    cityState,
+    useCurrentWeather,
+    tackleList,
+    cityStateList,
+    useGeolocation,
+  ])
 
   return (
     <div className="flex flex-col items-center justify-between">
@@ -60,18 +72,27 @@ export default function WhatToFish() {
             <label htmlFor="zip" className="mb-4 block">
               ZIP Code
             </label>
-            <input
-              type="text"
-              name="zip"
-              id="zip"
-              inputMode="numeric"
-              value={zip}
-              onChange={(e) => {
-                setZip(e.target.value)
-                setCityState('')
-              }}
-              className="text-slate-700 leading-4 p-2 block max-w-full"
-            />
+            <div className="flex flex-row">
+              <input
+                type="text"
+                name="zip"
+                id="zip"
+                inputMode="numeric"
+                value={zip}
+                onChange={(e) => {
+                  setZip(e.target.value)
+                  setCityState('')
+                }}
+                className="text-slate-700 leading-4 p-2 block max-w-full"
+              />
+              <button
+                onClick={() => setUseGeolocation(true)}
+                title="Use Current Location"
+                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md ml-4"
+              >
+                <FontAwesomeIcon icon={faLocationCrosshairs} />
+              </button>
+            </div>
           </div>
           <div className="mb-4">OR</div>
           <div className="mb-4">
