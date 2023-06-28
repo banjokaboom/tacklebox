@@ -47,9 +47,12 @@ export default function WhatToFish() {
         geolocation
       )
 
-      setData(fishingData)
+      if (fishingData.tackle.length > 0) {
+        setData(fishingData)
+        setTip(getFishingTip())
+      }
+
       setLoading(false)
-      setTip(getFishingTip())
     }
 
     let isDataLoaded = false
