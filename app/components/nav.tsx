@@ -24,6 +24,9 @@ export default function Nav() {
           </a>
         </div>
       </div>
+      <div className="pt-24 mx-auto max-w-5xl text-right">
+        <p className="text-xs">{process.env.NODE_ENV}</p>
+      </div>
     </nav>
   )
 }
