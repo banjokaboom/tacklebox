@@ -18,10 +18,9 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
+  let [loading, setLoading] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
-
-  const isAwaitingInput = geolocation == '' && zip == '' && cityState == ''
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -35,6 +34,7 @@ export default function WhatToFish() {
         return
       }
 
+      setLoading(true)
       setData(new FishingData())
 
       const fishingData = await getFishingData(
@@ -47,6 +47,7 @@ export default function WhatToFish() {
       )
 
       setData(fishingData)
+      setLoading(false)
     }
 
     let isDataLoaded = false
@@ -69,6 +70,7 @@ export default function WhatToFish() {
     setZip('')
     setCityState('')
     setGeolocation('')
+    setLoading(true)
 
     if (navigator.geolocation) {
       console.log('Using geolocation')
@@ -76,6 +78,7 @@ export default function WhatToFish() {
         setGeolocation(
           position.coords.latitude + ',' + position.coords.longitude
         )
+        setLoading(false)
       })
     } else {
       console.log('Geolocation is not available')
@@ -140,7 +143,7 @@ export default function WhatToFish() {
             </select>
           </div>
         </div>
-        {!isAwaitingInput && data.tackle.length == 0 && <Loader />}
+        {loading && data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
