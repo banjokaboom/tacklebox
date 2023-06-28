@@ -18,10 +18,10 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
-  let [useGeolocation, setUseGeolocation] = useState(false)
+  let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
 
-  const isAwaitingInput = !useGeolocation && zip == '' && cityState == ''
+  const isAwaitingInput = geolocation == '' && zip == '' && cityState == ''
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -43,7 +43,7 @@ export default function WhatToFish() {
         useCurrentWeather,
         tackleList,
         cityStateList,
-        useGeolocation
+        geolocation
       )
 
       setData(fishingData)
@@ -62,8 +62,25 @@ export default function WhatToFish() {
     useCurrentWeather,
     tackleList,
     cityStateList,
-    useGeolocation,
+    geolocation,
   ])
+
+  function getGeolocation() {
+    setZip('')
+    setCityState('')
+    setGeolocation('')
+
+    if (navigator.geolocation) {
+      console.log('Using geolocation')
+      navigator.geolocation.getCurrentPosition((position) => {
+        setGeolocation(
+          position.coords.latitude + ',' + position.coords.longitude
+        )
+      })
+    } else {
+      console.log('Geolocation is not available')
+    }
+  }
 
   return (
     <div className="flex flex-col items-center justify-between">
@@ -85,14 +102,12 @@ export default function WhatToFish() {
                 onChange={(e) => {
                   setZip(e.target.value)
                   setCityState('')
-                  setUseGeolocation(false)
+                  setGeolocation('')
                 }}
                 className="text-slate-700 leading-4 p-2 block max-w-full"
               />
               <button
-                onClick={() => {
-                  setUseGeolocation(true)
-                }}
+                onClick={getGeolocation}
                 title="Use Current Location"
                 className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md ml-4"
               >
@@ -111,7 +126,7 @@ export default function WhatToFish() {
               onChange={(e) => {
                 setZip('')
                 setCityState(e.target.value)
-                setUseGeolocation(false)
+                setGeolocation('')
               }}
               className="text-slate-700 leading-4 p-2 block max-w-full"
               value={cityState}

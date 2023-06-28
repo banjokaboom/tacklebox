@@ -412,7 +412,8 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      ''
     )
 
     expect(result.tackle.length).toBe(0)
