@@ -94,11 +94,7 @@ async function getWeather(zip: string, cityState: string) {
     return
   }
   let query = cityState !== '' ? cityState : zip
-  const res = await fetch(
-    'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=' +
-      query,
-    { cache: 'no-store' }
-  )
+  const res = await fetch('/api/weather?q=' + query, { cache: 'no-store' })
 
   return res.json()
 }

@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "auditfix": "yarn yarn-audit-fix",
-    "dev": "vercel dev",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "vercel": "vercel dev",
     "test": "jest --verbose",
     "test:coverage": "yarn test --coverage",
     "checks": "yarn cspell ; yarn lint ; yarn jscpd",
