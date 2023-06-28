@@ -1,9 +1,6 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
-import {
-  getSpecies,
-  getSpeciesSeasonInfo,
-} from '../../../../server/helpers/canifish.js'
+import { getSpecies, getSpeciesSeasonInfo } from '../../app/helpers/canifish'
 
 export default function handler(req, res) {
   let url = 'https://www.mass.gov/guides/freshwater-fishing-regulations'

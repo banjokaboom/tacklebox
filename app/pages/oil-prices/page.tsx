@@ -23,7 +23,7 @@ export default function OilPrices() {
 
   useEffect(() => {
     async function getOilPrices() {
-      const res = await fetch('http://localhost:5555/oilprices/oilPrices', {
+      const res = await fetch('/api/oilprices', {
         cache: 'no-store',
       })
 

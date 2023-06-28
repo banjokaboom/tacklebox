@@ -1,10 +1,7 @@
-import express from 'express'
 import axios from 'axios'
 import cheerio from 'cheerio'
 
-const router = express.Router()
-
-router.use('/oilprices/oilPrices', (req, res) => {
+export default function handler(req, res) {
   let url = 'https://www.newenglandoil.com/massachusetts/zone10.asp?x=0'
   axios
     .get(url)
@@ -49,6 +46,4 @@ router.use('/oilprices/oilPrices', (req, res) => {
       console.error(err)
       res.status(500).json({ error: err })
     })
-})
-
-export default router
+}

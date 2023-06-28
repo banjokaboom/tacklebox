@@ -13,7 +13,7 @@ import OilPrices from '../../../../app/pages/oil-prices/page'
 import '@testing-library/jest-dom'
 
 const server = setupServer(
-  rest.get('http://localhost:5555/oilprices/oilPrices', (req, res, ctx) => {
+  rest.get('/api/oilprices', (req, res, ctx) => {
     return res(
       ctx.json({ price: '2.50', company: 'test', url: null, allOilPrices: [] })
     )

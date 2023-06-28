@@ -16,10 +16,10 @@ let fwFishingData = []
 let swFishingData = []
 
 const server = setupServer(
-  rest.get('http://localhost:5555/canifish/freshMA', (req, res, ctx) => {
+  rest.get('/api/freshMA', (req, res, ctx) => {
     return res(ctx.json({ fishingData: fwFishingData, regulationsLink: '' }))
   }),
-  rest.get('http://localhost:5555/canifish/saltMA', (req, res, ctx) => {
+  rest.get('/api/saltMA', (req, res, ctx) => {
     return res(ctx.json({ fishingData: swFishingData, regulationsLink: '' }))
   })
 )

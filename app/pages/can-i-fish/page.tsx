@@ -71,7 +71,7 @@ export default function CanIFish() {
     async function fetchRegulations(endpoint: string) {
       let regulations: any[] = []
 
-      await fetch('http://localhost:5555/canifish/' + endpoint, {
+      await fetch('/api/' + endpoint, {
         cache: 'no-store',
       })
         .then((res) => res.json())
