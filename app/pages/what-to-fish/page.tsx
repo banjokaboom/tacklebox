@@ -33,6 +33,8 @@ export default function WhatToFish() {
         return
       }
 
+      setData(new FishingData())
+
       const fishingData = await getFishingData(
         zip,
         cityState,

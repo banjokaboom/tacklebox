@@ -100,9 +100,10 @@ async function getWeather(
     console.log('Using geolocation')
     await navigator.geolocation.getCurrentPosition((position) => {
       query = position.coords.latitude + ',' + position.coords.longitude
-      console.log(query)
     })
   }
+
+  console.log(query)
 
   if (cityState == '' && (!zip || zip.length !== 5)) {
     return
