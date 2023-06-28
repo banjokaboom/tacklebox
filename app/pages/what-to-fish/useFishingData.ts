@@ -388,7 +388,7 @@ export async function getFishingData(
   useCurrentWeather: boolean,
   tackleList: Tackle[],
   cityStateList: CityState[],
-  useGeolocation?: boolean
+  useGeolocation: boolean
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
