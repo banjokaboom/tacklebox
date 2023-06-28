@@ -98,7 +98,7 @@ async function getWeather(
 
   if (useGeolocation && navigator.geolocation) {
     console.log('Using geolocation')
-    await navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition((position) => {
       query = position.coords.latitude + ',' + position.coords.longitude
     })
   }

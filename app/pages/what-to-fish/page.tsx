@@ -15,11 +15,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 
 export default function WhatToFish() {
-  let [zip, setZip] = useState('01516')
+  let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
   let [useGeolocation, setUseGeolocation] = useState(false)
   let [data, setData] = useState(new FishingData())
+
+  const isAwaitingInput = !useGeolocation && zip == '' && cityState == ''
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -123,7 +125,7 @@ export default function WhatToFish() {
             </select>
           </div>
         </div>
-        {data.tackle.length == 0 && <Loader />}
+        {!isAwaitingInput && data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
