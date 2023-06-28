@@ -65,7 +65,6 @@ export default function OilPrices() {
           <div>
             <ContentSection
               title="Best Price"
-              subtitle={null}
               content={
                 <div>
                   <h3 className="pb-4 text-2xl">Price: {data.price}</h3>

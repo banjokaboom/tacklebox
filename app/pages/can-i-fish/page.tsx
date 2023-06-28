@@ -135,7 +135,6 @@ export default function CanIFish() {
                 {data.freshwaterRegulations.map((f: object, fIndex: number) => (
                   <div key={fIndex} className="pb-8">
                     <ContentSection
-                      title={null}
                       subtitle={f.species}
                       content={
                         <div>
@@ -172,7 +171,6 @@ export default function CanIFish() {
               {data.saltwaterRegulations.map((s, sIndex) => (
                 <div key={sIndex} className="pb-8">
                   <ContentSection
-                    title={null}
                     subtitle={s.species}
                     content={
                       <div>

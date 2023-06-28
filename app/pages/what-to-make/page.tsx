@@ -110,7 +110,6 @@ export default function WhatToMake() {
             <div>
               <ContentSection
                 title="Meals to cook this week"
-                subtitle={null}
                 content={
                   <div>
                     {data.recipes.map((r) => (
@@ -125,7 +124,6 @@ export default function WhatToMake() {
             <div>
               <ContentSection
                 title="Ingredients to add to the shopping list"
-                subtitle={null}
                 content={
                   <div>
                     {data.ingredients.map((i) => (

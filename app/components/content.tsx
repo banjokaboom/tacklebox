@@ -1,4 +1,12 @@
-export default function ContentSection({ title, subtitle, content }) {
+import { ReactNode } from 'react'
+
+interface Props {
+  title?: string
+  subtitle?: string
+  content: ReactNode
+}
+
+export default function ContentSection({ title, subtitle, content }: Props) {
   return (
     <div>
       {title && <h2 className="text-2xl pb-8 pt-8">{title}</h2>}
