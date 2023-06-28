@@ -19,7 +19,7 @@ let date = new Date()
 let weatherData = {}
 
 const server = setupServer(
-  rest.get('http://api.weatherapi.com/v1/forecast.json', (req, res, ctx) => {
+  rest.get('/api/weather', (req, res, ctx) => {
     return res(ctx.json(weatherData))
   })
 )

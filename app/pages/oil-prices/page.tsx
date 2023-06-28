@@ -58,7 +58,7 @@ export default function OilPrices() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl pb-4">Oil Prices</h1>
+        <h1 className="text-3xl mb-4">Oil Prices</h1>
         <hr />
         {data.price == '' && <Loader />}
         {data.price !== '' && (
@@ -67,8 +67,8 @@ export default function OilPrices() {
               title="Best Price"
               content={
                 <div>
-                  <h3 className="pb-4 text-2xl">Price: {data.price}</h3>
-                  <p className="pb-4">Company: {data.company}</p>
+                  <h3 className="mb-4 text-2xl">Price: {data.price}</h3>
+                  <p className="mb-4">Company: {data.company}</p>
                   <a
                     className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
                     href={data.url}

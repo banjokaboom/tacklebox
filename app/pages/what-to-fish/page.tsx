@@ -53,11 +53,11 @@ export default function WhatToFish() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl pb-4">What to Fish (Freshwater)</h1>
-        <hr className="pb-4" />
+        <h1 className="text-3xl mb-4">What to Fish (Freshwater)</h1>
+        <hr className="mb-4" />
         <div className="flex flex-col lg:flex-row justify-between lg:items-end">
-          <div className="pb-4">
-            <label htmlFor="zip" className="pb-4 block">
+          <div className="mb-4">
+            <label htmlFor="zip" className="mb-4 block">
               ZIP Code
             </label>
             <input
@@ -73,9 +73,9 @@ export default function WhatToFish() {
               className="text-slate-700 leading-4 p-2 block max-w-full"
             />
           </div>
-          <div className="pb-4">OR</div>
-          <div className="pb-4">
-            <label htmlFor="state" className="pb-4 block">
+          <div className="mb-4">OR</div>
+          <div className="mb-4">
+            <label htmlFor="state" className="mb-4 block">
               State
             </label>
             <select
@@ -100,8 +100,8 @@ export default function WhatToFish() {
         {data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
           <div>
-            <p className="pb-4">Data loaded for {data.weather.location}</p>
-            <label htmlFor="useCurrentWeather" className="pb-4 block">
+            <p className="mb-4">Data loaded for {data.weather.location}</p>
+            <label htmlFor="useCurrentWeather" className="mb-4 block">
               Use current weather or forecast?
             </label>
             <select
@@ -139,7 +139,7 @@ export default function WhatToFish() {
               <ContentSection
                 title="Lures and rigs to use today"
                 content={data.tackle.map((t) => (
-                  <p className="pb-4" key={t.name}>
+                  <p className="mb-4" key={t.name}>
                     {t.name}
                   </p>
                 ))}
@@ -178,14 +178,14 @@ export default function WhatToFish() {
                 title="Current Weather"
                 content={
                   <div>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Outdoor Temperature: {data.weather.current.outdoorTemp}
                     </p>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Estimated Water Temperature:{' '}
                       {data.weather.current.waterTemp}
                     </p>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Conditions: {data.weather.current.conditions}
                     </p>
                     <p>Wind: {data.weather.current.wind}</p>
@@ -197,14 +197,14 @@ export default function WhatToFish() {
                 title="Today's Weather"
                 content={
                   <div>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Outdoor Temperature: {data.weather.forecast.outdoorTemp}
                     </p>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Estimated Water Temperature:{' '}
                       {data.weather.forecast.waterTemp}
                     </p>
-                    <p className="pb-4">
+                    <p className="mb-4">
                       Conditions: {data.weather.forecast.conditions}
                     </p>
                     <p>Wind: {data.weather.forecast.wind}</p>

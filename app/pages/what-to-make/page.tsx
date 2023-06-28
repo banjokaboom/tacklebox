@@ -77,10 +77,10 @@ export default function WhatToMake() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl pb-4">What to Make</h1>
-        <hr className="pb-4" />
-        <div className="pb-4">
-          <label htmlFor="numRecipes" className="pb-4 block">
+        <h1 className="text-3xl mb-4">What to Make</h1>
+        <hr className="mb-4" />
+        <div className="mb-4">
+          <label htmlFor="numRecipes" className="mb-4 block">
             Number of Meals to Cook
           </label>
           <input
@@ -113,7 +113,7 @@ export default function WhatToMake() {
                 content={
                   <div>
                     {data.recipes.map((r) => (
-                      <p className="pb-4 last:pb-0" key={r.name}>
+                      <p className="mb-4 last:mb-0" key={r.name}>
                         {r.name}
                       </p>
                     ))}
@@ -127,7 +127,7 @@ export default function WhatToMake() {
                 content={
                   <div>
                     {data.ingredients.map((i) => (
-                      <div className="pb-4 last:pb-0" key={i}>
+                      <div className="mb-4 last:mb-0" key={i}>
                         <input
                           type="checkbox"
                           name="ingredient"

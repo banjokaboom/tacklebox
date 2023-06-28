@@ -129,7 +129,7 @@ export default function CanIFish() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl pb-4">
+        <h1 className="text-3xl mb-4">
           Can I Fish:{' '}
           {data.freshwaterRegulations.length > 0 ||
           data.saltwaterRegulations.length > 0
@@ -154,9 +154,9 @@ export default function CanIFish() {
                         <div>
                           {f.description &&
                             f.description.trim() !== f.species.trim() && (
-                              <p className="pb-4">{f.description}</p>
+                              <p className="mb-4">{f.description}</p>
                             )}
-                          <p className="pb-4">Fishing dates:</p>
+                          <p className="mb-4">Fishing dates:</p>
                           <div>
                             {f.seasonDates.map(
                               (sd: string, sdIndex: number) => (
@@ -189,9 +189,9 @@ export default function CanIFish() {
                     content={
                       <div>
                         {s.description.trim() !== s.species.trim() && (
-                          <p className="pb-4">{s.description}</p>
+                          <p className="mb-4">{s.description}</p>
                         )}
-                        <p className="pb-4">Fishing dates:</p>
+                        <p className="mb-4">Fishing dates:</p>
                         <div>
                           {s.seasonDates.map((sd: string, sdIndex: number) => (
                             <p key={sdIndex} className="indent-4">
