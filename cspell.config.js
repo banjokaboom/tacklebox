@@ -44,5 +44,10 @@ module.exports = {
     'Crickhopper',
     'CICD',
     'Crosshairs',
+    'spinnerbaits',
+    'Crankbaits',
+    'topwater',
+    'topwaters',
+    'newenglandoil',
   ],
 }
