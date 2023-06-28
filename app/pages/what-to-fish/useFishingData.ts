@@ -89,7 +89,11 @@ const waterTempMultiplier = 0.87
 const warmWaterMax = 80
 const warmWaterMin = 60
 
-async function getWeather(zip: string, cityState: string, useGeolocation) {
+async function getWeather(
+  zip: string,
+  cityState: string,
+  useGeolocation: boolean
+) {
   if (cityState == '' && (!zip || zip.length !== 5)) {
     return
   }
@@ -101,14 +105,21 @@ async function getWeather(zip: string, cityState: string, useGeolocation) {
     })
   }
 
-  if (query == '' && cityState !== '') {
-    query = cityState
-  } else {
-    query = zip
+  if (query == '') {
+    if (cityState !== '') {
+      query = cityState
+    } else {
+      query = zip
+    }
   }
-  const res = await fetch('/api/weather?q=' + query, { cache: 'no-store' })
 
-  return res.json()
+  if (query !== '') {
+    const res = await fetch('/api/weather?q=' + query, { cache: 'no-store' })
+
+    return res.json()
+  }
+
+  return
 }
 
 function pickTackle(

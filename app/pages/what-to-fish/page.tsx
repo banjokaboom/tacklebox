@@ -43,7 +43,6 @@ export default function WhatToFish() {
       )
 
       setData(fishingData)
-      setUseGeolocation(false)
     }
 
     let isDataLoaded = false
@@ -82,11 +81,14 @@ export default function WhatToFish() {
                 onChange={(e) => {
                   setZip(e.target.value)
                   setCityState('')
+                  setUseGeolocation(false)
                 }}
                 className="text-slate-700 leading-4 p-2 block max-w-full"
               />
               <button
-                onClick={() => setUseGeolocation(true)}
+                onClick={() => {
+                  setUseGeolocation(true)
+                }}
                 title="Use Current Location"
                 className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md ml-4"
               >
@@ -105,6 +107,7 @@ export default function WhatToFish() {
               onChange={(e) => {
                 setZip('')
                 setCityState(e.target.value)
+                setUseGeolocation(false)
               }}
               className="text-slate-700 leading-4 p-2 block max-w-full"
               value={cityState}
