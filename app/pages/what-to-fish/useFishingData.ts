@@ -94,15 +94,18 @@ async function getWeather(
   cityState: string,
   useGeolocation: boolean
 ) {
-  if (cityState == '' && (!zip || zip.length !== 5)) {
-    return
-  }
   let query = ''
 
   if (useGeolocation && navigator.geolocation) {
+    console.log('Using geolocation')
     await navigator.geolocation.getCurrentPosition((position) => {
       query = position.coords.latitude + ',' + position.coords.longitude
+      console.log(query)
     })
+  }
+
+  if (cityState == '' && (!zip || zip.length !== 5)) {
+    return
   }
 
   if (query == '') {
