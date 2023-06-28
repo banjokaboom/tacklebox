@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeAll, afterEach } from '@jest/globals'
 import '@testing-library/jest-dom'
 import { pickRecipes } from '../../../../app/pages/what-to-make/useRecipeData'
-import * as recipesJSON from '../../../../app/pages/what-to-make/recipes'
+import recipesJSON from '../../../../app/pages/what-to-make/recipes'
 
 let recipesList = []
 

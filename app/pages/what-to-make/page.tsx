@@ -1,6 +1,6 @@
 'use client'
 
-import * as recipesJSON from './recipes.json'
+import recipesJSON from './recipes.json'
 import { useState, useEffect, useMemo } from 'react'
 import Loader from '../../components/loader'
 import { pickRecipes, Recipe, CookingData } from './useRecipeData'

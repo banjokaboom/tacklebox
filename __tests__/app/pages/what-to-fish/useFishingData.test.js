@@ -10,8 +10,8 @@ import {
 } from '@jest/globals'
 import '@testing-library/jest-dom'
 import { getFishingData } from '../../../../app/pages/what-to-fish/useFishingData'
-import * as tackleJSON from '../../../../app/pages/what-to-fish/tackle.json'
-import * as cityStateJSON from '../../../../app/pages/what-to-fish/cityStates.json'
+import tackleJSON from '../../../../app/pages/what-to-fish/tackle.json'
+import cityStateJSON from '../../../../app/pages/what-to-fish/cityStates.json'
 
 let tackleList = []
 let cityStatesList = []

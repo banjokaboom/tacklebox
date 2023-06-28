@@ -1,7 +1,7 @@
 'use client'
 
-import * as tackleJSON from './tackle.json'
-import * as cityStateJSON from './cityStates.json'
+import tackleJSON from './tackle.json'
+import cityStateJSON from './cityStates.json'
 import { useState, useEffect, useMemo } from 'react'
 import Loader from '../../components/loader'
 import {
