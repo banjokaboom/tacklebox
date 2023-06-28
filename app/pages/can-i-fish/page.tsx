@@ -6,9 +6,9 @@ import Loader from '../../components/loader'
 import ContentSection from '@/app/components/content'
 
 class Regulations {
-  public freshwaterRegulations: object[]
+  public freshwaterRegulations: Regulation[]
   public freshwaterRegulationsLink: string
-  public saltwaterRegulations: object[]
+  public saltwaterRegulations: Regulation[]
   public saltwaterRegulationsLink: string
 
   constructor() {
@@ -16,6 +16,20 @@ class Regulations {
     this.freshwaterRegulationsLink = ''
     this.saltwaterRegulations = []
     this.saltwaterRegulationsLink = ''
+  }
+}
+
+class Regulation {
+  public species: string
+  public description: string
+  public seasonDates: string[]
+  public seasonLimits: string[]
+
+  constructor() {
+    this.species = ''
+    this.description = ''
+    this.seasonDates = []
+    this.seasonLimits = []
   }
 }
 
@@ -65,7 +79,7 @@ export default function CanIFish() {
           let fishingRegulations: object[] = []
           let canIFish = false
 
-          data.fishingData.forEach((regulation) => {
+          data.fishingData.forEach((regulation: any) => {
             let dates = regulation.seasonDates
 
             if (typeof dates == 'object') {
@@ -132,7 +146,7 @@ export default function CanIFish() {
             <div>
               <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
-                {data.freshwaterRegulations.map((f: object, fIndex: number) => (
+                {data.freshwaterRegulations.map((f, fIndex: number) => (
                   <div key={fIndex} className="pb-8">
                     <ContentSection
                       subtitle={f.species}
