@@ -40,3 +40,7 @@ body {
 input[type='checkbox']:checked ~ label {
   text-decoration: line-through;
 }
+
+nav a {
+  line-height: 24pt;
+}

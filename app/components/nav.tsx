@@ -36,8 +36,20 @@ export default function Nav() {
           <a className="w-fit" href="/pages/about">
             About
           </a>
-          <a className="w-fit" href="/pages/contact">
+          <a
+            className="w-fit"
+            href="mailto:tackleboxappfeedback@gmail.com?subject=Tacklebox%20Feedback"
+          >
             Contact
+          </a>
+          <a
+            className="w-fit flex flex-row items-center"
+            title="Paypal Donate Link"
+            href="https://www.paypal.com/donate/?hosted_button_id=BUNJWE5436NXN"
+            target="_blank"
+          >
+            Donate{' '}
+            <FontAwesomeIcon icon={faPaypal} className="max-h-5 h-5 ml-2" />
           </a>
           <div className="flex flex-row pt-4">
             <a
@@ -55,14 +67,6 @@ export default function Nav() {
               target="_blank"
             >
               <FontAwesomeIcon icon={faLinkedinIn} className="max-h-6 h-6" />
-            </a>
-            <a
-              className="inline-block p-2"
-              title="Paypal Donate Link"
-              href="https://www.paypal.com/donate/?hosted_button_id=BUNJWE5436NXN"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faPaypal} className="max-h-6 h-6" />
             </a>
             <a
               className="inline-block p-2"

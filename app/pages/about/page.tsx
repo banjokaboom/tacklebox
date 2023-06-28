@@ -21,7 +21,7 @@ export default function Feedback() {
             <p className="mb-4">
               I have been a web developer for 10+ years working with different
               frameworks, methodologies, and tools, including but not limited to
-              Java, PHP, React, Vue, Node, Git, CICD, and Typscript. I am fond
+              Java, PHP, React, Vue, Node, Git, CICD, and Typescript. I am fond
               of and very much enjoy working with Javascript frameworks and
               generally in the web development space, as the instant
               gratification of seeing your code update after a web page refresh
