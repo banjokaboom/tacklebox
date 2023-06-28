@@ -2,7 +2,9 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 
 export default function handler(req, res) {
-  let url = 'https://www.newenglandoil.com/massachusetts/zone10.asp?x=0'
+  const zone = req.query.zone
+  let url =
+    'https://www.newenglandoil.com/massachusetts/zone' + zone + '.asp?x=0'
   axios
     .get(url)
     .then((ares) => {
@@ -22,7 +24,7 @@ export default function handler(req, res) {
           .parent()
           .find('[data-label="Company"] > a')
           .attr('href')
-        if (url.indexOf('click.asp') == 0) {
+        if (url && url.indexOf('click.asp') == 0) {
           url = 'https://www.newenglandoil.com/massachusetts/' + url
         }
 

@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export default function handler(req, res) {
-  console.log(req.query.q)
   let url =
     'http://api.weatherapi.com/v1/forecast.json?key=fbbd41244a6947eb83c182430231306&q=' +
     req.query.q

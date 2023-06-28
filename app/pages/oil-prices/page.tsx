@@ -20,10 +20,11 @@ class OilPriceData {
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
+  let [zone, setZone] = useState('10')
 
   useEffect(() => {
     async function getOilPrices() {
-      const res = await fetch('/api/oilprices', {
+      const res = await fetch('/api/oilprices?zone=' + zone, {
         cache: 'no-store',
       })
 
@@ -53,13 +54,51 @@ export default function OilPrices() {
     return () => {
       isDataLoaded = true
     }
-  }, [])
+  }, [zone])
 
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl mb-4">Oil Prices</h1>
-        <hr />
+        <hr className="mb-4" />
+        <div className="mb-4">
+          <p className="mb-4">
+            Don&apos;t know your zone? Go to{' '}
+            <a href="https://www.newenglandoil.com/mass.htm" target="_blank">
+              newenglandoil.com
+            </a>{' '}
+            to find out!
+          </p>
+          <label htmlFor="state" className="mb-4 block">
+            Zone
+          </label>
+          <select
+            name="zone"
+            id="zone"
+            onChange={(e) => {
+              setZone(e.target.value)
+            }}
+            className="text-slate-700 leading-4 p-2 block max-w-full"
+            value={zone}
+          >
+            <option value=""></option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+        </div>
         {data.price == '' && <Loader />}
         {data.price !== '' && (
           <div>

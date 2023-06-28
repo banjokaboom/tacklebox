@@ -91,9 +91,7 @@ const warmWaterMin = 60
 
 async function getWeather(zip: string, cityState: string, geolocation: string) {
   let query = ''
-
-  console.log(query)
-
+  
   if (geolocation == '' && cityState == '' && (!zip || zip.length !== 5)) {
     return
   }

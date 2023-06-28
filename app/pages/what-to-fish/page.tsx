@@ -21,6 +21,7 @@ export default function WhatToFish() {
   let [loading, setLoading] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
+  let [tip, setTip] = useState('')
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -48,6 +49,7 @@ export default function WhatToFish() {
 
       setData(fishingData)
       setLoading(false)
+      setTip(getFishingTip())
     }
 
     let isDataLoaded = false
@@ -85,40 +87,63 @@ export default function WhatToFish() {
     }
   }
 
+  function getFishingTip() {
+    const tips = [
+      'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
+      'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
+      "Fish slow when using topwaters. Let the water calm down before starting the retrieve, especially if the fish aren't biting when trying other methods.",
+      "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
+      'If the fishing gets tough, fish less traveled spots.',
+      'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
+      'Trout and related species are sight feeders and look up for food. Fish top half of the water column.',
+      'Fixed Bobber: Pinch bobber onto the line, pinch a split shot between the bobber and hook, and add a wacky-rigged worm or a grub lure to the hook. Cast out, let the lure fall, then jerk it every few seconds to give it some action. Can also use plastic minnows or live bait of course',
+      'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top.',
+      'Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
+      'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
+      'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
+      'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
+      'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
+      'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
+    ]
+
+    return tips[Math.floor(Math.random() * tips.length)]
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl mb-4">What to Fish (Freshwater)</h1>
         <hr className="mb-4" />
-        <div className="flex flex-col lg:flex-row justify-between lg:items-end">
+        <p className="mb-4">
+          To start, provide a ZIP, choose a State, or use your current location.
+        </p>
+        <div className="flex flex-col lg:flex-row justify-between lg:items-start">
           <div className="mb-4">
             <label htmlFor="zip" className="mb-4 block">
               ZIP Code
             </label>
-            <div className="flex flex-row">
-              <input
-                type="text"
-                name="zip"
-                id="zip"
-                inputMode="numeric"
-                value={zip}
-                onChange={(e) => {
-                  setZip(e.target.value)
-                  setCityState('')
-                  setGeolocation('')
-                }}
-                className="text-slate-700 leading-4 p-2 block max-w-full"
-              />
-              <button
-                onClick={getGeolocation}
-                title="Use Current Location"
-                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md ml-4"
-              >
-                <FontAwesomeIcon icon={faLocationCrosshairs} />
-              </button>
-            </div>
+            <input
+              type="text"
+              name="zip"
+              id="zip"
+              inputMode="numeric"
+              value={zip}
+              onChange={(e) => {
+                setZip(e.target.value)
+                setCityState('')
+                setGeolocation('')
+              }}
+              className="text-slate-700 leading-4 p-2 mb-4"
+            />
+            <button
+              onClick={getGeolocation}
+              className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+            >
+              Use Current Location
+              <FontAwesomeIcon icon={faLocationCrosshairs} className="ml-2" />
+            </button>
           </div>
-          <div className="mb-4">OR</div>
+          <div className="mb-4 lg:hidden">OR</div>
           <div className="mb-4">
             <label htmlFor="state" className="mb-4 block">
               State
@@ -258,6 +283,15 @@ export default function WhatToFish() {
                 }
               ></ContentSection>
             </div>
+          </div>
+        )}
+
+        {tip !== '' && (
+          <div>
+            <ContentSection
+              title="Tip of the Day"
+              content={tip}
+            ></ContentSection>
           </div>
         )}
       </div>
