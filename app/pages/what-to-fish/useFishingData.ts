@@ -1,5 +1,6 @@
 export class Tackle {
   public name: string
+  public confidence: number
   public species: string[]
   public waterTemp: string[]
   public type: string[]
@@ -7,6 +8,7 @@ export class Tackle {
 
   constructor() {
     this.name = ''
+    this.confidence = 10
     this.species = []
     this.waterTemp = []
     this.type = []
@@ -138,6 +140,17 @@ function pickTackle(
     if (isTackleForSpecies && isTackleForWeather(tackle, seasons, waterTemp)) {
       tackleToUse.push(tackle)
     }
+  })
+
+  tackleToUse.sort((a, b) => {
+    if (a.confidence < b.confidence) {
+      return 1
+    }
+    if (a.confidence > b.confidence) {
+      return -1
+    }
+    // a must be equal to b
+    return 0
   })
 
   return tackleToUse

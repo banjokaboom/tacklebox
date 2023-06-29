@@ -2,6 +2,7 @@
   "tackle": [
     {
       "name": "Fixed Bobber Rig",
+      "confidence": 10,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -15,6 +16,7 @@
     },
     {
       "name": "Ned Rig",
+      "confidence": 7,
       "species": ["largemouth bass", "sunfish"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse"],
@@ -22,6 +24,7 @@
     },
     {
       "name": "Texas Rig",
+      "confidence": 5,
       "species": ["largemouth bass", "sunfish"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse", "reaction"],
@@ -29,6 +32,7 @@
     },
     {
       "name": "Carolina Rig",
+      "confidence": 5,
       "species": ["largemouth bass", "sunfish", "trout"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse", "still"],
@@ -36,6 +40,7 @@
     },
     {
       "name": "Dropshot Rig",
+      "confidence": 9,
       "species": ["largemouth bass", "sunfish", "trout"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse"],
@@ -43,6 +48,7 @@
     },
     {
       "name": "Wacky Rig",
+      "confidence": 10,
       "species": ["largemouth bass"],
       "waterTemp": ["warm"],
       "type": ["finesse"],
@@ -50,6 +56,7 @@
     },
     {
       "name": "Whopper Plopper",
+      "confidence": 5,
       "species": ["largemouth bass", "pickerel/pike/muskies"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -57,6 +64,7 @@
     },
     {
       "name": "Popper",
+      "confidence": 6,
       "species": ["largemouth bass", "pickerel/pike/muskies"],
       "waterTemp": ["warm"],
       "type": ["finesse", "reaction"],
@@ -64,6 +72,7 @@
     },
     {
       "name": "Frog",
+      "confidence": 5,
       "species": ["largemouth bass"],
       "waterTemp": ["warm"],
       "type": ["finesse"],
@@ -71,6 +80,7 @@
     },
     {
       "name": "Shallow-Diving Crankbait",
+      "confidence": 3,
       "species": ["largemouth bass", "pickerel/pike/muskies"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -78,6 +88,7 @@
     },
     {
       "name": "Deep-Diving Crankbait",
+      "confidence": 3,
       "species": ["largemouth bass"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -85,6 +96,7 @@
     },
     {
       "name": "Lipless Crankbait",
+      "confidence": 3,
       "species": ["largemouth bass"],
       "waterTemp": ["cold", "warm"],
       "type": ["reaction"],
@@ -92,6 +104,7 @@
     },
     {
       "name": "Crickhopper",
+      "confidence": 6,
       "species": ["largemouth bass", "smallmouth bass", "sunfish", "trout"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -99,6 +112,7 @@
     },
     {
       "name": "Jig",
+      "confidence": 7,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -112,6 +126,7 @@
     },
     {
       "name": "Spoon",
+      "confidence": 5,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -125,6 +140,7 @@
     },
     {
       "name": "Spinnerbait",
+      "confidence": 5,
       "species": ["largemouth bass", "pickerel/pike/muskies"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -132,6 +148,7 @@
     },
     {
       "name": "Inline Spinner",
+      "confidence": 5,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -145,6 +162,7 @@
     },
     {
       "name": "Split Shot Rig",
+      "confidence": 7,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -158,6 +176,7 @@
     },
     {
       "name": "Jerkbait",
+      "confidence": 3,
       "species": [
         "largemouth bass",
         "smallmouth bass",
@@ -170,6 +189,7 @@
     },
     {
       "name": "Suspended Jerkbait",
+      "confidence": 3,
       "species": [
         "largemouth bass",
         "smallmouth bass",
