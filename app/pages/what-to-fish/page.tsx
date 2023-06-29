@@ -21,7 +21,6 @@ export default function WhatToFish() {
   let [loading, setLoading] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
-  let [tip, setTip] = useState('')
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -49,7 +48,6 @@ export default function WhatToFish() {
 
       if (fishingData.tackle.length > 0) {
         setData(fishingData)
-        setTip(getFishingTip())
       }
 
       setLoading(false)
@@ -110,7 +108,16 @@ export default function WhatToFish() {
       'The day before a storm is the best time to fish.',
     ]
 
-    return tips[Math.floor(Math.random() * tips.length)]
+    const today = new Date()
+    let tipIndex = 0
+
+    if (today.getDate() > tips.length) {
+      tipIndex = today.getDate() - Math.trunc(today.getDate() / 10) * 10
+    } else {
+      tipIndex = today.getDate()
+    }
+
+    return tips[tipIndex]
   }
 
   return (
@@ -290,15 +297,13 @@ export default function WhatToFish() {
           </div>
         )}
 
-        {tip !== '' && (
-          <div>
-            <ContentSection
-              title="Tip of the Day"
-              content={tip}
-              isExpandedByDefault={true}
-            ></ContentSection>
-          </div>
-        )}
+        <div>
+          <ContentSection
+            title="Tip of the Day"
+            content={getFishingTip()}
+            isExpandedByDefault={true}
+          ></ContentSection>
+        </div>
       </div>
     </div>
   )
