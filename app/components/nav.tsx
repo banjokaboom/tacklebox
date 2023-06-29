@@ -6,6 +6,7 @@ import {
   faGithub,
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons'
+import { faFishFins } from '@fortawesome/free-solid-svg-icons'
 
 export default function Nav() {
   return (
@@ -83,6 +84,14 @@ export default function Nav() {
               target="_blank"
             >
               <FontAwesomeIcon icon={faTwitter} className="max-h-6 h-6" />
+            </a>
+            <a
+              className="inline-block p-2"
+              title="FishAngler Social Link"
+              href="https://www.fishangler.com/banjokaboom"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faFishFins} className="max-h-6 h-6" />
             </a>
           </div>
         </div>

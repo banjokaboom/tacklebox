@@ -107,6 +107,7 @@ export default function WhatToFish() {
       'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
       'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
       'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
+      'The day before a storm is the best time to fish.',
     ]
 
     return tips[Math.floor(Math.random() * tips.length)]
@@ -219,7 +220,7 @@ export default function WhatToFish() {
                 ))}
               ></ContentSection>
             </div>
-            <div>
+            <div className="basis-4/12 shrink-0">
               <ContentSection
                 title="Season"
                 content={data.seasons}
@@ -294,6 +295,7 @@ export default function WhatToFish() {
             <ContentSection
               title="Tip of the Day"
               content={tip}
+              isExpandedByDefault={true}
             ></ContentSection>
           </div>
         )}

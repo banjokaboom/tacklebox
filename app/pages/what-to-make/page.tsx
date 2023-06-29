@@ -119,6 +119,7 @@ export default function WhatToMake() {
                     ))}
                   </div>
                 }
+                isExpandedByDefault={true}
               ></ContentSection>
             </div>
             <div>
@@ -155,6 +156,7 @@ export default function WhatToMake() {
                     </button>
                   </div>
                 }
+                isExpandedByDefault={true}
               ></ContentSection>
             </div>
           </div>

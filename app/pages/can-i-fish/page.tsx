@@ -172,6 +172,7 @@ export default function CanIFish() {
                           </div>
                         </div>
                       }
+                      isExpandedByDefault={true}
                     ></ContentSection>
                   </div>
                 ))}
@@ -202,6 +203,7 @@ export default function CanIFish() {
                         </div>
                       </div>
                     }
+                    isExpandedByDefault={true}
                   ></ContentSection>
                 </div>
               ))}

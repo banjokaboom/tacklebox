@@ -117,6 +117,7 @@ export default function OilPrices() {
                   </a>
                 </div>
               }
+              isExpandedByDefault={true}
             ></ContentSection>
           </div>
         )}
