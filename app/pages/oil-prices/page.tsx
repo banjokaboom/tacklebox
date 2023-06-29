@@ -20,7 +20,7 @@ class OilPriceData {
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
-  let [zone, setZone] = useState('10')
+  let [zone, setZone] = useState(Math.floor(Math.random() * 15) + 1 + '')
 
   useEffect(() => {
     async function getOilPrices() {
@@ -81,7 +81,6 @@ export default function OilPrices() {
             className="text-slate-700 leading-4 p-2 block max-w-full"
             value={zone}
           >
-            <option value=""></option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
