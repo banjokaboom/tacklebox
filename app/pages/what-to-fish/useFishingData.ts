@@ -164,7 +164,13 @@ function pickBaitRecommendations(
     }
     colorsToUse.push('orange', 'red')
     baitToUse.push('powerbait', 'soft plastic insects')
-  } else {
+  }
+
+  if (
+    seasons.includes('summer') ||
+    seasons.includes('fall') ||
+    seasons.includes('winter')
+  ) {
     colorsToUse.push('shad', 'baitfish', 'white', 'blue')
     baitToUse.push('soft plastic swimbaits', 'shiners')
 
