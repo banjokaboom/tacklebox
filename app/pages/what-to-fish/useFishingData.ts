@@ -406,6 +406,10 @@ export async function getFishingData(
   const location =
     geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
 
+  if (location == '') {
+    return fishingData
+  }
+
   if (weather) {
     fishingData.seasons = getSeasons(weather, cityState, cityStateList)
     fishingData.weather = getWeatherValues(weather)

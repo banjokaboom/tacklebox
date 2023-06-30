@@ -58,7 +58,7 @@ export default function WhatToFish() {
           setData(fishingData)
           m.message = 'Successfully loaded tackle for location: ' + location
           m.severity = 'success'
-        } else {
+        } else if (location !== '') {
           m.message = 'No tackle loaded for location: ' + location
           m.severity = 'alert'
         }

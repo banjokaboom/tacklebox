@@ -24,14 +24,17 @@ export default function Message({ message, severity }: MessageData) {
   let iconSeverityClass = ''
   let icon = null
   if (severity == 'success') {
+    console.log(message)
     severityClass = 'bg-green-400 text-slate-700'
     iconSeverityClass = 'text-green-800'
     icon = faSquareCheck
   } else if (severity == 'alert') {
+    console.warn(message)
     severityClass = 'bg-yellow-400 text-slate-700'
     iconSeverityClass = 'text-yellow-800'
     icon = faTriangleExclamation
   } else if (severity == 'error') {
+    console.error(message)
     severityClass = 'bg-red-400 text-slate-700'
     iconSeverityClass = 'text-red-800'
     icon = faCircleExclamation
