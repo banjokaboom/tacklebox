@@ -27,7 +27,6 @@ jobs:
 
       - name: Run audit
         run: yarn audit
-        continue-on-error: true
   lint-js:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
@@ -44,7 +43,6 @@ jobs:
 
       - name: Run js linting
         run: yarn lint:js
-        continue-on-error: true
   lint-prettier:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
@@ -61,7 +59,6 @@ jobs:
 
       - name: Run prettier linting
         run: yarn lint:prettier
-        continue-on-error: true
   lint-style:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
@@ -78,7 +75,6 @@ jobs:
 
       - name: Run style linting
         run: yarn lint:style
-        continue-on-error: true
   cspell:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
@@ -95,7 +91,6 @@ jobs:
 
       - name: Run spellcheck
         run: yarn cspell
-        continue-on-error: true
   jscpd:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
@@ -112,7 +107,6 @@ jobs:
 
       - name: Run copy paste detection
         run: yarn jscpd
-        continue-on-error: true
   jest:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
