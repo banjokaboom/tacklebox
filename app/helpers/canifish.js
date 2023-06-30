@@ -7,7 +7,6 @@ const endRegex = /(,\s*)+/gim
 
 export function getSpecies(species) {
   return species
-    .text()
     .replace(charsRegex, '')
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
@@ -17,7 +16,6 @@ export function getSpecies(species) {
 
 export function getDescription(description) {
   return description
-    .text()
     .replace(charsRegex, '')
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
@@ -27,7 +25,7 @@ export function getDescription(description) {
 }
 
 export function getSeasonDates(seasonDates) {
-  let seasonDatesHTML = seasonDates.html().replace(newLineRegex, '<br>')
+  let seasonDatesHTML = seasonDates.replace(newLineRegex, '<br>')
 
   if (
     seasonDatesHTML.indexOf('</p><p>') >= 0 ||
@@ -59,7 +57,6 @@ export function getSeasonLimits(seasonLimits) {
   let limits = []
 
   const seasonLimitsArray = seasonLimits
-    .html()
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
     .replace(endRegex, '')
@@ -76,7 +73,6 @@ export function getSeasonLimits(seasonLimits) {
 
 export function getMinimumLength(minimumLength) {
   return minimumLength
-    .html()
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
     .replace('Only one fish may,', 'Only one fish may')
@@ -94,17 +90,17 @@ export function getSpeciesSeasonInfo(
   speciesSeasonInfo['species'] = species
 
   if (description[0]) {
-    speciesSeasonInfo['description'] = getDescription(description)
+    speciesSeasonInfo['description'] = getDescription(description.text())
   }
 
   if (seasonDates[0]) {
-    speciesSeasonInfo['seasonDates'] = getSeasonDates(seasonDates)
+    speciesSeasonInfo['seasonDates'] = getSeasonDates(seasonDates.html())
   }
   if (seasonLimits[0]) {
-    speciesSeasonInfo['seasonLimits'] = getSeasonLimits(seasonLimits)
+    speciesSeasonInfo['seasonLimits'] = getSeasonLimits(seasonLimits.html())
   }
   if (minimumLength[0]) {
-    speciesSeasonInfo['minimumLength'] = getMinimumLength(minimumLength)
+    speciesSeasonInfo['minimumLength'] = getMinimumLength(minimumLength.html())
   }
 
   if (

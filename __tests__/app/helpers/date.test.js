@@ -2,7 +2,7 @@ import { describe, it, expect } from '@jest/globals'
 import { compareDates } from '../../../app/helpers/date'
 import '@testing-library/jest-dom'
 
-describe('Home', () => {
+describe('date helper', () => {
   it('can compare dates', () => {
     const dates = 'Jan 1 - Dec 31'
 
