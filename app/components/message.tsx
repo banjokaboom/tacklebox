@@ -20,7 +20,7 @@ export class MessageData {
 
 export default function Message({ message, severity }: MessageData) {
   let [isHidden, setIsHidden] = useState(false)
-  let severityClass = 'hidden'
+  let severityClass = ''
   let iconSeverityClass = ''
   let icon = faTriangleExclamation
   if (severity == 'success') {
@@ -40,7 +40,7 @@ export default function Message({ message, severity }: MessageData) {
     icon = faCircleExclamation
   }
 
-  if (severityClass !== 'hidden') {
+  if (severityClass !== '') {
     setTimeout(() => {
       setIsHidden(true)
     }, 5000)
