@@ -1,0 +1,32 @@
+55ee0a8 added changelogs
+a674f62 added changelogs
+1931ff6 changed nav to footer, updated home page
+223908f updated message styles, added message component test
+d4f30dd updated message styles
+05cae74 changed messages to use fixed instead of absolute
+b3d783f fixed a few small bugs
+0d4fa10 fixed a few small bugs
+1659b7c slight tweak to hide message on initial page load, added logging in message component
+f693f91 added message component
+651612d sorted tackle by confidence level
+bc8c70f added adsense
+4561c12 set a static tip based on the date
+c28af1a updated oil prices to choose a random number to start
+ca576db added expand collapse to content sections
+8ffbd2d fixed season overlap for lure colors
+17e2704 slight tweak to how the tip renders
+ea2957c added analytics, fixed some spelling issues
+530b31b added zones, about us test, and added fishing tips to what to fish
+ac1744f fixed regulations display
+3fccc06 updated readme
+8449ce7 added loader for geolocation
+435858b fixed geolocation
+82abf1d updated default view of what to fish
+ffb13df testing geolocation more
+8295397 testing geolocation
+38d234a fixing build errors
+65edb18 slight tweak to geolocation
+9fe7632 added geolocation
+5462cde fixed typo
+7d6b4ba updated nav, fixed some tests, added about us
+823403d cleaned up some extra directories, updated ignore files

@@ -24,19 +24,23 @@ export default function Footer() {
             What to Fish (Freshwater)
           </a>
           <h4 className="text-lg mb-4 underline">Home Maintenance</h4>
-          <a className="w-fit lg:mb-4" href="/pages/oil-prices">
+          <a className="w-fit mb-4" href="/pages/oil-prices">
             Oil Prices (MA)
+          </a>
+          <h4 className="text-lg mb-4 underline">Personal</h4>
+          <a className="w-fit lg:mb-4" href="/pages/what-to-make">
+            What to Make for Dinner
           </a>
         </div>
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
-          <h4 className="text-lg mb-4 underline">Personal</h4>
-          <a className="w-fit mb-4 " href="/pages/what-to-make">
-            What to Make for Dinner
-          </a>
-          <h4 className="text-lg mb-4 underline">Social</h4>
+          <h4 className="text-lg mb-4 underline">Info</h4>
           <a className="w-fit" href="/pages/about">
             About
           </a>
+          <a className="w-fit mb-4" href="/pages/changelog">
+            Changelog
+          </a>
+          <h4 className="text-lg mb-4 underline">Social</h4>
           <a
             className="w-fit"
             href="mailto:tackleboxappfeedback@gmail.com?subject=Tacklebox%20Feedback"

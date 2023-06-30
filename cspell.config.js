@@ -49,5 +49,8 @@ module.exports = {
     'topwater',
     'topwaters',
     'newenglandoil',
+    'adsense',
+    'lintfix',
+    'contentsection',
   ],
 }
