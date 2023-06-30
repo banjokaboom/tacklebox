@@ -1,0 +1,73 @@
+cf9073b added weather serverless function
+f2d2438 changed to using serverless functions
+5da9fd3 added environment name
+008204d attempting to use serverless computing
+08e70fd fixed build errors
+07e644d fixed json import warnings
+825bf27 fixed required props issue on contentsection
+8184424 refactored pages to use content section component
+405f6d3 cleared <p> warning from logs, attempted to resolve the audit error
+ad85495 updated tests, over 80% coverage now!
+f52c274 cleaned up some console logs
+637bccc completed test for useFishingData
+a234185 refactored and improved what to fish test
+0f60edd ran lintfix
+12d3a2d updated what to fish test for more coverage
+aaf2c6e updated can-i-fish test to 100% coverage
+13b414c updated readme
+2dcb533 trying to fix the jest action
+4707190 slight tweaks to jest
+4be22ac fixed can i fish app, updated some date stuff
+9534db6 added current vs forecast toggle
+25ce8b1 added working test for what to fish, added stub for what to make
+8e3041f wrote test for can i fish page
+2cc6730 updated oilprices test
+b919563 added working oil prices test
+4dfcc03 fixed one cpd issue, fixed saltwater regulations rendering
+3fa681c added jscpd
+95b6546 some refactoring of code, added tackle grouped by species
+f0aa5c2 ran lintfix
+99a0d33 added pot roast
+cbea619 added missing recipes, updated style linting, added more species to list
+4716ef3 fixed loader imports
+44db07c added loader test
+6b7bbe7 loaded state from weather
+8853867 fixed default display
+d16f113 fixed tacklebox icon height, updated state-based inputs
+7872906 added loader
+84e486f added recommended species to target
+15f95df added state dropdown for determining proper spawn seasons per state
+60b7990 fixed ts errors
+c62f5d7 fixed some jest tests,added new test for date, fixed some typescript errors
+e73cf0c added location text to what to fish app
+3d337fe ran lintfix, added not supported text
+4a9fa85 slight tweak to global padding
+8816cc8 added copy button for ingredients
+9e2da5f adjusted some styles
+4806394 fixed homepage format, using state and binding for what to fish app with zip code
+e24a9cf converted json files to js files with exports
+6f089cf switched to jest and added test coverage
+b75bdf2 ran lintfix and updated cspell
+4944c1d restructured folders, added cypress tests
+9d96a6b fixed spelling errors
+6a7c78f fixed dates on saltwater grid
+3103e30 fixed js lint error, removed duplicate text from can i fish, updated nav with organization
+10b4d5c fixed mobile display of fishing regulations grid
+eb3ed22 fixed saltwater regulations, updated display on the can i fish page
+e65bc74 added plugin:jsx-a11y
+ff111e8 resolved color contrast  issues
+ebb3577 added can i fish app
+b7eb102 ran lintfix
+6d9ab94 added no-cache
+843ab53 removed style linting from github actions, fixed pipeline errors
+6b424ea fixed what to make page, fixed some errors from pipeline
+a91cfc3 remove npm cache from github main action
+370dbd6 added cspell, ignore engines in github actions
+96f5d64 Create main.yml
+a5d939a added cspell config, updated layout and styles
+b971051 updated prettier and eslint configs
+4c0a839 added icon
+1c4c802 removed .next directory
+a52e709 added server and oil prices app
+d0b8e99 base setup complete, what to fish app is working
+8536be7 Initial commit from Create Next App
