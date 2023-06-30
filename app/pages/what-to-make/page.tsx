@@ -5,11 +5,13 @@ import { useState, useEffect, useMemo } from 'react'
 import Loader from '../../components/loader'
 import { pickRecipes, Recipe, CookingData } from './useRecipeData'
 import ContentSection from '@/app/components/content'
+import Message, { MessageData } from '@/app/components/message'
 
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
   let [refreshCount, setRefreshCount] = useState(0)
+  let [message, setMessage] = useState(new MessageData())
 
   const recipesList: Recipe[] = useMemo(
     () => Array.from(recipesJSON.recipes),
@@ -17,11 +19,25 @@ export default function WhatToMake() {
   )
 
   useEffect(() => {
-    async function getData() {
-      const data = await pickRecipes(numRecipes, recipesList)
+    let m = new MessageData()
+    setMessage(new MessageData())
 
-      if (!isDataLoaded) {
-        setData(data)
+    async function getData() {
+      setData(new CookingData())
+
+      try {
+        const data = await pickRecipes(numRecipes, recipesList)
+
+        if (!isDataLoaded) {
+          m.message = 'Successfully loaded ' + numRecipes + ' recipes'
+          m.severity = 'success'
+          setMessage(m)
+          setData(data)
+        }
+      } catch (error: any) {
+        m.message = error
+        m.severity = 'error'
+        setMessage(m)
       }
     }
 
@@ -162,6 +178,13 @@ export default function WhatToMake() {
           </div>
         )}
       </div>
+
+      {message.message !== '' && (
+        <Message
+          message={message.message}
+          severity={message.severity}
+        ></Message>
+      )}
     </div>
   )
 }

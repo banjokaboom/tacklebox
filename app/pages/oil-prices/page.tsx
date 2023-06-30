@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Loader from '../../components/loader'
 import ContentSection from '@/app/components/content'
+import Message, { MessageData } from '@/app/components/message'
 
 class OilPriceData {
   public price: string
@@ -21,8 +22,12 @@ class OilPriceData {
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
   let [zone, setZone] = useState(Math.floor(Math.random() * 15) + 1 + '')
+  let [message, setMessage] = useState(new MessageData())
 
   useEffect(() => {
+    let m = new MessageData()
+    setMessage(new MessageData())
+
     async function getOilPrices() {
       const res = await fetch('/api/oilprices?zone=' + zone, {
         cache: 'no-store',
@@ -35,15 +40,24 @@ export default function OilPrices() {
       setData(new OilPriceData())
       let oilPriceData = new OilPriceData()
 
-      const data = await getOilPrices()
+      try {
+        const data = await getOilPrices()
 
-      oilPriceData.price = '$' + data.price
-      oilPriceData.company = data.company
-      oilPriceData.url = data.url
-      oilPriceData.oilPrices = data.allOilPrices
+        oilPriceData.price = '$' + data.price
+        oilPriceData.company = data.company
+        oilPriceData.url = data.url
+        oilPriceData.oilPrices = data.allOilPrices
 
-      if (!isDataLoaded) {
-        setData(data)
+        if (!isDataLoaded) {
+          m.message = 'Successfully loaded oil prices for zone: ' + zone
+          m.severity = 'success'
+          setMessage(m)
+          setData(data)
+        }
+      } catch (error: any) {
+        m.message = error
+        m.severity = 'error'
+        setMessage(m)
       }
     }
 
@@ -121,6 +135,13 @@ export default function OilPrices() {
           </div>
         )}
       </div>
+
+      {message.message !== '' && (
+        <Message
+          message={message.message}
+          severity={message.severity}
+        ></Message>
+      )}
     </div>
   )
 }

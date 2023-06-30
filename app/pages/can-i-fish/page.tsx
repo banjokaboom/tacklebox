@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { compareDates } from '../../helpers/date'
 import Loader from '../../components/loader'
 import ContentSection from '@/app/components/content'
+import Message, { MessageData } from '@/app/components/message'
 
 class Regulations {
   public freshwaterRegulations: Regulation[]
@@ -57,14 +58,28 @@ function getCreelLimitForIndex(seasonLimits: string[], index: number) {
 
 export default function CanIFish() {
   let [data, setData] = useState(new Regulations())
+  let [message, setMessage] = useState(new MessageData())
 
   useEffect(() => {
+    let m = new MessageData()
+    setMessage(new MessageData())
+
     async function getData() {
       setData(new Regulations())
-      let data = await getMARegulations()
 
-      if (!isDataLoaded) {
-        setData(data)
+      try {
+        let data = await getMARegulations()
+
+        if (!isDataLoaded) {
+          m.message = 'Successfully loaded fishing regulations for MA'
+          m.severity = 'success'
+          setMessage(m)
+          setData(data)
+        }
+      } catch (error: any) {
+        m.message = error
+        m.severity = 'error'
+        setMessage(m)
       }
     }
 
@@ -77,26 +92,21 @@ export default function CanIFish() {
         .then((res) => res.json())
         .then((data) => {
           let fishingRegulations: object[] = []
-          let canIFish = false
 
           data.fishingData.forEach((regulation: any) => {
             let dates = regulation.seasonDates
 
-            if (typeof dates == 'object') {
+            if (Array.isArray(dates)) {
               dates.forEach((date: object) => {
                 if (compareDates(date)) {
                   fishingRegulations.push(regulation)
-
-                  canIFish = true
                 }
               })
             }
           })
 
-          if (canIFish) {
-            regulations.push(fishingRegulations)
-            regulations.push(data.regulationsLink)
-          }
+          regulations.push(fishingRegulations)
+          regulations.push(data.regulationsLink)
         })
 
       return regulations
@@ -211,6 +221,13 @@ export default function CanIFish() {
           </div>
         )}
       </div>
+
+      {message.message !== '' && (
+        <Message
+          message={message.message}
+          severity={message.severity}
+        ></Message>
+      )}
     </div>
   )
 }

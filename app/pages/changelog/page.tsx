@@ -1,3 +1,9 @@
+/**
+ * To generate changelogs
+ *
+ * git log --oneline --decorate=no HEAD...{previous tag} > changelogs/{new tag}.txt
+ */
+
 import ContentSection from '@/app/components/content'
 
 export default function ChangeLog() {
