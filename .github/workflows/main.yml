@@ -26,7 +26,9 @@ jobs:
         run: yarn install --ignore-engines --silent --ignore-optional
 
       - name: Run audit
-        run: yarn audit
+        run: |
+          yarn audit
+          if [ $? -ge 8 ]; then exit 1; else exit 0 ; fi
   lint-js:
     runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
     steps:
