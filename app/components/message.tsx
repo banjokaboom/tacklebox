@@ -22,7 +22,7 @@ export default function Message({ message, severity }: MessageData) {
   let [isHidden, setIsHidden] = useState(false)
   let severityClass = 'hidden'
   let iconSeverityClass = ''
-  let icon = null
+  let icon = faTriangleExclamation
   if (severity == 'success') {
     console.log(message)
     severityClass = 'bg-green-400 text-slate-700'
