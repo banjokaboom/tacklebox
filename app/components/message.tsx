@@ -49,10 +49,12 @@ export default function Message({ message, severity }: MessageData) {
   return (
     <div
       className={
-        'p-4 flex flex-row items-center text-left fixed top-4 rounded-md max-w-5xl w-full ' +
+        'p-4 flex flex-row items-center text-left fixed transition-[top] rounded-md max-w-5xl w-full ' +
         severityClass +
-        (isHidden ? ' hidden' : '')
+        (isHidden ? ' -top-24' : ' top-6')
       }
+      role="alert"
+      aria-live={severity == 'error' ? 'assertive' : 'polite'}
     >
       <FontAwesomeIcon icon={icon} className={'mr-4 ' + iconSeverityClass} />
       {message}
