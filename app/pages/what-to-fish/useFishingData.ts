@@ -403,6 +403,8 @@ export async function getFishingData(
   let fishingData = new FishingData()
 
   const weather = await getWeather(zip, cityState, geolocation)
+  const location =
+    geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
 
   if (weather) {
     fishingData.seasons = getSeasons(weather, cityState, cityStateList)
@@ -424,6 +426,8 @@ export async function getFishingData(
       fishingData.species.split(','),
       waterTemp
     )
+  } else {
+    throw 'Unable to load weather for location: ' + location
   }
 
   return fishingData

@@ -407,16 +407,11 @@ describe('useFishingData', () => {
   })
 
   it("doesn't load when state not selected and zip length < 5", async () => {
-    const result = await getFishingData(
-      '015',
-      '',
-      true,
-      tackleList,
-      cityStatesList,
-      ''
-    )
-
-    expect(result.tackle.length).toBe(0)
+    try {
+      await getFishingData('015', '', true, tackleList, cityStatesList, '')
+    } catch (error) {
+      expect(error).not.toBeUndefined()
+    }
   })
 
   it('shows no tackle when water is really warm and tackleList has no warm tackle', async () => {

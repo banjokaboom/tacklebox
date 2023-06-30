@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { ReactNode } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   title?: string
@@ -20,8 +20,6 @@ export default function ContentSection({
 }: Props) {
   let [isExpanded, setIsExpanded] = useState(isExpandedByDefault || false)
 
-  let icon = isExpanded ? faAngleDown : faAngleRight
-
   return (
     <div>
       {title && (
@@ -31,7 +29,13 @@ export default function ContentSection({
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <span>{title}</span>
-          <FontAwesomeIcon icon={icon} className="ml-4" />
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            className={
+              'ml-4 transition-transform ' +
+              (isExpanded ? 'rotate-90' : 'rotate-0')
+            }
+          />
         </button>
       )}
       {subtitle && !title && (
@@ -41,7 +45,13 @@ export default function ContentSection({
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <span>{subtitle}</span>
-          <FontAwesomeIcon icon={icon} className="ml-4" />
+          <FontAwesomeIcon
+            icon={faAngleRight}
+            className={
+              'ml-4 transition-transform ' +
+              (isExpanded ? 'rotate-90' : 'rotate-0')
+            }
+          />
         </button>
       )}
       {subtitle && title && (

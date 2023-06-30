@@ -13,6 +13,7 @@ import {
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import Message, { MessageData } from '@/app/components/message'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -21,6 +22,7 @@ export default function WhatToFish() {
   let [loading, setLoading] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
+  let [message, setMessage] = useState(new MessageData())
 
   const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
   const cityStateList: CityState[] = useMemo(
@@ -29,6 +31,11 @@ export default function WhatToFish() {
   )
 
   useEffect(() => {
+    const location =
+      geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
+    let m = new MessageData()
+    setMessage(new MessageData())
+
     async function getData() {
       if (isDataLoaded) {
         return
@@ -37,19 +44,30 @@ export default function WhatToFish() {
       setLoading(true)
       setData(new FishingData())
 
-      const fishingData = await getFishingData(
-        zip,
-        cityState,
-        useCurrentWeather,
-        tackleList,
-        cityStateList,
-        geolocation
-      )
+      try {
+        const fishingData = await getFishingData(
+          zip,
+          cityState,
+          useCurrentWeather,
+          tackleList,
+          cityStateList,
+          geolocation
+        )
 
-      if (fishingData.tackle.length > 0) {
-        setData(fishingData)
+        if (fishingData.tackle.length > 0) {
+          setData(fishingData)
+          m.message = 'Successfully loaded tackle for location: ' + location
+          m.severity = 'success'
+        } else {
+          m.message = 'No tackle loaded for location: ' + location
+          m.severity = 'alert'
+        }
+      } catch (error: any) {
+        m.message = error
+        m.severity = 'error'
       }
 
+      setMessage(m)
       setLoading(false)
     }
 
@@ -305,6 +323,13 @@ export default function WhatToFish() {
           ></ContentSection>
         </div>
       </div>
+
+      {message.message !== '' && (
+        <Message
+          message={message.message}
+          severity={message.severity}
+        ></Message>
+      )}
     </div>
   )
 }
