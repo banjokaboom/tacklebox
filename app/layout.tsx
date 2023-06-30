@@ -1,7 +1,7 @@
 import './assets/css/globals.css'
 import { Inter } from 'next/font/google'
 import Header from './components/header'
-import Nav from './components/nav'
+import Footer from './components/footer'
 import React from 'react'
 import { Analytics } from '@vercel/analytics/react'
 
@@ -31,7 +31,7 @@ export default function RootLayout({
         <main className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
           {children}
         </main>
-        <Nav></Nav>
+        <Footer></Footer>
         <Analytics />
       </body>
     </html>

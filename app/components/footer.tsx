@@ -6,12 +6,12 @@ import {
   faGithub,
   faLinkedinIn,
 } from '@fortawesome/free-brands-svg-icons'
-import { faFishFins } from '@fortawesome/free-solid-svg-icons'
+import { faTree, faMugHot } from '@fortawesome/free-solid-svg-icons'
 
-export default function Nav() {
+export default function Footer() {
   return (
-    <nav className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
-      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start">
+    <footer className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
+      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start border-t pt-8">
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <a className="mb-4 w-fit" href="/">
             Home
@@ -49,8 +49,17 @@ export default function Nav() {
             href="https://www.paypal.com/donate/?hosted_button_id=BUNJWE5436NXN"
             target="_blank"
           >
-            Donate{' '}
+            <span>Donate </span>
             <FontAwesomeIcon icon={faPaypal} className="max-h-5 h-5 ml-2" />
+          </a>
+          <a
+            className="w-fit flex flex-row items-center"
+            title="Ko-fi Donate Link"
+            href="https://ko-fi.com/banjokaboom"
+            target="_blank"
+          >
+            <span>Buy me coffee </span>
+            <FontAwesomeIcon icon={faMugHot} className="max-h-5 h-5 ml-2" />
           </a>
           <div className="flex flex-row pt-4">
             <a
@@ -71,6 +80,14 @@ export default function Nav() {
             </a>
             <a
               className="inline-block p-2"
+              title="LinkTree Social Link"
+              href="https://linktr.ee/banjokaboom"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faTree} className="max-h-6 h-6" />
+            </a>
+            <a
+              className="inline-block p-2"
               title="Reddit Social Link"
               href="https://www.reddit.com/user/tackleboxapp"
               target="_blank"
@@ -85,20 +102,12 @@ export default function Nav() {
             >
               <FontAwesomeIcon icon={faTwitter} className="max-h-6 h-6" />
             </a>
-            <a
-              className="inline-block p-2"
-              title="FishAngler Social Link"
-              href="https://www.fishangler.com/banjokaboom"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faFishFins} className="max-h-6 h-6" />
-            </a>
           </div>
         </div>
       </div>
       <div className="pt-24 mx-auto max-w-5xl text-right hidden">
         <p className="text-xs">{process.env.NODE_ENV}</p>
       </div>
-    </nav>
+    </footer>
   )
 }

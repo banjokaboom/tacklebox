@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import Nav from '../../../app/components/nav'
+import Footer from '../../../app/components/footer'
 import '@testing-library/jest-dom'
 
-describe('Nav', () => {
+describe('Footer', () => {
   it('has all proper link text', () => {
-    render(<Nav />)
+    render(<Footer />)
 
     const homeLink = screen.getByText('Home')
     const oilPricesLink = screen.getByText('Oil Prices (MA)')
@@ -21,7 +21,7 @@ describe('Nav', () => {
   })
 
   it('has all proper links', () => {
-    render(<Nav />)
+    render(<Footer />)
 
     const homeLink = screen.getByText('Home')
     const oilPricesLink = screen.getByText('Oil Prices (MA)')
