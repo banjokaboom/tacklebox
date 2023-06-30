@@ -128,4 +128,38 @@ jobs:
         run: yarn install --ignore-engines --silent
 
       - name: Run jest
+        run: yarn test
+  jest-coverage:
+    runs-on: ${{ fromJSON('["ubuntu-latest", "self-hosted"]')[github.repository == 'github/docs-internal'] }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.x
+
+      - name: Install
+        run: yarn install --ignore-engines --silent
+
+      - name: Run jest coverage
         run: yarn test:coverage
+  deploy:
+    runs-on: ubuntu-latest
+    name: 'Deploy application'
+    needs: jest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.x
+
+      - name: 'Deploy to Vercel'
+        run: npx vercel --token ${VERCEL_TOKEN} --prod
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}

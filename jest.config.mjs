@@ -10,7 +10,7 @@ const createJestConfig = nextJest({
 const config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  collectCoverage: true,
+  collectCoverage: false,
   collectCoverageFrom: [
     'app/{pages,components,helpers}/**/*.{js,jsx,ts,tsx}',
     'app/page.{js,jsx,ts,tsx}',
