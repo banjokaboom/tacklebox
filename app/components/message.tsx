@@ -49,7 +49,7 @@ export default function Message({ message, severity }: MessageData) {
   return (
     <div
       className={
-        'p-4 flex flex-row items-center text-left absolute top-4 rounded-md max-w-5xl w-full ' +
+        'p-4 flex flex-row items-center text-left fixed top-4 rounded-md max-w-5xl w-full ' +
         severityClass +
         (isHidden ? ' hidden' : '')
       }
