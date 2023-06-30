@@ -410,7 +410,7 @@ export async function getFishingData(
     return fishingData
   }
 
-  if (weather) {
+  if (weather && weather.location) {
     fishingData.seasons = getSeasons(weather, cityState, cityStateList)
     fishingData.weather = getWeatherValues(weather)
 
@@ -430,7 +430,11 @@ export async function getFishingData(
       fishingData.species.split(','),
       waterTemp
     )
-  } else {
+  } else if (
+    geolocation !== '' ||
+    cityState != '' ||
+    (zip != '' && zip.length == 5)
+  ) {
     throw 'Unable to load weather for location: ' + location
   }
 

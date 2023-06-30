@@ -58,7 +58,11 @@ export default function WhatToFish() {
           setData(fishingData)
           m.message = 'Successfully loaded tackle for location: ' + location
           m.severity = 'success'
-        } else if (location !== '') {
+        } else if (
+          geolocation !== '' ||
+          cityState != '' ||
+          (zip != '' && zip.length == 5)
+        ) {
           m.message = 'No tackle loaded for location: ' + location
           m.severity = 'alert'
         }
