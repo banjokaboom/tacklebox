@@ -250,7 +250,7 @@ function isTackleForWeather(
     }
   }
 
-  if (!tackle.type.includes('still')) {
+  if (tackle.type.includes('still')) {
     return true
   }
 
