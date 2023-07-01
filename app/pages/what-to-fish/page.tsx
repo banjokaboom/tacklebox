@@ -261,15 +261,15 @@ export default function WhatToFish() {
                   <div>
                     <p>
                       Bad:{' '}
-                      {data.seasons.includes('spring') ||
-                      data.seasons.includes('fall')
+                      {!data.seasons.includes('summer') &&
+                      !data.seasons.includes('winter')
                         ? 'early morning'
                         : 'late morning/early afternoon'}
                     </p>
                     <p>
                       Good:{' '}
-                      {data.seasons.includes('spring') ||
-                      data.seasons.includes('fall')
+                      {!data.seasons.includes('summer') &&
+                      !data.seasons.includes('winter')
                         ? 'late morning/early afternoon'
                         : 'early morning'}
                     </p>
