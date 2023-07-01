@@ -27,6 +27,7 @@ jobs:
 
       - name: Run audit
         run: |
+          set +e
           yarn audit
           if [ $? -ge 8 ]; then exit 1; else exit 0 ; fi
   lint-js:
