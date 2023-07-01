@@ -73,7 +73,7 @@ export default function OilPrices() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
-        <h1 className="text-3xl mb-4">Oil Prices</h1>
+        <h1 className="text-3xl mb-4">Heating Oil Prices</h1>
         <hr className="mb-4" />
         <div className="mb-4">
           <p className="mb-4">

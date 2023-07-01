@@ -1,6 +1,7 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {
   describe,
   it,
@@ -29,8 +30,18 @@ describe('OilPrices', () => {
     render(<OilPrices />)
 
     const heading = screen.getByRole('heading', {
-      name: /Oil Prices/i,
+      name: /Heating Oil Prices/i,
     })
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads price when zone is selected', async () => {
+    render(<OilPrices />)
+
+    await userEvent.selectOptions(screen.getByRole('combobox'), '10')
+
+    const heading = await screen.findByText(/Best Price/i)
 
     expect(heading).toBeInTheDocument()
   })

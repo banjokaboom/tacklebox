@@ -1,6 +1,7 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import {
   describe,
   it,
@@ -74,6 +75,31 @@ describe('WhatToFish', () => {
     const heading = screen.getByRole('heading', {
       name: /What to Fish/i,
     })
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when zip is entered', async () => {
+    render(<WhatToFish />)
+
+    const input = screen.getByRole('textbox')
+
+    await userEvent.type(input, '01516')
+
+    const heading = await screen.findByText(/Species to target/i)
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when state is selected', async () => {
+    render(<WhatToFish />)
+
+    await userEvent.selectOptions(
+      screen.getByRole('combobox'),
+      'Boston,Massachusetts'
+    )
+
+    const heading = await screen.findByText(/Species to target/i)
 
     expect(heading).toBeInTheDocument()
   })

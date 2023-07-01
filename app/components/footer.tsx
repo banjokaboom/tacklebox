@@ -25,7 +25,7 @@ export default function Footer() {
           </a>
           <h4 className="text-lg mb-4 underline">Home Maintenance</h4>
           <a className="w-fit mb-4" href="/pages/oil-prices">
-            Oil Prices (MA)
+            Heating Oil Prices (MA)
           </a>
           <h4 className="text-lg mb-4 underline">Personal</h4>
           <a className="w-fit lg:mb-4" href="/pages/what-to-make">

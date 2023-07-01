@@ -73,18 +73,6 @@ export function getSeasonLimits(seasonLimits) {
     .replace(endRegex, '')
     .split(',')
 
-  console.log(
-    seasonLimits
-      .replace(newLineRegex, ', ')
-      .replace(extraRegex, ', ')
-      .replace(startRegex, '')
-      .replace(endRegex, '')
-  )
-  console.log(
-    seasonLimits.replace(newLineRegex, ', ').replace(extraRegex, ', ')
-  )
-  console.log(seasonLimits.replace(newLineRegex, ', '))
-
   seasonLimitsArray.forEach((limit) => {
     if (limit.trim() !== '') {
       limits.push(limit.trim())
