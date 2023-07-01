@@ -6,6 +6,7 @@
       "species": [
         "largemouth bass",
         "smallmouth bass",
+        "carp",
         "catfish",
         "sunfish",
         "trout",
@@ -21,6 +22,14 @@
       "species": ["largemouth bass", "sunfish"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse"],
+      "depth": ["shallow"]
+    },
+    {
+      "name": "Free Line Rig",
+      "confidence": 5,
+      "species": ["carp"],
+      "waterTemp": ["warm"],
+      "type": ["still"],
       "depth": ["shallow"]
     },
     {
