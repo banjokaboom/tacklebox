@@ -78,7 +78,11 @@ export default function OilPrices() {
         <div className="mb-4">
           <p className="mb-4">
             Don&apos;t know your zone? Go to{' '}
-            <a href="https://www.newenglandoil.com/mass.htm" target="_blank" className='underline hover:no-underline'>
+            <a
+              href="https://www.newenglandoil.com/mass.htm"
+              target="_blank"
+              className="underline hover:no-underline"
+            >
               newenglandoil.com
             </a>{' '}
             to find out!
