@@ -23,22 +23,24 @@ export default function WhatToMake() {
     setMessage(new MessageData())
 
     async function getData() {
+      if (isDataLoaded) {
+        return
+      }
+
       setData(new CookingData())
 
       try {
         const data = await pickRecipes(numRecipes, recipesList)
 
-        if (!isDataLoaded) {
-          m.message = 'Successfully loaded ' + numRecipes + ' recipes'
-          m.severity = 'success'
-          setMessage(m)
-          setData(data)
-        }
+        m.message = 'Successfully loaded ' + numRecipes + ' recipes'
+        m.severity = 'success'
+        setData(data)
       } catch (error: any) {
         m.message = error
         m.severity = 'error'
-        setMessage(m)
       }
+
+      setMessage(m)
     }
 
     let isDataLoaded = false

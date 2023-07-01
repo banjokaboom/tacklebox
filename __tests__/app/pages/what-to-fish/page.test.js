@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   describe,
@@ -76,7 +76,26 @@ describe('WhatToFish', () => {
       name: /What to Fish/i,
     })
 
+    const tipOfTheDay = screen.getByText(/Tip of the Day/i)
+
     expect(heading).toBeInTheDocument()
+    expect(tipOfTheDay).toBeInTheDocument()
+  })
+
+  it('renders different tip of the day if date greater than tips length', () => {
+    let date = new Date()
+    date.setDate('30')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    render(<WhatToFish />)
+
+    const tipOfTheDay = screen.getByText(/Tip of the Day/i)
+
+    expect(tipOfTheDay).toBeInTheDocument()
+
+    // eslint-disable-next-line
+    jest.useRealTimers()
   })
 
   it('loads tackle when zip is entered', async () => {
@@ -99,8 +118,58 @@ describe('WhatToFish', () => {
       'Boston,Massachusetts'
     )
 
-    const heading = await screen.findByText(/Species to target/i)
+    const message = await screen.findByText(
+      /Successfully loaded tackle for location/i,
+      { exact: false }
+    )
+    expect(message).toBeInTheDocument()
 
+    const heading = await screen.findByText(/Species to target/i)
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when geolocation is used', async () => {
+    render(<WhatToFish />)
+
+    const button = screen.getByText('Use Current Location')
+
+    expect(button).toBeInTheDocument()
+
+    fireEvent.click(button)
+
+    const message = await screen.findByText(
+      /Successfully loaded tackle for location/i,
+      { exact: false }
+    )
+    expect(message).toBeInTheDocument()
+
+    const heading = await screen.findByText(/Species to target/i)
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when current weather is used', async () => {
+    render(<WhatToFish />)
+
+    const input = screen.getByRole('textbox')
+
+    await userEvent.type(input, '01516')
+
+    await userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'true')
+
+    const heading = await screen.findByText(/Species to target/i)
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when forecast weather is used', async () => {
+    render(<WhatToFish />)
+
+    const input = screen.getByRole('textbox')
+
+    await userEvent.type(input, '01516')
+
+    await userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'false')
+
+    const heading = await screen.findByText(/Species to target/i)
     expect(heading).toBeInTheDocument()
   })
 })

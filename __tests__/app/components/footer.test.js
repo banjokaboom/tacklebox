@@ -8,7 +8,7 @@ describe('Footer', () => {
     render(<Footer />)
 
     const homeLink = screen.getByText('Home')
-    const oilPricesLink = screen.getByText('Oil Prices (MA)')
+    const oilPricesLink = screen.getByText('Heating Oil Prices (MA)')
     const canIFishLink = screen.getByText('Can I Fish (MA)')
     const whatToFishLink = screen.getByText('What to Fish (Freshwater)')
     const whatToMakeLink = screen.getByText('What to Make for Dinner')
@@ -24,7 +24,7 @@ describe('Footer', () => {
     render(<Footer />)
 
     const homeLink = screen.getByText('Home')
-    const oilPricesLink = screen.getByText('Oil Prices (MA)')
+    const oilPricesLink = screen.getByText('Heating Oil Prices (MA)')
     const canIFishLink = screen.getByText('Can I Fish (MA)')
     const whatToFishLink = screen.getByText('What to Fish (Freshwater)')
     const whatToMakeLink = screen.getByText('What to Make for Dinner')

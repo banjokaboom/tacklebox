@@ -10,7 +10,7 @@
     "vercel": "vercel dev",
     "test": "jest --verbose",
     "test:coverage": "yarn test --coverage",
-    "checks": "yarn cspell ; yarn lint ; yarn jscpd",
+    "checks": "yarn cspell ; yarn lint ; yarn jscpd ; yarn test",
     "cspell": "cspell -u --gitignore .",
     "jscpd": "jscpd .",
     "lint": "yarn lint:js ; yarn lint:prettier ; yarn lint:style",

@@ -31,10 +31,14 @@ describe('Content', () => {
   it('expands when subtitle is clicked when there is no title', () => {
     render(<Content subtitle="Test Title" content="Test Content" />)
 
-    const title = screen.getByText('Test Title')
+    const button = screen.getByText('Test Title')
     const content = screen.getByText('Test Content')
 
-    expect(title).toBeInTheDocument()
-    expect(content).toBeInTheDocument()
+    expect(button).toBeInTheDocument()
+    expect(content.parentNode.className.includes('hidden')).toBeTruthy()
+
+    fireEvent.click(button)
+
+    expect(content.parentNode.className.includes('hidden')).toBeFalsy()
   })
 })
