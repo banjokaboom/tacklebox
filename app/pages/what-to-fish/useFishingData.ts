@@ -250,6 +250,10 @@ function isTackleForWeather(
     }
   }
 
+  if (!tackle.type.includes('still')) {
+    return true
+  }
+
   if (waterTemp > warmWaterMax) {
     if (!tackle.waterTemp.includes('warm')) {
       return false
@@ -271,7 +275,7 @@ function isTackleForWeather(
       return false
     }
 
-    if (!tackle.type.includes('still') && !tackle.type.includes('finesse')) {
+    if (!tackle.type.includes('finesse')) {
       return false
     }
 
@@ -468,7 +472,7 @@ export async function getFishingData(
     fishingData.tackle = await pickTackle(
       tackleList,
       fishingData.seasons,
-      fishingData.species.split(','),
+      fishingData.species.split(',').map((s) => s.trim()),
       waterTemp
     )
   } else if (
