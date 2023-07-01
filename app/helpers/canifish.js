@@ -1,25 +1,31 @@
 import _ from 'lodash'
 
-const charsRegex = /(\n|\t|<\/?p>|&nbsp;|\(\d?,?\s?\d?\)|\*|:)+/gim
+const charsRegex = /(\n|\t|\(\d?,?\s?\d?\)|\*|:)+/gim
 const newLineRegex = /(\n|\t|<\/?p>|<br\/?>|&nbsp;)+/gim
-const extraRegex = /(\s,\s|,\s,)+/gim
-const endRegex = /(,\s*)+/gim
+const extraRegex = /(\s,\s|,\s,|\s\s|\(|\))+/gim
+const startRegex = /^(,\s*)+/gim
+const endRegex = /(,\s*)+$/gim
 
 export function getSpecies(species) {
   return species
-    .replace(charsRegex, '')
+    .replace(charsRegex, ' ')
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
+    .replace(extraRegex, ', ')
+    .replace(startRegex, '')
     .replace(endRegex, '')
+    .replace(/,,/gim, ',')
     .trim()
 }
 
 export function getDescription(description) {
   return description
-    .replace(charsRegex, '')
+    .replace(/\d/gim, '')
+    .replace(charsRegex, ' ')
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
-    .replace(extraRegex, '')
+    .replace(extraRegex, ', ')
+    .replace(startRegex, '')
     .replace(endRegex, '')
     .trim()
 }
@@ -32,14 +38,18 @@ export function getSeasonDates(seasonDates) {
     seasonDatesHTML.indexOf('<br>') >= 0
   ) {
     let speciesSeasonDates = []
-    let seasonDatesArray = seasonDatesHTML.split('</p><p>')
-    seasonDatesArray.concat(seasonDatesHTML.split('<br>'))
+    let seasonDatesArray = []
+    seasonDatesArray =
+      seasonDatesHTML.indexOf('</p><p>') >= 0
+        ? seasonDatesHTML.split('</p><p>')
+        : seasonDatesHTML.split('<br>')
 
     _.each(seasonDatesArray, (value) => {
       let speciesSeasonDate = value
         .replace(charsRegex, '')
         .replace(newLineRegex, ', ')
         .replace(extraRegex, ', ')
+        .replace(startRegex, '')
         .replace(endRegex, '')
         .trim()
       if (speciesSeasonDate.trim() !== '') {
@@ -59,8 +69,21 @@ export function getSeasonLimits(seasonLimits) {
   const seasonLimitsArray = seasonLimits
     .replace(newLineRegex, ', ')
     .replace(extraRegex, ', ')
+    .replace(startRegex, '')
     .replace(endRegex, '')
     .split(',')
+
+  console.log(
+    seasonLimits
+      .replace(newLineRegex, ', ')
+      .replace(extraRegex, ', ')
+      .replace(startRegex, '')
+      .replace(endRegex, '')
+  )
+  console.log(
+    seasonLimits.replace(newLineRegex, ', ').replace(extraRegex, ', ')
+  )
+  console.log(seasonLimits.replace(newLineRegex, ', '))
 
   seasonLimitsArray.forEach((limit) => {
     if (limit.trim() !== '') {
@@ -90,17 +113,28 @@ export function getSpeciesSeasonInfo(
   speciesSeasonInfo['species'] = species
 
   if (description[0]) {
-    speciesSeasonInfo['description'] = getDescription(description.text())
+    speciesSeasonInfo['description'] = getDescription(
+      description.text ? description.text() : description
+    )
+      .replace(species, '')
+      .replace(/^,\s?/gim, '')
+      .trim()
   }
 
   if (seasonDates[0]) {
-    speciesSeasonInfo['seasonDates'] = getSeasonDates(seasonDates.html())
+    speciesSeasonInfo['seasonDates'] = getSeasonDates(
+      seasonDates.html ? seasonDates.html() : seasonDates
+    )
   }
   if (seasonLimits[0]) {
-    speciesSeasonInfo['seasonLimits'] = getSeasonLimits(seasonLimits.html())
+    speciesSeasonInfo['seasonLimits'] = getSeasonLimits(
+      seasonLimits.html ? seasonLimits.html() : seasonLimits
+    )
   }
   if (minimumLength[0]) {
-    speciesSeasonInfo['minimumLength'] = getMinimumLength(minimumLength.html())
+    speciesSeasonInfo['minimumLength'] = getMinimumLength(
+      minimumLength.html ? minimumLength.html() : minimumLength
+    )
   }
 
   if (

@@ -11,51 +11,51 @@ import '@testing-library/jest-dom'
 
 describe('canifish helper', () => {
   it('returns species with special characters parsed', () => {
-    const species = ''
+    const species = '<p>Trout (Lake)</p>'
 
     const result = getSpecies(species)
 
-    expect(result).toBeDefined()
+    expect(result).toBe('Trout, Lake')
   })
 
   it('returns description with special characters parsed', () => {
-    const description = ''
+    const description = '<p>Lake Trout</p>'
 
     const result = getDescription(description)
 
-    expect(result).toBeDefined()
+    expect(result).toBe('Lake Trout')
   })
 
   it('returns seasonDates with special characters parsed', () => {
-    const seasonDates = ''
+    const seasonDates = 'Jan 1 - July 31<br>Aug 1 - Dec 31'
 
     const result = getSeasonDates(seasonDates)
 
-    expect(result).toBeDefined()
+    expect(result).toStrictEqual(['Jan 1 - July 31', 'Aug 1 - Dec 31'])
   })
 
   it('returns seasonLimits with special characters parsed', () => {
-    const seasonLimits = ''
+    const seasonLimits = '5<br>1'
 
     const result = getSeasonLimits(seasonLimits)
 
-    expect(result).toBeDefined()
+    expect(result).toStrictEqual(['5', '1'])
   })
 
   it('returns minimumLength with special characters parsed', () => {
-    const minimumLength = ''
+    const minimumLength = '16"<br>12"'
 
     const result = getMinimumLength(minimumLength)
 
-    expect(result).toBeDefined()
+    expect(result).toBe('16", 12"')
   })
 
   it('returns speciesSeason with special characters parsed', () => {
-    const species = ''
-    const description = ''
-    const seasonDates = ''
-    const seasonLimits = ''
-    const minimumLength = ''
+    const species = '<p>Trout (Lake)</p>'
+    const description = '<p>Lake Trout</p>'
+    const seasonDates = 'Jan 1 - July 31<br>Aug 1 - Dec 31'
+    const seasonLimits = '5<br>1'
+    const minimumLength = '16"<br>12"'
 
     const result = getSpeciesSeasonInfo(
       species,

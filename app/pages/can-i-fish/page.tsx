@@ -49,7 +49,7 @@ function getCreelLimitForIndex(seasonLimits: string[], index: number) {
     let i = index
     while (i > 0) {
       i--
-      if (seasonLimits[i].trim() !== '') {
+      if (seasonLimits[i] && seasonLimits[i].trim() !== '') {
         return seasonLimits[i]
       }
     }
@@ -199,9 +199,10 @@ export default function CanIFish() {
                     subtitle={s.species}
                     content={
                       <div>
-                        {s.description.trim() !== s.species.trim() && (
-                          <p className="mb-4">{s.description}</p>
-                        )}
+                        {s.description &&
+                          s.description.trim() !== s.species.trim() && (
+                            <p className="mb-4">{s.description}</p>
+                          )}
                         <p className="mb-4">Fishing dates:</p>
                         <div>
                           {s.seasonDates.map((sd: string, sdIndex: number) => (

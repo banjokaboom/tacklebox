@@ -41,7 +41,5 @@ export function compareDates(dates) {
     isDateInRange = true
   }
 
-  console.log(isDateInRange)
-
   return isDateInRange
 }
