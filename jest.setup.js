@@ -1,6 +1,8 @@
 //setupJest.js or similar file
 require('jest-fetch-mock').enableMocks()
 
+let copyText = ''
+
 const mockGeolocation = {
   // eslint-disable-next-line
   getCurrentPosition: jest.fn().mockImplementationOnce((success) =>
@@ -17,4 +19,12 @@ const mockGeolocation = {
   watchPosition: jest.fn(),
 }
 
+const mockClipboard = {
+  // eslint-disable-next-line
+  writeText: (text) => (copyText = text),
+  // eslint-disable-next-line
+  readText: () => copyText,
+}
+
 global.navigator.geolocation = mockGeolocation
+global.navigator.clipboard = mockClipboard
