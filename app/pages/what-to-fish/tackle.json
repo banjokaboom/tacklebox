@@ -6,6 +6,7 @@
       "species": [
         "largemouth bass",
         "smallmouth bass",
+        "catfish",
         "sunfish",
         "trout",
         "pickerel/pike/muskies"
@@ -23,6 +24,14 @@
       "depth": ["shallow"]
     },
     {
+      "name": "Hair Rig",
+      "confidence": 2,
+      "species": ["carp"],
+      "waterTemp": ["cold", "warm"],
+      "type": ["still"],
+      "depth": ["shallow", "deep"]
+    },
+    {
       "name": "Texas Rig",
       "confidence": 5,
       "species": ["largemouth bass", "sunfish"],
@@ -33,7 +42,7 @@
     {
       "name": "Carolina Rig",
       "confidence": 5,
-      "species": ["largemouth bass", "sunfish", "trout"],
+      "species": ["largemouth bass", "catfish", "sunfish", "trout"],
       "waterTemp": ["cold", "warm"],
       "type": ["finesse", "still"],
       "depth": ["shallow", "deep"]
@@ -56,7 +65,7 @@
     },
     {
       "name": "Whopper Plopper",
-      "confidence": 5,
+      "confidence": 10,
       "species": ["largemouth bass", "pickerel/pike/muskies"],
       "waterTemp": ["warm"],
       "type": ["reaction"],
@@ -116,6 +125,7 @@
       "species": [
         "largemouth bass",
         "smallmouth bass",
+        "catfish",
         "sunfish",
         "trout",
         "pickerel/pike/muskies"
@@ -152,6 +162,7 @@
       "species": [
         "largemouth bass",
         "smallmouth bass",
+        "catfish",
         "sunfish",
         "trout",
         "pickerel/pike/muskies"

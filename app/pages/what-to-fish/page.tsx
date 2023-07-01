@@ -110,6 +110,20 @@ export default function WhatToFish() {
     }
   }
 
+  function getTackleSpecies(tackle: Tackle) {
+    let tackleSpeciesStr = '('
+
+    tackle.species.forEach((s, index) => {
+      if (data.species.includes(s)) {
+        tackleSpeciesStr += (index > 0 ? ', ' : '') + s
+      }
+    })
+
+    tackleSpeciesStr += ')'
+
+    return tackleSpeciesStr
+  }
+
   function getFishingTip() {
     const tips = [
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
@@ -242,10 +256,11 @@ export default function WhatToFish() {
 
               <ContentSection
                 title="Lures and rigs to use today"
-                content={data.tackle.map((t) => (
-                  <p className="mb-4" key={t.name}>
-                    {t.name}
-                  </p>
+                content={data.tackle.map((t, index) => (
+                  <div key={index}>
+                    <p>{t.name}</p>
+                    <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
+                  </div>
                 ))}
               ></ContentSection>
             </div>
@@ -317,6 +332,13 @@ export default function WhatToFish() {
               ></ContentSection>
             </div>
           </div>
+        )}
+
+        {data.tackle.length > 0 && (
+          <p className="pt-4 mb-4 text-sm">
+            *Data is generalized for the location provided and is the result of
+            experience on the water as well as my own research.
+          </p>
         )}
 
         <div>

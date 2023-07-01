@@ -167,10 +167,19 @@ function pickBaitRecommendations(
 
   baitToUse.push('live worms, soft plastic worms')
 
+  if (species.includes('catfish')) {
+    baitToUse.push('stinky bait')
+  }
+
+  if (species.includes('carp')) {
+    baitToUse.push('corn')
+  }
+
   if (seasons.includes('spring')) {
     if (
       species.includes('largemouth bass') ||
-      species.includes('smallmouth bass')
+      species.includes('smallmouth bass') ||
+      species.includes('catfish')
     ) {
       colorsToUse.push('craw')
       baitToUse.push('soft plastic craws')
@@ -305,6 +314,7 @@ function getSeasons(
       if (cityState && cityState.location.includes('south')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
+        seasons.push('pickerel/pike/muskies pre-spawn')
       }
       break
     case 4:
@@ -312,10 +322,13 @@ function getSeasons(
       if (cityState && cityState.location.includes('mid')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
+        seasons.push('pickerel/pike/muskies pre-spawn')
       }
       if (cityState && cityState.location.includes('south')) {
+        seasons.push('carp pre-spawn')
         seasons.push('bass spawn')
         seasons.push('sunfish spawn')
+        seasons.push('pickerel/pike/muskies spawn')
       }
       break
     case 5:
@@ -323,22 +336,50 @@ function getSeasons(
       if (cityState && cityState.location.includes('north')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
+        seasons.push('pickerel/pike/muskies pre-spawn')
       }
       if (cityState && cityState.location.includes('mid')) {
+        seasons.push('carp pre-spawn')
         seasons.push('bass spawn')
         seasons.push('sunfish spawn')
+        seasons.push('pickerel/pike/muskies spawn')
+      }
+      if (cityState && cityState.location.includes('south')) {
+        seasons.push('catfish pre-spawn')
+        seasons.push('carp spawn')
       }
       break
     case 6:
       seasons.push('spring', 'summer')
       if (cityState && cityState.location.includes('north')) {
+        seasons.push('carp pre-spawn')
         seasons.push('bass spawn')
         seasons.push('sunfish spawn')
+        seasons.push('pickerel/pike/muskies spawn')
+      }
+      if (cityState && cityState.location.includes('mid')) {
+        seasons.push('catfish pre-spawn')
+        seasons.push('carp spawn')
+      }
+      if (cityState && cityState.location.includes('south')) {
+        seasons.push('catfish spawn')
       }
       break
     case 7:
+      seasons.push('summer')
+      if (cityState && cityState.location.includes('north')) {
+        seasons.push('catfish pre-spawn')
+        seasons.push('carp spawn')
+      }
+      if (cityState && cityState.location.includes('mid')) {
+        seasons.push('catfish spawn')
+      }
+      break
     case 8:
       seasons.push('summer')
+      if (cityState && cityState.location.includes('north')) {
+        seasons.push('catfish spawn')
+      }
       break
     case 9:
       seasons.push('summer', 'fall')
