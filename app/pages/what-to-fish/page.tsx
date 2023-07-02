@@ -113,9 +113,9 @@ export default function WhatToFish() {
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = '('
 
-    tackle.species.forEach((s, index) => {
+    tackle.species.forEach((s) => {
       if (data.species.includes(s)) {
-        tackleSpeciesStr += (index > 0 ? ', ' : '') + s
+        tackleSpeciesStr += (tackleSpeciesStr.length > 1 ? ', ' : '') + s
       }
     })
 

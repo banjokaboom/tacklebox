@@ -118,7 +118,7 @@ async function getWeather(zip: string, cityState: string, geolocation: string) {
 function pickTackle(
   tackleList: Tackle[],
   seasons: string,
-  species: string[],
+  species: string,
   waterTemp: number
 ): Tackle[] {
   let tackleToUse: Tackle[] = []
@@ -158,7 +158,7 @@ function pickTackle(
 
 function pickBaitRecommendations(
   weather: any,
-  species: string[],
+  species: string,
   seasons: string
 ): BaitRecommendations {
   let baitRecommendations = new BaitRecommendations()
@@ -463,16 +463,16 @@ export async function getFishingData(
       ? parseFloat(fishingData.weather.current.waterTemp)
       : parseFloat(fishingData.weather.forecast.waterTemp)
 
-    fishingData.species = getSpecies(waterTemp)
+    fishingData.species = getSpecies(waterTemp, fishingData.seasons)
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
-      fishingData.species.split(',').map((s) => s.trim()),
+      fishingData.species,
       fishingData.seasons
     )
     fishingData.tackle = await pickTackle(
       tackleList,
       fishingData.seasons,
-      fishingData.species.split(',').map((s) => s.trim()),
+      fishingData.species,
       waterTemp
     )
   } else if (
@@ -486,7 +486,7 @@ export async function getFishingData(
   return fishingData
 }
 
-function getSpecies(waterTemp: number): string {
+function getSpecies(waterTemp: number, seasons: string): string {
   let species = ''
 
   if (waterTemp >= 34 && waterTemp <= 80) {
@@ -500,7 +500,7 @@ function getSpecies(waterTemp: number): string {
 
     if (waterTemp > 64) {
       species += 'sunfish, '
-    } else {
+    } else if (!seasons.includes('summer')) {
       species += 'trout, '
     }
 
