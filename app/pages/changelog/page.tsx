@@ -30,7 +30,7 @@ export default function ChangeLog() {
               <p className="mb-4">updated inline link styles</p>
               <p className="mb-4">renamed oil prices to heating oil prices</p>
               <p className="mb-4">
-                fixed some formatting issues onthe canifish app
+                fixed some formatting issues on the canifish app
               </p>
             </div>
           }
