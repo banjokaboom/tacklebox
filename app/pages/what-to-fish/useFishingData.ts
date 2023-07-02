@@ -172,7 +172,7 @@ function pickBaitRecommendations(
   }
 
   if (species.includes('carp')) {
-    baitToUse.push('corn')
+    baitToUse.push('corn', 'bread')
   }
 
   if (seasons.includes('spring')) {
@@ -466,7 +466,7 @@ export async function getFishingData(
     fishingData.species = getSpecies(waterTemp)
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
-      fishingData.species.split(','),
+      fishingData.species.split(',').map((s) => s.trim()),
       fishingData.seasons
     )
     fishingData.tackle = await pickTackle(
