@@ -128,7 +128,6 @@ export default function WhatToFish() {
     const tips = [
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
       'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
-      "Fish slow when using topwaters. Let the water calm down before starting the retrieve, especially if the fish aren't biting when trying other methods.",
       "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
       'If the fishing gets tough, fish less traveled spots.',
       'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
@@ -142,6 +141,7 @@ export default function WhatToFish() {
       'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
       'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
       'The day before a storm is the best time to fish.',
+      "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
     ]
 
     const today = new Date()
