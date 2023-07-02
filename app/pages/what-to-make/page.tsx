@@ -6,6 +6,8 @@ import Loader from '../../components/loader'
 import { pickRecipes, Recipe, CookingData } from './useRecipeData'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faDiceSix } from '@fortawesome/free-solid-svg-icons'
 
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
@@ -30,7 +32,11 @@ export default function WhatToMake() {
       setData(new CookingData())
 
       try {
-        const data = await pickRecipes(numRecipes, recipesList)
+        const data = await pickRecipes(
+          numRecipes,
+          recipesList,
+          getCheckedRecipes()
+        )
 
         m.message = 'Successfully loaded ' + numRecipes + ' recipes'
         m.severity = 'success'
@@ -92,14 +98,41 @@ export default function WhatToMake() {
     setRefreshCount(refreshCount + 1)
   }
 
+  function getCheckedRecipes() {
+    let checkedRecipes: string[] = []
+
+    document
+      .querySelectorAll('input[type="checkbox"][name="recipe"]:checked ~ label')
+      .forEach((element) => {
+        if (element.textContent && element.textContent !== '') {
+          checkedRecipes.push(element.textContent)
+        }
+      })
+
+    console.log(checkedRecipes)
+    return checkedRecipes
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <h1 className="text-3xl mb-4">What to Make</h1>
         <hr className="mb-4" />
+        <p className="mb-4">
+          This loads a set of ingredients to add to my shopping list based on a
+          list of random recipes for the week. The recipes are categorized by
+          season and chosen randomly with a frequency modifier (between 0 and
+          1). For example, I cook fish every week, so it has a frequency of 1
+          and is always on the list.
+        </p>
+        <p className="mb-4">
+          Checking off a recipe in the recipes list keeps it locked in when
+          randomizing. Checking off an ingredient in the ingredients list
+          removes it from the copied text.
+        </p>
         <div className="mb-4">
           <label htmlFor="numRecipes" className="mb-4 block">
-            Number of Meals to Cook
+            Number of Recipes to Cook
           </label>
           <input
             type="number"
@@ -116,9 +149,10 @@ export default function WhatToMake() {
           />
           <button
             onClick={refresh}
-            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-flow items-center"
           >
-            Refresh
+            <span>Randomize recipes</span>
+            <FontAwesomeIcon icon={faDiceSix} className="ml-2" />
           </button>
         </div>
 
@@ -127,18 +161,38 @@ export default function WhatToMake() {
           <div className="flex flex-col lg:flex-row justify-between">
             <div>
               <ContentSection
-                title="Meals to cook this week"
+                title="Recipes to cook this week"
                 content={
                   <div>
                     {data.recipes.map((r) => (
-                      <p className="mb-4 last:mb-0" key={r.name}>
-                        {r.name}
-                      </p>
+                      <div className="mb-4 last:mb-0" key={r.name}>
+                        <input
+                          type="checkbox"
+                          name="recipe"
+                          id={
+                            'recipe-' +
+                            r.name.replace(/\s/gim, '-').toLowerCase()
+                          }
+                          checked={r.frequency == 1 || null}
+                        />
+                        <label
+                          htmlFor={
+                            'recipe-' +
+                            r.name.replace(/\s/gim, '-').toLowerCase()
+                          }
+                          className="ml-4"
+                        >
+                          {r.name}
+                        </label>
+                      </div>
                     ))}
                   </div>
                 }
                 isExpandedByDefault={true}
               ></ContentSection>
+              <p className="pt-4 mb-4 text-sm">
+                *A recipe with a frequency of 1 will always be checked.
+              </p>
             </div>
             <div>
               <ContentSection
@@ -166,16 +220,16 @@ export default function WhatToMake() {
                         </label>
                       </div>
                     ))}
-                    <button
-                      onClick={copyIngredients}
-                      className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
-                    >
-                      Copy Ingredients
-                    </button>
                   </div>
                 }
                 isExpandedByDefault={true}
               ></ContentSection>
+              <button
+                onClick={copyIngredients}
+                className="mt-4 p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+              >
+                Copy Ingredients
+              </button>
             </div>
           </div>
         )}

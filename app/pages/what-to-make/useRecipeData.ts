@@ -22,7 +22,11 @@ export class Recipe {
   }
 }
 
-export function pickRecipes(numRecipes: number, recipesList: Recipe[]) {
+export function pickRecipes(
+  numRecipes: number,
+  recipesList: Recipe[],
+  checkedRecipes?: string[]
+) {
   let cookingData = new CookingData()
 
   cookingData.recipes = []
@@ -41,15 +45,27 @@ export function pickRecipes(numRecipes: number, recipesList: Recipe[]) {
   ]
   let countNumOfBeefRecipes = 0
   let countNumOfPastaRecipes = 0
-  const numMealsToCook = numRecipes ?? 7
+  const numRecipesToCook = numRecipes ?? 7
+
+  if (checkedRecipes && checkedRecipes.length > 0) {
+    recipesList.forEach(function (recipe: Recipe) {
+      if (checkedRecipes.includes(recipe.name)) {
+        cookingData.recipes.push(recipe)
+      }
+    })
+  }
 
   recipesList.forEach(function (recipe: Recipe) {
-    if (recipe.frequency == 1 && isRecipeForSeason(recipe)) {
+    if (
+      !cookingData.recipes.includes(recipe) &&
+      recipe.frequency == 1 &&
+      isRecipeForSeason(recipe)
+    ) {
       cookingData.recipes.push(recipe)
     }
   })
 
-  while (cookingData.recipes.length < numMealsToCook) {
+  while (cookingData.recipes.length < numRecipesToCook) {
     const recipe = recipesList[Math.floor(Math.random() * recipesList.length)]
 
     if (!isRecipeForSeason(recipe)) {
