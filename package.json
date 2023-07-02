@@ -1,6 +1,6 @@
 {
   "name": "tacklebox",
-  "version": "1.0.30",
+  "version": "1.0.53",
   "private": true,
   "scripts": {
     "auditfix": "yarn yarn-audit-fix",

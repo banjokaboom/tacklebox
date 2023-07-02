@@ -1,0 +1,23 @@
+ef17d7d added yahtzee mechanic for recipes
+5b4e567 fixed bait issue for carp
+63d039a added free line rig
+7dbbc96 fixed useFishingData bug with still check
+da1afdc fixed bug with carp only rig not displaying
+6401b66 added carp and catfish data
+58b78cd slight tweak to the best times to fish logic
+256c78c updated inline link styles
+48dd633 updated inline link styles
+353238f fixed audit job
+244c28b covered as much as I can
+777f93b updated some more tests
+dd853f3 added some input and select box tests, renamed oil prices to heating oil prices
+72cd171 expanded content test
+9a3e088 fixed some formatting issues onthe canifish app, updated canifish test
+9345939 added test for canifish helper
+5c33d54 attempting to make audit job cleaner
+e083c76 removed continue-on-error, fixed one cspell error
+38ac234 working on github action for vercel deployment
+5b9a0ab changed vercel and github actions to deploy to vercel after jest
+128de88 added continue-on-error to some checks in pipeline
+aa90013 fixed canifish test, added message component to all data pages
+8f10603 added changelogs
