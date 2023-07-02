@@ -315,6 +315,9 @@ function getSeasons(
       break
     case 3:
       seasons.push('spring', 'winter')
+      if (cityState && cityState.location.includes('north')) {
+        seasons.push('trout stocking')
+      }
       if (cityState && cityState.location.includes('south')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
@@ -323,6 +326,9 @@ function getSeasons(
       break
     case 4:
       seasons.push('spring')
+      if (cityState && cityState.location.includes('north')) {
+        seasons.push('trout stocking')
+      }
       if (cityState && cityState.location.includes('mid')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
@@ -391,6 +397,9 @@ function getSeasons(
     case 10:
     case 11:
       seasons.push('fall')
+      if (cityState && cityState.location.includes('north')) {
+        seasons.push('trout stocking')
+      }
       break
     case 12:
       seasons.push('fall', 'winter')
