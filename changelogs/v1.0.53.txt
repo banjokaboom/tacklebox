@@ -12,7 +12,7 @@ da1afdc fixed bug with carp only rig not displaying
 777f93b updated some more tests
 dd853f3 added some input and select box tests, renamed oil prices to heating oil prices
 72cd171 expanded content test
-9a3e088 fixed some formatting issues onthe canifish app, updated canifish test
+9a3e088 fixed some formatting issues on the canifish app, updated canifish test
 9345939 added test for canifish helper
 5c33d54 attempting to make audit job cleaner
 e083c76 removed continue-on-error, fixed one cspell error

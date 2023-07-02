@@ -173,7 +173,7 @@ export default function WhatToMake() {
                             'recipe-' +
                             r.name.replace(/\s/gim, '-').toLowerCase()
                           }
-                          checked={r.frequency == 1 || null}
+                          checked={r.frequency == 1 || undefined}
                         />
                         <label
                           htmlFor={
