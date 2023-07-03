@@ -44,10 +44,10 @@ export default function WhatToFish() {
           setTackleList(json.tackle)
         })
 
-      await fetch('/api/citystates')
+      await fetch('/api/cityStates')
         .then((res) => res.json())
         .then((json) => {
-          setCityStateList(json.citystates)
+          setCityStateList(json.cityStates)
         })
 
       setData(new FishingData())

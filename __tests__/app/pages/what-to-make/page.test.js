@@ -1,8 +1,33 @@
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect } from '@jest/globals'
+import {
+  describe,
+  it,
+  expect,
+  beforeAll,
+  afterAll,
+  afterEach,
+} from '@jest/globals'
 import userEvent from '@testing-library/user-event'
 import WhatToMake from '../../../../app/what-to-make/page'
 import '@testing-library/jest-dom'
+import recipesJSON from '../../../mockData/recipes.json'
+
+const server = setupServer(
+  rest.get('/api/recipes', (req, res, ctx) => {
+    return res(ctx.json({ recipes: recipesJSON.recipes }))
+  })
+)
+
+beforeAll(() => {
+  server.listen()
+})
+afterEach(() => {
+  server.resetHandlers()
+})
+
+afterAll(() => server.close())
 
 describe('WhatToMake', () => {
   it('renders a heading', async () => {
