@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import Changelog from '../../../../app/pages/changelog/page'
+import Changelog from '../../../../app/changelog/page'
 import '@testing-library/jest-dom'
 
 describe('Changelog', () => {

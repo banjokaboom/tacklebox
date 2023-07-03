@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Loader from '../../components/loader'
+import Loader from '../components/loader'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
 

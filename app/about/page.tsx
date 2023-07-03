@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import selfie from '../../assets/images/selfie.jpg'
+import selfie from '../assets/images/selfie.jpg'
 
 export default function Feedback() {
   return (

@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
 import userEvent from '@testing-library/user-event'
-import WhatToMake from '../../../../app/pages/what-to-make/page'
+import WhatToMake from '../../../../app/what-to-make/page'
 import '@testing-library/jest-dom'
 
 describe('WhatToMake', () => {

@@ -2,8 +2,9 @@ import './assets/css/globals.css'
 import { Inter } from 'next/font/google'
 import Header from './components/header'
 import Footer from './components/footer'
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import Loader from './components/loader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -29,7 +30,17 @@ export default function RootLayout({
       <body className={inter.className}>
         <Header></Header>
         <main className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
-          {children}
+          <Suspense
+            fallback={
+              <div className="flex flex-col items-center justify-between">
+                <div className="max-w-5xl w-full">
+                  <Loader />
+                </div>
+              </div>
+            }
+          >
+            {children}
+          </Suspense>
         </main>
         <Footer></Footer>
         <Analytics />

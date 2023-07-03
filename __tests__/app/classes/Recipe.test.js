@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals'
 import '@testing-library/jest-dom'
-import { Recipe } from '../../../app/pages/what-to-make/useRecipeData'
+import { Recipe } from '../../../app/what-to-make/useRecipeData'
 
 describe('Recipe', () => {
   it('initializes with empty values', () => {

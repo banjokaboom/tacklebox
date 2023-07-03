@@ -12,8 +12,8 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   collectCoverage: false,
   collectCoverageFrom: [
-    'app/{pages,components,helpers}/**/*.{js,jsx,ts,tsx}',
-    'app/page.{js,jsx,ts,tsx}',
+    'app/**/*.{js,jsx,ts,tsx}',
+    '!app/layout.{js,jsx,ts,tsx}',
   ],
   coverageThreshold: {
     global: {

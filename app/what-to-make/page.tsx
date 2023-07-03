@@ -2,7 +2,7 @@
 
 import recipesJSON from './recipes.json'
 import { useState, useEffect, useMemo } from 'react'
-import Loader from '../../components/loader'
+import Loader from '../components/loader'
 import { pickRecipes, Recipe, CookingData } from './useRecipeData'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
@@ -109,7 +109,6 @@ export default function WhatToMake() {
         }
       })
 
-    console.log(checkedRecipes)
     return checkedRecipes
   }
 
@@ -173,7 +172,7 @@ export default function WhatToMake() {
                             'recipe-' +
                             r.name.replace(/\s/gim, '-').toLowerCase()
                           }
-                          checked={r.frequency == 1 || undefined}
+                          defaultChecked={r.frequency == 1 || undefined}
                         />
                         <label
                           htmlFor={

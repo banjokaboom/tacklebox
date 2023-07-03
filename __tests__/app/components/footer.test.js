@@ -30,9 +30,9 @@ describe('Footer', () => {
     const whatToMakeLink = screen.getByText('What to Make for Dinner')
 
     expect(homeLink.href).toMatch(/\//)
-    expect(oilPricesLink.href).toMatch(/\/pages\/oil-prices/)
-    expect(canIFishLink.href).toMatch(/\/pages\/can-i-fish/)
-    expect(whatToFishLink.href).toMatch(/\/pages\/what-to-fish/)
-    expect(whatToMakeLink.href).toMatch(/\/pages\/what-to-make/)
+    expect(oilPricesLink.href).toMatch(/\/oil-prices/)
+    expect(canIFishLink.href).toMatch(/\/can-i-fish/)
+    expect(whatToFishLink.href).toMatch(/\/what-to-fish/)
+    expect(whatToMakeLink.href).toMatch(/\/what-to-make/)
   })
 })

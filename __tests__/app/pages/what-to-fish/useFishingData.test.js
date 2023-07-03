@@ -9,9 +9,9 @@ import {
   afterEach,
 } from '@jest/globals'
 import '@testing-library/jest-dom'
-import { getFishingData } from '../../../../app/pages/what-to-fish/useFishingData'
-import tackleJSON from '../../../../app/pages/what-to-fish/tackle.json'
-import cityStateJSON from '../../../../app/pages/what-to-fish/cityStates.json'
+import { getFishingData } from '../../../../app/what-to-fish/useFishingData'
+import tackleJSON from '../../../../app/what-to-fish/tackle.json'
+import cityStateJSON from '../../../../app/what-to-fish/cityStates.json'
 
 let tackleList = []
 let cityStatesList = []

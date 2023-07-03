@@ -3,7 +3,7 @@
 import tackleJSON from './tackle.json'
 import cityStateJSON from './cityStates.json'
 import { useState, useEffect, useMemo } from 'react'
-import Loader from '../../components/loader'
+import Loader from '../components/loader'
 import {
   getFishingData,
   Tackle,
@@ -19,7 +19,7 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
-  let [loading, setLoading] = useState(false)
+  let [loader, setLoader] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())
@@ -41,7 +41,7 @@ export default function WhatToFish() {
         return
       }
 
-      setLoading(true)
+      setLoader(true)
       setData(new FishingData())
 
       try {
@@ -72,7 +72,7 @@ export default function WhatToFish() {
       }
 
       setMessage(m)
-      setLoading(false)
+      setLoader(false)
     }
 
     let isDataLoaded = false
@@ -95,7 +95,7 @@ export default function WhatToFish() {
     setZip('')
     setCityState('')
     setGeolocation('')
-    setLoading(true)
+    setLoader(true)
 
     if (navigator.geolocation) {
       console.log('Using geolocation')
@@ -103,7 +103,7 @@ export default function WhatToFish() {
         setGeolocation(
           position.coords.latitude + ',' + position.coords.longitude
         )
-        setLoading(false)
+        setLoader(false)
       })
     } else {
       console.log('Geolocation is not available')
@@ -215,7 +215,7 @@ export default function WhatToFish() {
             </select>
           </div>
         </div>
-        {loading && data.tackle.length == 0 && <Loader />}
+        {loader && data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
