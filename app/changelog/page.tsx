@@ -13,6 +13,29 @@ export default function ChangeLog() {
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
         <ContentSection
+          title="v2.0.0"
+          content={
+            <div>
+              <p className="mb-4">
+                changed recipes and tackle to use postgres database
+              </p>
+              <p className="mb-4">
+                implemented router with new directory structure
+              </p>
+              <p className="mb-4">fixed minimum length on can i fish</p>
+              <p className="mb-4">added tip about noisy lures</p>
+              <p className="mb-4">
+                added trout stocking seasons for northern states
+              </p>
+              <p className="mb-4">
+                fixed display of species names under lures, fixed trout to not
+                show up in summer
+              </p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
+        <ContentSection
           title="v1.0.53"
           content={
             <div>
@@ -34,7 +57,6 @@ export default function ChangeLog() {
               </p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
         <ContentSection
           title="v1.0.30"
