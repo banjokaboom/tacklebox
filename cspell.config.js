@@ -53,5 +53,7 @@ module.exports = {
     'lintfix',
     'contentsection',
     'oneline',
+    'citystates',
+    'watertemp',
   ],
 }

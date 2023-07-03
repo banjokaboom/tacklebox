@@ -1,7 +1,7 @@
 import { sql } from '@vercel/postgres'
 import { Tackle } from '../../app/what-to-fish/useFishingData'
 
-export default async function handler(req, res) {
+export default async function handler(req: any, res: any) {
   const result = await sql`SELECT * from tackle`
   let tackle: Tackle[] = []
 
