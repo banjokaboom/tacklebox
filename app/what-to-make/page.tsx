@@ -1,7 +1,6 @@
 'use client'
 
-import recipesJSON from './recipes.json'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
 import { pickRecipes, Recipe, CookingData } from './useRecipeData'
 import ContentSection from '@/app/components/content'
@@ -15,19 +14,22 @@ export default function WhatToMake() {
   let [refreshCount, setRefreshCount] = useState(0)
   let [message, setMessage] = useState(new MessageData())
 
-  const recipesList: Recipe[] = useMemo(
-    () => Array.from(recipesJSON.recipes),
-    []
-  )
-
   useEffect(() => {
     let m = new MessageData()
     setMessage(new MessageData())
 
     async function getData() {
-      if (isDataLoaded) {
+      if (isDataLoaded || isNaN(numRecipes)) {
         return
       }
+
+      let recipesList: Recipe[] = []
+
+      await fetch('/api/recipes')
+        .then((res) => res.json())
+        .then((json) => {
+          recipesList = json.recipes
+        })
 
       setData(new CookingData())
 
@@ -56,7 +58,7 @@ export default function WhatToMake() {
     return () => {
       isDataLoaded = true
     }
-  }, [numRecipes, recipesList, refreshCount])
+  }, [numRecipes, refreshCount])
 
   function copyIngredients() {
     let copyString = ''

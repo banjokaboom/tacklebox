@@ -1,8 +1,6 @@
 'use client'
 
-import tackleJSON from './tackle.json'
-import cityStateJSON from './cityStates.json'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
 import {
   getFishingData,
@@ -19,18 +17,16 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
-  let [loader, setLoader] = useState(false)
+  let [loading, setLoading] = useState(false)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())
-
-  const tackleList: Tackle[] = useMemo(() => Array.from(tackleJSON.tackle), [])
-  const cityStateList: CityState[] = useMemo(
-    () => Array.from(cityStateJSON.cityStates),
-    []
-  )
+  let [tackleList, setTackleList] = useState([])
+  let [cityStateList, setCityStateList] = useState([])
 
   useEffect(() => {
+    setLoading(true)
+
     const location =
       geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
     let m = new MessageData()
@@ -38,10 +34,22 @@ export default function WhatToFish() {
 
     async function getData() {
       if (isDataLoaded) {
+        setLoading(false)
         return
       }
 
-      setLoader(true)
+      await fetch('/api/tackle')
+        .then((res) => res.json())
+        .then((json) => {
+          setTackleList(json.tackle)
+        })
+
+      await fetch('/api/citystates')
+        .then((res) => res.json())
+        .then((json) => {
+          setCityStateList(json.citystates)
+        })
+
       setData(new FishingData())
 
       try {
@@ -72,7 +80,7 @@ export default function WhatToFish() {
       }
 
       setMessage(m)
-      setLoader(false)
+      setLoading(false)
     }
 
     let isDataLoaded = false
@@ -82,20 +90,14 @@ export default function WhatToFish() {
     return () => {
       isDataLoaded = true
     }
-  }, [
-    zip,
-    cityState,
-    useCurrentWeather,
-    tackleList,
-    cityStateList,
-    geolocation,
-  ])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [zip, cityState, useCurrentWeather, geolocation])
 
   function getGeolocation() {
     setZip('')
     setCityState('')
     setGeolocation('')
-    setLoader(true)
+    setLoading(true)
 
     if (navigator.geolocation) {
       console.log('Using geolocation')
@@ -103,7 +105,6 @@ export default function WhatToFish() {
         setGeolocation(
           position.coords.latitude + ',' + position.coords.longitude
         )
-        setLoader(false)
       })
     } else {
       console.log('Geolocation is not available')
@@ -207,7 +208,7 @@ export default function WhatToFish() {
               value={cityState}
             >
               <option value=""></option>
-              {cityStateList.map((cs, csIndex) => (
+              {cityStateList.map((cs: CityState, csIndex) => (
                 <option key={csIndex} value={cs.capital + ',' + cs.state}>
                   {cs.state}
                 </option>
@@ -215,7 +216,7 @@ export default function WhatToFish() {
             </select>
           </div>
         </div>
-        {loader && data.tackle.length == 0 && <Loader />}
+        {loading && data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
