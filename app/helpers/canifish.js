@@ -84,9 +84,10 @@ export function getSeasonLimits(seasonLimits) {
 
 export function getMinimumLength(minimumLength) {
   return minimumLength
-    .replace(newLineRegex, ', ')
-    .replace(extraRegex, ', ')
-    .replace('Only one fish may,', 'Only one fish may')
+    .replace(newLineRegex, '')
+    .replace(extraRegex, '')
+    .replace('Only one fish may', ', Only one fish may ')
+    .replace('Min:', '')
 }
 
 export function getSpeciesSeasonInfo(

@@ -25,12 +25,14 @@ class Regulation {
   public description: string
   public seasonDates: string[]
   public seasonLimits: string[]
+  public minimumLength: string
 
   constructor() {
     this.species = ''
     this.description = ''
     this.seasonDates = []
     this.seasonLimits = []
+    this.minimumLength = ''
   }
 }
 
@@ -167,7 +169,7 @@ export default function CanIFish() {
                               <p className="mb-4">{f.description}</p>
                             )}
                           <p className="mb-4">Fishing dates:</p>
-                          <div>
+                          <div className="mb-4">
                             {f.seasonDates.map(
                               (sd: string, sdIndex: number) => (
                                 <p key={sdIndex} className="indent-4">
@@ -180,6 +182,15 @@ export default function CanIFish() {
                               )
                             )}
                           </div>
+                          {f.minimumLength && (
+                            <p className="mb-4">
+                              Min. Length:{' '}
+                              {/\d+/.test(f.minimumLength) &&
+                              !f.minimumLength.includes('"')
+                                ? f.minimumLength + '"'
+                                : f.minimumLength}
+                            </p>
+                          )}
                         </div>
                       }
                       isExpandedByDefault={true}
@@ -204,7 +215,7 @@ export default function CanIFish() {
                             <p className="mb-4">{s.description}</p>
                           )}
                         <p className="mb-4">Fishing dates:</p>
-                        <div>
+                        <div className="mb-4">
                           {s.seasonDates.map((sd: string, sdIndex: number) => (
                             <p key={sdIndex} className="indent-4">
                               {sd.replace(', ', '').trim()}, Limit:{' '}
@@ -212,6 +223,9 @@ export default function CanIFish() {
                             </p>
                           ))}
                         </div>
+                        {s.minimumLength && (
+                          <p className="mb-4">Min. Length: {s.minimumLength}</p>
+                        )}
                       </div>
                     }
                     isExpandedByDefault={true}

@@ -43,11 +43,11 @@ describe('canifish helper', () => {
   })
 
   it('returns minimumLength with special characters parsed', () => {
-    const minimumLength = '16"<br>12"'
+    const minimumLength = '16"<br>'
 
     const result = getMinimumLength(minimumLength)
 
-    expect(result).toBe('16", 12"')
+    expect(result).toBe('16"')
   })
 
   it('returns speciesSeason with special characters parsed', () => {
