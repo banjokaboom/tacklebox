@@ -191,30 +191,34 @@ export default function WhatToFish() {
               <FontAwesomeIcon icon={faLocationCrosshairs} className="ml-2" />
             </button>
           </div>
-          <div className="mb-4 lg:hidden">OR</div>
-          <div className="mb-4">
-            <label htmlFor="state" className="mb-4 block">
-              State
-            </label>
-            <select
-              name="state"
-              id="state"
-              onChange={(e) => {
-                setZip('')
-                setCityState(e.target.value)
-                setGeolocation('')
-              }}
-              className="text-slate-700 leading-4 p-2 block max-w-full"
-              value={cityState}
-            >
-              <option value=""></option>
-              {cityStateList.map((cs: CityState, csIndex) => (
-                <option key={csIndex} value={cs.capital + ',' + cs.state}>
-                  {cs.state}
-                </option>
-              ))}
-            </select>
-          </div>
+          {cityStateList.length > 0 && (
+            <div>
+              <div className="mb-4 lg:hidden">OR</div>
+              <div className="mb-4">
+                <label htmlFor="state" className="mb-4 block">
+                  State
+                </label>
+                <select
+                  name="state"
+                  id="state"
+                  onChange={(e) => {
+                    setZip('')
+                    setCityState(e.target.value)
+                    setGeolocation('')
+                  }}
+                  className="text-slate-700 leading-4 p-2 block max-w-full"
+                  value={cityState}
+                >
+                  <option value=""></option>
+                  {cityStateList.map((cs: CityState, csIndex) => (
+                    <option key={csIndex} value={cs.capital + ',' + cs.state}>
+                      {cs.state}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          )}
         </div>
         {loading && data.tackle.length == 0 && <Loader />}
         {data.tackle.length > 0 && (
