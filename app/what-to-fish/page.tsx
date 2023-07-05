@@ -2,17 +2,16 @@
 
 import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
-import {
-  getFishingData,
-  Tackle,
-  FishingData,
-  CityState,
-} from './useFishingData'
+import { getFishingData } from './useFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
-import Message, { MessageData } from '@/app/components/message'
+import Message from '@/app/components/message'
+import MessageData from '../classes/MessageData'
 import Breadcrumbs from '../components/breadcrumbs'
+import Tackle from '../classes/Tackle'
+import FishingData from '../classes/FishingData'
+import CityState from '../classes/CityState'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -107,8 +106,11 @@ export default function WhatToFish() {
           geolocation
         )
 
+        console.log(fishingData.species)
+
+        setData(fishingData)
+
         if (fishingData.tackle.length > 0) {
-          setData(fishingData)
           m.message = 'Successfully loaded tackle for location: ' + location
           m.severity = 'success'
         } else if (
@@ -272,8 +274,8 @@ export default function WhatToFish() {
             </div>
           )}
         </div>
-        {loading && data.tackle.length == 0 && <Loader />}
-        {data.tackle.length > 0 && (
+        {loading && <Loader />}
+        {!loading && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
             <label htmlFor="useCurrentWeather" className="mb-4 block">
@@ -293,33 +295,42 @@ export default function WhatToFish() {
             </select>
           </div>
         )}
-        {data.tackle.length > 0 && (
+        {!loading && (
           <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
             <div>
-              <ContentSection
-                title="Species to target"
-                content={data.species}
-              ></ContentSection>
+              {data.species !== '' && (
+                <ContentSection
+                  title="Species to target"
+                  content={data.species}
+                  isExpandedByDefault={data.tackle.length == 0}
+                ></ContentSection>
+              )}
 
-              <ContentSection
-                title="Lure colors to use now"
-                content={data.baitRecommendations.colorsToUse}
-              ></ContentSection>
+              {data.tackle.length > 0 && (
+                <ContentSection
+                  title="Lure colors to use now"
+                  content={data.baitRecommendations.colorsToUse}
+                ></ContentSection>
+              )}
 
-              <ContentSection
-                title="Baits to use now"
-                content={data.baitRecommendations.baitsToUse}
-              ></ContentSection>
+              {data.tackle.length > 0 && (
+                <ContentSection
+                  title="Baits to use now"
+                  content={data.baitRecommendations.baitsToUse}
+                ></ContentSection>
+              )}
 
-              <ContentSection
-                title="Lures and rigs to use today"
-                content={data.tackle.map((t, index) => (
-                  <div key={index}>
-                    <p>{t.name}</p>
-                    <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
-                  </div>
-                ))}
-              ></ContentSection>
+              {data.tackle.length > 0 && (
+                <ContentSection
+                  title="Lures and rigs to use today"
+                  content={data.tackle.map((t, index) => (
+                    <div key={index}>
+                      <p>{t.name}</p>
+                      <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
+                    </div>
+                  ))}
+                ></ContentSection>
+              )}
             </div>
             <div className="basis-4/12 shrink-0">
               <ContentSection

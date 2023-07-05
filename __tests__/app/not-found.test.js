@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import NotFound from '../../app/not-found'
+import NotFound from '@/app/not-found'
 import '@testing-library/jest-dom'
 
 describe('NotFound', () => {

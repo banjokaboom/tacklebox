@@ -7,16 +7,7 @@ import {
   faTriangleExclamation,
   faCircleExclamation,
 } from '@fortawesome/free-solid-svg-icons'
-
-export class MessageData {
-  public message: string
-  public severity: string
-
-  constructor() {
-    this.message = ''
-    this.severity = ''
-  }
-}
+import MessageData from '../classes/MessageData'
 
 export default function Message({ message, severity }: MessageData) {
   let [isHidden, setIsHidden] = useState(false)

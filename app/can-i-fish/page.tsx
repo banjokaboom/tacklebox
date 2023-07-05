@@ -4,38 +4,10 @@ import { useState, useEffect } from 'react'
 import { compareDates } from '../helpers/date'
 import Loader from '../components/loader'
 import ContentSection from '@/app/components/content'
-import Message, { MessageData } from '@/app/components/message'
+import Message from '@/app/components/message'
+import MessageData from '../classes/MessageData'
 import Breadcrumbs from '../components/breadcrumbs'
-
-class Regulations {
-  public freshwaterRegulations: Regulation[]
-  public freshwaterRegulationsLink: string
-  public saltwaterRegulations: Regulation[]
-  public saltwaterRegulationsLink: string
-
-  constructor() {
-    this.freshwaterRegulations = []
-    this.freshwaterRegulationsLink = ''
-    this.saltwaterRegulations = []
-    this.saltwaterRegulationsLink = ''
-  }
-}
-
-class Regulation {
-  public species: string
-  public description: string
-  public seasonDates: string[]
-  public seasonLimits: string[]
-  public minimumLength: string
-
-  constructor() {
-    this.species = ''
-    this.description = ''
-    this.seasonDates = []
-    this.seasonLimits = []
-    this.minimumLength = ''
-  }
-}
+import Regulations from '../classes/Regulations'
 
 function getCreelLimitForIndex(seasonLimits: string[], index: number) {
   if (seasonLimits[index] && seasonLimits[index].trim() == '') {

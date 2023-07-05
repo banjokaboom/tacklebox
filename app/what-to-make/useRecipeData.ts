@@ -1,26 +1,5 @@
-export class CookingData {
-  public recipes: Recipe[]
-  public ingredients: string[]
-
-  constructor() {
-    this.recipes = []
-    this.ingredients = []
-  }
-}
-
-export class Recipe {
-  public name: string
-  public seasons: string[]
-  public frequency: number
-  public ingredients: string[]
-
-  constructor() {
-    this.name = ''
-    this.seasons = []
-    this.frequency = 0
-    this.ingredients = []
-  }
-}
+import CookingData from '../classes/CookingData'
+import Recipe from '../classes/Recipe'
 
 export function pickRecipes(
   numRecipes: number,

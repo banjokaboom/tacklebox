@@ -1,6 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import Content from '../../../app/components/content'
+import Content from '@/app/components/content'
 import '@testing-library/jest-dom'
 
 describe('Content', () => {

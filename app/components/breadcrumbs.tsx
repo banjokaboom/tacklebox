@@ -2,14 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-
-class Crumbs {
-  public links: any[]
-
-  constructor() {
-    this.links = []
-  }
-}
+import Crumbs from '../classes/Crumbs'
 
 export default function Breadcrumbs({ links }: Crumbs) {
   const pathname = usePathname() || ''

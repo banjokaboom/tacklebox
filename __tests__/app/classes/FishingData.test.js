@@ -1,6 +1,6 @@
 import { describe, it, expect } from '@jest/globals'
 import '@testing-library/jest-dom'
-import { FishingData } from '../../../app/what-to-fish/useFishingData'
+import FishingData from '@/app/classes/FishingData'
 
 describe('FishingData', () => {
   it('initializes with empty values', () => {

@@ -3,22 +3,10 @@
 import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
 import ContentSection from '@/app/components/content'
-import Message, { MessageData } from '@/app/components/message'
+import Message from '@/app/components/message'
+import MessageData from '../classes/MessageData'
 import Breadcrumbs from '../components/breadcrumbs'
-
-class OilPriceData {
-  public price: string
-  public company: string
-  public url: string
-  public oilPrices: object[]
-
-  constructor() {
-    this.price = ''
-    this.company = ''
-    this.url = ''
-    this.oilPrices = []
-  }
-}
+import OilPriceData from '../classes/OilPriceData'
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())

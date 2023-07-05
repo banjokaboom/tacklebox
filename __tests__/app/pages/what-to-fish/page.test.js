@@ -10,7 +10,7 @@ import {
   afterAll,
   afterEach,
 } from '@jest/globals'
-import WhatToFish from '../../../../app/what-to-fish/page'
+import WhatToFish from '@/app/what-to-fish/page'
 import '@testing-library/jest-dom'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'

@@ -10,7 +10,7 @@ import {
   afterAll,
   afterEach,
 } from '@jest/globals'
-import OilPrices from '../../../../app/oil-prices/page'
+import OilPrices from '@/app/oil-prices/page'
 import '@testing-library/jest-dom'
 
 const server = setupServer(

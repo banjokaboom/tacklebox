@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
-import { pickRecipes, CookingData } from './useRecipeData'
+import { pickRecipes } from './useRecipeData'
 import ContentSection from '@/app/components/content'
-import Message, { MessageData } from '@/app/components/message'
+import Message from '@/app/components/message'
+import MessageData from '../classes/MessageData'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceSix } from '@fortawesome/free-solid-svg-icons'
 import Breadcrumbs from '../components/breadcrumbs'
+import CookingData from '../classes/CookingData'
 
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())

@@ -1,91 +1,9 @@
-export class Tackle {
-  public name: string
-  public confidence: number
-  public species: string[]
-  public waterTemp: string[]
-  public type: string[]
-  public depth: string[]
-
-  constructor() {
-    this.name = ''
-    this.confidence = 10
-    this.species = []
-    this.waterTemp = []
-    this.type = []
-    this.depth = []
-  }
-}
-export class CityState {
-  public state: string
-  public capital: string
-  public location: string[]
-
-  constructor() {
-    this.state = ''
-    this.capital = ''
-    this.location = []
-  }
-}
-
-class WeatherData {
-  public outdoorTemp: string
-  public waterTemp: string
-  public conditions: string
-  public wind: string
-  public location: string
-  public current: WeatherDataChild
-  public forecast: WeatherDataChild
-
-  constructor() {
-    this.outdoorTemp = ''
-    this.waterTemp = ''
-    this.conditions = ''
-    this.wind = ''
-    this.location = ''
-    this.current = new WeatherDataChild()
-    this.forecast = new WeatherDataChild()
-  }
-}
-
-class WeatherDataChild {
-  public outdoorTemp: string
-  public waterTemp: string
-  public conditions: string
-  public wind: string
-
-  constructor() {
-    this.outdoorTemp = ''
-    this.waterTemp = ''
-    this.conditions = ''
-    this.wind = ''
-  }
-}
-
-class BaitRecommendations {
-  public colorsToUse: string
-  public baitsToUse: string
-
-  constructor() {
-    this.colorsToUse = ''
-    this.baitsToUse = ''
-  }
-}
-
-export class FishingData {
-  public baitRecommendations: BaitRecommendations
-  public seasons: string
-  public tackle: Tackle[]
-  public weather: WeatherData
-  public species: string
-
-  constructor() {
-    this.baitRecommendations = new BaitRecommendations()
-    this.seasons = ''
-    this.tackle = []
-    this.weather = new WeatherData()
-    this.species = ''
-  }
-}
+import Tackle from '../classes/Tackle'
+import CityState from '../classes/CityState'
+import WeatherData from '../classes/WeatherData'
+import BaitRecommendations from '../classes/BaitRecommendations'
+import WeatherDataChild from '../classes/WeatherDataChild'
+import FishingData from '../classes/FishingData'
 
 const waterTempMultiplier = 0.87
 const warmWaterMax = 80
@@ -472,7 +390,9 @@ export async function getFishingData(
       ? parseFloat(fishingData.weather.current.waterTemp)
       : parseFloat(fishingData.weather.forecast.waterTemp)
 
+    console.log(waterTemp)
     fishingData.species = getSpecies(waterTemp, fishingData.seasons)
+    console.log(fishingData.species)
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
       fishingData.species,

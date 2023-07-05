@@ -1,6 +1,6 @@
 import axios from 'axios'
 import cheerio from 'cheerio'
-import { getSpecies, getSpeciesSeasonInfo } from '../../app/helpers/canifish'
+import { getSpecies, getSpeciesSeasonInfo } from '@/app/helpers/canifish'
 
 export default function handler(req, res) {
   let url =

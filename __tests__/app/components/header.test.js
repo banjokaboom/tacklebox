@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import Header from '../../../app/components/header'
+import Header from '@/app/components/header'
 import '@testing-library/jest-dom'
 
 describe('Header', () => {

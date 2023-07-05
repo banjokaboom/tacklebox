@@ -10,7 +10,7 @@ import {
   afterEach,
 } from '@jest/globals'
 import userEvent from '@testing-library/user-event'
-import WhatToMake from '../../../../app/what-to-make/page'
+import WhatToMake from '@/app/what-to-make/page'
 import '@testing-library/jest-dom'
 import recipesJSON from '../../../mockData/recipes.json'
 

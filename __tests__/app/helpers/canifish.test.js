@@ -6,7 +6,7 @@ import {
   getSeasonLimits,
   getMinimumLength,
   getSpeciesSeasonInfo,
-} from '../../../app/helpers/canifish'
+} from '@/app/helpers/canifish'
 import '@testing-library/jest-dom'
 
 describe('canifish helper', () => {

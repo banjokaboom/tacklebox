@@ -1,5 +1,5 @@
 import { describe, it, expect } from '@jest/globals'
-import { compareDates } from '../../../app/helpers/date'
+import { compareDates } from '@/app/helpers/date'
 import '@testing-library/jest-dom'
 
 describe('date helper', () => {

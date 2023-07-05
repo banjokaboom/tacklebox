@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
-import Message from '../../../app/components/message'
+import Message from '@/app/components/message'
 import '@testing-library/jest-dom'
 
 describe('Message', () => {
