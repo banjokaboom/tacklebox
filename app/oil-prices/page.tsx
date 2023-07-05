@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
+import Breadcrumbs from '../components/breadcrumbs'
 
 class OilPriceData {
   public price: string
@@ -23,6 +24,12 @@ export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
   let [zone, setZone] = useState(Math.floor(Math.random() * 15) + 1 + '')
   let [message, setMessage] = useState(new MessageData())
+  let breadcrumbs = [
+    {
+      title: 'Heating Oil Prices (MA)',
+      href: '/oil-prices',
+    },
+  ]
 
   useEffect(() => {
     let m = new MessageData()
@@ -73,6 +80,7 @@ export default function OilPrices() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Heating Oil Prices</h1>
         <hr className="mb-4" />
         <div className="mb-4">

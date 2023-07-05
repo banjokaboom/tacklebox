@@ -5,11 +5,20 @@
  */
 
 import ContentSection from '@/app/components/content'
+import Breadcrumbs from '../components/breadcrumbs'
 
 export default function ChangeLog() {
+  let breadcrumbs = [
+    {
+      title: 'Changelog',
+      href: '/changelog',
+    },
+  ]
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
         <ContentSection

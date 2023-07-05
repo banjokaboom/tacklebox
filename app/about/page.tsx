@@ -1,10 +1,18 @@
 import Image from 'next/image'
 import selfie from '../assets/images/selfie.jpg'
+import Breadcrumbs from '../components/breadcrumbs'
 
-export default function Feedback() {
+export default function About() {
+  let breadcrumbs = [
+    {
+      title: 'About',
+      href: '/about',
+    },
+  ]
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">About Tacklebox</h1>
         <hr className="mb-4" />
         <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">

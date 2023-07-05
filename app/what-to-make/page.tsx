@@ -7,12 +7,19 @@ import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceSix } from '@fortawesome/free-solid-svg-icons'
+import Breadcrumbs from '../components/breadcrumbs'
 
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
   let [numRecipes, setNumRecipes] = useState(7)
   let [refreshCount, setRefreshCount] = useState(0)
   let [message, setMessage] = useState(new MessageData())
+  let breadcrumbs = [
+    {
+      title: 'What to Make for Dinner',
+      href: '/what-to-make',
+    },
+  ]
 
   useEffect(() => {
     let m = new MessageData()
@@ -117,6 +124,7 @@ export default function WhatToMake() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">What to Make</h1>
         <hr className="mb-4" />
         <p className="mb-4">

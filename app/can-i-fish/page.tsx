@@ -5,6 +5,7 @@ import { compareDates } from '../helpers/date'
 import Loader from '../components/loader'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
+import Breadcrumbs from '../components/breadcrumbs'
 
 class Regulations {
   public freshwaterRegulations: Regulation[]
@@ -61,6 +62,12 @@ function getCreelLimitForIndex(seasonLimits: string[], index: number) {
 export default function CanIFish() {
   let [data, setData] = useState(new Regulations())
   let [message, setMessage] = useState(new MessageData())
+  let breadcrumbs = [
+    {
+      title: 'Can I Fish (MA)',
+      href: '/can-i-fish',
+    },
+  ]
 
   useEffect(() => {
     let m = new MessageData()
@@ -141,6 +148,7 @@ export default function CanIFish() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">
           Can I Fish:{' '}
           {data.freshwaterRegulations.length > 0 ||

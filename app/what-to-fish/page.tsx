@@ -12,6 +12,7 @@ import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 import Message, { MessageData } from '@/app/components/message'
+import Breadcrumbs from '../components/breadcrumbs'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -23,6 +24,63 @@ export default function WhatToFish() {
   let [message, setMessage] = useState(new MessageData())
   let [tackleList, setTackleList] = useState([])
   let [cityStateList, setCityStateList] = useState([])
+  let breadcrumbs = [
+    {
+      title: 'What to Fish',
+      href: '/what-to-fish',
+    },
+  ]
+
+  useEffect(() => {
+    setLoading(true)
+
+    let m = new MessageData()
+    setMessage(new MessageData())
+
+    async function getData() {
+      if (isDataLoaded) {
+        return
+      }
+
+      try {
+        await fetch('/api/tackle')
+          .then((res) => res.json())
+          .then((json) => {
+            setTackleList(json.tackle)
+          })
+      } catch (error) {
+        console.error(error)
+        m.message =
+          'An error occurred when loading the tackle list. Please try refreshing the page.'
+        m.severity = 'error'
+        setMessage(m)
+      }
+
+      try {
+        await fetch('/api/cityStates')
+          .then((res) => res.json())
+          .then((json) => {
+            setCityStateList(json.cityStates)
+          })
+      } catch (error) {
+        console.error(error)
+        m.message =
+          'An error occurred when loading the city/state list. Please try refreshing the page.'
+        m.severity = 'error'
+        setMessage(m)
+      }
+
+      setLoading(false)
+    }
+
+    let isDataLoaded = false
+
+    getData()
+
+    return () => {
+      isDataLoaded = true
+    }
+  }, [])
 
   useEffect(() => {
     setLoading(true)
@@ -33,22 +91,9 @@ export default function WhatToFish() {
     setMessage(new MessageData())
 
     async function getData() {
-      if (isDataLoaded) {
-        setLoading(false)
+      if (isDataLoaded || tackleList.length == 0 || cityStateList.length == 0) {
         return
       }
-
-      await fetch('/api/tackle')
-        .then((res) => res.json())
-        .then((json) => {
-          setTackleList(json.tackle)
-        })
-
-      await fetch('/api/cityStates')
-        .then((res) => res.json())
-        .then((json) => {
-          setCityStateList(json.cityStates)
-        })
 
       setData(new FishingData())
 
@@ -90,8 +135,14 @@ export default function WhatToFish() {
     return () => {
       isDataLoaded = true
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [zip, cityState, useCurrentWeather, geolocation])
+  }, [
+    zip,
+    cityState,
+    useCurrentWeather,
+    geolocation,
+    tackleList,
+    cityStateList,
+  ])
 
   function getGeolocation() {
     setZip('')
@@ -160,6 +211,7 @@ export default function WhatToFish() {
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">What to Fish (Freshwater)</h1>
         <hr className="mb-4" />
         <p className="mb-4">

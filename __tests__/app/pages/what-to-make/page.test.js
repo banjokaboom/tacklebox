@@ -33,7 +33,9 @@ describe('WhatToMake', () => {
   it('renders a heading', async () => {
     render(<WhatToMake />)
 
-    const heading = await screen.findByText(/What to Make/i)
+    const heading = await screen.findByRole('heading', {
+      name: /What to Make/i,
+    })
 
     expect(heading).toBeInTheDocument()
   })
