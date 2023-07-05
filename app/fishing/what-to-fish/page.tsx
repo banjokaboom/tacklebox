@@ -25,8 +25,12 @@ export default function WhatToFish() {
   let [cityStateList, setCityStateList] = useState([])
   let breadcrumbs = [
     {
+      title: 'Fishing',
+      href: '/fishing',
+    },
+    {
       title: 'What to Fish',
-      href: '/what-to-fish',
+      href: '/fishing/what-to-fish',
     },
   ]
 

@@ -36,8 +36,12 @@ export default function CanIFish() {
   let [message, setMessage] = useState(new MessageData())
   let breadcrumbs = [
     {
+      title: 'Fishing',
+      href: '/fishing',
+    },
+    {
       title: 'Can I Fish (MA)',
-      href: '/can-i-fish',
+      href: '/fishing/can-i-fish',
     },
   ]
 

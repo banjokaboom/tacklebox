@@ -1,9 +1,18 @@
 import Link from 'next/link'
+import Breadcrumbs from '../components/breadcrumbs'
 
 export default function Personal() {
+  let breadcrumbs = [
+    {
+      title: 'Personal',
+      href: '/personal',
+    },
+  ]
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
+        <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Personal</h1>
         <hr className="mb-4" />
         <p className="mb-4">
