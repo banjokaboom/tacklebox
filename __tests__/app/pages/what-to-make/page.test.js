@@ -50,10 +50,9 @@ describe('WhatToMake', () => {
     await userEvent.clear(input)
     await userEvent.type(input, numRecipes)
 
-    const message = await screen.findByText(
-      'Successfully loaded recipes',
-      { exact: false }
-    )
+    const message = await screen.findByText('Successfully loaded recipes', {
+      exact: false,
+    })
     expect(message).toBeInTheDocument()
   })
 
