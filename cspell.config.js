@@ -55,5 +55,6 @@ module.exports = {
     'oneline',
     'citystates',
     'watertemp',
+    'doesn',
   ],
 }

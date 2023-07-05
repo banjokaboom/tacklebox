@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Loader from '../components/loader'
-import { pickRecipes, Recipe, CookingData } from './useRecipeData'
+import { pickRecipes, CookingData } from './useRecipeData'
 import ContentSection from '@/app/components/content'
 import Message, { MessageData } from '@/app/components/message'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -14,6 +14,7 @@ export default function WhatToMake() {
   let [numRecipes, setNumRecipes] = useState(7)
   let [refreshCount, setRefreshCount] = useState(0)
   let [message, setMessage] = useState(new MessageData())
+  let [recipesList, setRecipesList] = useState([])
   let breadcrumbs = [
     {
       title: 'What to Make for Dinner',
@@ -26,17 +27,42 @@ export default function WhatToMake() {
     setMessage(new MessageData())
 
     async function getData() {
-      if (isDataLoaded || isNaN(numRecipes)) {
+      if (isDataLoaded) {
         return
       }
 
-      let recipesList: Recipe[] = []
+      try {
+        await fetch('/api/recipes')
+          .then((res) => res.json())
+          .then((json) => {
+            setRecipesList(json.recipes)
+          })
+      } catch (error: any) {
+        console.error(error)
+        m.message =
+          'An error occurred when loading the recipes. Please refresh the page to try again.'
+        m.severity = 'error'
+        setMessage(m)
+      }
+    }
 
-      await fetch('/api/recipes')
-        .then((res) => res.json())
-        .then((json) => {
-          recipesList = json.recipes
-        })
+    let isDataLoaded = false
+
+    getData()
+
+    return () => {
+      isDataLoaded = true
+    }
+  }, [])
+
+  useEffect(() => {
+    let m = new MessageData()
+    setMessage(new MessageData())
+
+    async function getData() {
+      if (recipesList.length == 0 || isDataLoaded || isNaN(numRecipes)) {
+        return
+      }
 
       setData(new CookingData())
 
@@ -47,7 +73,7 @@ export default function WhatToMake() {
           getCheckedRecipes()
         )
 
-        m.message = 'Successfully loaded ' + numRecipes + ' recipes'
+        m.message = 'Successfully loaded recipes'
         m.severity = 'success'
         setData(data)
       } catch (error: any) {
@@ -65,7 +91,7 @@ export default function WhatToMake() {
     return () => {
       isDataLoaded = true
     }
-  }, [numRecipes, refreshCount])
+  }, [numRecipes, refreshCount, recipesList])
 
   function copyIngredients() {
     let copyString = ''

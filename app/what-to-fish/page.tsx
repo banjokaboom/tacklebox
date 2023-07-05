@@ -48,10 +48,10 @@ export default function WhatToFish() {
           .then((json) => {
             setTackleList(json.tackle)
           })
-      } catch (error) {
+      } catch (error: any) {
         console.error(error)
         m.message =
-          'An error occurred when loading the tackle list. Please try refreshing the page.'
+          'An error occurred when loading the tackle list. Please refresh the page to try again.'
         m.severity = 'error'
         setMessage(m)
       }
