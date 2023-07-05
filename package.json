@@ -53,6 +53,8 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.4.3",
+    "@types/react-html-parser": "^2.0.2",
+    "@types/react-modal": "^3.16.0",
     "cspell": "^6.31.1",
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.5",
