@@ -22,22 +22,24 @@ export default function Footer() {
           <Link className="mb-4 w-fit" href="/">
             {pathname == '/' ? '> ' : ''}Home
           </Link>
-          <h4 className="text-lg mb-4 underline">Fishing</h4>
-          <Link className="w-fit" href="/can-i-fish">
+          <Link className="w-fit" href="/fishing">
+            {pathname == '/fishing' ? '> ' : ''}Fishing
+          </Link>
+          <Link className="w-fit" href="/fishing/can-i-fish">
             {pathname.includes('can-i-fish') ? '> ' : ''}Can I Fish (MA)
           </Link>
-          <Link className="w-fit mb-4" href="/what-to-fish">
+          <Link className="w-fit mb-4" href="/fishing/what-to-fish">
             {pathname.includes('what-to-fish') ? '> ' : ''}What to Fish
             (Freshwater)
           </Link>
-          <h4 className="text-lg mb-4 underline">Home Maintenance</h4>
-          <Link className="w-fit mb-4" href="/oil-prices">
+          <Link className="w-fit" href="/home-maintenance">
+            {pathname == '/home-maintenance' ? '> ' : ''}Home Maintenance
+          </Link>
+          <Link className="w-fit mb-4" href="/home-maintenance/oil-prices">
             {pathname.includes('oil-prices') ? '> ' : ''}Heating Oil Prices (MA)
           </Link>
-          <h4 className="text-lg mb-4 underline">Personal</h4>
-          <Link className="w-fit lg:mb-4" href="/what-to-make">
-            {pathname.includes('what-to-make') ? '> ' : ''}What to Make for
-            Dinner
+          <Link className="w-fit lg:mb-4" href="/personal">
+            {pathname.includes('personal') ? '> ' : ''}Personal
           </Link>
         </div>
         <div className="flex flex-col justify-between lg:mb-0 mb-4">

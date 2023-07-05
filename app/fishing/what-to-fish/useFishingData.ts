@@ -1,9 +1,9 @@
-import Tackle from '../classes/Tackle'
-import CityState from '../classes/CityState'
-import WeatherData from '../classes/WeatherData'
-import BaitRecommendations from '../classes/BaitRecommendations'
-import WeatherDataChild from '../classes/WeatherDataChild'
-import FishingData from '../classes/FishingData'
+import Tackle from '@/app/classes/Tackle'
+import CityState from '@/app/classes/CityState'
+import WeatherData from '@/app/classes/WeatherData'
+import BaitRecommendations from '@/app/classes/BaitRecommendations'
+import WeatherDataChild from '@/app/classes/WeatherDataChild'
+import FishingData from '@/app/classes/FishingData'
 
 const waterTempMultiplier = 0.87
 const warmWaterMax = 80

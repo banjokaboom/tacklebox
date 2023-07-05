@@ -11,13 +11,13 @@ describe('Footer', () => {
     const oilPricesLink = screen.getByText('Heating Oil Prices (MA)')
     const canIFishLink = screen.getByText('Can I Fish (MA)')
     const whatToFishLink = screen.getByText('What to Fish (Freshwater)')
-    const whatToMakeLink = screen.getByText('What to Make for Dinner')
+    const personalLink = screen.getByText('Personal')
 
     expect(homeLink).toBeInTheDocument()
     expect(oilPricesLink).toBeInTheDocument()
     expect(canIFishLink).toBeInTheDocument()
     expect(whatToFishLink).toBeInTheDocument()
-    expect(whatToMakeLink).toBeInTheDocument()
+    expect(personalLink).toBeInTheDocument()
   })
 
   it('has all proper links', () => {
@@ -27,12 +27,12 @@ describe('Footer', () => {
     const oilPricesLink = screen.getByText('Heating Oil Prices (MA)')
     const canIFishLink = screen.getByText('Can I Fish (MA)')
     const whatToFishLink = screen.getByText('What to Fish (Freshwater)')
-    const whatToMakeLink = screen.getByText('What to Make for Dinner')
+    const personalLink = screen.getByText('Personal')
 
     expect(homeLink.href).toMatch(/\//)
     expect(oilPricesLink.href).toMatch(/\/oil-prices/)
     expect(canIFishLink.href).toMatch(/\/can-i-fish/)
     expect(whatToFishLink.href).toMatch(/\/what-to-fish/)
-    expect(whatToMakeLink.href).toMatch(/\/what-to-make/)
+    expect(personalLink.href).toMatch(/\/personal/)
   })
 })

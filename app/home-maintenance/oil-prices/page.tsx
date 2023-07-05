@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Loader from '../components/loader'
+import Loader from '@/app/components/loader'
 import ContentSection from '@/app/components/content'
 import Message from '@/app/components/message'
-import MessageData from '../classes/MessageData'
-import Breadcrumbs from '../components/breadcrumbs'
-import OilPriceData from '../classes/OilPriceData'
+import MessageData from '@/app/classes/MessageData'
+import Breadcrumbs from '@/app/components/breadcrumbs'
+import OilPriceData from '@/app/classes/OilPriceData'
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
@@ -14,8 +14,12 @@ export default function OilPrices() {
   let [message, setMessage] = useState(new MessageData())
   let breadcrumbs = [
     {
+      title: 'Home Maintenance',
+      href: '/home-maintenance',
+    },
+    {
       title: 'Heating Oil Prices (MA)',
-      href: '/oil-prices',
+      href: '/home-maintenance/oil-prices',
     },
   ]
 

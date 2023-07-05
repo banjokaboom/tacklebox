@@ -9,7 +9,7 @@ import {
   afterAll,
   afterEach,
 } from '@jest/globals'
-import CanIFish from '@/app/can-i-fish/page'
+import CanIFish from '@/app/fishing/can-i-fish/page'
 import '@testing-library/jest-dom'
 
 let fwFishingData = []

@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { compareDates } from '../helpers/date'
-import Loader from '../components/loader'
+import { compareDates } from '@/app/helpers/date'
+import Loader from '@/app/components/loader'
 import ContentSection from '@/app/components/content'
 import Message from '@/app/components/message'
-import MessageData from '../classes/MessageData'
-import Breadcrumbs from '../components/breadcrumbs'
-import Regulations from '../classes/Regulations'
+import MessageData from '@/app/classes/MessageData'
+import Breadcrumbs from '@/app/components/breadcrumbs'
+import Regulations from '@/app/classes/Regulations'
 
 function getCreelLimitForIndex(seasonLimits: string[], index: number) {
   if (seasonLimits[index] && seasonLimits[index].trim() == '') {

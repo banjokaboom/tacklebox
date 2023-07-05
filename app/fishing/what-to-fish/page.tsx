@@ -1,17 +1,17 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Loader from '../components/loader'
+import Loader from '@/app/components/loader'
 import { getFishingData } from './useFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
 import Message from '@/app/components/message'
-import MessageData from '../classes/MessageData'
-import Breadcrumbs from '../components/breadcrumbs'
-import Tackle from '../classes/Tackle'
-import FishingData from '../classes/FishingData'
-import CityState from '../classes/CityState'
+import MessageData from '@/app/classes/MessageData'
+import Breadcrumbs from '@/app/components/breadcrumbs'
+import Tackle from '@/app/classes/Tackle'
+import FishingData from '@/app/classes/FishingData'
+import CityState from '@/app/classes/CityState'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')

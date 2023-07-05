@@ -5,7 +5,7 @@
  */
 
 import ContentSection from '@/app/components/content'
-import Breadcrumbs from '../components/breadcrumbs'
+import Breadcrumbs from '@/app/components/breadcrumbs'
 
 export default function ChangeLog() {
   let breadcrumbs = [

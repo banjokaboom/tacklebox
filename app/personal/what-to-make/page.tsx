@@ -1,15 +1,15 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Loader from '../components/loader'
+import Loader from '@/app/components/loader'
 import { pickRecipes } from './useRecipeData'
 import ContentSection from '@/app/components/content'
 import Message from '@/app/components/message'
-import MessageData from '../classes/MessageData'
+import MessageData from '@/app/classes/MessageData'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiceSix } from '@fortawesome/free-solid-svg-icons'
-import Breadcrumbs from '../components/breadcrumbs'
-import CookingData from '../classes/CookingData'
+import Breadcrumbs from '@/app/components/breadcrumbs'
+import CookingData from '@/app/classes/CookingData'
 
 export default function WhatToMake() {
   let [data, setData] = useState(new CookingData())
@@ -19,8 +19,12 @@ export default function WhatToMake() {
   let [recipesList, setRecipesList] = useState([])
   let breadcrumbs = [
     {
+      title: 'Personal',
+      href: '/personal',
+    },
+    {
       title: 'What to Make for Dinner',
-      href: '/what-to-make',
+      href: '/personal/what-to-make',
     },
   ]
 

@@ -9,7 +9,7 @@ import {
   afterEach,
 } from '@jest/globals'
 import '@testing-library/jest-dom'
-import { getFishingData } from '@/app/what-to-fish/useFishingData'
+import { getFishingData } from '@/app/fishing/what-to-fish/useFishingData'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
 

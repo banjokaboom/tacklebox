@@ -7,7 +7,7 @@ import {
   faTriangleExclamation,
   faCircleExclamation,
 } from '@fortawesome/free-solid-svg-icons'
-import MessageData from '../classes/MessageData'
+import MessageData from '@/app/classes/MessageData'
 
 export default function Message({ message, severity }: MessageData) {
   let [isHidden, setIsHidden] = useState(false)

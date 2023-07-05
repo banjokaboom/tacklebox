@@ -1,5 +1,5 @@
-import CookingData from '../classes/CookingData'
-import Recipe from '../classes/Recipe'
+import CookingData from '@/app/classes/CookingData'
+import Recipe from '@/app/classes/Recipe'
 
 export function pickRecipes(
   numRecipes: number,

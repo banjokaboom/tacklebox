@@ -1,6 +1,6 @@
 import Image from 'next/image'
-import selfie from '../assets/images/selfie.jpg'
-import Breadcrumbs from '../components/breadcrumbs'
+import selfie from '@/app/assets/images/selfie.jpg'
+import Breadcrumbs from '@/app/components/breadcrumbs'
 
 export default function About() {
   let breadcrumbs = [

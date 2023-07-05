@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Crumbs from '../classes/Crumbs'
+import Crumbs from '@/app/classes/Crumbs'
 
 export default function Breadcrumbs({ links }: Crumbs) {
   const pathname = usePathname() || ''
