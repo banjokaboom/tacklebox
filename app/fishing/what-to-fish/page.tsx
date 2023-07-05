@@ -5,13 +5,20 @@ import Loader from '@/app/components/loader'
 import { getFishingData } from './useFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLocationCrosshairs,
+} from '@fortawesome/free-solid-svg-icons'
+import {
+  faCircleQuestion,
+} from '@fortawesome/free-regular-svg-icons'
 import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import Tackle from '@/app/classes/Tackle'
 import FishingData from '@/app/classes/FishingData'
 import CityState from '@/app/classes/CityState'
+import Modal from 'react-modal'
+import ReactHtmlParser from 'react-html-parser'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -23,6 +30,8 @@ export default function WhatToFish() {
   let [message, setMessage] = useState(new MessageData())
   let [tackleList, setTackleList] = useState([])
   let [cityStateList, setCityStateList] = useState([])
+  let [isModalOpen, setIsModalOpen] = useState(false)
+  let [modalContent, setModalContent] = useState('')
   let breadcrumbs = [
     {
       title: 'Fishing',
@@ -325,7 +334,23 @@ export default function WhatToFish() {
                   title="Lures and rigs to use today"
                   content={data.tackle.map((t, index) => (
                     <div key={index}>
-                      <p>{t.name}</p>
+                      {t.tip && (
+                        <button
+                          className="flex flex-row items-center"
+                          title="Click to learn how to use this"
+                          onClick={() => {
+                            setModalContent(t.tip)
+                            setIsModalOpen(true)
+                          }}
+                        >
+                          {t.name}
+                          <FontAwesomeIcon
+                            icon={faCircleQuestion}
+                            className="ml-2"
+                          />
+                        </button>
+                      )}
+                      {!t.tip && <p>{t.name}</p>}
                       <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
                     </div>
                   ))}
@@ -424,6 +449,20 @@ export default function WhatToFish() {
           severity={message.severity}
         ></Message>
       )}
+
+      <Modal isOpen={isModalOpen} contentLabel="Tackle Modal">
+        <div className="text-slate-700 mb-4">
+          {ReactHtmlParser(modalContent)}
+        </div>
+        <button
+          className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+          onClick={() => {
+            setIsModalOpen(false)
+          }}
+        >
+          Close
+        </button>
+      </Modal>
     </div>
   )
 }

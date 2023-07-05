@@ -13,6 +13,7 @@ export default async function handler(req: any, res: any) {
       waterTemp: t.watertemp,
       depth: t.depth,
       type: t.type,
+      tip: t.tip,
     })
   })
 

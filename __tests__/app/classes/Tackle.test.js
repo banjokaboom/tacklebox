@@ -11,5 +11,6 @@ describe('Tackle', () => {
     expect(tackle.waterTemp.length).toBe(0)
     expect(tackle.type.length).toBe(0)
     expect(tackle.depth.length).toBe(0)
+    expect(tackle.tip).toBe('')
   })
 })
