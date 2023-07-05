@@ -5,12 +5,8 @@ import Loader from '@/app/components/loader'
 import { getFishingData } from './useFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faLocationCrosshairs,
-} from '@fortawesome/free-solid-svg-icons'
-import {
-  faCircleQuestion,
-} from '@fortawesome/free-regular-svg-icons'
+import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
