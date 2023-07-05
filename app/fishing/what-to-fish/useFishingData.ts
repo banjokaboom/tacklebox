@@ -6,8 +6,8 @@ import WeatherDataChild from '@/app/classes/WeatherDataChild'
 import FishingData from '@/app/classes/FishingData'
 
 const waterTempMultiplier = 0.87
-const warmWaterMax = 80
-const warmWaterMin = 60
+const warmWaterMax = 82.5
+const warmWaterMin = 57.5
 
 async function getWeather(zip: string, cityState: string, geolocation: string) {
   let query = ''
@@ -390,9 +390,7 @@ export async function getFishingData(
       ? parseFloat(fishingData.weather.current.waterTemp)
       : parseFloat(fishingData.weather.forecast.waterTemp)
 
-    console.log(waterTemp)
     fishingData.species = getSpecies(waterTemp, fishingData.seasons)
-    console.log(fishingData.species)
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
       fishingData.species,
@@ -418,18 +416,20 @@ export async function getFishingData(
 function getSpecies(waterTemp: number, seasons: string): string {
   let species = ''
 
-  if (waterTemp >= 34 && waterTemp <= 80) {
+  if (waterTemp >= 31.5 && waterTemp <= 82.5) {
     if (waterTemp >= 60) {
       species += 'largemouth bass, catfish, '
     }
 
-    if (waterTemp >= 50 && waterTemp <= 70) {
+    if (waterTemp >= 47.5 && waterTemp <= 72.5) {
       species += 'smallmouth bass, carp, '
     }
 
-    if (waterTemp > 64) {
+    if (waterTemp > 61.5) {
       species += 'sunfish, '
-    } else if (!seasons.includes('summer')) {
+    }
+
+    if (!seasons.includes('summer') && waterTemp <= 66.5) {
       species += 'trout, '
     }
 

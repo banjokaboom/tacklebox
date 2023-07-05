@@ -106,8 +106,6 @@ export default function WhatToFish() {
           geolocation
         )
 
-        console.log(fishingData.species)
-
         setData(fishingData)
 
         if (fishingData.tackle.length > 0) {
@@ -275,7 +273,7 @@ export default function WhatToFish() {
           )}
         </div>
         {loading && <Loader />}
-        {!loading && (
+        {!loading && data.weather.location != '' && (
           <div>
             <p className="mb-4">Data loaded for {data.weather.location}</p>
             <label htmlFor="useCurrentWeather" className="mb-4 block">
@@ -295,16 +293,14 @@ export default function WhatToFish() {
             </select>
           </div>
         )}
-        {!loading && (
+        {!loading && data.species !== '' && (
           <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
             <div>
-              {data.species !== '' && (
-                <ContentSection
-                  title="Species to target"
-                  content={data.species}
-                  isExpandedByDefault={data.tackle.length == 0}
-                ></ContentSection>
-              )}
+              <ContentSection
+                title="Species to target"
+                content={data.species}
+                isExpandedByDefault={data.tackle.length == 0}
+              ></ContentSection>
 
               {data.tackle.length > 0 && (
                 <ContentSection
