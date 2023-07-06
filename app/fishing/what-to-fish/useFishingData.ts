@@ -102,7 +102,7 @@ function pickBaitRecommendations(
       colorsToUse.push('craw')
       baitToUse.push('soft plastic craws')
     }
-    colorsToUse.push('orange', 'red')
+    colorsToUse.push('orange')
     baitToUse.push('powerbait', 'soft plastic insects')
   }
 
@@ -123,8 +123,12 @@ function pickBaitRecommendations(
     }
   }
 
+  if (weather.current.cloud >= 75 || seasons.includes('spring')) {
+    colorsToUse.push('red')
+  }
+
   if (weather.current.cloud >= 75) {
-    colorsToUse.push('bright', 'yellow', 'pink')
+    colorsToUse.push('dark', 'black', 'blue')
   } else {
     colorsToUse.push('natural', 'gold', 'silver', 'green')
   }
