@@ -28,9 +28,13 @@ export default function Footer() {
           <Link className="w-fit" href="/fishing/can-i-fish">
             {pathname.includes('can-i-fish') ? '> ' : ''}Can I Fish (MA)
           </Link>
-          <Link className="w-fit mb-4" href="/fishing/what-to-fish">
+          <Link className="w-fit" href="/fishing/what-to-fish">
             {pathname.includes('what-to-fish') ? '> ' : ''}What to Fish
             (Freshwater)
+          </Link>
+          <Link className="w-fit mb-4" href="/fishing/tackle-by-species">
+            {pathname.includes('tackle-by-species') ? '> ' : ''}Tackle by
+            Species
           </Link>
           <Link className="w-fit" href="/home-maintenance">
             {pathname == '/home-maintenance' ? '> ' : ''}Home Maintenance

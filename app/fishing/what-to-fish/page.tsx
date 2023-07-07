@@ -20,7 +20,7 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
-  let [loading, setLoading] = useState(false)
+  let [loading, setLoading] = useState(true)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())

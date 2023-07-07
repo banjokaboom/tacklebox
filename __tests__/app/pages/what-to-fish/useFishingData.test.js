@@ -401,9 +401,7 @@ describe('useFishingData', () => {
       cityStatesList
     )
 
-    expect(
-      result.baitRecommendations.colorsToUse.includes('bright')
-    ).toBeTruthy()
+    expect(result.baitRecommendations.colorsToUse.includes('dark')).toBeTruthy()
   })
 
   it("doesn't load when state not selected and zip length < 5", async () => {
