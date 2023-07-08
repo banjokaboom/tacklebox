@@ -21,6 +21,7 @@ export default function TackleBySpecies() {
   let [speciesList, setSpeciesList] = useState([])
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
+  let [luckyTackle, setLuckyTackle] = useState('')
   let breadcrumbs = [
     {
       title: 'Fishing',
@@ -72,6 +73,7 @@ export default function TackleBySpecies() {
   useEffect(() => {
     let m = new MessageData()
     setMessage(new MessageData())
+    setLuckyTackle('')
 
     async function getData() {
       setData(new FishingData())
@@ -126,6 +128,17 @@ export default function TackleBySpecies() {
     }
   }, [species, speciesList])
 
+  function chooseRandomTackle() {
+    setLuckyTackle('')
+    if (data.tackle.length == 0) {
+      return
+    }
+
+    const randomIndex = Math.floor(Math.random() * data.tackle.length)
+
+    setLuckyTackle(data.tackle[randomIndex].name)
+  }
+
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
@@ -161,28 +174,48 @@ export default function TackleBySpecies() {
         )}
         {loading && <Loader />}
         {data.tackle.length > 0 && (
-          <ContentSection
-            title="Lures and rigs to use"
-            content={data.tackle.map((t, index) => (
-              <div key={index}>
-                {t.tip && (
-                  <button
-                    className="flex flex-row items-center mb-4"
-                    title="Click to learn how to use this"
-                    onClick={() => {
-                      setModalContent(t.tip)
-                      setIsModalOpen(true)
-                    }}
-                  >
-                    {t.name}
-                    <FontAwesomeIcon icon={faCircleQuestion} className="ml-2" />
-                  </button>
-                )}
-                {!t.tip && <p className="mb-4">{t.name}</p>}
-              </div>
-            ))}
-            isExpandedByDefault={true}
-          ></ContentSection>
+          <div>
+            <button
+              className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+              onClick={chooseRandomTackle}
+            >
+              Help me pick!
+            </button>
+
+            {luckyTackle !== '' && (
+              <ContentSection
+                title="You should use..."
+                content={luckyTackle}
+                isExpandedByDefault={true}
+              ></ContentSection>
+            )}
+
+            <ContentSection
+              title="Lures and rigs to use"
+              content={data.tackle.map((t, index) => (
+                <div key={index}>
+                  {t.tip && (
+                    <button
+                      className="flex flex-row items-center mb-4"
+                      title="Click to learn how to use this"
+                      onClick={() => {
+                        setModalContent(t.tip)
+                        setIsModalOpen(true)
+                      }}
+                    >
+                      {t.name}
+                      <FontAwesomeIcon
+                        icon={faCircleQuestion}
+                        className="ml-2"
+                      />
+                    </button>
+                  )}
+                  {!t.tip && <p className="mb-4">{t.name}</p>}
+                </div>
+              ))}
+              isExpandedByDefault={true}
+            ></ContentSection>
+          </div>
         )}
       </div>
 
