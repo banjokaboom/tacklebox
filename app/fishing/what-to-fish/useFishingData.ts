@@ -236,7 +236,7 @@ function getSeasons(
       seasons.push('winter')
       break
     case 3:
-      seasons.push('spring', 'winter')
+      seasons.push('winter', 'spring')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('trout stocking')
       }

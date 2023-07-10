@@ -39,8 +39,11 @@ export default function Footer() {
           <Link className="w-fit" href="/home-maintenance">
             {pathname == '/home-maintenance' ? '> ' : ''}Home Maintenance
           </Link>
-          <Link className="w-fit mb-4" href="/home-maintenance/oil-prices">
+          <Link className="w-fit" href="/home-maintenance/oil-prices">
             {pathname.includes('oil-prices') ? '> ' : ''}Heating Oil Prices (MA)
+          </Link>
+          <Link className="w-fit mb-4" href="/home-maintenance/lawn-care">
+            {pathname.includes('lawn-care') ? '> ' : ''}Lawn Care
           </Link>
           <Link className="w-fit lg:mb-4" href="/personal">
             {pathname.includes('personal') ? '> ' : ''}Personal

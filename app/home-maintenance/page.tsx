@@ -26,6 +26,12 @@ export default function HomeMaintenance() {
           >
             Heating Oil Prices (MA)
           </Link>
+          <Link
+            className="w-fit underline hover:no-underline"
+            href="/home-maintenance/lawn-care"
+          >
+            Lawn Care
+          </Link>
         </div>
       </div>
     </div>

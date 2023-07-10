@@ -44,6 +44,7 @@ export default function CanIFish() {
       href: '/fishing/can-i-fish',
     },
   ]
+  let [filterText, setFilterText] = useState('')
 
   useEffect(() => {
     let m = new MessageData()
@@ -132,7 +133,13 @@ export default function CanIFish() {
             ? 'Yes'
             : 'No'}
         </h1>
-        <hr />
+        <hr className="mb-4" />
+        <p className="mb-4">
+          This app loads the fishing regulations, both saltwater and freshwater,
+          for Massachusetts, and determines if you are legally able to fish now.
+          Then, it displays all of the species you are eligible to fish for with
+          their regulations listed.
+        </p>
         {(!data.freshwaterRegulations ||
           data.freshwaterRegulations.length == 0) &&
           (!data.saltwaterRegulations ||
@@ -140,47 +147,68 @@ export default function CanIFish() {
         {data.freshwaterRegulations &&
           data.freshwaterRegulations.length > 0 && (
             <div>
+              <div className="mb-4">
+                <label htmlFor="filterText" className="mb-4 block">
+                  Filter Species By...
+                </label>
+                <input
+                  type="text"
+                  name="filterText"
+                  id="filterText"
+                  value={filterText}
+                  onChange={(e) => {
+                    setFilterText(e.target.value)
+                  }}
+                  className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
+                />
+              </div>
               <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
-                {data.freshwaterRegulations.map((f, fIndex: number) => (
-                  <div key={fIndex} className="pb-8">
-                    <ContentSection
-                      subtitle={f.species}
-                      content={
-                        <div>
-                          {f.description &&
-                            f.description.trim() !== f.species.trim() && (
-                              <p className="mb-4">{f.description}</p>
-                            )}
-                          <p className="mb-4">Fishing dates:</p>
-                          <div className="mb-4">
-                            {f.seasonDates.map(
-                              (sd: string, sdIndex: number) => (
-                                <p key={sdIndex} className="indent-4">
-                                  {sd.replace(', ', '').trim()}, Limit:{' '}
-                                  {getCreelLimitForIndex(
-                                    f.seasonLimits,
-                                    sdIndex
-                                  )}
+                {data.freshwaterRegulations.map(
+                  (f, fIndex: number) =>
+                    (filterText == '' ||
+                      f.species
+                        .toUpperCase()
+                        .includes(filterText.toUpperCase())) && (
+                      <div key={fIndex} className="pb-8">
+                        <ContentSection
+                          subtitle={f.species}
+                          content={
+                            <div>
+                              {f.description &&
+                                f.description.trim() !== f.species.trim() && (
+                                  <p className="mb-4">{f.description}</p>
+                                )}
+                              <p className="mb-4">Fishing dates:</p>
+                              <div className="mb-4">
+                                {f.seasonDates.map(
+                                  (sd: string, sdIndex: number) => (
+                                    <p key={sdIndex} className="indent-4">
+                                      {sd.replace(', ', '').trim()}, Limit:{' '}
+                                      {getCreelLimitForIndex(
+                                        f.seasonLimits,
+                                        sdIndex
+                                      )}
+                                    </p>
+                                  )
+                                )}
+                              </div>
+                              {f.minimumLength && (
+                                <p className="mb-4">
+                                  Min. Length:{' '}
+                                  {/\d+/.test(f.minimumLength) &&
+                                  !f.minimumLength.includes('"')
+                                    ? f.minimumLength + '"'
+                                    : f.minimumLength}
                                 </p>
-                              )
-                            )}
-                          </div>
-                          {f.minimumLength && (
-                            <p className="mb-4">
-                              Min. Length:{' '}
-                              {/\d+/.test(f.minimumLength) &&
-                              !f.minimumLength.includes('"')
-                                ? f.minimumLength + '"'
-                                : f.minimumLength}
-                            </p>
-                          )}
-                        </div>
-                      }
-                      isExpandedByDefault={true}
-                    ></ContentSection>
-                  </div>
-                ))}
+                              )}
+                            </div>
+                          }
+                          isExpandedByDefault={true}
+                        ></ContentSection>
+                      </div>
+                    )
+                )}
               </div>
             </div>
           )}
@@ -188,34 +216,47 @@ export default function CanIFish() {
           <div>
             <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
             <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
-              {data.saltwaterRegulations.map((s, sIndex) => (
-                <div key={sIndex} className="pb-8">
-                  <ContentSection
-                    subtitle={s.species}
-                    content={
-                      <div>
-                        {s.description &&
-                          s.description.trim() !== s.species.trim() && (
-                            <p className="mb-4">{s.description}</p>
-                          )}
-                        <p className="mb-4">Fishing dates:</p>
-                        <div className="mb-4">
-                          {s.seasonDates.map((sd: string, sdIndex: number) => (
-                            <p key={sdIndex} className="indent-4">
-                              {sd.replace(', ', '').trim()}, Limit:{' '}
-                              {getCreelLimitForIndex(s.seasonLimits, sdIndex)}
-                            </p>
-                          ))}
-                        </div>
-                        {s.minimumLength && (
-                          <p className="mb-4">Min. Length: {s.minimumLength}</p>
-                        )}
-                      </div>
-                    }
-                    isExpandedByDefault={true}
-                  ></ContentSection>
-                </div>
-              ))}
+              {data.saltwaterRegulations.map(
+                (s, sIndex) =>
+                  (filterText == '' ||
+                    s.species
+                      .toUpperCase()
+                      .includes(filterText.toUpperCase())) && (
+                    <div key={sIndex} className="pb-8">
+                      <ContentSection
+                        subtitle={s.species}
+                        content={
+                          <div>
+                            {s.description &&
+                              s.description.trim() !== s.species.trim() && (
+                                <p className="mb-4">{s.description}</p>
+                              )}
+                            <p className="mb-4">Fishing dates:</p>
+                            <div className="mb-4">
+                              {s.seasonDates.map(
+                                (sd: string, sdIndex: number) => (
+                                  <p key={sdIndex} className="indent-4">
+                                    {sd.replace(', ', '').trim()}, Limit:{' '}
+                                    {getCreelLimitForIndex(
+                                      s.seasonLimits,
+                                      sdIndex
+                                    )}
+                                  </p>
+                                )
+                              )}
+                            </div>
+                            {s.minimumLength && (
+                              <p className="mb-4">
+                                Min. Length: {s.minimumLength}
+                              </p>
+                            )}
+                          </div>
+                        }
+                        isExpandedByDefault={true}
+                      ></ContentSection>
+                    </div>
+                  )
+              )}
             </div>
           </div>
         )}

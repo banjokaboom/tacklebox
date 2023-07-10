@@ -56,5 +56,7 @@ module.exports = {
     'citystates',
     'watertemp',
     'doesn',
+    'overseed',
+    'dethatch',
   ],
 }
