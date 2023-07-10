@@ -26,7 +26,7 @@ export default function ChangeLog() {
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
         <ContentSection
-          title="v2.0.0"
+          title="v2.0.19"
           content={
             <div>
               <p className="mb-4">implemented retryCount on sql calls</p>
