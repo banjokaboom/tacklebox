@@ -32,6 +32,12 @@ export default function HomeMaintenance() {
           >
             Lawn Care
           </Link>
+          <Link
+            className="w-fit underline hover:no-underline"
+            href="/home-maintenance/pool-care"
+          >
+            Pool Care
+          </Link>
         </div>
       </div>
     </div>

@@ -43,3 +43,43 @@ export function compareDates(dates) {
 
   return isDateInRange
 }
+
+export function getSeasons() {
+  const today = new Date()
+  let seasons = []
+
+  switch (today.getMonth() + 1) {
+    case 1:
+    case 2:
+      seasons.push('winter')
+      break
+    case 3:
+      seasons.push('winter', 'spring')
+      break
+    case 4:
+    case 5:
+      seasons.push('spring')
+      break
+    case 6:
+      seasons.push('spring', 'summer')
+      break
+    case 7:
+    case 8:
+      seasons.push('summer')
+      break
+    case 9:
+      seasons.push('summer', 'fall')
+      break
+    case 10:
+    case 11:
+      seasons.push('fall')
+      break
+    case 12:
+      seasons.push('fall', 'winter')
+      break
+    default:
+      break
+  }
+
+  return seasons
+}

@@ -4,6 +4,7 @@ import WeatherData from '@/app/classes/WeatherData'
 import BaitRecommendations from '@/app/classes/BaitRecommendations'
 import WeatherDataChild from '@/app/classes/WeatherDataChild'
 import FishingData from '@/app/classes/FishingData'
+import { getSeasons } from '@/app/helpers/date'
 
 const waterTempMultiplier = 0.87
 const warmWaterMax = 82.5
@@ -209,14 +210,14 @@ function isTackleForWeather(
   return true
 }
 
-function getSeasons(
+function getFishingSeasons(
   weather: any,
   cityStateString: string,
   cityStateList: CityState[]
 ): string {
   let today = new Date()
   let todayMonth = today.getMonth() + 1
-  let seasons: string[] = []
+  let seasons: string[] = getSeasons()
   let state = ''
   let cityState: CityState | undefined = new CityState()
 
@@ -231,12 +232,7 @@ function getSeasons(
   })
 
   switch (todayMonth) {
-    case 1:
-    case 2:
-      seasons.push('winter')
-      break
     case 3:
-      seasons.push('winter', 'spring')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('trout stocking')
       }
@@ -247,7 +243,6 @@ function getSeasons(
       }
       break
     case 4:
-      seasons.push('spring')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('trout stocking')
       }
@@ -264,7 +259,6 @@ function getSeasons(
       }
       break
     case 5:
-      seasons.push('spring')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('bass pre-spawn')
         seasons.push('sunfish pre-spawn')
@@ -282,7 +276,6 @@ function getSeasons(
       }
       break
     case 6:
-      seasons.push('spring', 'summer')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('carp pre-spawn')
         seasons.push('bass spawn')
@@ -298,7 +291,6 @@ function getSeasons(
       }
       break
     case 7:
-      seasons.push('summer')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('catfish pre-spawn')
         seasons.push('carp spawn')
@@ -308,23 +300,15 @@ function getSeasons(
       }
       break
     case 8:
-      seasons.push('summer')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('catfish spawn')
       }
       break
-    case 9:
-      seasons.push('summer', 'fall')
-      break
     case 10:
     case 11:
-      seasons.push('fall')
       if (cityState && cityState.location.includes('north')) {
         seasons.push('trout stocking')
       }
-      break
-    case 12:
-      seasons.push('fall', 'winter')
       break
     default:
       break
@@ -387,7 +371,7 @@ export async function getFishingData(
   }
 
   if (weather && weather.location) {
-    fishingData.seasons = getSeasons(weather, cityState, cityStateList)
+    fishingData.seasons = getFishingSeasons(weather, cityState, cityStateList)
     fishingData.weather = getWeatherValues(weather)
 
     const waterTemp = useCurrentWeather
