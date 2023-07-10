@@ -2,6 +2,10 @@
  * To generate changelogs
  *
  * git log --oneline --decorate=no HEAD...{previous tag} > changelogs/{new tag}.txt
+ *
+ * To count for version tag
+ *
+ * git rev-list HEAD...v2.0.0 --count
  */
 
 import ContentSection from '@/app/components/content'
@@ -25,6 +29,35 @@ export default function ChangeLog() {
           title="v2.0.0"
           content={
             <div>
+              <p className="mb-4">implemented retryCount on sql calls</p>
+              <p className="mb-4">added pool care, consolidated date checks</p>
+              <p className="mb-4">
+                added lawn care page, added can i fish filter text
+              </p>
+              <p className="mb-4">added random tackle chooser</p>
+              <p className="mb-4">added tackle by species page</p>
+              <p className="mb-4">fixed cloudy day colors</p>
+              <p className="mb-4">added tip support on tackle</p>
+              <p className="mb-4">added some missing breadcrumbs</p>
+              <p className="mb-4">slight tweak to the what to fish app</p>
+              <p className="mb-4">reorganized pages</p>
+              <p className="mb-4">refactored all classes to dedicated files</p>
+              <p className="mb-4">updated useeffect on what to make app</p>
+              <p className="mb-4">
+                fixed loading of tackle and recipes to be in separate useEffect,
+                added breadcrumbs
+              </p>
+              <p className="mb-4">
+                added check for states to hide input if not loaded
+              </p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
+        <ContentSection
+          title="v2.0.0"
+          content={
+            <div>
               <p className="mb-4">
                 changed recipes and tackle to use postgres database
               </p>
@@ -42,7 +75,6 @@ export default function ChangeLog() {
               </p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
         <ContentSection
           title="v1.0.53"
