@@ -69,7 +69,6 @@ export default function ChangeLog() {
               <p>added check for states to hide input if not loaded</p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection

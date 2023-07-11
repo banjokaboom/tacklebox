@@ -193,10 +193,10 @@ export default function TackleBySpecies() {
             <ContentSection
               title="Lures and rigs to use"
               content={data.tackle.map((t, index) => (
-                <div key={index}>
+                <div key={index} className="mb-4 last:mb-0">
                   {t.tip && (
                     <button
-                      className="flex flex-row items-center mb-4 last:mb-0"
+                      className="flex flex-row items-center"
                       title="Click to learn how to use this"
                       onClick={() => {
                         setModalContent(t.tip)
@@ -210,7 +210,7 @@ export default function TackleBySpecies() {
                       />
                     </button>
                   )}
-                  {!t.tip && <p className="mb-4 last:mb-0">{t.name}</p>}
+                  {!t.tip && <p>{t.name}</p>}
                 </div>
               ))}
               isExpandedByDefault={true}
