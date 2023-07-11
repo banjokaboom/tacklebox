@@ -129,7 +129,10 @@ function pickBaitRecommendations(
   }
 
   if (weather.current.cloud >= 75) {
-    colorsToUse.push('dark', 'black', 'blue')
+    colorsToUse.push('dark', 'black')
+    if (!colorsToUse.includes('blue')) {
+      colorsToUse.push('blue')
+    }
   } else {
     colorsToUse.push('natural', 'gold', 'silver', 'green')
   }
