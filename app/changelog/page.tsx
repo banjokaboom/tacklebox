@@ -25,6 +25,25 @@ export default function ChangeLog() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
+
+        <ContentSection
+          title="v3.0.0"
+          content={
+            <div>
+              <p className="mb-4">
+                sorted species and other data alphabetically, added saltwater
+                page
+              </p>
+              <p className="mb-4">change header button title on expanded</p>
+              <p className="mb-4">
+                added some subtle transitions on links and menu
+              </p>
+              <p>updated a few tests, added top nav menu component</p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
+
         <ContentSection
           title="v2.0.19"
           content={
@@ -47,13 +66,12 @@ export default function ChangeLog() {
                 fixed loading of tackle and recipes to be in separate useEffect,
                 added breadcrumbs
               </p>
-              <p className="mb-4">
-                added check for states to hide input if not loaded
-              </p>
+              <p>added check for states to hide input if not loaded</p>
             </div>
           }
           isExpandedByDefault={true}
         ></ContentSection>
+
         <ContentSection
           title="v2.0.0"
           content={
@@ -69,13 +87,14 @@ export default function ChangeLog() {
               <p className="mb-4">
                 added trout stocking seasons for northern states
               </p>
-              <p className="mb-4">
+              <p>
                 fixed display of species names under lures, fixed trout to not
                 show up in summer
               </p>
             </div>
           }
         ></ContentSection>
+
         <ContentSection
           title="v1.0.53"
           content={
@@ -93,12 +112,11 @@ export default function ChangeLog() {
               </p>
               <p className="mb-4">updated inline link styles</p>
               <p className="mb-4">renamed oil prices to heating oil prices</p>
-              <p className="mb-4">
-                fixed some formatting issues on the canifish app
-              </p>
+              <p>fixed some formatting issues on the canifish app</p>
             </div>
           }
         ></ContentSection>
+
         <ContentSection
           title="v1.0.30"
           content={
@@ -134,10 +152,11 @@ export default function ChangeLog() {
               <p className="mb-4">added loader for geolocation</p>
               <p className="mb-4">updated default view of what to fish</p>
               <p className="mb-4">added geolocation</p>
-              <p className="mb-4">updated nav, added about us</p>
+              <p>updated nav, added about us</p>
             </div>
           }
         ></ContentSection>
+
         <ContentSection
           title="v1.0.0"
           content={
@@ -215,7 +234,7 @@ export default function ChangeLog() {
               <p className="mb-4">
                 base setup complete, what to fish app is working
               </p>
-              <p className="mb-4">Initial commit from Create Next App</p>
+              <p>Initial commit from Create Next App</p>
             </div>
           }
         ></ContentSection>
