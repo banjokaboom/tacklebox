@@ -8,11 +8,11 @@ d49b639 fixed cloudy day colors
 f7684a2 fixed some imports
 8f78e1d added tip support on tackle
 859b91c added some missing breadcrumbs
-4f2b28d slight tweak to the whatto fish app
+4f2b28d slight tweak to the what to fish app
 cac2647 reorganized pages
 91af17f refactored all classes to dedicated files
 90260f5 added notfound and breadcrumbs tests
-1b4106d updated useeffect on what to make app
+1b4106d updated useEffect on what to make app
 139c8cc fixed loading of tackle and recipes to be in separate useEffect, added breadcrumbs
 aee267c added check for states to hide input if not loaded
 732dc66 attempting to resolve the 404 issue in prod

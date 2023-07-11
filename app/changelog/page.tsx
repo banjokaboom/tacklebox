@@ -42,7 +42,7 @@ export default function ChangeLog() {
               <p className="mb-4">slight tweak to the what to fish app</p>
               <p className="mb-4">reorganized pages</p>
               <p className="mb-4">refactored all classes to dedicated files</p>
-              <p className="mb-4">updated useeffect on what to make app</p>
+              <p className="mb-4">updated useEffect on what to make app</p>
               <p className="mb-4">
                 fixed loading of tackle and recipes to be in separate useEffect,
                 added breadcrumbs

@@ -118,42 +118,41 @@ describe('WhatToFish', () => {
     expect(heading).toBeInTheDocument()
   })
 
-  // it('loads tackle when state is selected', async () => {
-  //   render(<WhatToFish />)
+  it('loads tackle when state is selected', async () => {
+    render(<WhatToFish />)
 
-  //   await userEvent.selectOptions(
-  //     screen.findByRole('combobox'),
-  //     'Boston,Massachusetts'
-  //   )
+    const combobox = await screen.findByRole('combobox')
 
-  //   const message = await screen.findByText(
-  //     /Successfully loaded tackle for location/i,
-  //     { exact: false }
-  //   )
-  //   expect(message).toBeInTheDocument()
+    await userEvent.selectOptions(combobox, 'Boston,Massachusetts')
 
-  //   const heading = await screen.findByText(/Species to target/i)
-  //   expect(heading).toBeInTheDocument()
-  // })
+    const message = await screen.findByText(
+      /Successfully loaded tackle for location/i,
+      { exact: false }
+    )
+    expect(message).toBeInTheDocument()
 
-  // it('loads tackle when geolocation is used', async () => {
-  //   render(<WhatToFish />)
+    const heading = await screen.findByText(/Species to target/i)
+    expect(heading).toBeInTheDocument()
+  })
 
-  //   const button = screen.getByText('Use Current Location')
+  it('loads tackle when geolocation is used', async () => {
+    render(<WhatToFish />)
 
-  //   expect(button).toBeInTheDocument()
+    const button = screen.getByText('Use Current Location')
 
-  //   fireEvent.click(button)
+    expect(button).toBeInTheDocument()
 
-  //   const message = await screen.findByText(
-  //     /Successfully loaded tackle for location/i,
-  //     { exact: false }
-  //   )
-  //   expect(message).toBeInTheDocument()
+    fireEvent.click(button)
 
-  //   const heading = await screen.findByText(/Species to target/i)
-  //   expect(heading).toBeInTheDocument()
-  // })
+    const message = await screen.findByText(
+      /Successfully loaded tackle for location/i,
+      { exact: false }
+    )
+    expect(message).toBeInTheDocument()
+
+    const heading = await screen.findByText(/Species to target/i)
+    expect(heading).toBeInTheDocument()
+  })
 
   it('loads tackle when current weather is used', async () => {
     render(<WhatToFish />)

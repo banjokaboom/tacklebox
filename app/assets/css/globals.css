@@ -45,7 +45,9 @@ nav a {
   line-height: 24pt;
 }
 
+/* stylelint-disable */
 .ReactModal__Content {
+  /* stylelint-enable */
   background-color: rgb(248 250 252) !important;
   border-radius: 0.375rem !important;
 }
