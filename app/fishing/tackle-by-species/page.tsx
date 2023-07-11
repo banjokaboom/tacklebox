@@ -196,7 +196,7 @@ export default function TackleBySpecies() {
                 <div key={index}>
                   {t.tip && (
                     <button
-                      className="flex flex-row items-center mb-4"
+                      className="flex flex-row items-center mb-4 last:mb-0"
                       title="Click to learn how to use this"
                       onClick={() => {
                         setModalContent(t.tip)
@@ -210,7 +210,7 @@ export default function TackleBySpecies() {
                       />
                     </button>
                   )}
-                  {!t.tip && <p className="mb-4">{t.name}</p>}
+                  {!t.tip && <p className="mb-4 last:mb-0">{t.name}</p>}
                 </div>
               ))}
               isExpandedByDefault={true}

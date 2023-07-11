@@ -8,9 +8,9 @@ export default async function handler(req: any, res: any) {
 
     if (req.query.species) {
       result =
-        await sql`SELECT * from tackle where ${req.query.species} = ANY(species)`
+        await sql`SELECT * from tackle where ${req.query.species} = ANY(species) order by name asc`
     } else {
-      result = await sql`SELECT * from tackle`
+      result = await sql`SELECT * from tackle order by name asc`
     }
 
     let tackle: Tackle[] = []

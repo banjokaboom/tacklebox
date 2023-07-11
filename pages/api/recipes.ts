@@ -4,7 +4,7 @@ import Recipe from '@/app/classes/Recipe'
 export default async function handler(req: any, res: any) {
   let retryCount = 0
   try {
-    const result = await sql`SELECT * from recipes`
+    const result = await sql`SELECT * from recipes order by name asc`
     let recipes: Recipe[] = []
 
     result.rows.map((r) => {

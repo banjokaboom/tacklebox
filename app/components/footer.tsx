@@ -45,11 +45,20 @@ export default function Footer() {
             Species
           </Link>
           <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="/fishing/what-to-fish"
           >
-            {pathname.includes('what-to-fish') ? '> ' : ''}What to Fish
-            (Freshwater)
+            {pathname.includes('what-to-fish') && !pathname.includes('salt')
+              ? '> '
+              : ''}
+            What to Fish (Freshwater)
+          </Link>
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            href="/fishing/what-to-fish-salt"
+          >
+            {pathname.includes('what-to-fish-salt') ? '> ' : ''}What to Fish
+            (Saltwater)
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"

@@ -4,7 +4,7 @@ import CityState from '@/app/classes/CityState'
 export default async function handler(req: any, res: any) {
   let retryCount = 0
   try {
-    const result = await sql`SELECT * from citystates`
+    const result = await sql`SELECT * from citystates order by state asc`
     let cityStates: CityState[] = []
 
     result.rows.map((cs) => {

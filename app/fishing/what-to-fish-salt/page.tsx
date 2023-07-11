@@ -24,8 +24,8 @@ export default function WhatToFish() {
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())
-  let [tackleList, setTackleList] = useState([])
-  let [cityStateList, setCityStateList] = useState([])
+  let [tackleList, setTackleList] = useState<Tackle[]>([])
+  let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
   let breadcrumbs = [
@@ -34,8 +34,8 @@ export default function WhatToFish() {
       href: '/fishing',
     },
     {
-      title: 'What to Fish (Freshwater)',
-      href: '/fishing/what-to-fish',
+      title: 'What to Fish (Saltwater)',
+      href: '/fishing/what-to-fish-salt',
     },
   ]
 
@@ -68,7 +68,18 @@ export default function WhatToFish() {
         await fetch('/api/cityStates')
           .then((res) => res.json())
           .then((json) => {
-            setCityStateList(json.cityStates)
+            let filteredArray: CityState[] = []
+
+            json.cityStates.forEach((cs: CityState) => {
+              if (
+                cs.location.includes('east coast') ||
+                cs.location.includes('west coast') ||
+                cs.location.includes('gulf coast')
+              ) {
+                filteredArray.push(cs)
+              }
+            })
+            setCityStateList(filteredArray)
           })
       } catch (error) {
         console.error(error)
@@ -188,21 +199,8 @@ export default function WhatToFish() {
   function getFishingTip() {
     const tips = [
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
-      'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
-      "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
-      'If the fishing gets tough, fish less traveled spots.',
-      'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
-      'Trout and related species are sight feeders and look up for food. Fish top half of the water column.',
-      'Fixed Bobber: Pinch bobber onto the line, pinch a split shot between the bobber and hook, and add a wacky-rigged worm or a grub lure to the hook. Cast out, let the lure fall, then jerk it every few seconds to give it some action. Can also use plastic minnows or live bait of course',
-      'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top.',
-      'Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
-      'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
-      'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
-      'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
-      'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
-      'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
+      'Hook size correlates to fish size. Size 1/0 will cover most smaller fish, size 4/0 will cover most medium size fish, and size 8/0 will be good for bigger hauls.',
       'The day before a storm is the best time to fish.',
-      "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
     ]
 
     const today = new Date()
@@ -214,6 +212,10 @@ export default function WhatToFish() {
       tipIndex = today.getDate()
     }
 
+    while (tipIndex >= tips.length) {
+      tipIndex--
+    }
+
     return tips[tipIndex]
   }
 
@@ -221,7 +223,7 @@ export default function WhatToFish() {
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <Breadcrumbs links={breadcrumbs} />
-        <h1 className="text-3xl mb-4">What to Fish (Freshwater)</h1>
+        <h1 className="text-3xl mb-4">What to Fish (Saltwater)</h1>
         <hr className="mb-4" />
         <p className="mb-4">
           To start, provide a ZIP, choose a State, or use your current location.
@@ -313,13 +315,6 @@ export default function WhatToFish() {
 
               {data.tackle.length > 0 && (
                 <ContentSection
-                  title="Lure colors to use now"
-                  content={data.baitRecommendations.colorsToUse}
-                ></ContentSection>
-              )}
-
-              {data.tackle.length > 0 && (
-                <ContentSection
                   title="Baits to use now"
                   content={data.baitRecommendations.baitsToUse}
                 ></ContentSection>
@@ -329,7 +324,7 @@ export default function WhatToFish() {
                 <ContentSection
                   title="Lures and rigs to use today"
                   content={data.tackle.map((t, index) => (
-                    <div key={index} className="mb-4 last:mb-0">
+                    <div key={index}>
                       {t.tip && (
                         <button
                           className="flex flex-row items-center"
@@ -347,7 +342,7 @@ export default function WhatToFish() {
                         </button>
                       )}
                       {!t.tip && <p>{t.name}</p>}
-                      <p className="text-sm">{getTackleSpecies(t)}</p>
+                      <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
                     </div>
                   ))}
                 ></ContentSection>

@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres'
 export default async function handler(req: any, res: any) {
   let retryCount = 0
   try {
-    const result = await sql`SELECT * from species`
+    const result = await sql`SELECT * from species order by name asc`
     let species: string[] = []
 
     result.rows.map((s) => {
