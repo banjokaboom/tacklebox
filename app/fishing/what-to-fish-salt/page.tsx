@@ -324,7 +324,7 @@ export default function WhatToFish() {
                 <ContentSection
                   title="Lures and rigs to use today"
                   content={data.tackle.map((t, index) => (
-                    <div key={index}>
+                    <div key={index} className="mb-4 last:mb-0">
                       {t.tip && (
                         <button
                           className="flex flex-row items-center"
@@ -342,7 +342,7 @@ export default function WhatToFish() {
                         </button>
                       )}
                       {!t.tip && <p>{t.name}</p>}
-                      <p className="mb-4 text-sm">{getTackleSpecies(t)}</p>
+                      <p className="text-sm">{getTackleSpecies(t)}</p>
                     </div>
                   ))}
                 ></ContentSection>
