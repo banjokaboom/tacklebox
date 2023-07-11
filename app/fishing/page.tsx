@@ -37,6 +37,12 @@ export default function Fishing() {
           >
             What to Fish (Freshwater)
           </Link>
+          <Link
+            className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+            href="/fishing/what-to-fish-salt"
+          >
+            What to Fish (Saltwater)
+          </Link>
         </div>
       </div>
     </div>
