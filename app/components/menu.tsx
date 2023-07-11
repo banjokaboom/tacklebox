@@ -17,7 +17,7 @@ export default function Menu() {
   return (
     <nav className="sm:relative">
       <button
-        title="Header Menu"
+        title={(isExpanded ? 'Close ' : '') + 'Header Menu'}
         onClick={() => {
           setIsExpanded(!isExpanded)
         }}
