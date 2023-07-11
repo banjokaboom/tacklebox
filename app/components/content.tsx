@@ -62,8 +62,8 @@ export default function ContentSection({
       {content && (
         <div
           className={
-            'border border-slate-50 bg-slate-700 p-4 rounded-md ' +
-            (!isExpanded ? 'hidden' : '')
+            'border border-slate-50 bg-slate-700 p-4 rounded-md transition-all overflow-hidden' +
+            (isExpanded ? '' : ' h-0 pt-0 pb-0 border-0')
           }
         >
           <div>{content}</div>

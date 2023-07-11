@@ -20,7 +20,7 @@ export default function Personal() {
         </p>
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <Link
-            className="w-fit underline hover:no-underline"
+            className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/personal/what-to-make"
           >
             What to Make for Dinner

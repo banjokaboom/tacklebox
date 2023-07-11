@@ -81,7 +81,7 @@ export default function OilPrices() {
             <a
               href="https://www.newenglandoil.com/mass.htm"
               target="_blank"
-              className="underline hover:no-underline"
+              className="underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             >
               newenglandoil.com
             </a>{' '}

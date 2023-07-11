@@ -19,56 +19,92 @@ export default function Footer() {
     <footer className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
       <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start border-t pt-8">
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
-          <Link className="mb-4 w-fit" href="/">
+          <Link
+            className="mb-4 w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/"
+          >
             {pathname == '/' ? '> ' : ''}Home
           </Link>
-          <Link className="w-fit" href="/fishing">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/fishing"
+          >
             {pathname == '/fishing' ? '> ' : ''}Fishing
           </Link>
-          <Link className="w-fit" href="/fishing/can-i-fish">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/fishing/can-i-fish"
+          >
             {pathname.includes('can-i-fish') ? '> ' : ''}Can I Fish (MA)
           </Link>
-          <Link className="w-fit" href="/fishing/tackle-by-species">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/fishing/tackle-by-species"
+          >
             {pathname.includes('tackle-by-species') ? '> ' : ''}Tackle by
             Species
           </Link>
-          <Link className="w-fit mb-4" href="/fishing/what-to-fish">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            href="/fishing/what-to-fish"
+          >
             {pathname.includes('what-to-fish') ? '> ' : ''}What to Fish
             (Freshwater)
           </Link>
-          <Link className="w-fit" href="/home-maintenance">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/home-maintenance"
+          >
             {pathname == '/home-maintenance' ? '> ' : ''}Home Maintenance
           </Link>
-          <Link className="w-fit" href="/home-maintenance/oil-prices">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/home-maintenance/oil-prices"
+          >
             {pathname.includes('oil-prices') ? '> ' : ''}Heating Oil Prices (MA)
           </Link>
-          <Link className="w-fit" href="/home-maintenance/lawn-care">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/home-maintenance/lawn-care"
+          >
             {pathname.includes('lawn-care') ? '> ' : ''}Lawn Care
           </Link>
-          <Link className="w-fit mb-4" href="/home-maintenance/pool-care">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            href="/home-maintenance/pool-care"
+          >
             {pathname.includes('pool-care') ? '> ' : ''}Pool Care
           </Link>
-          <Link className="w-fit lg:mb-4" href="/personal">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] lg:mb-4"
+            href="/personal"
+          >
             {pathname.includes('personal') ? '> ' : ''}Personal
           </Link>
         </div>
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <h4 className="text-lg mb-4 underline">Info</h4>
-          <Link className="w-fit" href="/about">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            href="/about"
+          >
             {pathname.includes('about') ? '> ' : ''}About
           </Link>
-          <Link className="w-fit mb-4" href="/changelog">
+          <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            href="/changelog"
+          >
             {pathname.includes('changelog') ? '> ' : ''}Changelog
           </Link>
           <h4 className="text-lg mb-4 underline">Social</h4>
           <Link
-            className="w-fit"
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="mailto:tackleboxappfeedback@gmail.com?subject=Tacklebox%20Feedback"
           >
             Contact
           </Link>
           <Link
-            className="w-fit flex flex-row items-center"
+            className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
             title="Paypal Donate Link"
             href="https://www.paypal.com/donate/?hosted_button_id=BUNJWE5436NXN"
             target="_blank"
@@ -77,7 +113,7 @@ export default function Footer() {
             <FontAwesomeIcon icon={faPaypal} className="max-h-5 h-5 ml-2" />
           </Link>
           <Link
-            className="w-fit flex flex-row items-center"
+            className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
             title="Ko-fi Donate Link"
             href="https://ko-fi.com/banjokaboom"
             target="_blank"

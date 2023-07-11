@@ -9,13 +9,13 @@ export default function Menu() {
   let [isExpanded, setIsExpanded] = useState(false)
 
   let className =
-    'p-4 flex flex-col text-slate-700 bg-slate-50 rounded-md shadow'
-  className += isExpanded ? ' absolute right-0' : ' hidden'
+    'p-4 flex flex-col text-slate-700 bg-slate-50 rounded-md shadow items-end transition-all overflow-hidden absolute right-12 sm:right-0 sm:-left-52 left-12'
+  className += isExpanded ? ' opacity-100' : ' h-0 pt-0 pb-0 opacity-0'
 
   const icon = isExpanded ? faXmark : faBars
 
   return (
-    <nav className="relative">
+    <nav className="sm:relative">
       <button
         title="Header Menu"
         onClick={() => {
@@ -26,7 +26,7 @@ export default function Menu() {
       </button>
       <div className={className}>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/"
           onClick={() => {
             setIsExpanded(false)
@@ -35,7 +35,7 @@ export default function Menu() {
           Home
         </Link>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/fishing"
           onClick={() => {
             setIsExpanded(false)
@@ -44,7 +44,7 @@ export default function Menu() {
           Fishing
         </Link>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/home-maintenance"
           onClick={() => {
             setIsExpanded(false)
@@ -53,7 +53,7 @@ export default function Menu() {
           Home Maintenance
         </Link>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/personal"
           onClick={() => {
             setIsExpanded(false)
@@ -62,7 +62,7 @@ export default function Menu() {
           Personal
         </Link>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/about"
           onClick={() => {
             setIsExpanded(false)
@@ -71,7 +71,7 @@ export default function Menu() {
           About
         </Link>
         <Link
-          className="w-fit underline hover:no-underline"
+          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/changelog"
           onClick={() => {
             setIsExpanded(false)

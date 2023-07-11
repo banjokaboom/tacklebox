@@ -21,19 +21,19 @@ export default function HomeMaintenance() {
         </p>
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <Link
-            className="w-fit underline hover:no-underline"
+            className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/home-maintenance/oil-prices"
           >
             Heating Oil Prices (MA)
           </Link>
           <Link
-            className="w-fit underline hover:no-underline"
+            className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/home-maintenance/lawn-care"
           >
             Lawn Care
           </Link>
           <Link
-            className="w-fit underline hover:no-underline"
+            className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/home-maintenance/pool-care"
           >
             Pool Care
