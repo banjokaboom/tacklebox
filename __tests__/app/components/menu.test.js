@@ -22,7 +22,7 @@ describe('Menu', () => {
     expect(changelogLink).toBeInTheDocument()
   })
 
-  it('is hidden when menu not clicked', () => {
+  it('is h-0 when menu not clicked', () => {
     render(<Menu />)
 
     const homeLink = screen.getByText('Home')
@@ -32,14 +32,14 @@ describe('Menu', () => {
     const aboutLink = screen.getByText('About')
     const changelogLink = screen.getByText('Changelog')
 
-    expect(homeLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(homeLink.parentNode.className.includes('h-0')).toBeTruthy()
     expect(
-      homeMaintenanceLink.parentNode.className.includes('hidden')
+      homeMaintenanceLink.parentNode.className.includes('h-0')
     ).toBeTruthy()
-    expect(fishingLink.parentNode.className.includes('hidden')).toBeTruthy()
-    expect(personalLink.parentNode.className.includes('hidden')).toBeTruthy()
-    expect(aboutLink.parentNode.className.includes('hidden')).toBeTruthy()
-    expect(changelogLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(fishingLink.parentNode.className.includes('h-0')).toBeTruthy()
+    expect(personalLink.parentNode.className.includes('h-0')).toBeTruthy()
+    expect(aboutLink.parentNode.className.includes('h-0')).toBeTruthy()
+    expect(changelogLink.parentNode.className.includes('h-0')).toBeTruthy()
   })
 
   it('is visible when menu clicked', () => {
@@ -55,17 +55,15 @@ describe('Menu', () => {
 
     fireEvent.click(button)
 
-    expect(homeLink.parentNode.className.includes('hidden')).toBeFalsy()
-    expect(
-      homeMaintenanceLink.parentNode.className.includes('hidden')
-    ).toBeFalsy()
-    expect(fishingLink.parentNode.className.includes('hidden')).toBeFalsy()
-    expect(personalLink.parentNode.className.includes('hidden')).toBeFalsy()
-    expect(aboutLink.parentNode.className.includes('hidden')).toBeFalsy()
-    expect(changelogLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(homeLink.parentNode.className.includes('h-0')).toBeFalsy()
+    expect(homeMaintenanceLink.parentNode.className.includes('h-0')).toBeFalsy()
+    expect(fishingLink.parentNode.className.includes('h-0')).toBeFalsy()
+    expect(personalLink.parentNode.className.includes('h-0')).toBeFalsy()
+    expect(aboutLink.parentNode.className.includes('h-0')).toBeFalsy()
+    expect(changelogLink.parentNode.className.includes('h-0')).toBeFalsy()
   })
 
-  it('is hidden when menu items clicked', () => {
+  it('is h-0 when menu items clicked', () => {
     render(<Menu />)
 
     const homeLink = screen.getByText('Home')
@@ -76,46 +74,44 @@ describe('Menu', () => {
     const changelogLink = screen.getByText('Changelog')
     const button = screen.getByRole('button')
 
-    expect(homeLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(homeLink.parentNode.className.includes('h-0')).toBeTruthy()
     fireEvent.click(button)
-    expect(homeLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(homeLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(homeLink)
-    expect(homeLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(homeLink.parentNode.className.includes('h-0')).toBeTruthy()
 
     expect(
-      homeMaintenanceLink.parentNode.className.includes('hidden')
+      homeMaintenanceLink.parentNode.className.includes('h-0')
     ).toBeTruthy()
     fireEvent.click(button)
-    expect(
-      homeMaintenanceLink.parentNode.className.includes('hidden')
-    ).toBeFalsy()
+    expect(homeMaintenanceLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(homeMaintenanceLink)
     expect(
-      homeMaintenanceLink.parentNode.className.includes('hidden')
+      homeMaintenanceLink.parentNode.className.includes('h-0')
     ).toBeTruthy()
 
-    expect(fishingLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(fishingLink.parentNode.className.includes('h-0')).toBeTruthy()
     fireEvent.click(button)
-    expect(fishingLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(fishingLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(fishingLink)
-    expect(fishingLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(fishingLink.parentNode.className.includes('h-0')).toBeTruthy()
 
-    expect(personalLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(personalLink.parentNode.className.includes('h-0')).toBeTruthy()
     fireEvent.click(button)
-    expect(personalLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(personalLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(personalLink)
-    expect(personalLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(personalLink.parentNode.className.includes('h-0')).toBeTruthy()
 
-    expect(aboutLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(aboutLink.parentNode.className.includes('h-0')).toBeTruthy()
     fireEvent.click(button)
-    expect(aboutLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(aboutLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(aboutLink)
-    expect(aboutLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(aboutLink.parentNode.className.includes('h-0')).toBeTruthy()
 
-    expect(changelogLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(changelogLink.parentNode.className.includes('h-0')).toBeTruthy()
     fireEvent.click(button)
-    expect(changelogLink.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(changelogLink.parentNode.className.includes('h-0')).toBeFalsy()
     fireEvent.click(changelogLink)
-    expect(changelogLink.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(changelogLink.parentNode.className.includes('h-0')).toBeTruthy()
   })
 })

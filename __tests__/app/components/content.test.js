@@ -21,11 +21,11 @@ describe('Content', () => {
     const content = screen.getByText('Test Content')
 
     expect(button).toBeInTheDocument()
-    expect(content.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(content.parentNode.className.includes('h-0')).toBeTruthy()
 
     fireEvent.click(button)
 
-    expect(content.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(content.parentNode.className.includes('h-0')).toBeFalsy()
   })
 
   it('expands when subtitle is clicked when there is no title', () => {
@@ -35,10 +35,10 @@ describe('Content', () => {
     const content = screen.getByText('Test Content')
 
     expect(button).toBeInTheDocument()
-    expect(content.parentNode.className.includes('hidden')).toBeTruthy()
+    expect(content.parentNode.className.includes('h-0')).toBeTruthy()
 
     fireEvent.click(button)
 
-    expect(content.parentNode.className.includes('hidden')).toBeFalsy()
+    expect(content.parentNode.className.includes('h-0')).toBeFalsy()
   })
 })

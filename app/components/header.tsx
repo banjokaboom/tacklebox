@@ -12,7 +12,10 @@ export default function Header() {
             <Link href="/" className="text-3xl">
               Tacklebox
             </Link>
-            <FontAwesomeIcon icon={faFishFins} className="max-h-8 h-8 ml-4" />
+            <FontAwesomeIcon
+              icon={faFishFins}
+              className="max-h-8 h-8 ml-4 hover:-rotate-90 transition-transform"
+            />
           </div>
           <Menu />
         </div>
