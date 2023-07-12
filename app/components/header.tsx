@@ -7,6 +7,7 @@ import { faFishFins } from '@fortawesome/free-solid-svg-icons'
 import Menu from './menu'
 
 export default function Header() {
+  let isTimeoutSet = false
   let [isCaught, setIsCaught] = useState(false)
   let [isHidden, setIsHidden] = useState(true)
 
@@ -14,10 +15,12 @@ export default function Header() {
     setIsCaught(!isCaught)
     setIsHidden(false)
 
-    if (!isCaught) {
+    if (!isTimeoutSet) {
+      isTimeoutSet = true
       setTimeout(() => {
+        isTimeoutSet = false
         setIsHidden(true)
-      }, 5000)
+      }, 10000)
     }
   }
 

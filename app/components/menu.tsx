@@ -14,6 +14,14 @@ export default function Menu() {
 
   const icon = isExpanded ? faXmark : faBars
 
+  function openMenu() {
+    setIsExpanded(true)
+  }
+
+  function closeMenu() {
+    setIsExpanded(false)
+  }
+
   return (
     <nav className="sm:relative">
       <button
@@ -21,6 +29,7 @@ export default function Menu() {
         onClick={() => {
           setIsExpanded(!isExpanded)
         }}
+        onBlur={closeMenu}
       >
         <FontAwesomeIcon icon={icon} className="max-h-8 h-8" />
       </button>
@@ -28,54 +37,54 @@ export default function Menu() {
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           Home
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/fishing"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           Fishing
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/home-maintenance"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           Home Maintenance
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/personal"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           Personal
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/about"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           About
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/changelog"
-          onClick={() => {
-            setIsExpanded(false)
-          }}
+          onClick={closeMenu}
+          onMouseOver={openMenu}
+          onFocus={openMenu}
         >
           Changelog
         </Link>
