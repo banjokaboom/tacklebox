@@ -1,4 +1,5 @@
 import WeatherDataChild from './WeatherDataChild'
+import AstroData from './AstroData'
 
 export default class WeatherData {
   public outdoorTemp: string
@@ -8,6 +9,7 @@ export default class WeatherData {
   public location: string
   public current: WeatherDataChild
   public forecast: WeatherDataChild
+  public astro: AstroData
 
   constructor() {
     this.outdoorTemp = ''
@@ -17,5 +19,6 @@ export default class WeatherData {
     this.location = ''
     this.current = new WeatherDataChild()
     this.forecast = new WeatherDataChild()
+    this.astro = new AstroData()
   }
 }

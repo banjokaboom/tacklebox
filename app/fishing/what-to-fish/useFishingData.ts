@@ -5,6 +5,7 @@ import BaitRecommendations from '@/app/classes/BaitRecommendations'
 import WeatherDataChild from '@/app/classes/WeatherDataChild'
 import FishingData from '@/app/classes/FishingData'
 import { getSeasons } from '@/app/helpers/date'
+import AstroData from '@/app/classes/AstroData'
 
 const waterTempMultiplier = 0.87
 const warmWaterMax = 82.5
@@ -333,6 +334,7 @@ function getWeatherValues(weather: any): WeatherData {
   let weatherData = new WeatherData()
   let current = new WeatherDataChild()
   let forecast = new WeatherDataChild()
+  let astro = new AstroData()
 
   current.outdoorTemp = weather.current.temp_f + 'F'
   current.waterTemp =
@@ -348,9 +350,16 @@ function getWeatherValues(weather: any): WeatherData {
   forecast.conditions = weather.forecast.forecastday[0].day.condition.text
   forecast.wind = weather.forecast.forecastday[0].day.maxwind_mph + 'mph'
 
+  astro.sunrise = weather.forecast.forecastday[0].astro.sunrise
+  astro.sunset = weather.forecast.forecastday[0].astro.sunset
+  astro.moonrise = weather.forecast.forecastday[0].astro.moonrise
+  astro.moonset = weather.forecast.forecastday[0].astro.moonset
+  astro.moon_phase = weather.forecast.forecastday[0].astro.moon_phase
+
   weatherData.current = current
   weatherData.forecast = forecast
   weatherData.location = weather.location.name + ', ' + weather.location.region
+  weatherData.astro = astro
 
   return weatherData
 }

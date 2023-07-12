@@ -429,6 +429,27 @@ export default function WhatToFish() {
                   </div>
                 }
               ></ContentSection>
+
+              <ContentSection
+                title="Astrological Info"
+                content={
+                  <div>
+                    <p className="mb-4">
+                      Sunrise: {data.weather.astro.sunrise}
+                    </p>
+                    <p className="mb-4">Sunset: {data.weather.astro.sunset}</p>
+                    <p className="mb-4">
+                      Moonrise: {data.weather.astro.moonrise}
+                    </p>
+                    <p className="mb-4">
+                      Moonset: {data.weather.astro.moonset}
+                    </p>
+                    <p className="mb-4">
+                      Moon phase: {data.weather.astro.moon_phase}
+                    </p>
+                  </div>
+                }
+              ></ContentSection>
             </div>
           </div>
         )}
