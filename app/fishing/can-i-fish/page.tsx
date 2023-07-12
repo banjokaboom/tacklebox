@@ -128,8 +128,10 @@ export default function CanIFish() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">
           Can I Fish:{' '}
-          {data.freshwaterRegulations.length > 0 ||
-          data.saltwaterRegulations.length > 0
+          {data.freshwaterRegulationsLink == ''
+            ? '—'
+            : data.freshwaterRegulations.length > 0 ||
+              data.saltwaterRegulations.length > 0
             ? 'Yes'
             : 'No'}
         </h1>

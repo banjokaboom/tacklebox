@@ -17,10 +17,14 @@ let swFishingData = []
 
 const server = setupServer(
   rest.get('/api/freshMA', (req, res, ctx) => {
-    return res(ctx.json({ fishingData: fwFishingData, regulationsLink: '' }))
+    return res(
+      ctx.json({ fishingData: fwFishingData, regulationsLink: 'www.test.com' })
+    )
   }),
   rest.get('/api/saltMA', (req, res, ctx) => {
-    return res(ctx.json({ fishingData: swFishingData, regulationsLink: '' }))
+    return res(
+      ctx.json({ fishingData: swFishingData, regulationsLink: 'www.test.com' })
+    )
   })
 )
 
