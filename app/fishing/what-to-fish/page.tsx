@@ -406,7 +406,8 @@ export default function WhatToFish() {
                     <p className="mb-4">
                       Conditions: {data.weather.current.conditions}
                     </p>
-                    <p>Wind: {data.weather.current.wind}</p>
+                    <p className="mb-4">Wind: {data.weather.current.wind}</p>
+                    <p>Pressure: {data.weather.pressure}in.</p>
                   </div>
                 }
               ></ContentSection>
@@ -461,8 +462,8 @@ export default function WhatToFish() {
               of experience on the water as well as my own research.
             </p>
             <p className="text-sm">
-              **Best condition is Best+++++++++. Condition quality is based on
-              species availability and weather.
+              **The more +&apos;s, the better the conditions are for fishing.
+              Condition quality is based on species availability and weather.
             </p>
           </div>
         )}

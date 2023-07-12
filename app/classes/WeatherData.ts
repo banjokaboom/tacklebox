@@ -7,6 +7,7 @@ export default class WeatherData {
   public conditions: string
   public wind: string
   public location: string
+  public pressure: number
   public current: WeatherDataChild
   public forecast: WeatherDataChild
   public astro: AstroData
@@ -17,6 +18,7 @@ export default class WeatherData {
     this.conditions = ''
     this.wind = ''
     this.location = ''
+    this.pressure = 0
     this.current = new WeatherDataChild()
     this.forecast = new WeatherDataChild()
     this.astro = new AstroData()

@@ -359,6 +359,7 @@ function getWeatherValues(weather: any): WeatherData {
   weatherData.current = current
   weatherData.forecast = forecast
   weatherData.location = weather.location.name + ', ' + weather.location.region
+  weatherData.pressure = weather.current.pressure_in
   weatherData.astro = astro
 
   return weatherData
@@ -495,6 +496,15 @@ function getFishingConditionsText(
     starRating += '+'
   }
 
+  if (weather.current.pressure_in < 29.8) {
+    starRating += '++'
+  } else if (
+    weather.current.pressure_in >= 29.8 &&
+    weather.current.pressure_in <= 30.2
+  ) {
+    starRating += '+'
+  }
+
   const now = new Date()
   let sunrise = new Date()
   sunrise.setHours(
@@ -508,9 +518,6 @@ function getFishingConditionsText(
   sunset.setMinutes(
     weather.forecast.forecastday[0].astro.sunset.substring(3, 5)
   )
-
-  console.log(sunrise.getHours() + ':' + sunrise.getMinutes())
-  console.log(sunset.getHours() + ':' + sunset.getMinutes())
 
   if (sunset.getHours() - now.getHours() <= 3) {
     starRating += '++'

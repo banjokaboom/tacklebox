@@ -401,7 +401,8 @@ export default function WhatToFish() {
                     <p className="mb-4">
                       Conditions: {data.weather.current.conditions}
                     </p>
-                    <p>Wind: {data.weather.current.wind}</p>
+                    <p className="mb-4">Wind: {data.weather.current.wind}</p>
+                    <p>Pressure: {data.weather.pressure}in.</p>
                   </div>
                 }
               ></ContentSection>
@@ -424,6 +425,27 @@ export default function WhatToFish() {
                   </div>
                 }
               ></ContentSection>
+
+              <ContentSection
+                title="Astrological Info"
+                content={
+                  <div>
+                    <p className="mb-4">
+                      Sunrise: {data.weather.astro.sunrise}
+                    </p>
+                    <p className="mb-4">Sunset: {data.weather.astro.sunset}</p>
+                    <p className="mb-4">
+                      Moonrise: {data.weather.astro.moonrise}
+                    </p>
+                    <p className="mb-4">
+                      Moonset: {data.weather.astro.moonset}
+                    </p>
+                    <p className="mb-4">
+                      Moon phase: {data.weather.astro.moon_phase}
+                    </p>
+                  </div>
+                }
+              ></ContentSection>
             </div>
           </div>
         )}
@@ -435,8 +457,8 @@ export default function WhatToFish() {
               of experience on the water as well as my own research.
             </p>
             <p className="text-sm">
-              **Best condition is Best+++++++++. Condition quality is based on
-              species availability and weather.
+              **The more +&apos;s, the better the conditions are for fishing.
+              Condition quality is based on species availability and weather.
             </p>
           </div>
         )}
