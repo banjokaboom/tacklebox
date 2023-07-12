@@ -47,7 +47,12 @@ export default function Header() {
                 onMouseEnter={toggleCaught}
                 onMouseLeave={toggleCaught}
               />
-              <span className={'text-sm ml-2 transition-all ' + className}>
+              <span
+                className={
+                  'text-sm ml-2 transition-all hidden lg:inline-block ' +
+                  className
+                }
+              >
                 {isCaught ? 'caught!' : 'released!'}
               </span>
             </div>
