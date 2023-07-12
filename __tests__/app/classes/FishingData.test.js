@@ -11,5 +11,6 @@ describe('FishingData', () => {
     expect(fishingData.tackle.length).toBe(0)
     expect(fishingData.weather).not.toBeUndefined()
     expect(fishingData.species).toBe('')
+    expect(fishingData.fishingConditionsText).toBe('')
   })
 })

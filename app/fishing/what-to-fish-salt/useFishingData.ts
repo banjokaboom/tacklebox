@@ -193,6 +193,13 @@ export async function getFishingData(
       fishingData.species,
       waterTemp
     )
+
+    fishingData.fishingConditionsText = getFishingConditionsText(
+      weather,
+      fishingData.species,
+      fishingData.seasons,
+      useCurrentWeather
+    )
   } else if (
     geolocation !== '' ||
     cityState != '' ||
@@ -213,4 +220,86 @@ function getSpecies(waterTemp: number): string {
   }
 
   return species !== '' ? species : 'Not ideal fishing weather for any species'
+}
+
+function getFishingConditionsText(
+  weather: any,
+  species: string,
+  seasons: string,
+  useCurrentWeather: boolean
+) {
+  let fishingConditionsText = ''
+  let starRating = ''
+  const speciesArray = species.split(',').map((s) => s.trim())
+
+  if (speciesArray.length >= 5) {
+    fishingConditionsText += 'Best'
+  } else if (speciesArray.length >= 3) {
+    fishingConditionsText += 'Good'
+  } else if (speciesArray.length == 1) {
+    fishingConditionsText += 'Not Ideal'
+  } else {
+    fishingConditionsText += 'OK'
+  }
+
+  if (useCurrentWeather) {
+    if (weather.current.wind_mph < 6) {
+      starRating += '+++'
+    } else if (weather.current.wind_mph < 10) {
+      starRating += '++'
+    } else if (weather.current.wind_mph < 13) {
+      starRating += '+'
+    }
+  } else {
+    if (weather.forecast.forecastday[0].day.maxwind_mph < 6) {
+      starRating += '+++'
+    } else if (weather.forecast.forecastday[0].day.maxwind_mph < 10) {
+      starRating += '++'
+    } else if (weather.forecast.forecastday[0].day.maxwind_mph < 13) {
+      starRating += '+'
+    }
+  }
+
+  if (weather.forecast.forecastday[0].day.daily_chance_of_rain <= 50) {
+    starRating += '+'
+  }
+
+  if (weather.current.cloud == 100) {
+    starRating += '+++'
+  } else if (weather.current.cloud >= 75) {
+    starRating += '++'
+  } else if (weather.current.cloud >= 50) {
+    starRating += '+'
+  }
+
+  const now = new Date()
+  let sunrise = new Date()
+  sunrise.setHours(
+    weather.forecast.forecastday[0].astro.sunrise.substring(0, 2)
+  )
+  sunrise.setMinutes(
+    weather.forecast.forecastday[0].astro.sunrise.substring(3, 5)
+  )
+  let sunset = new Date()
+  sunset.setHours(weather.forecast.forecastday[0].astro.sunset.substring(0, 2))
+  sunset.setMinutes(
+    weather.forecast.forecastday[0].astro.sunset.substring(3, 5)
+  )
+
+  if (sunset.getHours() - now.getHours() <= 3) {
+    starRating += '++'
+  } else if (
+    (seasons.includes('summer') || seasons.includes('winter')) &&
+    now.getHours() - sunrise.getHours() <= 3
+  ) {
+    starRating += '+'
+  } else if (
+    !seasons.includes('summer') &&
+    !seasons.includes('winter') &&
+    now.getHours() - sunrise.getHours() <= 3
+  ) {
+    starRating += '+'
+  }
+
+  return fishingConditionsText + starRating
 }

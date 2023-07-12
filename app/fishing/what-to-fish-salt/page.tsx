@@ -288,7 +288,7 @@ export default function WhatToFish() {
         </div>
         {loading && <Loader />}
         {!loading && data.weather.location != '' && (
-          <div>
+          <div className="mb-4">
             <p className="mb-4">Data loaded for {data.weather.location}</p>
             <label htmlFor="useCurrentWeather" className="mb-4 block">
               Use current weather or forecast?
@@ -299,13 +299,20 @@ export default function WhatToFish() {
               onChange={(e) => {
                 setUseCurrentWeather(e.target.value == 'true')
               }}
-              className="text-slate-700 leading-4 p-2 block max-w-full"
+              className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
               value={'' + useCurrentWeather}
             >
               <option value="true">Current</option>
               <option value="false">Forecast</option>
             </select>
+
+            <hr />
           </div>
+        )}
+        {!loading && data.species !== '' && (
+          <h2 className="text-3xl mb-4">
+            Conditions are: {data.fishingConditionsText}
+          </h2>
         )}
         {!loading && data.species !== '' && (
           <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
@@ -422,10 +429,16 @@ export default function WhatToFish() {
         )}
 
         {data.tackle.length > 0 && (
-          <p className="pt-4 mb-4 text-sm">
-            *Data is generalized for the location provided and is the result of
-            experience on the water as well as my own research.
-          </p>
+          <div className="pt-4">
+            <p className="mb-4 text-sm">
+              *Data is generalized for the location provided and is the result
+              of experience on the water as well as my own research.
+            </p>
+            <p className="text-sm">
+              **Best condition is Best+++++++++. Condition quality is based on
+              species availability and weather.
+            </p>
+          </div>
         )}
 
         <div>
