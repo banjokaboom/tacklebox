@@ -59,5 +59,7 @@ module.exports = {
     'overseed',
     'dethatch',
     'Xmark',
+    'beardedfishapps',
+    'pino',
   ],
 }

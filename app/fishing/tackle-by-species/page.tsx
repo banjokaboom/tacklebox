@@ -1,5 +1,6 @@
 'use client'
 
+import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
 import ContentSection from '@/app/components/content'
@@ -34,6 +35,7 @@ export default function TackleBySpecies() {
   ]
 
   useEffect(() => {
+    const logger = Logger({})
     setLoading(true)
 
     let m = new MessageData()
@@ -51,7 +53,7 @@ export default function TackleBySpecies() {
             setSpeciesList(json.species)
           })
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         m.message =
           'An error occurred when loading the species list. Please try refreshing the page.'
         m.severity = 'error'

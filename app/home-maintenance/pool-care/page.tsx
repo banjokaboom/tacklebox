@@ -41,8 +41,6 @@ function getRecommendedCareForDate() {
     recommendation.push('Enjoy the time off!')
   }
 
-  console.log(recommendation)
-
   return recommendation
 }
 

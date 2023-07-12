@@ -1,3 +1,4 @@
+import { default as Logger } from 'pino'
 import Tackle from '@/app/classes/Tackle'
 import CityState from '@/app/classes/CityState'
 import WeatherData from '@/app/classes/WeatherData'
@@ -6,6 +7,7 @@ import WeatherDataChild from '@/app/classes/WeatherDataChild'
 import FishingData from '@/app/classes/FishingData'
 import { getSeasons } from '@/app/helpers/date'
 
+const logger = Logger({})
 const waterTempMultiplier = 0.875
 
 async function getWeather(zip: string, cityState: string, geolocation: string) {
@@ -109,9 +111,9 @@ function isTackleForWeather(
   seasons: string,
   waterTemp: number
 ): boolean {
-  console.log('tackle is ' + tackle.name)
-  console.log('seasons are ' + seasons)
-  console.log('water temp is estimated to be ' + waterTemp)
+  logger.info('tackle is ' + tackle.name)
+  logger.info('seasons are ' + seasons)
+  logger.info('water temp is estimated to be ' + waterTemp)
 
   return true
 }

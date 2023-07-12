@@ -47,8 +47,6 @@ function getRecommendedCareForDate() {
     }
   }
 
-  console.log(recommendation)
-
   return recommendation
 }
 

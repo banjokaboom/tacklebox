@@ -1,5 +1,6 @@
 'use client'
 
+import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
 import { getFishingData } from './useFishingData'
@@ -40,6 +41,7 @@ export default function WhatToFish() {
   ]
 
   useEffect(() => {
+    const logger = Logger({})
     setLoading(true)
 
     let m = new MessageData()
@@ -57,7 +59,7 @@ export default function WhatToFish() {
             setTackleList(json.tackle)
           })
       } catch (error: any) {
-        console.error(error)
+        logger.error(error)
         m.message =
           'An error occurred when loading the tackle list. Please refresh the page to try again.'
         m.severity = 'error'
@@ -71,7 +73,7 @@ export default function WhatToFish() {
             setCityStateList(json.cityStates)
           })
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         m.message =
           'An error occurred when loading the city/state list. Please try refreshing the page.'
         m.severity = 'error'
@@ -154,20 +156,21 @@ export default function WhatToFish() {
   ])
 
   function getGeolocation() {
+    const logger = Logger({})
     setZip('')
     setCityState('')
     setGeolocation('')
     setLoading(true)
 
     if (navigator.geolocation) {
-      console.log('Using geolocation')
+      logger.info('Using geolocation')
       navigator.geolocation.getCurrentPosition((position) => {
         setGeolocation(
           position.coords.latitude + ',' + position.coords.longitude
         )
       })
     } else {
-      console.log('Geolocation is not available')
+      logger.info('Geolocation is not available')
     }
   }
 

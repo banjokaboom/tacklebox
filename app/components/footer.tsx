@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faTwitter,
-  faRedditAlien,
   faPaypal,
   faGithub,
   faLinkedinIn,
@@ -91,7 +90,7 @@ export default function Footer() {
             {pathname.includes('personal') ? '> ' : ''}Personal
           </Link>
         </div>
-        <div className="flex flex-col justify-between lg:mb-0 mb-4">
+        <div className="flex flex-col justify-between lg:mb-0 mb-4 lg:basis-4/12 lg:shrink-0">
           <h4 className="text-lg mb-4 underline">Info</h4>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
@@ -134,7 +133,7 @@ export default function Footer() {
             <Link
               className="inline-block p-2 pl-0"
               title="Github Link"
-              href="https://github.com/banjokaboom"
+              href="https://github.com/beardedfishapps"
               target="_blank"
             >
               <FontAwesomeIcon icon={faGithub} className="max-h-6 h-6" />
@@ -157,16 +156,8 @@ export default function Footer() {
             </Link>
             <Link
               className="inline-block p-2"
-              title="Reddit Social Link"
-              href="https://www.reddit.com/user/tackleboxapp"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faRedditAlien} className="max-h-6 h-6" />
-            </Link>
-            <Link
-              className="inline-block p-2"
               title="Twitter Social Link"
-              href="https://twitter.com/tackleboxapptwt"
+              href="https://twitter.com/beardedfishapps"
               target="_blank"
             >
               <FontAwesomeIcon icon={faTwitter} className="max-h-6 h-6" />

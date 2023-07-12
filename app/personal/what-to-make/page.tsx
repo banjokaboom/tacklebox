@@ -1,5 +1,6 @@
 'use client'
 
+import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
 import { pickRecipes } from './useRecipeData'
@@ -29,6 +30,7 @@ export default function WhatToMake() {
   ]
 
   useEffect(() => {
+    const logger = Logger({})
     let m = new MessageData()
     setMessage(new MessageData())
 
@@ -44,7 +46,7 @@ export default function WhatToMake() {
             setRecipesList(json.recipes)
           })
       } catch (error: any) {
-        console.error(error)
+        logger.error(error)
         m.message =
           'An error occurred when loading the recipes. Please refresh the page to try again.'
         m.severity = 'error'
@@ -100,6 +102,7 @@ export default function WhatToMake() {
   }, [numRecipes, refreshCount, recipesList])
 
   function copyIngredients() {
+    const logger = Logger({})
     let copyString = ''
     document
       .querySelectorAll(
@@ -127,7 +130,7 @@ export default function WhatToMake() {
         document.execCommand('copy')
         alert('Copied ingredients to the clipboard!')
       } catch (error) {
-        console.error(error)
+        logger.error(error)
         alert('Copying not supported. Check log for details.')
       } finally {
         textArea.remove()
