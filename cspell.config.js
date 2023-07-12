@@ -61,5 +61,6 @@ module.exports = {
     'Xmark',
     'beardedfishapps',
     'pino',
+    'whattofish',
   ],
 }
