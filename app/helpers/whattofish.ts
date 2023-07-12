@@ -23,6 +23,7 @@ export function getFishingConditionsText(
     fishingConditionsText += 'Good'
   } else if (speciesArray.length == 1) {
     fishingConditionsText += 'Not Ideal'
+    return fishingConditionsText
   } else {
     fishingConditionsText += 'OK'
   }
