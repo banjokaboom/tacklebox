@@ -96,7 +96,15 @@ export function getFishingConditionsText(
     starRating += '+'
   }
 
-  return fishingConditionsText + starRating
+  if (starRating.length >= 10) {
+    fishingConditionsText += '+++'
+  } else if (starRating.length >= 7) {
+    fishingConditionsText += '++'
+  } else if (starRating.length >= 4) {
+    fishingConditionsText += '+'
+  }
+
+  return fishingConditionsText
 }
 
 export async function getWeather(
