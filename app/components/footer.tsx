@@ -8,6 +8,7 @@ import {
   faPaypal,
   faGithub,
   faLinkedinIn,
+  faFacebookF,
 } from '@fortawesome/free-brands-svg-icons'
 import { faTree, faMugHot } from '@fortawesome/free-solid-svg-icons'
 
@@ -132,6 +133,14 @@ export default function Footer() {
           <div className="flex flex-row pt-4">
             <Link
               className="inline-block p-2 pl-0"
+              title="Facebook Link"
+              href="https://www.facebook.com/profile.php?id=100094508430737"
+              target="_blank"
+            >
+              <FontAwesomeIcon icon={faFacebookF} className="max-h-6 h-6" />
+            </Link>
+            <Link
+              className="inline-block p-2"
               title="Github Link"
               href="https://github.com/beardedfishapps"
               target="_blank"
