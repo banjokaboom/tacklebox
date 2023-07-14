@@ -3,13 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faTwitter,
-  faPaypal,
-  faGithub,
-  faLinkedinIn,
-  faFacebookF,
-} from '@fortawesome/free-brands-svg-icons'
+import { faPaypal } from '@fortawesome/free-brands-svg-icons'
 import { faTree, faMugHot } from '@fortawesome/free-solid-svg-icons'
 
 export default function Footer() {
@@ -61,28 +55,10 @@ export default function Footer() {
             (Saltwater)
           </Link>
           <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing]"
+            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
             href="/home-maintenance"
           >
             {pathname == '/home-maintenance' ? '> ' : ''}Home Maintenance
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing]"
-            href="/home-maintenance/oil-prices"
-          >
-            {pathname.includes('oil-prices') ? '> ' : ''}Heating Oil Prices (MA)
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing]"
-            href="/home-maintenance/lawn-care"
-          >
-            {pathname.includes('lawn-care') ? '> ' : ''}Lawn Care
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
-            href="/home-maintenance/pool-care"
-          >
-            {pathname.includes('pool-care') ? '> ' : ''}Pool Care
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing] lg:mb-4"
@@ -107,6 +83,15 @@ export default function Footer() {
           </Link>
           <h4 className="text-lg mb-4 underline">Social</h4>
           <Link
+            className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
+            title="Ko-fi Donate Link"
+            href="https://ko-fi.com/banjokaboom"
+            target="_blank"
+          >
+            <span>Buy me coffee </span>
+            <FontAwesomeIcon icon={faMugHot} className="max-h-5 h-5 ml-2" />
+          </Link>
+          <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="mailto:tackleboxappfeedback@gmail.com?subject=Tacklebox%20Feedback"
           >
@@ -123,55 +108,13 @@ export default function Footer() {
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
-            title="Ko-fi Donate Link"
-            href="https://ko-fi.com/banjokaboom"
+            title="Linkree Social Link"
+            href="https://linktr.ee/augustoandrew"
             target="_blank"
           >
-            <span>Buy me coffee </span>
-            <FontAwesomeIcon icon={faMugHot} className="max-h-5 h-5 ml-2" />
+            <span>Linktree </span>
+            <FontAwesomeIcon icon={faTree} className="max-h-5 h-5 ml-2" />
           </Link>
-          <div className="flex flex-row pt-4">
-            <Link
-              className="inline-block p-2 pl-0"
-              title="Facebook Link"
-              href="https://www.facebook.com/profile.php?id=100094508430737"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faFacebookF} className="max-h-6 h-6" />
-            </Link>
-            <Link
-              className="inline-block p-2"
-              title="Github Link"
-              href="https://github.com/beardedfishapps"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faGithub} className="max-h-6 h-6" />
-            </Link>
-            <Link
-              className="inline-block p-2"
-              title="LinkedIn Social Link"
-              href="https://www.linkedin.com/in/andrew-augusto-02b78aa6/"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faLinkedinIn} className="max-h-6 h-6" />
-            </Link>
-            <Link
-              className="inline-block p-2"
-              title="LinkTree Social Link"
-              href="https://linktr.ee/banjokaboom"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faTree} className="max-h-6 h-6" />
-            </Link>
-            <Link
-              className="inline-block p-2"
-              title="Twitter Social Link"
-              href="https://twitter.com/beardedfishapps"
-              target="_blank"
-            >
-              <FontAwesomeIcon icon={faTwitter} className="max-h-6 h-6" />
-            </Link>
-          </div>
         </div>
       </div>
       <div className="pt-24 mx-auto max-w-5xl text-right hidden">
