@@ -171,22 +171,25 @@ export default function WhatToFish() {
 
   function getFishingTip() {
     const tips = [
+      "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
-      'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
-      "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
+      'The day before a storm is the best time to fish.',
       'If the fishing gets tough, fish less traveled spots.',
+      "If you're catching panfish left and right and then suddenly the bites stop, chances are a bigger predator just swam by. Time to bring out the big(ger) guns!",
       'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
+      'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top. Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
+      'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
+      'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
       'Trout and related species are sight feeders and look up for food. Fish top half of the water column.',
       'Fixed Bobber: Pinch bobber onto the line, pinch a split shot between the bobber and hook, and add a wacky-rigged worm or a grub lure to the hook. Cast out, let the lure fall, then jerk it every few seconds to give it some action. Can also use plastic minnows or live bait of course',
-      'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top.',
-      'Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
-      'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
-      'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
-      'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
-      'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
+      "If you're casting over and over and not getting any bites, try using a bobber or Carolina rig with some live bait just to see what's in the area. That may help to determine where to move next to find the bass.",
+      "Don't forget: live bait moves on its own, but you need to make the action with lures and soft plastics.",
       'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
-      'The day before a storm is the best time to fish.',
-      "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
+      'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
+      'Before you head out, decide if you want to land a big fish or just to catch whatever you can. If it is the latter, make sure to bring some nightcrawlers just in case.',
+      "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
+      'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
+      'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
     ]
 
     const today = new Date()
