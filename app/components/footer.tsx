@@ -108,7 +108,7 @@ export default function Footer() {
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
-            title="Linkree Social Link"
+            title="Linktree Social Link"
             href="https://linktr.ee/augustoandrew"
             target="_blank"
           >
