@@ -3,6 +3,9 @@ import cheerio from 'cheerio'
 
 export default function handler(req, res) {
   const zone = req.query.zone
+
+  console.log('Loading best oil price for zone ' + zone)
+
   let url =
     'https://www.newenglandoil.com/massachusetts/zone' + zone + '.asp?x=0'
   axios

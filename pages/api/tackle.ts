@@ -3,12 +3,14 @@ import Tackle from '@/app/classes/Tackle'
 
 export default async function handler(req: any, res: any) {
   let retryCount = 0
+  let species = req.query.species
   try {
     let result: any = null
 
-    if (req.query.species) {
+    if (species) {
+      console.log('Loading specific tackle for species ' + species)
       result =
-        await sql`SELECT * from tackle where ${req.query.species} = ANY(species) order by name asc`
+        await sql`SELECT * from tackle where ${species} = ANY(species) order by name asc`
     } else {
       result = await sql`SELECT * from tackle order by name asc`
     }
