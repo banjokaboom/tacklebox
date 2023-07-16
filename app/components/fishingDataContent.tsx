@@ -74,7 +74,7 @@ export default function FishingDataContent({ data }: Props) {
                       <div key={index} className="mb-4 last:mb-0">
                         {t.tip && (
                           <button
-                            className="flex flex-row items-center"
+                            className="flex flex-row items-center text-left"
                             title="Click to learn how to use this"
                             onClick={() => {
                               setModalContent(t.tip)
