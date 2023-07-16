@@ -1,0 +1,19 @@
+fd759b5 added logging to serverless functions to track some data
+8fedfa4 fixed typo, added two tips about gut-hooking fish
+ef49167 added some more tips, randomized tips list
+1357347 updated footer to decrease quantity of links
+dc01577 updated + logic
+5e94f35 added facebook link
+8e7e19f hide flavor text on mobile
+85b073b updated optimal conditions text when not ideal
+a147335 major refactoring to resolve jscpd errors
+e4d00bb added barometric pressure readings and added to conditions quality check
+87efebc added moon and sun info
+6a0569b added conditions quality to what to fish apps
+da9aded updated header blur functionality to collapse, fixed caught released timeout functionality
+3815016 rebranded, added caught and released text, added logger
+04c79e7 fixed loader test, updated can i fish default display
+e62af29 fixed issue of duplicate blue
+8195bcf fixed loading text, fixed saltwater lures spacing
+1b005a2 fixed padding on tackle by species page, fixed changelogs display to only keep most recent open
+7bd2a89 added saltwater link to fishing page

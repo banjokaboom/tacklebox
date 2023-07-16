@@ -1,7 +1,7 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...{previous tag} > changelogs/{new tag}.txt
+ * git log --oneline --decorate=no HEAD...v3.0.0 > changelogs/v3.1.0.txt
  *
  * To count for version tag
  *
@@ -27,6 +27,63 @@ export default function ChangeLog() {
         <hr className="mb-4" />
 
         <ContentSection
+          title="v3.1.0"
+          content={
+            <div>
+              <p className="mb-4">
+                updated format of what to fish apps to display basic vs advanced
+                data
+              </p>
+              <p className="mb-4">
+                added logging to serverless functions to track some data
+              </p>
+              <p className="mb-4">
+                fixed typo, added two tips about gut-hooking fish
+              </p>
+              <p className="mb-4">added some more tips, randomized tips list</p>
+              <p className="mb-4">
+                updated footer to decrease quantity of links
+              </p>
+              <p className="mb-4">updated + logic</p>
+              <p className="mb-4">added facebook link</p>
+              <p className="mb-4">hide flavor text on mobile</p>
+              <p className="mb-4">
+                updated optimal conditions text when not ideal
+              </p>
+              <p className="mb-4">major refactoring to resolve jscpd errors</p>
+              <p className="mb-4">
+                added barometric pressure readings and added to conditions
+                quality check
+              </p>
+              <p className="mb-4">added moon and sun info</p>
+              <p className="mb-4">
+                added conditions quality to what to fish apps
+              </p>
+              <p className="mb-4">
+                updated header blur functionality to collapse, fixed caught
+                released timeout functionality
+              </p>
+              <p className="mb-4">
+                rebranded, added caught and released text, added logger
+              </p>
+              <p className="mb-4">
+                fixed loader test, updated can i fish default display
+              </p>
+              <p className="mb-4">fixed issue of duplicate blue</p>
+              <p className="mb-4">
+                fixed loading text, fixed saltwater lures spacing
+              </p>
+              <p className="mb-4">
+                fixed padding on tackle by species page, fixed changelogs
+                display to only keep most recent open
+              </p>
+              <p>added saltwater link to fishing page</p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
+
+        <ContentSection
           title="v3.0.0"
           content={
             <div>
@@ -41,7 +98,6 @@ export default function ChangeLog() {
               <p>updated a few tests, added top nav menu component</p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection

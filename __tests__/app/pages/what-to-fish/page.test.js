@@ -171,7 +171,7 @@ describe('WhatToFish', () => {
 
     await userEvent.type(input, '01516')
 
-    await userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'true')
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'true')
 
     const heading = await screen.findByText(/Species to target/i)
     expect(heading).toBeInTheDocument()
@@ -184,7 +184,7 @@ describe('WhatToFish', () => {
 
     await userEvent.type(input, '01516')
 
-    await userEvent.selectOptions(screen.getAllByRole('combobox')[1], 'false')
+    await userEvent.selectOptions(screen.getByRole('combobox'), 'false')
 
     const heading = await screen.findByText(/Species to target/i)
     expect(heading).toBeInTheDocument()

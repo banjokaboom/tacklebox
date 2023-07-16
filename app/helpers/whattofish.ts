@@ -17,8 +17,10 @@ export function getFishingConditionsText(
   let starRating = ''
   const speciesArray = species.split(',').map((s) => s.trim())
 
-  if (speciesArray.length >= 5) {
-    fishingConditionsText += 'Best'
+  if (speciesArray.length > 5) {
+    fishingConditionsText += 'Excellent'
+  } else if (speciesArray.length == 5) {
+    fishingConditionsText += 'Really Good'
   } else if (speciesArray.length >= 3) {
     fishingConditionsText += 'Good'
   } else if (speciesArray.length == 1) {
@@ -81,11 +83,15 @@ export function getFishingConditionsText(
     weather.forecast.forecastday[0].astro.sunset.substring(3, 5)
   )
 
-  if (sunset.getHours() - now.getHours() <= 3) {
+  if (
+    sunset.getHours() - now.getHours() <= 3 &&
+    sunset.getHours() - now.getHours() > 0
+  ) {
     starRating += '++'
   } else if (
     (seasons.includes('summer') || seasons.includes('winter')) &&
-    now.getHours() - sunrise.getHours() <= 3
+    now.getHours() - sunrise.getHours() <= 3 &&
+    now.getHours() - sunrise.getHours() > 0
   ) {
     starRating += '+'
   } else if (
@@ -160,17 +166,6 @@ export function pickTackle(
     if (isTackleForSpecies && isTackleForWeather(tackle, seasons, waterTemp)) {
       tackleToUse.push(tackle)
     }
-  })
-
-  tackleToUse.sort((a, b) => {
-    if (a.confidence < b.confidence) {
-      return 1
-    }
-    if (a.confidence > b.confidence) {
-      return -1
-    }
-    // a must be equal to b
-    return 0
   })
 
   return tackleToUse

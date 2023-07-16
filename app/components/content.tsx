@@ -25,7 +25,7 @@ export default function ContentSection({
       {title && (
         <button
           title={'Click to expand ' + title + ' section'}
-          className="text-2xl pb-4 pt-4 flex flex-row items-center text-left"
+          className="text-xl pb-4 pt-4 flex flex-row items-center text-left"
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <span>{title}</span>

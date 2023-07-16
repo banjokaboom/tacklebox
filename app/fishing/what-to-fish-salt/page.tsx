@@ -210,68 +210,89 @@ export default function WhatToFish() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">What to Fish (Saltwater)</h1>
         <hr className="mb-4" />
-        <p className="mb-4">
-          To start, provide a ZIP, choose a State, or use your current location.
-        </p>
-        <div className="flex flex-col lg:flex-row justify-between lg:items-start">
-          <div className="mb-4">
-            <label htmlFor="zip" className="mb-4 block">
-              ZIP Code
-            </label>
-            <input
-              type="text"
-              name="zip"
-              id="zip"
-              inputMode="numeric"
-              value={zip}
-              onChange={(e) => {
-                setZip(e.target.value)
-                setCityState('')
-                setGeolocation('')
-              }}
-              className="text-slate-700 leading-4 p-2 mb-4"
-            />
-            <button
-              onClick={getGeolocation}
-              className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-            >
-              Use Current Location
-              <FontAwesomeIcon icon={faLocationCrosshairs} className="ml-2" />
-            </button>
-          </div>
-          {cityStateList.length > 0 && (
-            <div>
-              <div className="mb-4 lg:hidden">OR</div>
+        {data.weather.location == '' && (
+          <div>
+            <p className="mb-4">
+              To start, provide a ZIP, choose a State, or use your current
+              location.
+            </p>
+            <div className="flex flex-col lg:flex-row justify-between lg:items-start">
               <div className="mb-4">
-                <label htmlFor="state" className="mb-4 block">
-                  State
+                <label htmlFor="zip" className="mb-4 block">
+                  ZIP Code
                 </label>
-                <select
-                  name="state"
-                  id="state"
+                <input
+                  type="text"
+                  name="zip"
+                  id="zip"
+                  inputMode="numeric"
+                  value={zip}
                   onChange={(e) => {
-                    setZip('')
-                    setCityState(e.target.value)
+                    setZip(e.target.value)
+                    setCityState('')
                     setGeolocation('')
                   }}
-                  className="text-slate-700 leading-4 p-2 block max-w-full"
-                  value={cityState}
+                  className="text-slate-700 leading-4 p-2 mb-4"
+                />
+                <button
+                  onClick={getGeolocation}
+                  className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                 >
-                  <option value=""></option>
-                  {cityStateList.map((cs: CityState, csIndex) => (
-                    <option key={csIndex} value={cs.capital + ',' + cs.state}>
-                      {cs.state}
-                    </option>
-                  ))}
-                </select>
+                  Use Current Location
+                  <FontAwesomeIcon
+                    icon={faLocationCrosshairs}
+                    className="ml-2"
+                  />
+                </button>
               </div>
+              {cityStateList.length > 0 && (
+                <div>
+                  <div className="mb-4 lg:hidden">OR</div>
+                  <div className="mb-4">
+                    <label htmlFor="state" className="mb-4 block">
+                      State
+                    </label>
+                    <select
+                      name="state"
+                      id="state"
+                      onChange={(e) => {
+                        setZip('')
+                        setCityState(e.target.value)
+                        setGeolocation('')
+                      }}
+                      className="text-slate-700 leading-4 p-2 block max-w-full"
+                      value={cityState}
+                    >
+                      <option value=""></option>
+                      {cityStateList.map((cs: CityState, csIndex) => (
+                        <option
+                          key={csIndex}
+                          value={cs.capital + ',' + cs.state}
+                        >
+                          {cs.state}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              )}
             </div>
-          )}
-        </div>
+          </div>
+        )}
         {loading && <Loader />}
         {!loading && data.weather.location != '' && (
           <div className="mb-4">
-            <p className="mb-4">Data loaded for {data.weather.location}</p>
+            <p className="mb-4 flex flex-row">
+              <span>Data loaded for {data.weather.location}</span>
+              <button
+                onClick={() => {
+                  setData(new FishingData())
+                }}
+                className="ml-2 underline hover:no-underline text-sm"
+              >
+                Clear
+              </button>
+            </p>
             <label htmlFor="useCurrentWeather" className="mb-4 block">
               Use current weather or forecast?
             </label>
@@ -287,13 +308,12 @@ export default function WhatToFish() {
               <option value="true">Current</option>
               <option value="false">Forecast</option>
             </select>
-
-            <hr />
           </div>
         )}
         {!loading && data.species !== '' && (
           <h2 className="text-3xl mb-4">
-            Conditions are: {data.fishingConditionsText}
+            {useCurrentWeather ? 'Current ' : "Today's "} conditions are{' '}
+            {data.fishingConditionsText}
           </h2>
         )}
         {!loading && data.species !== '' && <FishingDataContent data={data} />}
