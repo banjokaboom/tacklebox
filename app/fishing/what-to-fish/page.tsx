@@ -3,7 +3,8 @@
 import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
-import { getFishingData } from './useFishingData'
+import { getFreshwaterFishingData } from './useFreshwaterFishingData'
+import { getSaltwaterFishingData } from './useSaltwaterFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
@@ -11,26 +12,28 @@ import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import FishingData from '@/app/classes/FishingData'
+import Tackle from '@/app/classes/Tackle'
 import CityState from '@/app/classes/CityState'
 import FishingDataContent from '@/app/components/fishingDataContent'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
+  let [waterType, setWaterType] = useState('freshwater')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
   let [loading, setLoading] = useState(true)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())
-  let [tackleList, setTackleList] = useState([])
-  let [cityStateList, setCityStateList] = useState([])
+  let [tackleList, setTackleList] = useState<Tackle[]>([])
+  let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let breadcrumbs = [
     {
       title: 'Fishing',
       href: '/fishing',
     },
     {
-      title: 'What to Fish (Freshwater)',
+      title: 'What to Fish',
       href: '/fishing/what-to-fish',
     },
   ]
@@ -103,14 +106,27 @@ export default function WhatToFish() {
       setData(new FishingData())
 
       try {
-        const fishingData = await getFishingData(
-          zip,
-          cityState,
-          useCurrentWeather,
-          tackleList,
-          cityStateList,
-          geolocation
-        )
+        let fishingData = new FishingData()
+
+        if (waterType.includes('freshwater')) {
+          fishingData = await getFreshwaterFishingData(
+            zip,
+            cityState,
+            useCurrentWeather,
+            tackleList,
+            cityStateList,
+            geolocation
+          )
+        } else {
+          fishingData = await getSaltwaterFishingData(
+            zip,
+            cityState,
+            useCurrentWeather,
+            tackleList,
+            cityStateList,
+            geolocation
+          )
+        }
 
         setData(fishingData)
 
@@ -148,6 +164,7 @@ export default function WhatToFish() {
     geolocation,
     tackleList,
     cityStateList,
+    waterType,
   ])
 
   function getGeolocation() {
@@ -170,7 +187,7 @@ export default function WhatToFish() {
   }
 
   function getFishingTip() {
-    const tips = [
+    const freshwaterTips = [
       "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
       'The day before a storm or similar major weather shift is the best time to fish. The day after is generally the worst.',
@@ -194,6 +211,15 @@ export default function WhatToFish() {
       'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
     ]
 
+    const saltwaterTips = [
+      'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
+      'Hook size correlates to fish size. Size 1/0 will cover most smaller fish, size 4/0 will cover most medium size fish, and size 8/0 will be good for bigger hauls.',
+      'The day before a storm is the best time to fish.',
+    ]
+
+    const tips = waterType.includes('freshwater')
+      ? freshwaterTips
+      : saltwaterTips
     const today = new Date()
     let tipIndex = 0
 
@@ -203,6 +229,10 @@ export default function WhatToFish() {
       tipIndex = today.getDate()
     }
 
+    while (tipIndex >= tips.length) {
+      tipIndex--
+    }
+
     return tips[tipIndex]
   }
 
@@ -210,7 +240,7 @@ export default function WhatToFish() {
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <Breadcrumbs links={breadcrumbs} />
-        <h1 className="text-3xl mb-4">What to Fish (Freshwater)</h1>
+        <h1 className="text-3xl mb-4">What to Fish</h1>
         <hr className="mb-4" />
         {data.weather.location == '' && !loading && (
           <div>
@@ -266,14 +296,20 @@ export default function WhatToFish() {
                       value={cityState}
                     >
                       <option value=""></option>
-                      {cityStateList.map((cs: CityState, csIndex) => (
-                        <option
-                          key={csIndex}
-                          value={cs.capital + ',' + cs.state}
-                        >
-                          {cs.state}
-                        </option>
-                      ))}
+                      {cityStateList.map(
+                        (cs: CityState, csIndex) =>
+                          (waterType.includes('freshwater') ||
+                            cs.location.includes('east coast') ||
+                            cs.location.includes('west coast') ||
+                            cs.location.includes('gulf coast')) && (
+                            <option
+                              key={csIndex}
+                              value={cs.capital + ',' + cs.state}
+                            >
+                              {cs.state}
+                            </option>
+                          )
+                      )}
                     </select>
                   </div>
                 </div>
@@ -295,21 +331,45 @@ export default function WhatToFish() {
                 Clear
               </button>
             </p>
-            <label htmlFor="useCurrentWeather" className="mb-4 block">
-              Use current weather or forecast?
-            </label>
-            <select
-              name="useCurrentWeather"
-              id="useCurrentWeather"
-              onChange={(e) => {
-                setUseCurrentWeather(e.target.value == 'true')
-              }}
-              className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
-              value={'' + useCurrentWeather}
-            >
-              <option value="true">Current</option>
-              <option value="false">Forecast</option>
-            </select>
+            <div className="flex flex-col lg:flex-row justify-between lg:items-start">
+              <div>
+                <label htmlFor="waterType" className="mb-4 block">
+                  Water Type?
+                </label>
+                <select
+                  name="waterType"
+                  id="waterType"
+                  onChange={(e) => {
+                    setWaterType(e.target.value)
+                  }}
+                  className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
+                  value={waterType}
+                >
+                  <option value="freshwater bank">Lake/Pond (Bank)</option>
+                  <option value="freshwater boat">Lake/Pond (Boat)</option>
+                  <option value="saltwater boat">Ocean (Boat)</option>
+                  <option value="freshwater river">River</option>
+                  <option value="saltwater bank">Surf</option>
+                </select>
+              </div>
+              <div>
+                <label htmlFor="useCurrentWeather" className="mb-4 block">
+                  Use current weather or forecast?
+                </label>
+                <select
+                  name="useCurrentWeather"
+                  id="useCurrentWeather"
+                  onChange={(e) => {
+                    setUseCurrentWeather(e.target.value == 'true')
+                  }}
+                  className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
+                  value={'' + useCurrentWeather}
+                >
+                  <option value="true">Current</option>
+                  <option value="false">Forecast</option>
+                </select>
+              </div>
+            </div>
           </div>
         )}
         {!loading && data.species !== '' && (

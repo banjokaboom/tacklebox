@@ -36,7 +36,7 @@ function getFishingSeasons(): string {
   return seasonString
 }
 
-export async function getFishingData(
+export async function getSaltwaterFishingData(
   zip: string,
   cityState: string,
   useCurrentWeather: boolean,

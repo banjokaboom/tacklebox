@@ -9,7 +9,7 @@ import {
   afterEach,
 } from '@jest/globals'
 import '@testing-library/jest-dom'
-import { getFishingData } from '@/app/fishing/what-to-fish/useFishingData'
+import { getSaltwaterFishingData } from '@/app/fishing/what-to-fish/useSaltwaterFishingData'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
 
@@ -93,7 +93,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -109,7 +109,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -125,7 +125,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -141,7 +141,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -157,7 +157,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -173,7 +173,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -189,7 +189,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -205,7 +205,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -221,7 +221,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -237,7 +237,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -253,7 +253,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -269,7 +269,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -285,7 +285,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -301,7 +301,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -317,7 +317,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -333,7 +333,7 @@ describe('useFishingData', () => {
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -347,7 +347,7 @@ describe('useFishingData', () => {
   it('warning for warm water', async () => {
     weatherData.current.feelslike_f = 100
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -361,7 +361,7 @@ describe('useFishingData', () => {
   it('warning for cold water', async () => {
     weatherData.current.feelslike_f = 32
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -372,51 +372,16 @@ describe('useFishingData', () => {
     expect(result.species).toBe('Not ideal fishing weather for any species')
   })
 
-  it('loads recommendations using cityState', async () => {
-    const result = await getFishingData(
-      '',
-      'Boston, Massachusetts',
-      true,
-      tackleList,
-      cityStatesList
-    )
-
-    expect(result.tackle.length).toBeGreaterThan(0)
-  })
-
-  it('recommends appropriate colors for clear weather', async () => {
-    weatherData.current.cloud = 0
-
-    const result = await getFishingData(
-      '01516',
-      'Boston, Massachusetts',
-      true,
-      tackleList,
-      cityStatesList
-    )
-
-    expect(
-      result.baitRecommendations.colorsToUse.includes('natural')
-    ).toBeTruthy()
-  })
-
-  it('recommends appropriate colors for cloudy weather', async () => {
-    weatherData.current.cloud = 80
-
-    const result = await getFishingData(
-      '01516',
-      'Boston, Massachusetts',
-      true,
-      tackleList,
-      cityStatesList
-    )
-
-    expect(result.baitRecommendations.colorsToUse.includes('dark')).toBeTruthy()
-  })
-
   it("doesn't load when state not selected and zip length < 5", async () => {
     try {
-      await getFishingData('015', '', true, tackleList, cityStatesList, '')
+      await getSaltwaterFishingData(
+        '015',
+        '',
+        true,
+        tackleList,
+        cityStatesList,
+        ''
+      )
     } catch (error) {
       expect(error).not.toBeUndefined()
     }
@@ -438,7 +403,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 100
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -465,7 +430,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 100
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -492,7 +457,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 50
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -519,7 +484,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 50
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -546,7 +511,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 50
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -573,7 +538,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 50
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -600,7 +565,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 80
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,
@@ -627,7 +592,7 @@ describe('useFishingData', () => {
     ]
     weatherData.current.feelslike_f = 80
 
-    const result = await getFishingData(
+    const result = await getSaltwaterFishingData(
       '01516',
       '',
       true,

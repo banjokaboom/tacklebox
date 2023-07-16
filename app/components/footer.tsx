@@ -45,14 +45,7 @@ export default function Footer() {
             {pathname.includes('what-to-fish') && !pathname.includes('salt')
               ? '> '
               : ''}
-            What to Fish (Freshwater)
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
-            href="/fishing/what-to-fish-salt"
-          >
-            {pathname.includes('what-to-fish-salt') ? '> ' : ''}What to Fish
-            (Saltwater)
+            What to Fish
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"

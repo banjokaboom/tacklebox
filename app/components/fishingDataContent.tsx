@@ -47,7 +47,7 @@ export default function FishingDataContent({ data }: Props) {
   return (
     <div>
       <div className="lg:p-4 lg:rounded-md lg:border mb-8">
-        <h2 className="text-2xl mb-4">Basic Fishing Info</h2>
+        <h2 className="text-2xl mb-4 underline">Basic Fishing Info</h2>
         <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
           <div>
             <ContentSection
@@ -142,7 +142,7 @@ export default function FishingDataContent({ data }: Props) {
         </div>
       </div>
       <div className="lg:p-4 lg:rounded-md lg:border">
-        <h2 className="text-2xl mb-4">Advanced Fishing Info</h2>
+        <h2 className="text-2xl mb-4 underline">Advanced Fishing Info</h2>
         <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
           <div>
             {data.tackle.length > 0 && (

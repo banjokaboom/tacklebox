@@ -192,7 +192,7 @@ function getFishingSeasons(
   return seasonString
 }
 
-export async function getFishingData(
+export async function getFreshwaterFishingData(
   zip: string,
   cityState: string,
   useCurrentWeather: boolean,
