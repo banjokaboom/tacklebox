@@ -131,14 +131,19 @@ export default function WhatToFish() {
         setData(fishingData)
 
         if (fishingData.tackle.length > 0) {
-          m.message = 'Successfully loaded tackle for location: ' + location
+          m.message =
+            'Successfully loaded ' +
+            waterType +
+            ' tackle for location: ' +
+            location
           m.severity = 'success'
         } else if (
           geolocation !== '' ||
           cityState != '' ||
           (zip != '' && zip.length == 5)
         ) {
-          m.message = 'No tackle loaded for location: ' + location
+          m.message =
+            'No ' + waterType + ' tackle loaded for location: ' + location
           m.severity = 'alert'
         }
       } catch (error: any) {
@@ -380,6 +385,14 @@ export default function WhatToFish() {
         )}
         {!loading && data.species !== '' && <FishingDataContent data={data} />}
 
+        <div>
+          <ContentSection
+            title="Tip of the Day"
+            content={getFishingTip()}
+            isExpandedByDefault={true}
+          ></ContentSection>
+        </div>
+
         {data.tackle.length > 0 && (
           <div className="pt-4">
             <p className="mb-4 text-sm">
@@ -392,14 +405,6 @@ export default function WhatToFish() {
             </p>
           </div>
         )}
-
-        <div>
-          <ContentSection
-            title="Tip of the Day"
-            content={getFishingTip()}
-            isExpandedByDefault={true}
-          ></ContentSection>
-        </div>
       </div>
 
       {message.message !== '' && (

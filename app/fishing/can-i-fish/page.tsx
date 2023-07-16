@@ -164,7 +164,9 @@ export default function CanIFish() {
                   className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
                 />
               </div>
-              <h2 className="text-2xl pb-8 pt-8">Freshwater Regulations</h2>
+              <h2 className="text-2xl mb-4 underline">
+                Freshwater Regulations
+              </h2>
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
                 {data.freshwaterRegulations.map(
                   (f, fIndex: number) =>
@@ -216,7 +218,9 @@ export default function CanIFish() {
           )}
         {data.saltwaterRegulations && data.saltwaterRegulations.length > 0 && (
           <div>
-            <h2 className="text-2xl pb-8 pt-8">Saltwater Regulations</h2>
+            <h2 className="text-2xl mb-4 underline underline">
+              Saltwater Regulations
+            </h2>
             <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
               {data.saltwaterRegulations.map(
                 (s, sIndex) =>

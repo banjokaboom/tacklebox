@@ -80,6 +80,7 @@ function resetTestData() {
             is_moon_up: 0,
             is_sun_up: 1,
           },
+          hour: [],
         },
       ],
     },
