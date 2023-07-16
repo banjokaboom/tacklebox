@@ -44,7 +44,7 @@ export default function Message({ message, severity }: MessageData) {
       className={
         'p-4 flex flex-row items-center text-left fixed transition-[right] bottom-6 rounded-md max-w-5xl w-fit ' +
         severityClass +
-        (isHidden ? ' -right-[100%]' : ' right-6')
+        (isHidden ? ' -right-[4999px]' : ' right-6 left-6 lg:left-auto')
       }
       role="alert"
       aria-live={severity == 'error' ? 'assertive' : 'polite'}
