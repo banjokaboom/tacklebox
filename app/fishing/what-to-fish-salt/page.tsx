@@ -210,7 +210,7 @@ export default function WhatToFish() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">What to Fish (Saltwater)</h1>
         <hr className="mb-4" />
-        {data.weather.location == '' && (
+        {data.weather.location == '' && !loading && (
           <div>
             <p className="mb-4">
               To start, provide a ZIP, choose a State, or use your current
