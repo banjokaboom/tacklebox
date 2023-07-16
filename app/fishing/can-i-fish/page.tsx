@@ -34,13 +34,14 @@ function getCreelLimitForIndex(seasonLimits: string[], index: number) {
 export default function CanIFish() {
   let [data, setData] = useState(new Regulations())
   let [message, setMessage] = useState(new MessageData())
+  let [regulationsState, setRegulationsState] = useState('MA')
   let breadcrumbs = [
     {
       title: 'Fishing',
       href: '/fishing',
     },
     {
-      title: 'Can I Fish (MA)',
+      title: 'Can I Fish',
       href: '/fishing/can-i-fish',
     },
   ]
@@ -54,10 +55,17 @@ export default function CanIFish() {
       setData(new Regulations())
 
       try {
-        let data = await getMARegulations()
+        let data = new Regulations()
+
+        if (regulationsState == 'MA') {
+          data = await getMARegulations()
+        } else if (regulationsState == 'RI') {
+          data = await getRIRegulations()
+        }
 
         if (!isDataLoaded) {
-          m.message = 'Successfully loaded fishing regulations for MA'
+          m.message =
+            'Successfully loaded fishing regulations for ' + regulationsState
           m.severity = 'success'
           setMessage(m)
           setData(data)
@@ -98,6 +106,17 @@ export default function CanIFish() {
       return regulations
     }
 
+    async function getRIRegulations() {
+      let regulations = new Regulations()
+
+      const freshResults = await fetchRegulations('freshRI')
+
+      regulations.freshwaterRegulations = freshResults[0]
+      regulations.freshwaterRegulationsLink = freshResults[1]
+
+      return regulations
+    }
+
     async function getMARegulations() {
       let regulations = new Regulations()
 
@@ -120,7 +139,7 @@ export default function CanIFish() {
     return () => {
       isDataLoaded = true
     }
-  }, [])
+  }, [regulationsState])
 
   return (
     <div className="flex flex-col items-center justify-between">
@@ -142,6 +161,24 @@ export default function CanIFish() {
           Then, it displays all of the species you are eligible to fish for with
           their regulations listed.
         </p>
+        <div className="mb-4">
+          <label htmlFor="regulationsState" className="mb-4 block">
+            Regulations State
+          </label>
+          <select
+            name="regulationsState"
+            id="regulationsState"
+            value={regulationsState}
+            onChange={(e) => {
+              setRegulationsState(e.target.value)
+            }}
+            className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
+          >
+            <option value="MA">Massachusetts</option>
+            <option value="RI">Rhode Island</option>
+          </select>
+        </div>
+
         {(!data.freshwaterRegulations ||
           data.freshwaterRegulations.length == 0) &&
           (!data.saltwaterRegulations ||

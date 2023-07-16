@@ -29,7 +29,7 @@ export default function Footer() {
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="/fishing/can-i-fish"
           >
-            {pathname.includes('can-i-fish') ? '> ' : ''}Can I Fish (MA)
+            {pathname.includes('can-i-fish') ? '> ' : ''}Can I Fish
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"

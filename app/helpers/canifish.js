@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const charsRegex = /(\n|\t|\(\d?,?\s?\d?\)|\*|:)+/gim
 const newLineRegex = /(\n|\t|<\/?p>|<br\/?>|&nbsp;)+/gim
-const extraRegex = /(\s,\s|,\s,|\s\s|\(|\))+/gim
+const extraRegex = /(\s,\s|,\s,|\s\s|\(|\)|&gt;)+/gim
 const startRegex = /^(,\s*)+/gim
 const endRegex = /(,\s*)+$/gim
 

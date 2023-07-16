@@ -23,7 +23,7 @@ export default function Fishing() {
             className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/fishing/can-i-fish"
           >
-            Can I Fish (MA)
+            Can I Fish
           </Link>
           <Link
             className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"

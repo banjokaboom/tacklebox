@@ -36,7 +36,9 @@ export function compareDates(dates) {
       today.getTime() < secondDate.getTime()
   } else if (
     dates.trim().toUpperCase() == 'ALL YEAR' ||
-    dates.trim().toUpperCase() == 'YEAR ROUND'
+    dates.trim().toUpperCase() == 'YEAR ROUND' ||
+    dates.trim().toUpperCase() == 'NO CLOSED SEASON' ||
+    dates.trim().toUpperCase() == 'NO CLOSED SEASO'
   ) {
     isDateInRange = true
   }

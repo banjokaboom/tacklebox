@@ -63,5 +63,6 @@ module.exports = {
     'pino',
     'whattofish',
     'Linktree',
+    'SEASO',
   ],
 }
