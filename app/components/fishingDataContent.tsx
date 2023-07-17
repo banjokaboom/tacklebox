@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Modal from 'react-modal'
 import ReactHtmlParser from 'react-html-parser'
 import FishingData from '../classes/FishingData'
@@ -16,6 +16,7 @@ interface Props {
 export default function FishingDataContent({ data }: Props) {
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
+  let [lowConfidenceTackle, setLowConfidenceTackle] = useState(new Tackle())
   const tackleAlphabetized = [...data.tackle].sort((ta, tb) =>
     ta.name.localeCompare(tb.name)
   )
@@ -30,24 +31,34 @@ export default function FishingDataContent({ data }: Props) {
     return 0
   })
 
-  const lowConfidenceTackle = getLowConfidenceTackle()
+  useEffect(() => {
+    function getLowConfidenceTackle() {
+      let tackleIndex = 0
+      let lowConfidenceTackleArray: Tackle[] = []
 
-  function getLowConfidenceTackle() {
-    let tackleIndex = 0
-    let lowConfidenceTackleArray: Tackle[] = []
+      while (tackleIndex < data.tackle.length) {
+        if (data.tackle[tackleIndex].confidence <= 5) {
+          lowConfidenceTackleArray.push(data.tackle[tackleIndex])
+        }
 
-    while (tackleIndex < data.tackle.length) {
-      if (data.tackle[tackleIndex].confidence <= 5) {
-        lowConfidenceTackleArray.push(data.tackle[tackleIndex])
+        tackleIndex++
       }
 
-      tackleIndex++
+      return lowConfidenceTackleArray[
+        Math.floor(Math.random() * lowConfidenceTackleArray.length)
+      ]
     }
 
-    return lowConfidenceTackleArray[
-      Math.floor(Math.random() * lowConfidenceTackleArray.length)
-    ]
-  }
+    let isDataLoaded = false
+
+    if (!isDataLoaded) {
+      setLowConfidenceTackle(getLowConfidenceTackle())
+    }
+
+    return () => {
+      isDataLoaded = true
+    }
+  }, [])
 
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = '('
