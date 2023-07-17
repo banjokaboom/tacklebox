@@ -33,9 +33,6 @@ export function getDescription(description) {
 export function getSeasonDates(seasonDates) {
   let seasonDatesHTML = seasonDates.replace(newLineRegex, '<br>')
 
-  console.log(seasonDates)
-  console.log(seasonDatesHTML)
-
   if (seasonDatesHTML.indexOf('<br>') >= 0) {
     let speciesSeasonDates = []
     let seasonDatesArray = []
