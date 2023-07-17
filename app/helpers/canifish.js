@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
 const charsRegex = /(\n|\t|\(\d?,?\s?\d?\)|\*|:)+/gim
-const newLineRegex = /(\n|\t|<\/?p>|<br\/?>|&nbsp;)+/gim
-const extraRegex = /(\s,\s|,\s,|\s\s|\(|\)|&gt;)+/gim
+const newLineRegex = /(\n|\t|<\/?p[A-z0-9"=:;\s]*>|<br\/?>|&nbsp;)+/gim
+const extraRegex = /(\s,\s|,\s,|\s\s|\(|\)|\*\*\*)+/gim
 const startRegex = /^(,\s*)+/gim
 const endRegex = /(,\s*)+$/gim
 
@@ -33,10 +33,10 @@ export function getDescription(description) {
 export function getSeasonDates(seasonDates) {
   let seasonDatesHTML = seasonDates.replace(newLineRegex, '<br>')
 
-  if (
-    seasonDatesHTML.indexOf('</p><p>') >= 0 ||
-    seasonDatesHTML.indexOf('<br>') >= 0
-  ) {
+  console.log(seasonDates)
+  console.log(seasonDatesHTML)
+
+  if (seasonDatesHTML.indexOf('<br>') >= 0) {
     let speciesSeasonDates = []
     let seasonDatesArray = []
     seasonDatesArray =
@@ -88,6 +88,9 @@ export function getMinimumLength(minimumLength) {
     .replace(extraRegex, '')
     .replace('Only one fish may', ', Only one fish may ')
     .replace('Min:', '')
+    .replace('" whole', '" whole, ')
+    .replace('&gt;', '>')
+    .replace('&lt;', '<')
 }
 
 export function getSpeciesSeasonInfo(

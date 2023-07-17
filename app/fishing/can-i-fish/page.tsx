@@ -8,6 +8,8 @@ import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import Regulations from '@/app/classes/Regulations'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 function getCreelLimitForIndex(seasonLimits: string[], index: number) {
   if (seasonLimits[index] && seasonLimits[index].trim() == '') {
@@ -110,9 +112,13 @@ export default function CanIFish() {
       let regulations = new Regulations()
 
       const freshResults = await fetchRegulations('freshRI')
+      const saltResults = await fetchRegulations('saltRI')
 
       regulations.freshwaterRegulations = freshResults[0]
       regulations.freshwaterRegulationsLink = freshResults[1]
+
+      regulations.saltwaterRegulations = saltResults[0]
+      regulations.saltwaterRegulationsLink = saltResults[1]
 
       return regulations
     }
@@ -157,9 +163,10 @@ export default function CanIFish() {
         <hr className="mb-4" />
         <p className="mb-4">
           This app loads the fishing regulations, both saltwater and freshwater,
-          for Massachusetts, and determines if you are legally able to fish now.
+          for the chosen, and determines if you are legally able to fish now.
           Then, it displays all of the species you are eligible to fish for with
-          their regulations listed.
+          their regulations listed. Data is scraped from the official
+          regulations site.
         </p>
         <div className="mb-4">
           <label htmlFor="regulationsState" className="mb-4 block">
@@ -201,8 +208,18 @@ export default function CanIFish() {
                   className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
                 />
               </div>
-              <h2 className="text-2xl mb-4 underline">
-                Freshwater Regulations
+              <h2 className="text-2xl mb-4">
+                <a
+                  href={data.freshwaterRegulationsLink}
+                  className="underline hover:no-underline hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
+                  target="_blank"
+                >
+                  <span>Freshwater Regulations</span>
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="ml-2 max-h-4"
+                  />
+                </a>
               </h2>
               <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
                 {data.freshwaterRegulations.map(
@@ -255,8 +272,18 @@ export default function CanIFish() {
           )}
         {data.saltwaterRegulations && data.saltwaterRegulations.length > 0 && (
           <div>
-            <h2 className="text-2xl mb-4 underline underline">
-              Saltwater Regulations
+            <h2 className="text-2xl mb-4">
+              <a
+                href={data.saltwaterRegulationsLink}
+                className="underline hover:no-underline hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
+                target="_blank"
+              >
+                <span>Saltwater Regulations</span>
+                <FontAwesomeIcon
+                  icon={faArrowUpRightFromSquare}
+                  className="ml-2 max-h-4"
+                />
+              </a>
             </h2>
             <div className="grid gap-4 lg:grid-cols-3 grid-cols-1">
               {data.saltwaterRegulations.map(
