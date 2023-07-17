@@ -267,7 +267,7 @@ function getSpecies(waterTemp: number, seasons: string): string {
       species += 'trout, '
     }
 
-    species += 'pickerel/pike/muskies'
+    species += 'pickerel, pike, muskies'
   }
 
   return species !== '' ? species : 'Not ideal fishing weather for any species'

@@ -18,7 +18,7 @@ export default function Fishing() {
         <p className="mb-4">
           This is a list of apps I have developed to help fishermen.
         </p>
-        <div className="flex flex-col justify-between lg:mb-0 mb-4">
+        <div className="flex flex-col justify-between mb-4">
           <Link
             className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
             href="/fishing/can-i-fish"
@@ -38,6 +38,50 @@ export default function Fishing() {
             What to Fish
           </Link>
         </div>
+
+        <h2 className="text-2xl underline mb-4">Resources</h2>
+        <p className="mb-4">
+          The best websites for learning where, when, and how to fish.
+        </p>
+        <ul className="list-disc pl-6">
+          <li>
+            {' '}
+            <Link
+              className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              target="_blank"
+              href="https://www.takemefishing.org/"
+            >
+              Take Me Fishing
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              target="_blank"
+              href="https://www.wired2fish.com/"
+            >
+              Wired2Fish
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              target="_blank"
+              href="https://massachusettspaddler.com/"
+            >
+              Massachusetts Paddler
+            </Link>
+          </li>
+          <li>
+            <Link
+              className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              target="_blank"
+              href="https://www.onthewater.com/regions/massachusetts"
+            >
+              On The Water
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   )

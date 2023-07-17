@@ -17,11 +17,11 @@ export function getFishingConditionsText(
   let starRating = 0
   const speciesArray = species.split(',').map((s) => s.trim())
 
-  if (speciesArray.length >= 6) {
+  if (speciesArray.length >= 8) {
     fishingConditionsText += 'Excellent'
-  } else if (speciesArray.length > 4) {
+  } else if (speciesArray.length > 6) {
     fishingConditionsText += 'Really Good'
-  } else if (speciesArray.length > 2) {
+  } else if (speciesArray.length > 3) {
     fishingConditionsText += 'Good'
   } else if (speciesArray.length == 1) {
     fishingConditionsText += 'Not Ideal'

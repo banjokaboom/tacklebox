@@ -30,6 +30,25 @@ export default function FishingDataContent({ data }: Props) {
     return 0
   })
 
+  const lowConfidenceTackle = getLowConfidenceTackle()
+
+  function getLowConfidenceTackle() {
+    let tackleIndex = 0
+    let lowConfidenceTackleArray: Tackle[] = []
+
+    while (tackleIndex < data.tackle.length) {
+      if (data.tackle[tackleIndex].confidence <= 5) {
+        lowConfidenceTackleArray.push(data.tackle[tackleIndex])
+      }
+
+      tackleIndex++
+    }
+
+    return lowConfidenceTackleArray[
+      Math.floor(Math.random() * lowConfidenceTackleArray.length)
+    ]
+  }
+
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = '('
 
@@ -67,7 +86,7 @@ export default function FishingDataContent({ data }: Props) {
 
             {data.tackle.length > 0 && (
               <ContentSection
-                title="Suggested Lures/Rigs to use"
+                title="Suggested lures and rigs to use"
                 content={tackleByConfidence.map(
                   (t, index) =>
                     index < 5 && (
@@ -93,6 +112,39 @@ export default function FishingDataContent({ data }: Props) {
                       </div>
                     )
                 )}
+                isExpandedByDefault={true}
+              ></ContentSection>
+            )}
+
+            {data.tackle.length > 0 && (
+              <ContentSection
+                title="Try something new"
+                content={
+                  <div className="mb-4 last:mb-0">
+                    {lowConfidenceTackle.tip && (
+                      <button
+                        className="flex flex-row items-center text-left"
+                        title="Click to learn how to use this"
+                        onClick={() => {
+                          setModalContent(lowConfidenceTackle.tip)
+                          setIsModalOpen(true)
+                        }}
+                      >
+                        {lowConfidenceTackle.name}
+                        <FontAwesomeIcon
+                          icon={faCircleQuestion}
+                          className="ml-2"
+                        />
+                      </button>
+                    )}
+                    {!lowConfidenceTackle.tip && (
+                      <p>{lowConfidenceTackle.name}</p>
+                    )}
+                    <p className="text-sm">
+                      {getTackleSpecies(lowConfidenceTackle)}
+                    </p>
+                  </div>
+                }
                 isExpandedByDefault={true}
               ></ContentSection>
             )}
@@ -154,7 +206,7 @@ export default function FishingDataContent({ data }: Props) {
 
             {data.tackle.length > 0 && (
               <ContentSection
-                title="All Lures/Rigs for conditions"
+                title="All lures and rigs for conditions"
                 content={tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
                     {t.tip && (

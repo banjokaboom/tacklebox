@@ -192,7 +192,7 @@ export default function WhatToFish() {
   }
 
   function getFishingTip() {
-    const freshwaterTips = [
+    const tips = [
       "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
       'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
       'The day before a storm or similar major weather shift is the best time to fish. The day after is generally the worst.',
@@ -216,15 +216,6 @@ export default function WhatToFish() {
       'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
     ]
 
-    const saltwaterTips = [
-      'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
-      'Hook size correlates to fish size. Size 1/0 will cover most smaller fish, size 4/0 will cover most medium size fish, and size 8/0 will be good for bigger hauls.',
-      'The day before a storm is the best time to fish.',
-    ]
-
-    const tips = waterType.includes('freshwater')
-      ? freshwaterTips
-      : saltwaterTips
     const today = new Date()
     let tipIndex = 0
 

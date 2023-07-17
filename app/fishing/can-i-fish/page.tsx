@@ -163,9 +163,9 @@ export default function CanIFish() {
         <hr className="mb-4" />
         <p className="mb-4">
           This app loads the fishing regulations, both saltwater and freshwater,
-          for the chosen state, and determines if you are legally able to fish now.
-          Then, it displays all of the species you are eligible to fish for with
-          their regulations listed. Data is scraped from the official
+          for the chosen state, and determines if you are legally able to fish
+          now. Then, it displays all of the species you are eligible to fish for
+          with their regulations listed. Data is scraped from the official
           regulations site.
         </p>
         <div className="mb-4">

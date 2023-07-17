@@ -123,7 +123,7 @@ export default function OilPrices() {
               title="Best Price"
               content={
                 <div>
-                  <h3 className="mb-4 text-2xl">Price: {data.price}</h3>
+                  <p className="mb-4 text-2xl">Price: {data.price}</p>
                   <p className="mb-4">Company: {data.company}</p>
                   <a
                     className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
