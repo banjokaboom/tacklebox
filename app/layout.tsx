@@ -29,7 +29,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Header></Header>
-        <main className="p-12 pt-6 pb-12 lg:p-24 lg:pt-8 lg:pb-16 bg-cyan-700 mx-auto">
+        <main className="p-12 pt-6 pb-6 lg:p-24 lg:pt-8 lg:pb-8 bg-cyan-700 mx-auto">
           <Suspense
             fallback={
               <div className="flex flex-col items-center justify-between">

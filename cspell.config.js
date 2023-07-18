@@ -64,5 +64,7 @@ module.exports = {
     'whattofish',
     'Linktree',
     'SEASO',
+    'didn',
+    'fluoro',
   ],
 }

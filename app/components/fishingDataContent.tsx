@@ -58,7 +58,7 @@ export default function FishingDataContent({ data }: Props) {
     return () => {
       isDataLoaded = true
     }
-  }, [])
+  }, [data])
 
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = '('

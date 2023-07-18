@@ -10,7 +10,7 @@ export default function Footer() {
   const pathname = usePathname() || ''
 
   return (
-    <footer className="p-12 lg:p-24 lg:pt-16 lg:pb-16 bg-cyan-700 mx-auto">
+    <footer className="p-12 pt-0 lg:p-24 lg:pt-0 lg:pb-16 bg-cyan-700 mx-auto">
       <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start border-t pt-8">
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <Link
