@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className="text-3xl mb-4">Home</h1>
         <hr className="mb-4" />
 
-        <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-around items-start">
+        <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-around items-center">
           <Link
             className="w-full lg:basis-4/12 shrink-0 mb-4 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
             href="/fishing"
