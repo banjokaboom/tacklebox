@@ -4,7 +4,7 @@ import BaitRecommendations from '@/app/classes/BaitRecommendations'
 import FishingData from '@/app/classes/FishingData'
 import { getSeasons } from '@/app/helpers/date'
 import {
-  getFishingConditionsText,
+  getFishingConditions,
   getWeather,
   pickTackle,
   getWeatherValues,
@@ -71,7 +71,7 @@ export async function getSaltwaterFishingData(
       waterTemp
     )
 
-    fishingData.fishingConditionsText = getFishingConditionsText(
+    fishingData.fishingConditions = getFishingConditions(
       weather,
       fishingData.species,
       fishingData.seasons,

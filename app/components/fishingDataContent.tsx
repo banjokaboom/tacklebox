@@ -254,7 +254,7 @@ export default function FishingDataContent({ data }: Props) {
               content={
                 <div>
                   <p>
-                    Bad:{' '}
+                    OK:{' '}
                     {!data.seasons.includes('summer') &&
                     !data.seasons.includes('winter')
                       ? 'early morning'
@@ -267,7 +267,7 @@ export default function FishingDataContent({ data }: Props) {
                       ? 'late morning/early afternoon'
                       : 'early morning'}
                   </p>
-                  <p>Best: late afternoon/early evening</p>
+                  <p>Great: late afternoon/early evening</p>
                 </div>
               }
             ></ContentSection>

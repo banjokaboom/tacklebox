@@ -2,32 +2,39 @@ import Tackle from '../classes/Tackle'
 import WeatherData from '../classes/WeatherData'
 import WeatherDataChild from '../classes/WeatherDataChild'
 import AstroData from '../classes/AstroData'
+import FishingConditions from '../classes/FishingConditions'
 
 const waterTempMultiplier = 0.875
 const warmWaterMax = 82.5
 const warmWaterMin = 57.5
 
-export function getFishingConditionsText(
+export function getFishingConditions(
   weather: any,
   species: string,
   seasons: string,
   useCurrentWeather: boolean
 ) {
-  let fishingConditionsText = ''
+  let fishingConditionsText: string = ''
+  let fishingConditionsNotes: string[] = []
   let starRating = 0
   const speciesArray = species.split(',').map((s) => s.trim())
+  let fishingConditions = new FishingConditions()
 
   if (speciesArray.length >= 8) {
     fishingConditionsText += 'Excellent'
+    fishingConditionsNotes.push('at least 8 active species')
   } else if (speciesArray.length > 6) {
     fishingConditionsText += 'Really Good'
+    fishingConditionsNotes.push('several active species')
   } else if (speciesArray.length > 3) {
     fishingConditionsText += 'Good'
+    fishingConditionsNotes.push('more than 3 active species')
   } else if (speciesArray.length == 1) {
     fishingConditionsText += 'Not Ideal'
-    return fishingConditionsText
+    fishingConditionsNotes.push('no active species')
   } else {
     fishingConditionsText += 'OK'
+    fishingConditionsNotes.push('a few active species')
   }
 
   const now = new Date()
@@ -49,73 +56,73 @@ export function getFishingConditionsText(
     sunset.getHours() - now.getHours() > 0
   ) {
     starRating += 2
-    console.log('within the last three hours until sunset')
+    fishingConditionsNotes.push('within the last three hours until sunset')
   } else if (
     (seasons.includes('summer') || seasons.includes('winter')) &&
     now.getHours() - sunrise.getHours() <= 3 &&
     now.getHours() - sunrise.getHours() > 0
   ) {
     starRating++
-    console.log('within the first three hours after sunrise')
+    fishingConditionsNotes.push('within the first three hours after sunrise')
   } else if (
     !seasons.includes('summer') &&
     !seasons.includes('winter') &&
     now.getHours() - sunrise.getHours() > 3
   ) {
     starRating++
-    console.log('at least three hours after sunrise')
+    fishingConditionsNotes.push('at least three hours after sunrise')
   }
 
   if (useCurrentWeather) {
     if (weather.current.wind_mph < 6) {
       starRating += 3
-      console.log('not too windy')
+      fishingConditionsNotes.push('not too windy')
     } else if (weather.current.wind_mph < 10) {
       starRating += 2
-      console.log('kinda windy')
+      fishingConditionsNotes.push('fairly windy')
     } else if (weather.current.wind_mph < 13) {
       starRating++
-      console.log('pretty windy')
+      fishingConditionsNotes.push('pretty windy')
     } else {
       starRating--
-      console.log('really windy')
+      fishingConditionsNotes.push('very windy')
     }
   } else {
     if (weather.forecast.forecastday[0].day.maxwind_mph < 6) {
       starRating += 3
-      console.log('not too windy')
+      fishingConditionsNotes.push('not too windy')
     } else if (weather.forecast.forecastday[0].day.maxwind_mph < 10) {
       starRating += 2
-      console.log('kinda windy')
+      fishingConditionsNotes.push('fairly windy')
     } else if (weather.forecast.forecastday[0].day.maxwind_mph < 13) {
       starRating++
-      console.log('pretty windy')
+      fishingConditionsNotes.push('pretty windy')
     } else {
       starRating--
-      console.log('really windy')
+      fishingConditionsNotes.push('very windy')
     }
   }
 
   if (weather.current.pressure_in < 29.8) {
     starRating += 2
-    console.log('really good barometric pressure')
+    fishingConditionsNotes.push('very good barometric pressure')
   } else if (
     weather.current.pressure_in >= 29.8 &&
     weather.current.pressure_in <= 30.2
   ) {
     starRating++
-    console.log('ideal barometric pressure')
+    fishingConditionsNotes.push('ideal barometric pressure')
   } else {
     starRating--
-    console.log('not good barometric pressure')
+    fishingConditionsNotes.push('not good barometric pressure')
   }
 
   if (weather.forecast.forecastday[0].day.daily_chance_of_rain < 70) {
     starRating++
-    console.log('low to no chance of rain')
+    fishingConditionsNotes.push('low to no chance of rain')
   } else {
     starRating--
-    console.log('high chance of rain')
+    fishingConditionsNotes.push('high chance of rain')
   }
 
   for (
@@ -138,27 +145,27 @@ export function getFishingConditionsText(
     // if it will rain within the next two hours, no good
     if (forecastHour.will_it_rain == 1 && hourIndex < now.getHours() + 2) {
       starRating--
-      console.log('will rain within the next two hours')
+      fishingConditionsNotes.push('will rain within the next two hours')
       break
     }
 
     // if it will rain in exactly three hours, good
     if (forecastHour.will_it_rain == 1 && hourIndex == now.getHours() + 3) {
       starRating++
-      console.log('will rain in three hours but not before')
+      fishingConditionsNotes.push('will rain in three hours but not before')
       break
     }
   }
 
   if (weather.current.cloud == 100) {
     starRating += 3
-    console.log('very cloudy')
+    fishingConditionsNotes.push('very cloudy')
   } else if (weather.current.cloud >= 75) {
     starRating += 2
-    console.log('mostly cloudy')
+    fishingConditionsNotes.push('mostly cloudy')
   } else if (weather.current.cloud >= 50) {
     starRating++
-    console.log('partly cloudy')
+    fishingConditionsNotes.push('partly cloudy')
   }
 
   if (starRating >= 10) {
@@ -169,7 +176,10 @@ export function getFishingConditionsText(
     fishingConditionsText += '+'
   }
 
-  return fishingConditionsText
+  fishingConditions.conditionsText = fishingConditionsText
+  fishingConditions.conditionsNotes = fishingConditionsNotes
+
+  return fishingConditions
 }
 
 export async function getWeather(

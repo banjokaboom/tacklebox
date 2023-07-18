@@ -371,7 +371,20 @@ export default function WhatToFish() {
         {!loading && data.species !== '' && (
           <h2 className="text-3xl mb-4">
             {useCurrentWeather ? 'Current ' : "Today's "} conditions are{' '}
-            {data.fishingConditionsText}
+            {data.fishingConditions.conditionsText}
+            <div className="text-sm">
+              (
+              {data.fishingConditions.conditionsNotes.map((note, fcIndex) => (
+                <span key={note}>
+                  {fcIndex !== 0 ? ', ' : ''}
+                  {fcIndex == data.fishingConditions.conditionsNotes.length - 1
+                    ? 'and '
+                    : ''}
+                  {note}
+                </span>
+              ))}
+              )
+            </div>
           </h2>
         )}
         {!loading && data.species !== '' && <FishingDataContent data={data} />}

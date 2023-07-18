@@ -1,4 +1,5 @@
 import BaitRecommendations from './BaitRecommendations'
+import FishingConditions from './FishingConditions'
 import Tackle from './Tackle'
 import WeatherData from './WeatherData'
 
@@ -8,7 +9,7 @@ export default class FishingData {
   public tackle: Tackle[]
   public weather: WeatherData
   public species: string
-  public fishingConditionsText: string
+  public fishingConditions: FishingConditions
 
   constructor() {
     this.baitRecommendations = new BaitRecommendations()
@@ -16,6 +17,6 @@ export default class FishingData {
     this.tackle = []
     this.weather = new WeatherData()
     this.species = ''
-    this.fishingConditionsText = ''
+    this.fishingConditions = new FishingConditions()
   }
 }
