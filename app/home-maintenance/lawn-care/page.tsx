@@ -50,6 +50,33 @@ function getRecommendedCareForDate() {
   return recommendation
 }
 
+function getLawnCareTip() {
+  const tips = [
+    "If you had crabgrass last year, you're going to have crabgrass this year. Make sure you work to prevent it.",
+    'Pulling weeds makes for a pretty lawn, but you leave holes everywhere for new weeds to sprout from.',
+    'The best defense against weeds is a healthy, full lawn.',
+    'Pay attention to how your lawn looks throughout the year, and make adjustments to your routine as necessary. Make sure to journal your changes so you repeat the process next year.',
+    'Crabgrass loves hot, dry weather. You will see crabgrass affecting the sunniest parts of your lawn.',
+    'Water your lawn before sunrise or after sunset. This gives the lawn enough time to soak up all of the water before the sun gets the chance to dry it out.',
+    'You will notice that the shady areas tend to get far less weeds. Water the sunnier parts of your lawn more often than the shady spots.',
+  ]
+
+  const today = new Date()
+  let tipIndex = 0
+
+  if (today.getDate() > tips.length) {
+    tipIndex = today.getDate() - Math.trunc(today.getDate() / 10) * 10
+  } else {
+    tipIndex = today.getDate()
+  }
+
+  while (tipIndex >= tips.length) {
+    tipIndex--
+  }
+
+  return tips[tipIndex]
+}
+
 export default function LawnCare() {
   let breadcrumbs = [
     {
@@ -74,18 +101,24 @@ export default function LawnCare() {
           This is based on a northern lawn that receives all four seasons.
         </p>
 
-        <div className="flex flex-col lg:flex-row justify-between">
-          <div>
-            <ContentSection
-              title="What to do this month"
-              content={recommendations.map((r) => (
-                <p className="mb-4 last:mb-0" key={r}>
-                  {r}
-                </p>
-              ))}
-              isExpandedByDefault={true}
-            ></ContentSection>
-          </div>
+        <div>
+          <ContentSection
+            title="What to do this month"
+            content={recommendations.map((r) => (
+              <p className="mb-4 last:mb-0" key={r}>
+                {r}
+              </p>
+            ))}
+            isExpandedByDefault={true}
+          ></ContentSection>
+        </div>
+
+        <div>
+          <ContentSection
+            title="Tip of the Day"
+            content={getLawnCareTip()}
+            isExpandedByDefault={true}
+          ></ContentSection>
         </div>
       </div>
     </div>

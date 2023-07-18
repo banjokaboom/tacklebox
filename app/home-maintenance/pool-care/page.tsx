@@ -67,18 +67,16 @@ export default function PoolCare() {
           This generally recommends what to do this month for your pool care.
         </p>
 
-        <div className="flex flex-col lg:flex-row justify-between">
-          <div>
-            <ContentSection
-              title="What to do this month"
-              content={recommendations.map((r) => (
-                <p className="mb-4 last:mb-0" key={r}>
-                  {r}
-                </p>
-              ))}
-              isExpandedByDefault={true}
-            ></ContentSection>
-          </div>
+        <div>
+          <ContentSection
+            title="What to do this month"
+            content={recommendations.map((r) => (
+              <p className="mb-4 last:mb-0" key={r}>
+                {r}
+              </p>
+            ))}
+            isExpandedByDefault={true}
+          ></ContentSection>
         </div>
       </div>
     </div>

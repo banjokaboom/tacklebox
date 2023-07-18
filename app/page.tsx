@@ -11,14 +11,14 @@ export default function Home() {
 
         <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-around items-center">
           <Link
-            className="w-full lg:basis-4/12 shrink-0 mb-4 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
+            className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
             href="/fishing"
           >
             <FontAwesomeIcon icon={faToolbox} className="mb-4 h-16" />
             <span>Fishing</span>
           </Link>
           <Link
-            className="w-full lg:basis-4/12 shrink-0 mb-4 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
+            className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
             href="/home-maintenance"
           >
             <FontAwesomeIcon icon={faHouseUser} className="mb-4 h-16" />
