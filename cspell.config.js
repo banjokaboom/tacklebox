@@ -66,5 +66,7 @@ module.exports = {
     'SEASO',
     'didn',
     'fluoro',
+    'newhampshire',
+    'rhodeisland',
   ],
 }

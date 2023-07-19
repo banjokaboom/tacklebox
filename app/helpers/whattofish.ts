@@ -40,13 +40,15 @@ export function getFishingConditions(
   const now = new Date()
   let sunrise = new Date()
   sunrise.setHours(
-    weather.forecast.forecastday[0].astro.sunrise.substring(0, 2)
+    parseInt(weather.forecast.forecastday[0].astro.sunrise.substring(0, 2))
   )
   sunrise.setMinutes(
     weather.forecast.forecastday[0].astro.sunrise.substring(3, 5)
   )
   let sunset = new Date()
-  sunset.setHours(weather.forecast.forecastday[0].astro.sunset.substring(0, 2))
+  sunset.setHours(
+    parseInt(weather.forecast.forecastday[0].astro.sunset.substring(0, 2)) + 12
+  )
   sunset.setMinutes(
     weather.forecast.forecastday[0].astro.sunset.substring(3, 5)
   )
