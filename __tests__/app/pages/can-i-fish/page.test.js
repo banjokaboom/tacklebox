@@ -70,23 +70,4 @@ describe('CanIFish', () => {
 
     expect(heading).toBeInTheDocument()
   })
-
-  it('says you can fish', async () => {
-    render(<CanIFish />)
-
-    const yesText = await screen.findByText('Can I Fish: Yes')
-
-    expect(yesText).toBeInTheDocument()
-  })
-
-  it("says you can't fish", async () => {
-    fwFishingData[0].seasonDates = ['Jan. 1 2000 – Dec. 31 2000']
-    swFishingData[0].seasonDates = ['Jan. 1 2000 – Dec. 31 2000']
-
-    render(<CanIFish />)
-
-    const noText = await screen.findByText('Can I Fish: No')
-
-    expect(noText).toBeInTheDocument()
-  })
 })

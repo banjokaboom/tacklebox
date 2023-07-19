@@ -59,6 +59,8 @@ function getLawnCareTip() {
     'Crabgrass loves hot, dry weather. You will see crabgrass affecting the sunniest parts of your lawn.',
     'Water your lawn before sunrise or after sunset. This gives the lawn enough time to soak up all of the water before the sun gets the chance to dry it out.',
     'You will notice that the shady areas tend to get far less weeds. Water the sunnier parts of your lawn more often than the shady spots.',
+    'Unless you see lots of weeds, crabgrass with seeds growing, or some kind of disease on the grass, keep the bagger off and mulch the grass.',
+    'Mushrooms are a sign of a healthy lawn, but they may also be a sign of overwatering.',
   ]
 
   const today = new Date()

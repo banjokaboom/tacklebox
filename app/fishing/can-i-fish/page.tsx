@@ -36,7 +36,7 @@ function getCreelLimitForIndex(seasonLimits: string[], index: number) {
 export default function CanIFish() {
   let [data, setData] = useState(new Regulations())
   let [message, setMessage] = useState(new MessageData())
-  let [regulationsState, setRegulationsState] = useState('MA')
+  let [regulationsState, setRegulationsState] = useState('')
   let breadcrumbs = [
     {
       title: 'Fishing',
@@ -181,6 +181,7 @@ export default function CanIFish() {
             }}
             className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
           >
+            <option value="">Select State...</option>
             <option value="MA">Massachusetts</option>
             <option value="RI">Rhode Island</option>
           </select>
@@ -189,7 +190,8 @@ export default function CanIFish() {
         {(!data.freshwaterRegulations ||
           data.freshwaterRegulations.length == 0) &&
           (!data.saltwaterRegulations ||
-            data.saltwaterRegulations.length == 0) && <Loader />}
+            data.saltwaterRegulations.length == 0) &&
+          regulationsState !== '' && <Loader />}
         {data.freshwaterRegulations &&
           data.freshwaterRegulations.length > 0 && (
             <div>
@@ -202,6 +204,7 @@ export default function CanIFish() {
                   name="filterText"
                   id="filterText"
                   value={filterText}
+                  placeholder='Type to filter, i.e. "bass"'
                   onChange={(e) => {
                     setFilterText(e.target.value)
                   }}

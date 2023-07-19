@@ -10,7 +10,8 @@ import OilPriceData from '@/app/classes/OilPriceData'
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
-  let [zone, setZone] = useState(Math.floor(Math.random() * 15) + 1 + '')
+  let [state, setState] = useState('')
+  let [zone, setZone] = useState('')
   let [message, setMessage] = useState(new MessageData())
   let breadcrumbs = [
     {
@@ -24,13 +25,20 @@ export default function OilPrices() {
   ]
 
   useEffect(() => {
+    if (state == '' || zone == '') {
+      return
+    }
+
     let m = new MessageData()
     setMessage(new MessageData())
 
     async function getOilPrices() {
-      const res = await fetch('/api/oilprices?zone=' + zone, {
-        cache: 'no-store',
-      })
+      const res = await fetch(
+        '/api/oilprices?state=' + state + '&zone=' + zone,
+        {
+          cache: 'no-store',
+        }
+      )
 
       return res.json()
     }
@@ -67,7 +75,42 @@ export default function OilPrices() {
     return () => {
       isDataLoaded = true
     }
-  }, [zone])
+  }, [zone, state])
+
+  function getZones() {
+    let zones: number[] = []
+    let maxZones = 0
+
+    switch (state) {
+      case 'connecticut':
+        maxZones = 10
+        break
+      case 'maine':
+        maxZones = 7
+        break
+      case 'massachusetts':
+        maxZones = 15
+        break
+      case 'newhampshire':
+        maxZones = 6
+        break
+      case 'rhodeisland':
+        maxZones = 4
+        break
+      default:
+        break
+    }
+
+    if (state == 'massachusetts') {
+      maxZones = 15
+    }
+
+    for (let zoneCount = 1; zoneCount <= maxZones; zoneCount++) {
+      zones.push(zoneCount)
+    }
+
+    return zones
+  }
 
   return (
     <div className="flex flex-col items-center justify-between">
@@ -77,47 +120,64 @@ export default function OilPrices() {
         <hr className="mb-4" />
         <div className="mb-4">
           <p className="mb-4">
-            Don&apos;t know your zone? Go to{' '}
+            Don&apos;t see your state or know your zone? Go to{' '}
             <a
-              href="https://www.newenglandoil.com/mass.htm"
+              href="https://www.newenglandoil.com/"
               target="_blank"
-              className="underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              className="underline hover:no-underline"
             >
               newenglandoil.com
             </a>{' '}
             to find out!
           </p>
-          <label htmlFor="state" className="mb-4 block">
-            Zone
-          </label>
-          <select
-            name="zone"
-            id="zone"
-            onChange={(e) => {
-              setZone(e.target.value)
-            }}
-            className="text-slate-700 leading-4 p-2 block max-w-full"
-            value={zone}
-          >
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-          </select>
+          <div className="mb-4">
+            <label htmlFor="state" className="mb-4 block">
+              State
+            </label>
+            <select
+              name="state"
+              id="state"
+              onChange={(e) => {
+                setState(e.target.value)
+                setZone('')
+              }}
+              className="text-slate-700 leading-4 p-2 block max-w-full"
+              value={state}
+            >
+              <option value="">Select State...</option>
+              <option value="connecticut">Connecticut</option>
+              <option value="maine">Maine</option>
+              <option value="massachusetts">Massachusetts</option>
+              <option value="newhampshire">New Hampshire</option>
+              <option value="rhodeisland">Rhode Island</option>
+            </select>
+          </div>
+          {state !== '' && (
+            <div className="mb-4">
+              <label htmlFor="zone" className="mb-4 block">
+                Zone
+              </label>
+              <select
+                name="zone"
+                id="zone"
+                onChange={(e) => {
+                  setZone(e.target.value)
+                }}
+                className="text-slate-700 leading-4 p-2 block max-w-full"
+                value={zone}
+              >
+                <option value="">Select Zone...</option>
+                {getZones().map((zone: number) => (
+                  <option key={zone} value={zone}>
+                    {zone}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
         </div>
-        {data.price == '' && <Loader />}
-        {data.price !== '' && (
+        {data.price == '' && zone !== '' && state !== '' && <Loader />}
+        {data.price !== '' && zone !== '' && state !== '' && (
           <div>
             <ContentSection
               title="Best Price"

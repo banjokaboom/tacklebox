@@ -2,12 +2,18 @@ import axios from 'axios'
 import cheerio from 'cheerio'
 
 export default function handler(req, res) {
+  const state = req.query.state
   const zone = req.query.zone
 
-  console.log('Loading best oil price for zone ' + zone)
+  console.log('Loading best oil price for ' + state + ' zone ' + zone)
 
-  let url =
-    'https://www.newenglandoil.com/massachusetts/zone' + zone + '.asp?x=0'
+  let url = ''
+  if (state == 'maine') {
+    url = 'https://www.maineoil.com/zone' + zone + '.asp?type=0'
+  } else {
+    url = 'https://www.newenglandoil.com/' + state + '/zone' + zone + '.asp?x=0'
+  }
+
   axios
     .get(url)
     .then((ares) => {
@@ -33,7 +39,7 @@ export default function handler(req, res) {
 
         allOilPrices.push({ price, company, url })
 
-        if (price < lowestPrice) {
+        if (price !== '0.000' && price < lowestPrice) {
           lowestPrice = price
           lowestPriceCompany = company
           lowestPriceCompanyURL = url

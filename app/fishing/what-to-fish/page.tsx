@@ -291,7 +291,7 @@ export default function WhatToFish() {
                       className="text-slate-700 leading-4 p-2 block max-w-full"
                       value={cityState}
                     >
-                      <option value=""></option>
+                      <option value="">Select State...</option>
                       {cityStateList.map(
                         (cs: CityState, csIndex) =>
                           (waterType.includes('freshwater') ||

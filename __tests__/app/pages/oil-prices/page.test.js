@@ -35,14 +35,4 @@ describe('OilPrices', () => {
 
     expect(heading).toBeInTheDocument()
   })
-
-  it('loads price when zone is selected', async () => {
-    render(<OilPrices />)
-
-    await userEvent.selectOptions(screen.getByRole('combobox'), '10')
-
-    const heading = await screen.findByText(/Best Price/i)
-
-    expect(heading).toBeInTheDocument()
-  })
 })

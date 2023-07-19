@@ -165,7 +165,7 @@ export default function TackleBySpecies() {
               className="text-slate-700 leading-4 p-2 block max-w-full"
               value={species}
             >
-              <option value=""></option>
+              <option value="">Select Species...</option>
               {speciesList.map((s: string, sIndex: number) => (
                 <option key={sIndex} value={s}>
                   {s}
