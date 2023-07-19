@@ -19,7 +19,7 @@ export default function OilPrices() {
       href: '/home-maintenance',
     },
     {
-      title: 'Heating Oil Prices (MA)',
+      title: 'Heating Oil Prices',
       href: '/home-maintenance/oil-prices',
     },
   ]
