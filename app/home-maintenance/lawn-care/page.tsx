@@ -3,6 +3,8 @@
 import ContentSection from '@/app/components/content'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import { getSeasons } from '@/app/helpers/date'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 function getRecommendedCareForDate() {
   let seasons = getSeasons()
@@ -107,9 +109,38 @@ export default function LawnCare() {
           <ContentSection
             title="What to do this month"
             content={recommendations.map((r) => (
-              <p className="mb-4 last:mb-0" key={r}>
-                {r}
-              </p>
+              <div
+                className="flex flex-row items-center justify-between mb-4 last:mb-0"
+                key={r}
+              >
+                <div>{r}</div>
+                {(r.includes('fertilizer') || r.includes('weed preventer')) && (
+                  <div>
+                    <a
+                      title={
+                        'Amazon Buy link for Greenview ' +
+                        (r.includes('fertilizer')
+                          ? 'fertilizer'
+                          : 'weed killer')
+                      }
+                      target="_blank"
+                      className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                      href={
+                        'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=greenview ' +
+                        (r.includes('fertilizer')
+                          ? 'fertilizer'
+                          : 'weed killer')
+                      }
+                    >
+                      <span>Buy</span>
+                      <FontAwesomeIcon
+                        icon={faArrowUpRightFromSquare}
+                        className="ml-2 max-h-4"
+                      />
+                    </a>
+                  </div>
+                )}
+              </div>
             ))}
             isExpandedByDefault={true}
           ></ContentSection>

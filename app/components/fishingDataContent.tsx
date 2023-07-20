@@ -8,6 +8,7 @@ import Tackle from '../classes/Tackle'
 import ContentSection from './content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 interface Props {
   data: FishingData
@@ -102,23 +103,51 @@ export default function FishingDataContent({ data }: Props) {
                   (t, index) =>
                     index < 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        {t.tip && (
-                          <button
-                            className="flex flex-row items-center text-left"
-                            title="Click to learn how to use this"
-                            onClick={() => {
-                              setModalContent(t.tip)
-                              setIsModalOpen(true)
-                            }}
-                          >
-                            {t.name}
-                            <FontAwesomeIcon
-                              icon={faCircleQuestion}
-                              className="ml-2"
-                            />
-                          </button>
-                        )}
-                        {!t.tip && <p>{t.name}</p>}
+                        <div className="flex flex-row items-center justify-between">
+                          <div className="flex flex-row items-center">
+                            {t.tip && (
+                              <button
+                                className="flex flex-row items-center"
+                                title="Click to learn how to use this"
+                                onClick={() => {
+                                  setModalContent(t.tip)
+                                  setIsModalOpen(true)
+                                }}
+                              >
+                                {t.name}
+                                <FontAwesomeIcon
+                                  icon={faCircleQuestion}
+                                  className="ml-2"
+                                />
+                              </button>
+                            )}
+                            {!t.tip && <p>{t.name}</p>}
+                          </div>
+                          {!t.name.toUpperCase().includes('RIG') && (
+                            <div>
+                              <a
+                                title={
+                                  'Amazon Buy link for ' +
+                                  t.name +
+                                  ' fishing lures'
+                                }
+                                target="_blank"
+                                className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                                href={
+                                  'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                                  t.name +
+                                  ' fishing lures'
+                                }
+                              >
+                                <span>Buy</span>
+                                <FontAwesomeIcon
+                                  icon={faArrowUpRightFromSquare}
+                                  className="ml-2 max-h-4"
+                                />
+                              </a>
+                            </div>
+                          )}
+                        </div>
                         <p className="text-sm">{getTackleSpecies(t)}</p>
                       </div>
                     )
@@ -132,25 +161,55 @@ export default function FishingDataContent({ data }: Props) {
                 title="Try something new"
                 content={
                   <div className="mb-4 last:mb-0">
-                    {lowConfidenceTackle.tip && (
-                      <button
-                        className="flex flex-row items-center text-left"
-                        title="Click to learn how to use this"
-                        onClick={() => {
-                          setModalContent(lowConfidenceTackle.tip)
-                          setIsModalOpen(true)
-                        }}
-                      >
-                        {lowConfidenceTackle.name}
-                        <FontAwesomeIcon
-                          icon={faCircleQuestion}
-                          className="ml-2"
-                        />
-                      </button>
-                    )}
-                    {!lowConfidenceTackle.tip && (
-                      <p>{lowConfidenceTackle.name}</p>
-                    )}
+                    <div className="flex flex-row items-center justify-between">
+                      <div className="flex flex-row items-center">
+                        {lowConfidenceTackle.tip && (
+                          <button
+                            className="flex flex-row items-center"
+                            title="Click to learn how to use this"
+                            onClick={() => {
+                              setModalContent(lowConfidenceTackle.tip)
+                              setIsModalOpen(true)
+                            }}
+                          >
+                            {lowConfidenceTackle.name}
+                            <FontAwesomeIcon
+                              icon={faCircleQuestion}
+                              className="ml-2"
+                            />
+                          </button>
+                        )}
+                        {!lowConfidenceTackle.tip && (
+                          <p>{lowConfidenceTackle.name}</p>
+                        )}
+                      </div>
+                      {!lowConfidenceTackle.name
+                        .toUpperCase()
+                        .includes('RIG') && (
+                        <div>
+                          <a
+                            title={
+                              'Amazon Buy link for ' +
+                              lowConfidenceTackle.name +
+                              ' fishing lures'
+                            }
+                            target="_blank"
+                            className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                            href={
+                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                              lowConfidenceTackle.name +
+                              ' fishing lures'
+                            }
+                          >
+                            <span>Buy</span>
+                            <FontAwesomeIcon
+                              icon={faArrowUpRightFromSquare}
+                              className="ml-2 max-h-4"
+                            />
+                          </a>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-sm">
                       {getTackleSpecies(lowConfidenceTackle)}
                     </p>
@@ -220,23 +279,49 @@ export default function FishingDataContent({ data }: Props) {
                 title="All lures and rigs for conditions"
                 content={tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
-                    {t.tip && (
-                      <button
-                        className="flex flex-row items-center"
-                        title="Click to learn how to use this"
-                        onClick={() => {
-                          setModalContent(t.tip)
-                          setIsModalOpen(true)
-                        }}
-                      >
-                        {t.name}
-                        <FontAwesomeIcon
-                          icon={faCircleQuestion}
-                          className="ml-2"
-                        />
-                      </button>
-                    )}
-                    {!t.tip && <p>{t.name}</p>}
+                    <div className="flex flex-row items-center justify-between">
+                      <div className="flex flex-row items-center">
+                        {t.tip && (
+                          <button
+                            className="flex flex-row items-center"
+                            title="Click to learn how to use this"
+                            onClick={() => {
+                              setModalContent(t.tip)
+                              setIsModalOpen(true)
+                            }}
+                          >
+                            {t.name}
+                            <FontAwesomeIcon
+                              icon={faCircleQuestion}
+                              className="ml-2"
+                            />
+                          </button>
+                        )}
+                        {!t.tip && <p>{t.name}</p>}
+                      </div>
+                      {!t.name.toUpperCase().includes('RIG') && (
+                        <div>
+                          <a
+                            title={
+                              'Amazon Buy link for ' + t.name + ' fishing lures'
+                            }
+                            target="_blank"
+                            className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                            href={
+                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                              t.name +
+                              ' fishing lures'
+                            }
+                          >
+                            <span>Buy</span>
+                            <FontAwesomeIcon
+                              icon={faArrowUpRightFromSquare}
+                              className="ml-2 max-h-4"
+                            />
+                          </a>
+                        </div>
+                      )}
+                    </div>
                     <p className="text-sm">{getTackleSpecies(t)}</p>
                   </div>
                 ))}
