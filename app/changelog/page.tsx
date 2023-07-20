@@ -1,11 +1,11 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.0.0 > changelogs/v3.1.0.txt
+ * git log --oneline --decorate=no HEAD...v3.1.0 > changelogs/v3.2.0.txt
  *
  * To count for version tag
  *
- * git rev-list HEAD...v2.0.0 --count
+ * git rev-list HEAD...v3.1.0 --count
  */
 
 import ContentSection from '@/app/components/content'
@@ -25,6 +25,54 @@ export default function ChangeLog() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
+
+        <ContentSection
+          title="v3.2.0"
+          content={
+            <div>
+              <p className="mb-4">added amazon affiliate links</p>
+              <p className="mb-4">removed MA from heating oil bread crumb</p>
+              <p className="mb-4">fixed sunset check</p>
+              <p className="mb-4">
+                added oil prices for all new england states except vt
+              </p>
+              <p className="mb-4">
+                minor tweaks for consistency, added lawn care tips
+              </p>
+              <p className="mb-4">added conditions flavor text</p>
+              <p className="mb-4">
+                changed lists of apps to use large buttons like home page
+              </p>
+              <p className="mb-4">
+                updated home page to have large buttons to link to pertinent
+                pages, added beginner tips to fishing page
+              </p>
+              <p className="mb-4">
+                fixed try something new section changing every time you viewed
+                the modal
+              </p>
+              <p className="mb-4">
+                adjusted fishing tips, added try something new section,
+                separated pike, pickerel, and muskies
+              </p>
+              <p className="mb-4">
+                added freshwater RI regulations and regulations links
+              </p>
+              <p className="mb-4">added rhode island saltwater regulations</p>
+              <p className="mb-4">fixed mobile message styling</p>
+              <p className="mb-4">
+                small tweaks to what to fish app display, updated to check
+                forecast for conditions text
+              </p>
+              <p className="mb-4">
+                consolidated saltwater and freshwater fishing pages
+              </p>
+              <p className="mb-4">fix loading display on what to fish pages</p>
+              <p>fixed alignment on hardbody swimbaits</p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
 
         <ContentSection
           title="v3.1.0"
@@ -80,7 +128,6 @@ export default function ChangeLog() {
               <p>added saltwater link to fishing page</p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection

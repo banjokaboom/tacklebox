@@ -1,0 +1,19 @@
+419fd68 added amazon affiliate links
+e85dd46 removed 'ma' from heating oil bread crumb
+5658479 fixed sunset check
+e53b33e added oil prices for all new england states except vt
+aa22ecf minor tweaks for consistency, added lawn care tips
+c9b31d9 added conditions flavor text
+e2d2ca7 changed lists of apps to use large buttons like home page
+290245e updated home page to have large buttons to link to pertinent pages, added beginner tips to fishing page
+9cf3dfa fixed try something new section changing every time you viewed the modal
+a4a403e adjusted fishing tips, added try something new section, separated pike, pickerel, and muskies
+99949e0 removed some logs
+7458fde added freshwater RI regulations and regulations links
+4863bc5 added freshwater RI regulations and regulations links
+348ecfb added rhode island saltwater regulations
+2662bc0 fixed mobile message styling
+99f83e3 small tweaks to what to fish app display, updated to check forecast for conditions text
+24b8632 consolidated saltwater and freshwater fishing pages
+a4c9a2c commented out some tests for now, fix loading display on what to fish pages
+f1688a6 fixed alignment on hardbody swimbaits
