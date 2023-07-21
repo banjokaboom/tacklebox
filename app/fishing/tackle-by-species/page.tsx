@@ -198,17 +198,19 @@ export default function TackleBySpecies() {
               content={data.tackle.map((t, index) => (
                 <div key={index} className="mb-4 last:mb-0">
                   <div className="flex flex-row items-center justify-between space-x-2">
-                    <div className="flex flex-row items-center">
+                    <div className="flex flex-row items-center basis-2/3">
                       {t.tip && (
                         <button
-                          className="flex flex-row items-center text-left"
+                          className="flex flex-row items-center text-left w-full"
                           title="Click to learn how to use this"
                           onClick={() => {
                             setModalContent(t.tip)
                             setIsModalOpen(true)
                           }}
                         >
-                          <span className="basis-3/4 break-all">{t.name}</span>
+                          <span className="sm:break-words break-all">
+                            {t.name}
+                          </span>
                           <FontAwesomeIcon
                             icon={faCircleQuestion}
                             className="ml-2"

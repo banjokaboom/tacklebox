@@ -113,7 +113,7 @@ export default function LawnCare() {
                 className="flex flex-row items-center justify-between space-x-2 mb-4 last:mb-0"
                 key={r}
               >
-                <div className="basis-3/4 break-all">{r}</div>
+                <div className="sm:break-words break-all">{r}</div>
                 {(r.includes('fertilizer') || r.includes('weed preventer')) && (
                   <div>
                     <a

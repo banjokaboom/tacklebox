@@ -104,17 +104,17 @@ export default function FishingDataContent({ data }: Props) {
                     index < 5 && (
                       <div key={index} className="mb-4 last:mb-0">
                         <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-row items-center">
+                          <div className="flex flex-row items-center basis-2/3">
                             {t.tip && (
                               <button
-                                className="flex flex-row items-center text-left"
+                                className="flex flex-row items-center text-left w-full"
                                 title="Click to learn how to use this"
                                 onClick={() => {
                                   setModalContent(t.tip)
                                   setIsModalOpen(true)
                                 }}
                               >
-                                <span className="basis-3/4 break-all">
+                                <span className="sm:break-words break-all">
                                   {t.name}
                                 </span>
                                 <FontAwesomeIcon
@@ -164,17 +164,17 @@ export default function FishingDataContent({ data }: Props) {
                 content={
                   <div className="mb-4 last:mb-0">
                     <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-row items-center">
+                      <div className="flex flex-row items-center basis-2/3">
                         {lowConfidenceTackle.tip && (
                           <button
-                            className="flex flex-row items-center text-left"
+                            className="flex flex-row items-center text-left basis-2/3"
                             title="Click to learn how to use this"
                             onClick={() => {
                               setModalContent(lowConfidenceTackle.tip)
                               setIsModalOpen(true)
                             }}
                           >
-                            <span className=" basis-3/4 break-all">
+                            <span className="sm:break-words break-all">
                               {lowConfidenceTackle.name}
                             </span>
                             <FontAwesomeIcon
@@ -284,17 +284,17 @@ export default function FishingDataContent({ data }: Props) {
                 content={tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
                     <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-row items-center">
+                      <div className="flex flex-row items-center basis-2/3">
                         {t.tip && (
                           <button
-                            className="flex flex-row items-center text-left"
+                            className="flex flex-row items-center text-left w-full"
                             title="Click to learn how to use this"
                             onClick={() => {
                               setModalContent(t.tip)
                               setIsModalOpen(true)
                             }}
                           >
-                            <span className=" basis-3/4 break-all">
+                            <span className="sm:break-words break-all">
                               {t.name}
                             </span>
                             <FontAwesomeIcon
