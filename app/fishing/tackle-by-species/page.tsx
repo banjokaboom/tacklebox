@@ -6,6 +6,7 @@ import Loader from '@/app/components/loader'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
@@ -196,23 +197,49 @@ export default function TackleBySpecies() {
               title="Lures and rigs to use"
               content={data.tackle.map((t, index) => (
                 <div key={index} className="mb-4 last:mb-0">
-                  {t.tip && (
-                    <button
-                      className="flex flex-row items-center"
-                      title="Click to learn how to use this"
-                      onClick={() => {
-                        setModalContent(t.tip)
-                        setIsModalOpen(true)
-                      }}
-                    >
-                      {t.name}
-                      <FontAwesomeIcon
-                        icon={faCircleQuestion}
-                        className="ml-2"
-                      />
-                    </button>
-                  )}
-                  {!t.tip && <p>{t.name}</p>}
+                  <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center">
+                      {t.tip && (
+                        <button
+                          className="flex flex-row items-center"
+                          title="Click to learn how to use this"
+                          onClick={() => {
+                            setModalContent(t.tip)
+                            setIsModalOpen(true)
+                          }}
+                        >
+                          {t.name}
+                          <FontAwesomeIcon
+                            icon={faCircleQuestion}
+                            className="ml-2"
+                          />
+                        </button>
+                      )}
+                      {!t.tip && <p>{t.name}</p>}
+                    </div>
+                    {!t.name.toUpperCase().includes('RIG') && (
+                      <div>
+                        <a
+                          title={
+                            'Amazon Buy link for ' + t.name + ' fishing lures'
+                          }
+                          target="_blank"
+                          className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                          href={
+                            'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                            t.name +
+                            ' fishing lures'
+                          }
+                        >
+                          <span>Buy</span>
+                          <FontAwesomeIcon
+                            icon={faArrowUpRightFromSquare}
+                            className="ml-2 max-h-4"
+                          />
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ))}
               isExpandedByDefault={true}
