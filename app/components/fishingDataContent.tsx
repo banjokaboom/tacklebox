@@ -132,7 +132,7 @@ export default function FishingDataContent({ data }: Props) {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                                className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -194,7 +194,7 @@ export default function FishingDataContent({ data }: Props) {
                               ' fishing lures'
                             }
                             target="_blank"
-                            className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                            className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                             href={
                               'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                               lowConfidenceTackle.name +
@@ -306,7 +306,7 @@ export default function FishingDataContent({ data }: Props) {
                               'Amazon Buy link for ' + t.name + ' fishing lures'
                             }
                             target="_blank"
-                            className="ml-2 underline hover:no-underline text-sm flex flex-row items-center"
+                            className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                             href={
                               'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                               t.name +

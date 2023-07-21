@@ -7,6 +7,8 @@ import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import OilPriceData from '@/app/classes/OilPriceData'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
 
 export default function OilPrices() {
   let [data, setData] = useState(new OilPriceData())
@@ -53,13 +55,22 @@ export default function OilPrices() {
         oilPriceData.price = '$' + data.price
         oilPriceData.company = data.company
         oilPriceData.url = data.url
-        oilPriceData.oilPrices = data.allOilPrices
+        oilPriceData.oilPrices = data.allOilPrices.sort((a: any, b: any) => {
+          if (a.price < b.price) {
+            return -1
+          }
+          if (a.price > b.price) {
+            return 1
+          }
+          // a must be equal to b
+          return 0
+        })
 
         if (!isDataLoaded) {
           m.message = 'Successfully loaded oil prices for zone: ' + zone
           m.severity = 'success'
           setMessage(m)
-          setData(data)
+          setData(oilPriceData)
         }
       } catch (error: any) {
         m.message = error
@@ -182,19 +193,53 @@ export default function OilPrices() {
             <ContentSection
               title="Best Price"
               content={
-                <div>
-                  <p className="mb-4 text-2xl">Price: {data.price}</p>
-                  <p className="mb-4">Company: {data.company}</p>
+                <div className="flex flex-row items-center justify-between mb-4">
+                  <div>
+                    <p>Price: {data.price}</p>
+                    <p>Company: {data.company}</p>
+                  </div>
                   <a
+                    title={'Buy heating oil from ' + data.company}
                     className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
                     href={data.url}
                     target="_blank"
                   >
-                    Buy
+                    <span>Buy</span>
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="ml-2 max-h-4"
+                    />
                   </a>
                 </div>
               }
               isExpandedByDefault={true}
+            ></ContentSection>
+
+            <ContentSection
+              title="All Oil Prices & Companies"
+              content={data.oilPrices.map((oil: any, index) => (
+                <div
+                  className="flex flex-row items-center justify-between mb-4"
+                  key={index}
+                >
+                  <div>
+                    <p>Price: ${oil.price}</p>
+                    <p>Company: {oil.company}</p>
+                  </div>
+                  <a
+                    title={'Buy heating oil from ' + oil.company}
+                    className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                    href={oil.url}
+                    target="_blank"
+                  >
+                    <span>Buy</span>
+                    <FontAwesomeIcon
+                      icon={faArrowUpRightFromSquare}
+                      className="ml-2 max-h-4"
+                    />
+                  </a>
+                </div>
+              ))}
             ></ContentSection>
           </div>
         )}
