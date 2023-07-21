@@ -103,18 +103,20 @@ export default function FishingDataContent({ data }: Props) {
                   (t, index) =>
                     index < 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between">
+                        <div className="flex flex-row items-center justify-between space-x-2">
                           <div className="flex flex-row items-center">
                             {t.tip && (
                               <button
-                                className="flex flex-row items-center"
+                                className="flex flex-row items-center text-left"
                                 title="Click to learn how to use this"
                                 onClick={() => {
                                   setModalContent(t.tip)
                                   setIsModalOpen(true)
                                 }}
                               >
-                                {t.name}
+                                <span className="basis-2/3 break-all">
+                                  {t.name}
+                                </span>
                                 <FontAwesomeIcon
                                   icon={faCircleQuestion}
                                   className="ml-2"
@@ -132,7 +134,7 @@ export default function FishingDataContent({ data }: Props) {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -161,18 +163,20 @@ export default function FishingDataContent({ data }: Props) {
                 title="Try something new"
                 content={
                   <div className="mb-4 last:mb-0">
-                    <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center justify-between space-x-2">
                       <div className="flex flex-row items-center">
                         {lowConfidenceTackle.tip && (
                           <button
-                            className="flex flex-row items-center"
+                            className="flex flex-row items-center text-left"
                             title="Click to learn how to use this"
                             onClick={() => {
                               setModalContent(lowConfidenceTackle.tip)
                               setIsModalOpen(true)
                             }}
                           >
-                            {lowConfidenceTackle.name}
+                            <span className=" basis-2/3 break-all">
+                              {lowConfidenceTackle.name}
+                            </span>
                             <FontAwesomeIcon
                               icon={faCircleQuestion}
                               className="ml-2"
@@ -194,7 +198,7 @@ export default function FishingDataContent({ data }: Props) {
                               ' fishing lures'
                             }
                             target="_blank"
-                            className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                             href={
                               'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                               lowConfidenceTackle.name +
@@ -279,18 +283,20 @@ export default function FishingDataContent({ data }: Props) {
                 title="All lures and rigs for conditions"
                 content={tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
-                    <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center justify-between space-x-2">
                       <div className="flex flex-row items-center">
                         {t.tip && (
                           <button
-                            className="flex flex-row items-center"
+                            className="flex flex-row items-center text-left"
                             title="Click to learn how to use this"
                             onClick={() => {
                               setModalContent(t.tip)
                               setIsModalOpen(true)
                             }}
                           >
-                            {t.name}
+                            <span className=" basis-2/3 break-all">
+                              {t.name}
+                            </span>
                             <FontAwesomeIcon
                               icon={faCircleQuestion}
                               className="ml-2"
@@ -306,7 +312,7 @@ export default function FishingDataContent({ data }: Props) {
                               'Amazon Buy link for ' + t.name + ' fishing lures'
                             }
                             target="_blank"
-                            className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                             href={
                               'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                               t.name +

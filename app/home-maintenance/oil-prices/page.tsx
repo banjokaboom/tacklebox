@@ -193,8 +193,8 @@ export default function OilPrices() {
             <ContentSection
               title="Best Price"
               content={
-                <div className="flex flex-row items-center justify-between mb-4">
-                  <div>
+                <div className="flex flex-row items-center justify-between space-x-2 mb-4">
+                  <div className="basis-2/3 break-all">
                     <p>Price: {data.price}</p>
                     <p>Company: {data.company}</p>
                   </div>
@@ -219,10 +219,10 @@ export default function OilPrices() {
               title="All Oil Prices & Companies"
               content={data.oilPrices.map((oil: any, index) => (
                 <div
-                  className="flex flex-row items-center justify-between mb-4"
+                  className="flex flex-row items-center justify-between space-x-2 mb-4"
                   key={index}
                 >
-                  <div>
+                  <div className="basis-2/3 break-all ">
                     <p>Price: ${oil.price}</p>
                     <p>Company: {oil.company}</p>
                   </div>

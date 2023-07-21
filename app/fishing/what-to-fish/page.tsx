@@ -260,7 +260,7 @@ export default function WhatToFish() {
                     setCityState('')
                     setGeolocation('')
                   }}
-                  className="text-slate-700 leading-4 p-2 mb-4"
+                  className="text-slate-700 leading-4 p-2 mb-4 max-w-full"
                 />
                 <button
                   onClick={getGeolocation}

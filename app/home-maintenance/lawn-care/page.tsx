@@ -110,10 +110,10 @@ export default function LawnCare() {
             title="What to do this month"
             content={recommendations.map((r) => (
               <div
-                className="flex flex-row items-center justify-between mb-4 last:mb-0"
+                className="flex flex-row items-center justify-between space-x-2 mb-4 last:mb-0"
                 key={r}
               >
-                <div>{r}</div>
+                <div className="basis-2/3 break-all">{r}</div>
                 {(r.includes('fertilizer') || r.includes('weed preventer')) && (
                   <div>
                     <a

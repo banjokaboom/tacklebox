@@ -197,18 +197,18 @@ export default function TackleBySpecies() {
               title="Lures and rigs to use"
               content={data.tackle.map((t, index) => (
                 <div key={index} className="mb-4 last:mb-0">
-                  <div className="flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-between space-x-2">
                     <div className="flex flex-row items-center">
                       {t.tip && (
                         <button
-                          className="flex flex-row items-center"
+                          className="flex flex-row items-center text-left"
                           title="Click to learn how to use this"
                           onClick={() => {
                             setModalContent(t.tip)
                             setIsModalOpen(true)
                           }}
                         >
-                          {t.name}
+                          <span className="basis-2/3 break-all">{t.name}</span>
                           <FontAwesomeIcon
                             icon={faCircleQuestion}
                             className="ml-2"

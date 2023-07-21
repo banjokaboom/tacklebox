@@ -208,7 +208,7 @@ export default function CanIFish() {
                   onChange={(e) => {
                     setFilterText(e.target.value)
                   }}
-                  className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
+                  className="text-slate-700 leading-4 p-2 block max-w-full"
                 />
               </div>
               <h2 className="text-2xl mb-4">
