@@ -114,7 +114,7 @@ export default function FishingDataContent({ data }: Props) {
                                   setIsModalOpen(true)
                                 }}
                               >
-                                <span className="basis-2/3 break-all">
+                                <span className="basis-3/4 break-all">
                                   {t.name}
                                 </span>
                                 <FontAwesomeIcon
@@ -174,7 +174,7 @@ export default function FishingDataContent({ data }: Props) {
                               setIsModalOpen(true)
                             }}
                           >
-                            <span className=" basis-2/3 break-all">
+                            <span className=" basis-3/4 break-all">
                               {lowConfidenceTackle.name}
                             </span>
                             <FontAwesomeIcon
@@ -294,7 +294,7 @@ export default function FishingDataContent({ data }: Props) {
                               setIsModalOpen(true)
                             }}
                           >
-                            <span className=" basis-2/3 break-all">
+                            <span className=" basis-3/4 break-all">
                               {t.name}
                             </span>
                             <FontAwesomeIcon

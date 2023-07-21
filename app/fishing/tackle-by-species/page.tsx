@@ -208,7 +208,7 @@ export default function TackleBySpecies() {
                             setIsModalOpen(true)
                           }}
                         >
-                          <span className="basis-2/3 break-all">{t.name}</span>
+                          <span className="basis-3/4 break-all">{t.name}</span>
                           <FontAwesomeIcon
                             icon={faCircleQuestion}
                             className="ml-2"

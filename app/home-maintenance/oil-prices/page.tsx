@@ -194,7 +194,7 @@ export default function OilPrices() {
               title="Best Price"
               content={
                 <div className="flex flex-row items-center justify-between space-x-2 mb-4">
-                  <div className="basis-2/3 break-all">
+                  <div className="basis-3/4 break-all">
                     <p>Price: {data.price}</p>
                     <p>Company: {data.company}</p>
                   </div>
@@ -222,7 +222,7 @@ export default function OilPrices() {
                   className="flex flex-row items-center justify-between space-x-2 mb-4"
                   key={index}
                 >
-                  <div className="basis-2/3 break-all ">
+                  <div className="basis-3/4 break-all ">
                     <p>Price: ${oil.price}</p>
                     <p>Company: {oil.company}</p>
                   </div>
