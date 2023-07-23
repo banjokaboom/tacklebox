@@ -404,8 +404,7 @@ export default function WhatToFish() {
               of experience on the water as well as my own research.
             </p>
             <p className="text-sm">
-              **The more +&apos;s, the better the conditions are for fishing.
-              Condition quality is based on species availability and weather.
+              **Condition quality is based on species availability and weather.
             </p>
           </div>
         )}
