@@ -4,7 +4,6 @@ import WeatherDataChild from '../classes/WeatherDataChild'
 import AstroData from '../classes/AstroData'
 import FishingConditions from '../classes/FishingConditions'
 
-const waterTempMultiplier = 0.875
 const warmWaterMax = 82.5
 const warmWaterMin = 57.5
 
@@ -305,11 +304,23 @@ export function isTackleForWeather(
   return true
 }
 
-export function getWeatherValues(weather: any): WeatherData {
+export function getWeatherValues(weather: any, seasons: string): WeatherData {
   let weatherData = new WeatherData()
   let current = new WeatherDataChild()
   let forecast = new WeatherDataChild()
   let astro = new AstroData()
+  const mainSeasons = []
+  seasons.split(',').forEach((season) => {
+    if (
+      season.trim() == 'spring' ||
+      season.trim() == 'summer' ||
+      season.trim() == 'fall' ||
+      season.trim() == 'winter'
+    ) {
+      mainSeasons.push(season.trim())
+    }
+  })
+  const waterTempMultiplier = mainSeasons.length > 1 ? 0.875 : 0.95
 
   current.outdoorTemp = weather.current.temp_f + 'F'
   current.waterTemp =

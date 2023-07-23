@@ -212,7 +212,7 @@ export async function getFreshwaterFishingData(
 
   if (weather && weather.location) {
     fishingData.seasons = getFishingSeasons(weather, cityState, cityStateList)
-    fishingData.weather = getWeatherValues(weather)
+    fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
     const waterTemp = useCurrentWeather
       ? parseFloat(fishingData.weather.current.waterTemp)

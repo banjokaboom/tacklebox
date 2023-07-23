@@ -56,7 +56,7 @@ export async function getSaltwaterFishingData(
 
   if (weather && weather.location) {
     fishingData.seasons = getFishingSeasons()
-    fishingData.weather = getWeatherValues(weather)
+    fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
     const waterTemp = useCurrentWeather
       ? parseFloat(fishingData.weather.current.waterTemp)
