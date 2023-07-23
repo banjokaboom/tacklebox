@@ -3,7 +3,6 @@ import WeatherData from '../classes/WeatherData'
 import WeatherDataChild from '../classes/WeatherDataChild'
 import AstroData from '../classes/AstroData'
 import FishingConditions from '../classes/FishingConditions'
-import { use } from 'react'
 
 const waterTempMultiplier = 0.875
 const warmWaterMax = 82.5
