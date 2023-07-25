@@ -1,7 +1,6 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen, fireEvent } from '@testing-library/react'
 import {
   describe,
   it,
@@ -34,5 +33,31 @@ describe('OilPrices', () => {
     })
 
     expect(heading).toBeInTheDocument()
+  })
+
+  it('renders when loading MA zone 10', async () => {
+    render(<OilPrices />)
+
+    const stateLabel = await screen.findByText('State')
+    expect(stateLabel).toBeInTheDocument()
+
+    const stateCombobox = await screen.findByRole('combobox')
+    fireEvent.change(stateCombobox, {
+      target: { value: 'massachusetts' },
+    })
+
+    const zoneLabel = await screen.findByText('Zone')
+    expect(zoneLabel).toBeInTheDocument()
+
+    const comboboxes = await screen.findAllByRole('combobox')
+    fireEvent.change(comboboxes[1], {
+      target: { value: '10' },
+    })
+
+    const message = await screen.findByText(
+      'Successfully loaded oil prices for zone: 10'
+    )
+
+    expect(message).toBeInTheDocument()
   })
 })

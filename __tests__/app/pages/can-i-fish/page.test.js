@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import {
   describe,
   it,
@@ -66,6 +66,20 @@ describe('CanIFish', () => {
 
     const heading = screen.getByRole('heading', {
       name: /Can I Fish/i,
+    })
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('renders when loading MA regulations', async () => {
+    render(<CanIFish />)
+
+    const heading = screen.getByRole('heading', {
+      name: /Can I Fish/i,
+    })
+
+    fireEvent.change(await screen.findByRole('combobox'), {
+      target: { value: 'MA' },
     })
 
     expect(heading).toBeInTheDocument()

@@ -169,8 +169,6 @@ export function getFishingConditions(
     }
   }
 
-  console.log(starRating)
-
   const excellentStarRating = useCurrentWeather ? 11 : 5
   const reallyGoodStarRating = useCurrentWeather ? 8 : 3
   const goodStarRating = useCurrentWeather ? 5 : 1
