@@ -18,6 +18,7 @@ module.exports = {
     'yarn*',
     'package.json',
     'cypress/videos',
+    '__tests__/mockData',
   ],
   words: [
     'tailwindcss',

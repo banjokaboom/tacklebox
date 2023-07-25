@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 import { setupServer } from 'msw/node'
-import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {
   describe,
@@ -12,6 +12,7 @@ import {
 } from '@jest/globals'
 import WhatToFish from '@/app/fishing/what-to-fish/page'
 import '@testing-library/jest-dom'
+import weatherJSON from '../../../mockData/weather.json'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
 
@@ -19,7 +20,7 @@ let weatherData = {}
 
 const server = setupServer(
   rest.get('/api/weather', (req, res, ctx) => {
-    return res(ctx.json(weatherData))
+    return res(ctx.json(weatherJSON))
   }),
   rest.get('/api/tackle', (req, res, ctx) => {
     return res(ctx.json({ tackle: tackleJSON.tackle }))
@@ -30,61 +31,12 @@ const server = setupServer(
 )
 
 beforeAll(() => {
-  resetTestData()
   server.listen()
 })
 afterEach(() => {
-  resetTestData()
   server.resetHandlers()
 })
 afterAll(() => server.close())
-
-function resetTestData() {
-  /* cSpell:disable */
-  weatherData = {
-    location: {
-      name: 'Boston',
-      region: 'Massachusetts',
-    },
-    current: {
-      temp_f: 75,
-      condition: {
-        text: 'Partly cloudy',
-        icon: '//cdn.weatherapi.com/weather/64x64/night/116.png',
-        code: 1003,
-      },
-      wind_mph: 6.9,
-      cloud: 0,
-      feelslike_f: 75,
-    },
-    forecast: {
-      forecastday: [
-        {
-          day: {
-            maxtemp_f: 75,
-            mintemp_f: 60,
-            avgtemp_f: 62.5,
-            maxwind_mph: 8.9,
-            condition: {
-              text: 'Mist',
-            },
-          },
-          astro: {
-            sunrise: '05:22 AM',
-            sunset: '08:23 PM',
-            moonrise: '01:13 AM',
-            moonset: '04:08 PM',
-            moon_phase: 'Waning Crescent',
-            moon_illumination: '30',
-            is_moon_up: 0,
-            is_sun_up: 1,
-          },
-        },
-      ],
-    },
-  }
-  /* cSpell:enable */
-}
 
 describe('WhatToFish', () => {
   it('renders a heading', () => {
@@ -114,5 +66,49 @@ describe('WhatToFish', () => {
 
     // eslint-disable-next-line
     jest.useRealTimers()
+  })
+
+  it('loads tackle when zip is entered', async () => {
+    const user = userEvent.setup()
+
+    render(<WhatToFish />)
+
+    const input = await screen.findByLabelText('ZIP Code')
+
+    await user.type(input, '01516')
+
+    const heading = await screen.findByText('Basic Fishing Info')
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when state is selected', async () => {
+    const user = userEvent.setup()
+
+    render(<WhatToFish />)
+
+    const combobox = await screen.findByLabelText('State')
+
+    await user.selectOptions(combobox, 'Boston,Massachusetts')
+
+    expect(combobox).toHaveValue('Boston,Massachusetts')
+
+    const heading = await screen.findByText('Basic Fishing Info')
+
+    expect(heading).toBeInTheDocument()
+  })
+
+  it('loads tackle when geolocation is used', async () => {
+    const user = userEvent.setup()
+
+    render(<WhatToFish />)
+
+    const button = await screen.findByText('Use Current Location')
+
+    await user.click(button)
+
+    const message = await screen.findByText('Basic Fishing Info')
+
+    expect(message).toBeInTheDocument()
   })
 })

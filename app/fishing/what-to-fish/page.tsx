@@ -94,7 +94,13 @@ export default function WhatToFish() {
     setLoading(true)
 
     const location =
-      geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
+      geolocation !== ''
+        ? geolocation
+        : cityState !== ''
+        ? cityState
+        : zip.length >= 5
+        ? zip
+        : ''
     let m = new MessageData()
     setMessage(new MessageData())
 
@@ -105,53 +111,58 @@ export default function WhatToFish() {
 
       setData(new FishingData())
 
-      try {
-        let fishingData = new FishingData()
+      if (location !== '') {
+        try {
+          let fishingData = new FishingData()
 
-        if (waterType.includes('freshwater')) {
-          fishingData = await getFreshwaterFishingData(
-            zip,
-            cityState,
-            useCurrentWeather,
-            tackleList,
-            cityStateList,
-            geolocation
-          )
-        } else {
-          fishingData = await getSaltwaterFishingData(
-            zip,
-            cityState,
-            useCurrentWeather,
-            tackleList,
-            cityStateList,
-            geolocation
-          )
+          console.log(zip)
+
+          if (waterType.includes('freshwater')) {
+            fishingData = await getFreshwaterFishingData(
+              zip,
+              cityState,
+              useCurrentWeather,
+              tackleList,
+              cityStateList,
+              geolocation
+            )
+          } else {
+            fishingData = await getSaltwaterFishingData(
+              zip,
+              cityState,
+              useCurrentWeather,
+              tackleList,
+              cityStateList,
+              geolocation
+            )
+          }
+
+          setData(fishingData)
+
+          if (fishingData.tackle.length > 0) {
+            m.message =
+              'Successfully loaded ' +
+              waterType +
+              ' tackle for location: ' +
+              location
+            m.severity = 'success'
+          } else if (
+            geolocation !== '' ||
+            cityState != '' ||
+            (zip != '' && zip.length == 5)
+          ) {
+            m.message =
+              'No ' + waterType + ' tackle loaded for location: ' + location
+            m.severity = 'alert'
+          }
+        } catch (error: any) {
+          m.message = error
+          m.severity = 'error'
         }
 
-        setData(fishingData)
-
-        if (fishingData.tackle.length > 0) {
-          m.message =
-            'Successfully loaded ' +
-            waterType +
-            ' tackle for location: ' +
-            location
-          m.severity = 'success'
-        } else if (
-          geolocation !== '' ||
-          cityState != '' ||
-          (zip != '' && zip.length == 5)
-        ) {
-          m.message =
-            'No ' + waterType + ' tackle loaded for location: ' + location
-          m.severity = 'alert'
-        }
-      } catch (error: any) {
-        m.message = error
-        m.severity = 'error'
+        setMessage(m)
       }
 
-      setMessage(m)
       setLoading(false)
     }
 
@@ -321,6 +332,9 @@ export default function WhatToFish() {
               <button
                 onClick={() => {
                   setData(new FishingData())
+                  setZip('')
+                  setCityState('')
+                  setGeolocation('')
                 }}
                 className="ml-2 underline hover:no-underline text-sm"
               >

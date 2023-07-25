@@ -25,6 +25,16 @@ const server = setupServer(
     return res(
       ctx.json({ fishingData: swFishingData, regulationsLink: 'www.test.com' })
     )
+  }),
+  rest.get('/api/freshRI', (req, res, ctx) => {
+    return res(
+      ctx.json({ fishingData: fwFishingData, regulationsLink: 'www.test.com' })
+    )
+  }),
+  rest.get('/api/saltRI', (req, res, ctx) => {
+    return res(
+      ctx.json({ fishingData: swFishingData, regulationsLink: 'www.test.com' })
+    )
   })
 )
 
@@ -74,14 +84,28 @@ describe('CanIFish', () => {
   it('renders when loading MA regulations', async () => {
     render(<CanIFish />)
 
-    const heading = screen.getByRole('heading', {
-      name: /Can I Fish/i,
-    })
-
     fireEvent.change(await screen.findByRole('combobox'), {
       target: { value: 'MA' },
     })
 
-    expect(heading).toBeInTheDocument()
+    const message = await screen.findByText(
+      'Successfully loaded fishing regulations for MA'
+    )
+
+    expect(message).toBeInTheDocument()
+  })
+
+  it('renders when loading RI regulations', async () => {
+    render(<CanIFish />)
+
+    fireEvent.change(await screen.findByRole('combobox'), {
+      target: { value: 'RI' },
+    })
+
+    const message = await screen.findByText(
+      'Successfully loaded fishing regulations for RI'
+    )
+
+    expect(message).toBeInTheDocument()
   })
 })
