@@ -112,6 +112,7 @@ export default function WhatToMake() {
         copyString += label.textContent + '\n'
       })
 
+    /* istanbul ignore else */
     if (navigator && navigator.clipboard) {
       navigator.clipboard.writeText(copyString)
     } else {

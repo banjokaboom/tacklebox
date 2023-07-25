@@ -41,14 +41,16 @@ describe('WhatToMake', () => {
   })
 
   it('loads recipes when numRecipes changes', async () => {
+    const user = userEvent.setup()
+
     const numRecipes = '6'
 
     const { container } = render(<WhatToMake />)
 
     const input = container.querySelector('input[type="number"]')
 
-    await userEvent.clear(input)
-    await userEvent.type(input, numRecipes)
+    await user.clear(input)
+    await user.type(input, numRecipes)
 
     const message = await screen.findByText('Successfully loaded recipes', {
       exact: false,
@@ -57,14 +59,16 @@ describe('WhatToMake', () => {
   })
 
   it('copies ingredients', async () => {
+    const user = userEvent.setup()
+
     const numRecipes = '1'
 
     const { container } = render(<WhatToMake />)
 
     const input = container.querySelector('input[type="number"]')
 
-    await userEvent.clear(input)
-    await userEvent.type(input, numRecipes)
+    await user.clear(input)
+    await user.type(input, numRecipes)
 
     const button = await screen.findByText('Copy Ingredients')
 
