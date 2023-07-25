@@ -30,9 +30,41 @@ describe('LawnCare', () => {
     jest.useRealTimers()
   })
 
+  it('renders recommendations in early summer', () => {
+    let date = new Date()
+    date.setMonth('5')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    render(<LawnCare />)
+
+    const heading = screen.getByText('What to do this month')
+
+    expect(heading).toBeInTheDocument()
+
+    // eslint-disable-next-line
+    jest.useRealTimers()
+  })
+
   it('renders recommendations in summer', () => {
     let date = new Date()
     date.setMonth('7')
+    // eslint-disable-next-line
+    jest.useFakeTimers().setSystemTime(date)
+
+    render(<LawnCare />)
+
+    const heading = screen.getByText('What to do this month')
+
+    expect(heading).toBeInTheDocument()
+
+    // eslint-disable-next-line
+    jest.useRealTimers()
+  })
+
+  it('renders recommendations in late summer', () => {
+    let date = new Date()
+    date.setMonth('8')
     // eslint-disable-next-line
     jest.useFakeTimers().setSystemTime(date)
 

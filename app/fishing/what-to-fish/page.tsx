@@ -115,8 +115,6 @@ export default function WhatToFish() {
         try {
           let fishingData = new FishingData()
 
-          console.log(zip)
-
           if (waterType.includes('freshwater')) {
             fishingData = await getFreshwaterFishingData(
               zip,

@@ -2,337 +2,10 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from '@jest/globals'
 import FishingDataContent from '@/app/components/fishingDataContent'
 import '@testing-library/jest-dom'
+import fishingDataJSON from '../../mockData/fishingData.json'
+import userEvent from '@testing-library/user-event'
 
-/* cSpell:disable */
-const data = {
-  baitRecommendations: {
-    colorsToUse: 'shad, baitfish, white, blue, natural, gold, silver, green',
-    baitsToUse:
-      'live worms, soft plastic worms, stinky bait, soft plastic swimbaits, shiners, soft plastic frogs, soft plastic lizards',
-  },
-  seasons: 'summer, catfish pre-spawn, carp spawn',
-  tackle: [
-    {
-      name: 'Bladed Jig',
-      confidence: 5,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow', 'deep'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>',
-    },
-    {
-      name: 'Buzzbait',
-      confidence: 5,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Buzzbaits</h2><p>Cast out, let the bait fall a bit, then reel in to generate vibration just under the surface of the water. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>',
-    },
-    {
-      name: 'Carolina Rig',
-      confidence: 8,
-      species: ['largemouth bass', 'catfish', 'sunfish', 'trout'],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow', 'deep'],
-      type: ['finesse', 'still'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Carolina Rig</h2><p>An alternative to a fixed bobber rig, when you are trying to find the fish and want to fish closer to the bottom. You can hook live bait or soft plastics on this. Cast out, wait a bit, move it a little bit, and keep the line taut.</p>',
-    },
-    {
-      name: 'Chatterbait',
-      confidence: 5,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow', 'deep'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>',
-    },
-    {
-      name: 'Crickhopper',
-      confidence: 6,
-      species: ['largemouth bass', 'smallmouth bass', 'sunfish', 'trout'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Crickhopper</h2><p>Cast out, let the water calm, then start to jerk for popping or reel in to sink and wobble. Start slow to prevent spooking the fish, then speed up as needed. Can fish like a popper or like a crankbait.</p>',
-    },
-    {
-      name: 'Fixed Bobber Rig',
-      confidence: 10,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'carp',
-        'catfish',
-        'sunfish',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-      ],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow'],
-      type: ['still'],
-      tip: null,
-    },
-    {
-      name: 'Fly Fishing Fly',
-      confidence: 3,
-      species: [
-        'largemouth bass',
-        'trout',
-        'salmon',
-        'sunfish',
-        'smallmouth bass',
-      ],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction', 'finesse'],
-      tip: null,
-    },
-    {
-      name: 'Frog',
-      confidence: 5,
-      species: ['largemouth bass'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['finesse'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Topwater Frogs</h2><p>Cast out onto lily pads, let the water calm, then start to jerk or hop. Start slow to prevent spooking the fish, then speed up as needed.</p>',
-    },
-    {
-      name: 'Inline Spinner',
-      confidence: 5,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'catfish',
-        'sunfish',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-      ],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>',
-    },
-    {
-      name: 'Jerkbait',
-      confidence: 3,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-        'snook',
-      ],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow', 'deep'],
-      type: ['finesse', 'reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>',
-    },
-    {
-      name: 'Jig',
-      confidence: 7,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'catfish',
-        'sunfish',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-        'walleye',
-      ],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow', 'deep'],
-      type: ['finesse', 'reaction', 'still'],
-      tip: null,
-    },
-    {
-      name: 'Lipless Crankbait',
-      confidence: 3,
-      species: ['largemouth bass', 'walleye', 'trout'],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow', 'deep'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>',
-    },
-    {
-      name: 'Ned Rig',
-      confidence: 7,
-      species: ['largemouth bass', 'sunfish'],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow'],
-      type: ['finesse'],
-      tip: null,
-    },
-    {
-      name: 'Popper',
-      confidence: 6,
-      species: [
-        'largemouth bass',
-        'pickerel',
-        'pike',
-        'muskies',
-        'striped bass',
-        'bluefish',
-      ],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['finesse', 'reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>',
-    },
-    {
-      name: 'Shallow-Diving Crankbait',
-      confidence: 3,
-      species: [
-        'largemouth bass',
-        'pickerel',
-        'pike',
-        'muskies',
-        'walleye',
-        'trout',
-      ],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>',
-    },
-    {
-      name: 'Spinnerbait',
-      confidence: 5,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>',
-    },
-    {
-      name: 'Split Shot Rig',
-      confidence: 7,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'sunfish',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-      ],
-      waterTemp: ['warm', 'cold'],
-      depth: ['shallow'],
-      type: ['finesse', 'reaction'],
-      tip: null,
-    },
-    {
-      name: 'Spoon',
-      confidence: 5,
-      species: [
-        'largemouth bass',
-        'smallmouth bass',
-        'sunfish',
-        'trout',
-        'pickerel',
-        'pike',
-        'muskies',
-        'walleye',
-        'salmon',
-      ],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>',
-    },
-    {
-      name: 'Swimbait',
-      confidence: 7,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>',
-    },
-    {
-      name: 'Texas Rig',
-      confidence: 5,
-      species: ['largemouth bass', 'sunfish'],
-      waterTemp: ['cold', 'warm'],
-      depth: ['shallow', 'deep'],
-      type: ['finesse', 'reaction'],
-      tip: null,
-    },
-    {
-      name: 'Topwater Prop Bait',
-      confidence: 7,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>',
-    },
-    {
-      name: 'Wacky Rig',
-      confidence: 10,
-      species: ['largemouth bass'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['finesse'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Wacky Rig</h2><p>Rig a Senko or similar stick worm on a 1/0 hook, hooked through the middle of the worm perpendicular to the hook. Cast it out just like that, no additional tackle required. Let it fall to the bottom, then pull it up and reel in the slack. Repeat as often as necessary. Bites usually occur on the fall.</p>',
-    },
-    {
-      name: 'Whopper Plopper',
-      confidence: 10,
-      species: ['largemouth bass', 'pickerel', 'pike', 'muskies'],
-      waterTemp: ['warm'],
-      depth: ['shallow'],
-      type: ['reaction'],
-      tip: '<h2 class="text-2xl pb-8 pt-8">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>',
-    },
-  ],
-  weather: {
-    outdoorTemp: '',
-    waterTemp: '',
-    conditions: '',
-    wind: '',
-    location: 'Uxbridge, Massachusetts',
-    pressure: 30.12,
-    current: {
-      outdoorTemp: '81F',
-      waterTemp: '79F',
-      conditions: 'Sunny',
-      wind: '2.2mph',
-    },
-    forecast: {
-      outdoorTemp: '85.5F',
-      waterTemp: '81F',
-      conditions: 'Patchy rain possible',
-      wind: '10.1mph',
-    },
-    astro: {
-      sunrise: '05:32 AM',
-      sunset: '08:14 PM',
-      moonrise: '12:05 PM',
-      moonset: '11:31 PM',
-      moon_phase: 'Waxing Crescent',
-    },
-  },
-  species: 'largemouth bass, catfish, sunfish, pickerel, pike, muskies',
-  fishingConditions: {
-    conditionsText: 'OK',
-    positiveConditionsNotes: [
-      'more than 3 active species',
-      'not too windy',
-      'ideal barometric pressure',
-    ],
-  },
-}
-/* cSpell:enable */
+const data = fishingDataJSON
 
 describe('FishingDataContent', () => {
   it('renders component', () => {
@@ -341,5 +14,67 @@ describe('FishingDataContent', () => {
     const title = screen.getByText('Basic Fishing Info')
 
     expect(title).toBeInTheDocument()
+  })
+
+  it('opens tip modals when clicked', async () => {
+    const user = userEvent.setup()
+
+    render(<FishingDataContent data={data} />)
+
+    const tipButton = await screen.findAllByTitle(
+      'Click to learn how to use this'
+    )
+
+    user.click(tipButton[0])
+
+    const modalTitle = await screen.findByLabelText('Tackle Modal')
+
+    expect(modalTitle).toBeInTheDocument()
+  })
+
+  it('closes tip modal when clicking close button', async () => {
+    const user = userEvent.setup()
+
+    render(<FishingDataContent data={data} />)
+
+    const tipButton = await screen.findAllByTitle(
+      'Click to learn how to use this'
+    )
+
+    user.click(tipButton[0])
+
+    const modalTitle = await screen.findByLabelText('Tackle Modal')
+
+    expect(modalTitle).toBeInTheDocument()
+
+    const closeButton = screen.getByText('Close')
+
+    await user.click(closeButton)
+
+    expect(modalTitle).not.toBeInTheDocument()
+  })
+
+  it('all tip modals open and close', async () => {
+    const user = userEvent.setup()
+
+    render(<FishingDataContent data={data} />)
+
+    const tipButtons = await screen.findAllByTitle(
+      'Click to learn how to use this'
+    )
+
+    for (let buttonCount = 0; buttonCount < tipButtons.length; buttonCount++) {
+      user.click(tipButtons[buttonCount])
+
+      const modalTitle = await screen.findByLabelText('Tackle Modal')
+
+      expect(modalTitle).toBeInTheDocument()
+
+      const closeButton = screen.getByText('Close')
+
+      await user.click(closeButton)
+
+      expect(modalTitle).not.toBeInTheDocument()
+    }
   })
 })
