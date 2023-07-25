@@ -14,25 +14,26 @@ export function getFishingConditions(
   useCurrentWeather: boolean
 ) {
   let fishingConditionsText: string = ''
-  let fishingConditionsNotes: string[] = []
+  let positiveConditionsNotes: string[] = []
+  let negativeConditionsNotes: string[] = []
   let starRating = 0
   const speciesArray = species.split(',').map((s) => s.trim())
   let fishingConditions = new FishingConditions()
 
   if (speciesArray.length >= 8) {
     starRating += 3
-    fishingConditionsNotes.push('at least 8 active species')
+    positiveConditionsNotes.push('at least 8 active species')
   } else if (speciesArray.length > 6) {
     starRating += 2
-    fishingConditionsNotes.push('several active species')
+    positiveConditionsNotes.push('several active species')
   } else if (speciesArray.length > 3) {
     starRating++
-    fishingConditionsNotes.push('more than 3 active species')
+    positiveConditionsNotes.push('more than 3 active species')
   } else if (speciesArray.length == 1) {
     starRating--
-    fishingConditionsNotes.push('no active species')
+    negativeConditionsNotes.push('no active species')
   } else {
-    fishingConditionsNotes.push('a few active species')
+    positiveConditionsNotes.push('a few active species')
   }
 
   if (useCurrentWeather) {
@@ -58,49 +59,49 @@ export function getFishingConditions(
       sunset.getHours() - now.getHours() > 0
     ) {
       starRating += 2
-      fishingConditionsNotes.push('within the last three hours until sunset')
+      positiveConditionsNotes.push('within the last three hours until sunset')
     } else if (
       (seasons.includes('summer') || seasons.includes('winter')) &&
       now.getHours() - sunrise.getHours() <= 3 &&
       now.getHours() - sunrise.getHours() > 0
     ) {
       starRating++
-      fishingConditionsNotes.push('within the first three hours after sunrise')
+      positiveConditionsNotes.push('within the first three hours after sunrise')
     } else if (
       !seasons.includes('summer') &&
       !seasons.includes('winter') &&
       now.getHours() - sunrise.getHours() > 3
     ) {
       starRating++
-      fishingConditionsNotes.push('at least three hours after sunrise')
+      positiveConditionsNotes.push('at least three hours after sunrise')
     }
 
     if (weather.current.wind_mph < 6) {
       starRating += 3
-      fishingConditionsNotes.push('not too windy')
+      positiveConditionsNotes.push('not too windy')
     } else if (weather.current.wind_mph < 10) {
       starRating += 2
-      fishingConditionsNotes.push('fairly windy')
+      positiveConditionsNotes.push('fairly windy')
     } else if (weather.current.wind_mph < 13) {
       starRating++
-      fishingConditionsNotes.push('pretty windy')
+      positiveConditionsNotes.push('pretty windy')
     } else {
       starRating--
-      fishingConditionsNotes.push('very windy')
+      negativeConditionsNotes.push('very windy')
     }
 
     if (weather.current.pressure_in < 29.8) {
       starRating += 2
-      fishingConditionsNotes.push('very good barometric pressure')
+      positiveConditionsNotes.push('very good barometric pressure')
     } else if (
       weather.current.pressure_in >= 29.8 &&
       weather.current.pressure_in <= 30.2
     ) {
       starRating++
-      fishingConditionsNotes.push('ideal barometric pressure')
+      positiveConditionsNotes.push('ideal barometric pressure')
     } else {
       starRating--
-      fishingConditionsNotes.push('not good barometric pressure')
+      negativeConditionsNotes.push('not good barometric pressure')
     }
 
     for (
@@ -123,49 +124,49 @@ export function getFishingConditions(
       // if it will rain within the next two hours, no good
       if (forecastHour.will_it_rain == 1 && hourIndex < now.getHours() + 2) {
         starRating--
-        fishingConditionsNotes.push('will rain within the next two hours')
+        negativeConditionsNotes.push('will rain within the next two hours')
         break
       }
 
       // if it will rain in exactly three hours, good
       if (forecastHour.will_it_rain == 1 && hourIndex == now.getHours() + 3) {
         starRating++
-        fishingConditionsNotes.push('will rain in three hours but not before')
+        positiveConditionsNotes.push('will rain in three hours but not before')
         break
       }
     }
 
     if (weather.current.cloud == 100) {
       starRating += 3
-      fishingConditionsNotes.push('very cloudy')
+      positiveConditionsNotes.push('very cloudy')
     } else if (weather.current.cloud >= 75) {
       starRating += 2
-      fishingConditionsNotes.push('mostly cloudy')
+      positiveConditionsNotes.push('mostly cloudy')
     } else if (weather.current.cloud >= 50) {
       starRating++
-      fishingConditionsNotes.push('partly cloudy')
+      positiveConditionsNotes.push('partly cloudy')
     }
   } else {
     if (weather.forecast.forecastday[0].day.maxwind_mph < 6) {
       starRating += 3
-      fishingConditionsNotes.push('not too windy')
+      positiveConditionsNotes.push('not too windy')
     } else if (weather.forecast.forecastday[0].day.maxwind_mph < 10) {
       starRating += 2
-      fishingConditionsNotes.push('fairly windy')
+      positiveConditionsNotes.push('fairly windy')
     } else if (weather.forecast.forecastday[0].day.maxwind_mph < 13) {
       starRating++
-      fishingConditionsNotes.push('pretty windy')
+      positiveConditionsNotes.push('pretty windy')
     } else {
       starRating--
-      fishingConditionsNotes.push('very windy')
+      negativeConditionsNotes.push('very windy')
     }
 
     if (weather.forecast.forecastday[0].day.daily_chance_of_rain < 70) {
       starRating++
-      fishingConditionsNotes.push('low to no chance of rain')
+      positiveConditionsNotes.push('low to no chance of rain')
     } else {
       starRating--
-      fishingConditionsNotes.push('high chance of rain')
+      negativeConditionsNotes.push('high chance of rain')
     }
   }
 
@@ -187,7 +188,8 @@ export function getFishingConditions(
   }
 
   fishingConditions.conditionsText = fishingConditionsText
-  fishingConditions.conditionsNotes = fishingConditionsNotes
+  fishingConditions.positiveConditionsNotes = positiveConditionsNotes
+  fishingConditions.negativeConditionsNotes = negativeConditionsNotes
 
   return fishingConditions
 }

@@ -3,6 +3,7 @@ import { describe, it, expect } from '@jest/globals'
 import FishingDataContent from '@/app/components/fishingDataContent'
 import '@testing-library/jest-dom'
 
+/* cSpell:disable */
 const data = {
   baitRecommendations: {
     colorsToUse: 'shad, baitfish, white, blue, natural, gold, silver, green',
@@ -324,13 +325,14 @@ const data = {
   species: 'largemouth bass, catfish, sunfish, pickerel, pike, muskies',
   fishingConditions: {
     conditionsText: 'OK',
-    conditionsNotes: [
+    positiveConditionsNotes: [
       'more than 3 active species',
       'not too windy',
       'ideal barometric pressure',
     ],
   },
 }
+/* cSpell:enable */
 
 describe('FishingDataContent', () => {
   it('renders component', () => {

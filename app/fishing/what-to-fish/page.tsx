@@ -374,12 +374,12 @@ export default function WhatToFish() {
             {data.fishingConditions.conditionsText}
             <div className="text-sm">
               (
-              {data.fishingConditions.conditionsNotes.map((note, fcIndex) => (
+              {(data.fishingConditions.conditionsText !== 'Not Ideal'
+                ? data.fishingConditions.positiveConditionsNotes
+                : data.fishingConditions.negativeConditionsNotes
+              ).map((note, fcIndex) => (
                 <span key={note}>
                   {fcIndex !== 0 ? ', ' : ''}
-                  {fcIndex == data.fishingConditions.conditionsNotes.length - 1
-                    ? 'and '
-                    : ''}
                   {note}
                 </span>
               ))}

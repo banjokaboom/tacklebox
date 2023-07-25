@@ -1,9 +1,11 @@
 export default class FishingConditions {
   public conditionsText: string
-  public conditionsNotes: string[]
+  public positiveConditionsNotes: string[]
+  public negativeConditionsNotes: string[]
 
   constructor() {
     this.conditionsText = ''
-    this.conditionsNotes = []
+    this.positiveConditionsNotes = []
+    this.negativeConditionsNotes = []
   }
 }

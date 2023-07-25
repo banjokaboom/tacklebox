@@ -7,6 +7,7 @@ describe('FishingConditions', () => {
     const fishingConditions = new FishingConditions()
 
     expect(fishingConditions.conditionsText).toBe('')
-    expect(fishingConditions.conditionsNotes.length).toBe(0)
+    expect(fishingConditions.positiveConditionsNotes.length).toBe(0)
+    expect(fishingConditions.negativeConditionsNotes.length).toBe(0)
   })
 })
