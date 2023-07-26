@@ -226,12 +226,14 @@ export function pickTackle(
   tackleList: Tackle[],
   seasons: string,
   species: string,
-  waterTemp: number
+  waterTemp: number,
+  waterType: string
 ): Tackle[] {
   let tackleToUse: Tackle[] = []
 
   tackleList.forEach(function (tackle: Tackle) {
     let isTackleForSpecies = false
+    let isTackleForWaterType = false
 
     for (
       let speciesIndex = 0;
@@ -244,7 +246,18 @@ export function pickTackle(
       }
     }
 
-    if (isTackleForSpecies && isTackleForWeather(tackle, seasons, waterTemp)) {
+    for (let typeIndex = 0; typeIndex < tackle.type.length; typeIndex++) {
+      if (waterType.includes(tackle.type[typeIndex])) {
+        isTackleForWaterType = true
+        break
+      }
+    }
+
+    if (
+      isTackleForSpecies &&
+      isTackleForWaterType &&
+      isTackleForWeather(tackle, seasons, waterTemp)
+    ) {
       tackleToUse.push(tackle)
     }
   })
@@ -257,11 +270,7 @@ export function isTackleForWeather(
   seasons: string,
   waterTemp: number
 ): boolean {
-  if (
-    seasons.includes('bass pre-spawn') ||
-    seasons.includes('bass spawn') ||
-    seasons.includes('fall')
-  ) {
+  if (seasons.includes('pre-spawn') || seasons.includes('fall')) {
     if (tackle.type.includes('reaction') && tackle.depth.includes('shallow')) {
       return true
     }
@@ -271,20 +280,16 @@ export function isTackleForWeather(
     return true
   }
 
-  if (waterTemp > warmWaterMax) {
+  if (waterTemp > warmWaterMin) {
     if (!tackle.waterTemp.includes('warm')) {
       return false
     }
 
-    if (!tackle.depth.includes('deep')) {
-      return false
-    }
-  } else if (waterTemp > warmWaterMin) {
-    if (!tackle.waterTemp.includes('warm')) {
-      return false
-    }
-
-    if (!tackle.depth.includes('shallow')) {
+    if (waterTemp > warmWaterMax) {
+      if (!tackle.depth.includes('deep')) {
+        return false
+      }
+    } else if (!tackle.depth.includes('shallow')) {
       return false
     }
   } else {

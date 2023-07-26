@@ -87,14 +87,13 @@ export default function FishingDataContent({ data }: Props) {
               isExpandedByDefault={true}
             ></ContentSection>
 
-            {data.tackle.length > 0 &&
-              data.baitRecommendations.colorsToUse !== '' && (
-                <ContentSection
-                  title="Lure colors to use now"
-                  content={data.baitRecommendations.colorsToUse}
-                  isExpandedByDefault={true}
-                ></ContentSection>
-              )}
+            {data.baitRecommendations.colorsToUse !== '' && (
+              <ContentSection
+                title="Lure colors and styles to use now"
+                content={data.baitRecommendations.colorsToUse}
+                isExpandedByDefault={true}
+              ></ContentSection>
+            )}
 
             {data.tackle.length > 0 && (
               <ContentSection
@@ -271,7 +270,7 @@ export default function FishingDataContent({ data }: Props) {
         <h2 className="text-2xl mb-4 underline">Advanced Fishing Info</h2>
         <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
           <div>
-            {data.tackle.length > 0 && (
+            {data.baitRecommendations.baitsToUse !== '' && (
               <ContentSection
                 title="Baits to use now"
                 content={data.baitRecommendations.baitsToUse}

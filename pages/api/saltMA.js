@@ -17,7 +17,7 @@ export default function handler(req, res) {
       ).each(function (index, element) {
         // Get the open season dates, limits, and minimum lengths
         let description = $(element).children('td:nth-child(1)')
-        if (description[0] && description.text().trim() != '') {
+        if (description[0] && description.text().trim() !== '') {
           species = getSpecies(description.text())
         }
         let seasonDates = $(element).children('td:nth-child(3)')

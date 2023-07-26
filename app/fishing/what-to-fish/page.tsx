@@ -19,7 +19,7 @@ import FishingDataContent from '@/app/components/fishingDataContent'
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
-  let [waterType, setWaterType] = useState('freshwater')
+  let [waterType, setWaterType] = useState('freshwater bank')
   let [useCurrentWeather, setUseCurrentWeather] = useState(true)
   let [loading, setLoading] = useState(true)
   let [geolocation, setGeolocation] = useState('')
@@ -122,7 +122,8 @@ export default function WhatToFish() {
               useCurrentWeather,
               tackleList,
               cityStateList,
-              geolocation
+              geolocation,
+              waterType
             )
           } else {
             fishingData = await getSaltwaterFishingData(
@@ -131,7 +132,8 @@ export default function WhatToFish() {
               useCurrentWeather,
               tackleList,
               cityStateList,
-              geolocation
+              geolocation,
+              waterType
             )
           }
 
@@ -146,8 +148,8 @@ export default function WhatToFish() {
             m.severity = 'success'
           } else if (
             geolocation !== '' ||
-            cityState != '' ||
-            (zip != '' && zip.length == 5)
+            cityState !== '' ||
+            (zip !== '' && zip.length == 5)
           ) {
             m.message =
               'No ' + waterType + ' tackle loaded for location: ' + location
@@ -323,7 +325,7 @@ export default function WhatToFish() {
           </div>
         )}
         {loading && <Loader />}
-        {!loading && data.weather.location != '' && (
+        {!loading && data.weather.location !== '' && (
           <div className="mb-4">
             <p className="mb-4 flex flex-row">
               <span>Data loaded for {data.weather.location}</span>

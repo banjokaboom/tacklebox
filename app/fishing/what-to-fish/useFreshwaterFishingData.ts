@@ -39,7 +39,7 @@ function pickBaitRecommendations(
       colorsToUse.push('craw')
       baitToUse.push('soft plastic craws')
     }
-    colorsToUse.push('orange')
+    colorsToUse.push('orange', 'bug', 'beetle', 'grub')
     baitToUse.push('powerbait', 'soft plastic insects')
   }
 
@@ -198,7 +198,8 @@ export async function getFreshwaterFishingData(
   useCurrentWeather: boolean,
   tackleList: Tackle[],
   cityStateList: CityState[],
-  geolocation: string
+  geolocation: string,
+  waterType: string
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
@@ -228,7 +229,8 @@ export async function getFreshwaterFishingData(
       tackleList,
       fishingData.seasons,
       fishingData.species,
-      waterTemp
+      waterTemp,
+      waterType
     )
     fishingData.fishingConditions = getFishingConditions(
       weather,
@@ -238,8 +240,8 @@ export async function getFreshwaterFishingData(
     )
   } else if (
     geolocation !== '' ||
-    cityState != '' ||
-    (zip != '' && zip.length == 5)
+    cityState !== '' ||
+    (zip !== '' && zip.length == 5)
   ) {
     throw 'Unable to load weather for location: ' + location
   }

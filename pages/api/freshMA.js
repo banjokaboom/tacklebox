@@ -14,7 +14,7 @@ export default function handler(req, res) {
       $('table > tbody:nth-child(2) > tr').each(function (index, element) {
         // Get the fish species
         let speciesQuery = $(element).find('strong')
-        if (speciesQuery[0] && speciesQuery.text().trim() != '') {
+        if (speciesQuery[0] && speciesQuery.text().trim() !== '') {
           species = getSpecies(speciesQuery.text())
         }
         let description = $(element).children('td:nth-child(1)')

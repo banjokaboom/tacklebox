@@ -99,7 +99,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('spring')).toBeTruthy()
@@ -115,7 +117,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('spring')).toBeTruthy()
@@ -131,7 +135,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('spring')).toBeTruthy()
@@ -147,7 +153,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('spring')).toBeTruthy()
@@ -163,7 +171,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('summer')).toBeTruthy()
@@ -179,7 +189,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('summer')).toBeTruthy()
@@ -195,7 +207,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('summer')).toBeTruthy()
@@ -211,7 +225,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('summer')).toBeTruthy()
@@ -227,7 +243,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('fall')).toBeTruthy()
@@ -243,7 +261,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('fall')).toBeTruthy()
@@ -259,7 +279,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('fall')).toBeTruthy()
@@ -275,7 +297,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('fall')).toBeTruthy()
@@ -291,7 +315,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('winter')).toBeTruthy()
@@ -307,7 +333,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('winter')).toBeTruthy()
@@ -323,7 +351,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('winter')).toBeTruthy()
@@ -339,7 +369,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.seasons.includes('winter')).toBeTruthy()
@@ -353,7 +385,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.species).toBe('Not ideal fishing weather for any species')
@@ -367,7 +401,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.species).toBe('Not ideal fishing weather for any species')
@@ -409,7 +445,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -436,7 +474,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -463,7 +503,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -490,7 +532,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -517,7 +561,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -544,7 +590,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -571,7 +619,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)
@@ -598,7 +648,9 @@ describe('useFishingData', () => {
       '',
       true,
       tackleList,
-      cityStatesList
+      cityStatesList,
+      '',
+      'saltwater bank'
     )
 
     expect(result.tackle.length).toBe(0)

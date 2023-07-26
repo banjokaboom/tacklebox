@@ -42,7 +42,8 @@ export async function getSaltwaterFishingData(
   useCurrentWeather: boolean,
   tackleList: Tackle[],
   cityStateList: CityState[],
-  geolocation: string
+  geolocation: string,
+  waterType: string
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
@@ -68,7 +69,8 @@ export async function getSaltwaterFishingData(
       tackleList,
       fishingData.seasons,
       fishingData.species,
-      waterTemp
+      waterTemp,
+      waterType
     )
 
     fishingData.fishingConditions = getFishingConditions(
@@ -79,8 +81,8 @@ export async function getSaltwaterFishingData(
     )
   } else if (
     geolocation !== '' ||
-    cityState != '' ||
-    (zip != '' && zip.length == 5)
+    cityState !== '' ||
+    (zip !== '' && zip.length == 5)
   ) {
     throw 'Unable to load weather for location: ' + location
   }
