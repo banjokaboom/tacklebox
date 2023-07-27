@@ -230,7 +230,7 @@ export default function FishingDataContent({ data }: Props) {
               ></ContentSection>
             )}
 
-            {data.fishingConditions.conditionsText == 'Not Ideal' && (
+            {data.species.includes('Not ideal') && (
               <div className="pt-4">
                 <p className="mb-4">
                   It may not be ideal fishing for any species, but you can still
