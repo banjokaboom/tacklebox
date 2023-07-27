@@ -93,6 +93,11 @@ function getFishingSeasons(
   let seasons: string[] = getSeasons()
   let state = ''
   let cityState: CityState | undefined = new CityState()
+  const waterTempMultiplier = seasons.length > 1 ? 0.875 : 0.95
+  const waterTemp =
+    waterTempMultiplier * weather.forecast.forecastday[0].day.maxtemp_f
+
+  console.log(waterTemp)
 
   if (cityStateString && cityStateString !== '') {
     state = cityStateString.split(',')[1]
@@ -104,87 +109,197 @@ function getFishingSeasons(
     return cs.state == state
   })
 
-  switch (todayMonth) {
-    case 3:
-      if (cityState && cityState.location.includes('north')) {
+  if (cityState && cityState.location.includes('north')) {
+    switch (todayMonth) {
+      case 3:
+      case 10:
+      case 11:
         seasons.push('trout stocking')
-      }
-      if (cityState && cityState.location.includes('south')) {
-        seasons.push('bass pre-spawn')
-        seasons.push('sunfish pre-spawn')
-        seasons.push('pickerel/pike/muskies pre-spawn')
-      }
-      break
-    case 4:
-      if (cityState && cityState.location.includes('north')) {
+        break
+      case 4:
         seasons.push('trout stocking')
-      }
-      if (cityState && cityState.location.includes('mid')) {
-        seasons.push('bass pre-spawn')
+        seasons.push('walleye pre-spawn')
+        seasons.push('perch pre-spawn')
+        seasons.push('pike pre-spawn')
+        seasons.push('pickerel pre-spawn')
+        seasons.push('muskie pre-spawn')
+        break
+      case 5:
+        if (waterTemp >= 42.5 || today.getDate() > 15) {
+          seasons.push('walleye spawn')
+          seasons.push('perch spawn')
+          seasons.push('pike spawn')
+        } else {
+          seasons.push('walleye pre-spawn')
+          seasons.push('perch pre-spawn')
+          seasons.push('pike pre-spawn')
+        }
+        if (waterTemp >= 47.5 || today.getDate() > 15) {
+          seasons.push('pickerel spawn')
+        } else {
+          seasons.push('pickerel pre-spawn')
+        }
+        if (waterTemp >= 52.5 || today.getDate() > 15) {
+          seasons.push('muskie spawn')
+        } else {
+          seasons.push('muskie pre-spawn')
+        }
         seasons.push('sunfish pre-spawn')
-        seasons.push('pickerel/pike/muskies pre-spawn')
-      }
-      if (cityState && cityState.location.includes('south')) {
-        seasons.push('carp pre-spawn')
-        seasons.push('bass spawn')
-        seasons.push('sunfish spawn')
-        seasons.push('pickerel/pike/muskies spawn')
-      }
-      break
-    case 5:
-      if (cityState && cityState.location.includes('north')) {
+        seasons.push('crappie pre-spawn')
         seasons.push('bass pre-spawn')
+        break
+      case 6:
+        if (waterTemp >= 58.5 || today.getDate() > 15) {
+          seasons.push('smallmouth bass spawn')
+          seasons.push('crappie spawn')
+        } else {
+          seasons.push('bass pre-spawn')
+          seasons.push('crappie pre-spawn')
+        }
+        if (waterTemp >= 62.5 || today.getDate() > 15) {
+          seasons.push('largemouth bass spawn')
+        } else if (!seasons.includes('bass pre-spawn')) {
+          seasons.push('bass pre-spawn')
+        }
+        seasons.push('sunfish spawn')
+        seasons.push('catfish pre-spawn')
+        seasons.push('carp pre-spawn')
+        break
+      case 7:
+        if (waterTemp >= 68.5 || today.getDate() > 15) {
+          seasons.push('catfish spawn')
+        } else {
+          seasons.push('catfish pre-spawn')
+        }
+        seasons.push('carp spawn')
+        break
+      default:
+        break
+    }
+  }
+  if (cityState && cityState.location.includes('mid')) {
+    switch (todayMonth) {
+      case 3:
+        seasons.push('walleye pre-spawn')
+        seasons.push('perch pre-spawn')
+        seasons.push('pike pre-spawn')
+        seasons.push('pickerel pre-spawn')
+        seasons.push('muskie pre-spawn')
+        break
+      case 4:
+        if (waterTemp >= 42.5 || today.getDate() > 15) {
+          seasons.push('walleye spawn')
+          seasons.push('perch spawn')
+          seasons.push('pike spawn')
+        } else {
+          seasons.push('walleye pre-spawn')
+          seasons.push('perch pre-spawn')
+          seasons.push('pike pre-spawn')
+        }
+        if (waterTemp >= 47.5 || today.getDate() > 15) {
+          seasons.push('pickerel spawn')
+        } else {
+          seasons.push('pickerel pre-spawn')
+        }
+        if (waterTemp >= 52.5 || today.getDate() > 15) {
+          seasons.push('muskie spawn')
+        } else {
+          seasons.push('muskie pre-spawn')
+        }
         seasons.push('sunfish pre-spawn')
-        seasons.push('pickerel/pike/muskies pre-spawn')
-      }
-      if (cityState && cityState.location.includes('mid')) {
-        seasons.push('carp pre-spawn')
-        seasons.push('bass spawn')
+        seasons.push('crappie pre-spawn')
+        seasons.push('bass pre-spawn')
+        break
+      case 5:
+        if (waterTemp >= 58.5 || today.getDate() > 15) {
+          seasons.push('smallmouth bass spawn')
+          seasons.push('crappie spawn')
+        } else {
+          seasons.push('bass pre-spawn')
+          seasons.push('crappie pre-spawn')
+        }
+        if (waterTemp >= 62.5 || today.getDate() > 15) {
+          seasons.push('largemouth bass spawn')
+        } else if (!seasons.includes('bass pre-spawn')) {
+          seasons.push('bass pre-spawn')
+        }
         seasons.push('sunfish spawn')
-        seasons.push('pickerel/pike/muskies spawn')
-      }
-      if (cityState && cityState.location.includes('south')) {
         seasons.push('catfish pre-spawn')
-        seasons.push('carp spawn')
-      }
-      break
-    case 6:
-      if (cityState && cityState.location.includes('north')) {
         seasons.push('carp pre-spawn')
-        seasons.push('bass spawn')
+        break
+      case 6:
+        if (waterTemp >= 68.5 || today.getDate() > 15) {
+          seasons.push('catfish spawn')
+        } else {
+          seasons.push('catfish pre-spawn')
+        }
+        seasons.push('carp spawn')
+        break
+      default:
+        break
+    }
+  }
+  if (cityState && cityState.location.includes('south')) {
+    switch (todayMonth) {
+      case 2:
+        seasons.push('walleye pre-spawn')
+        seasons.push('perch pre-spawn')
+        seasons.push('pike pre-spawn')
+        seasons.push('pickerel pre-spawn')
+        seasons.push('muskie pre-spawn')
+        break
+      case 3:
+        if (waterTemp >= 42.5 || today.getDate() > 15) {
+          seasons.push('walleye spawn')
+          seasons.push('pike spawn')
+        } else {
+          seasons.push('walleye pre-spawn')
+          seasons.push('pike pre-spawn')
+        }
+        if (waterTemp >= 47.5 || today.getDate() > 15) {
+          seasons.push('pickerel spawn')
+        } else {
+          seasons.push('pickerel pre-spawn')
+        }
+        if (waterTemp >= 52.5 || today.getDate() > 15) {
+          seasons.push('muskie spawn')
+          seasons.push('perch spawn')
+        } else {
+          seasons.push('muskie pre-spawn')
+          seasons.push('perch pre-spawn')
+        }
+        seasons.push('sunfish pre-spawn')
+        seasons.push('crappie pre-spawn')
+        seasons.push('bass pre-spawn')
+        break
+      case 4:
+        if (waterTemp >= 58.5 || today.getDate() > 15) {
+          seasons.push('smallmouth bass spawn')
+          seasons.push('crappie spawn')
+        } else {
+          seasons.push('bass pre-spawn')
+          seasons.push('crappie pre-spawn')
+        }
+        if (waterTemp >= 62.5 || today.getDate() > 15) {
+          seasons.push('largemouth bass spawn')
+        } else if (!seasons.includes('bass pre-spawn')) {
+          seasons.push('bass pre-spawn')
+        }
         seasons.push('sunfish spawn')
-        seasons.push('pickerel/pike/muskies spawn')
-      }
-      if (cityState && cityState.location.includes('mid')) {
         seasons.push('catfish pre-spawn')
+        seasons.push('carp pre-spawn')
+        break
+      case 5:
+        if (waterTemp >= 68.5 || today.getDate() > 15) {
+          seasons.push('catfish spawn')
+        } else {
+          seasons.push('catfish pre-spawn')
+        }
         seasons.push('carp spawn')
-      }
-      if (cityState && cityState.location.includes('south')) {
-        seasons.push('catfish spawn')
-      }
-      break
-    case 7:
-      if (cityState && cityState.location.includes('north')) {
-        seasons.push('catfish pre-spawn')
-        seasons.push('carp spawn')
-      }
-      if (cityState && cityState.location.includes('mid')) {
-        seasons.push('catfish spawn')
-      }
-      break
-    case 8:
-      if (cityState && cityState.location.includes('north')) {
-        seasons.push('catfish spawn')
-      }
-      break
-    case 10:
-    case 11:
-      if (cityState && cityState.location.includes('north')) {
-        seasons.push('trout stocking')
-      }
-      break
-    default:
-      break
+        break
+      default:
+        break
+    }
   }
 
   let seasonString = convertArrayToCommaSeparatedString(seasons)
@@ -253,7 +368,7 @@ function getSpecies(waterTemp: number, seasons: string): string {
   let species = ''
 
   if (waterTemp >= 31.5 && waterTemp <= 82.5) {
-    if (waterTemp >= 60) {
+    if (waterTemp >= 58.5) {
       species += 'largemouth bass, catfish, '
     }
 
@@ -269,7 +384,7 @@ function getSpecies(waterTemp: number, seasons: string): string {
       species += 'trout, '
     }
 
-    species += 'pickerel, pike, muskies'
+    species += 'pickerel, pike, muskie'
   }
 
   return species !== '' ? species : 'Not ideal fishing weather for any species'
