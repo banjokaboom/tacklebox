@@ -8,7 +8,11 @@ import Tackle from '../classes/Tackle'
 import ContentSection from './content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
-import { faArrowUpRightFromSquare } from '@fortawesome/free-solid-svg-icons'
+import {
+  faArrowUpRightFromSquare,
+  faFish,
+} from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 
 interface Props {
   data: FishingData
@@ -224,6 +228,23 @@ export default function FishingDataContent({ data }: Props) {
                 }
                 isExpandedByDefault={true}
               ></ContentSection>
+            )}
+
+            {data.fishingConditions.conditionsText == 'Not Ideal' && (
+              <div className="pt-4">
+                <p className="mb-4">
+                  It may not be ideal fishing for any species, but you can still
+                  fish! Get specific lure suggestions by species here:
+                </p>
+
+                <Link
+                  className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
+                  href="/fishing/tackle-by-species"
+                >
+                  <FontAwesomeIcon icon={faFish} className="mb-4 h-16" />
+                  <span>Tackle by Species</span>
+                </Link>
+              </div>
             )}
           </div>
           <div className="basis-4/12 shrink-0">
