@@ -1,9 +1,9 @@
 export default class BaitRecommendations {
-  public colorsToUse: string
+  public stylesToUse: string
   public baitsToUse: string
 
   constructor() {
-    this.colorsToUse = ''
+    this.stylesToUse = ''
     this.baitsToUse = ''
   }
 }

@@ -6,7 +6,7 @@ describe('BaitRecommendations', () => {
   it('initializes with empty values', () => {
     const baitRecommendations = new BaitRecommendations()
 
-    expect(baitRecommendations.colorsToUse).toBe('')
+    expect(baitRecommendations.stylesToUse).toBe('')
     expect(baitRecommendations.baitsToUse).toBe('')
   })
 })

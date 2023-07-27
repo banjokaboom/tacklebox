@@ -227,13 +227,17 @@ export function pickTackle(
   seasons: string,
   species: string,
   waterTemp: number,
-  waterType: string
+  waterType: string,
+  baitStyles: string
 ): Tackle[] {
   let tackleToUse: Tackle[] = []
 
   tackleList.forEach(function (tackle: Tackle) {
     let isTackleForSpecies = false
     let isTackleForWaterType = false
+    const seasonsArray: string[] = seasons.split(',').map((s) => s.trim())
+    let isTackleForSpawnSeason = false
+    let isTackleForBaitStyle = false
 
     for (
       let speciesIndex = 0;
@@ -249,14 +253,40 @@ export function pickTackle(
     for (let typeIndex = 0; typeIndex < tackle.type.length; typeIndex++) {
       if (waterType.includes(tackle.type[typeIndex])) {
         isTackleForWaterType = true
-        break
+      }
+
+      if (waterType.includes('freshwater')) {
+        if (baitStyles.includes(tackle.type[typeIndex])) {
+          isTackleForBaitStyle = true
+        }
+      } else {
+        isTackleForBaitStyle = true
       }
     }
+
+    seasonsArray.forEach((season) => {
+      if (
+        season.includes('pre-spawn') &&
+        tackle.species.includes(season.split(' ')[0]) &&
+        tackle.type.includes('reaction')
+      ) {
+        isTackleForSpawnSeason == true
+      }
+
+      if (
+        seasons.includes('fall') &&
+        tackle.type.includes('reaction') &&
+        tackle.species.includes('largemouth bass')
+      ) {
+        isTackleForSpawnSeason == true
+      }
+    })
 
     if (
       isTackleForSpecies &&
       isTackleForWaterType &&
-      isTackleForWeather(tackle, seasons, waterTemp)
+      isTackleForBaitStyle &&
+      (isTackleForSpawnSeason || isTackleForWeather(tackle, waterTemp))
     ) {
       tackleToUse.push(tackle)
     }
@@ -265,67 +295,38 @@ export function pickTackle(
   return tackleToUse
 }
 
-export function isTackleForWeather(
-  tackle: Tackle,
-  seasons: string,
-  waterTemp: number
-): boolean {
-  const seasonsArray: string[] = seasons.split(',').map((s) => s.trim())
+export function isTackleForWeather(tackle: Tackle, waterTemp: number): boolean {
+  let isTackleForWeather = true
 
-  let spawnSeasonTackle = false
-  seasonsArray.forEach((season) => {
-    if (
-      season.includes('pre-spawn') &&
-      tackle.species.includes(season.split(' ')[0]) &&
-      tackle.type.includes('reaction')
-    ) {
-      spawnSeasonTackle == true
-    }
-
-    if (
-      seasons.includes('fall') &&
-      tackle.type.includes('reaction') &&
-      tackle.species.includes('largemouth bass')
-    ) {
-      spawnSeasonTackle == true
-    }
-  })
-
-  if (spawnSeasonTackle) {
-    return true
-  }
-
-  if (tackle.type.includes('still')) {
-    return true
-  }
-
-  if (waterTemp > warmWaterMin) {
-    if (!tackle.waterTemp.includes('warm')) {
-      return false
-    }
-
-    if (waterTemp > warmWaterMax) {
-      if (!tackle.depth.includes('deep')) {
-        return false
+  if (!tackle.type.includes('still')) {
+    if (waterTemp > warmWaterMin) {
+      if (!tackle.waterTemp.includes('warm')) {
+        isTackleForWeather = false
       }
-    } else if (!tackle.depth.includes('shallow')) {
-      return false
-    }
-  } else {
-    if (!tackle.waterTemp.includes('cold')) {
-      return false
-    }
 
-    if (!tackle.type.includes('finesse')) {
-      return false
-    }
+      if (waterTemp > warmWaterMax) {
+        if (!tackle.depth.includes('deep')) {
+          isTackleForWeather = false
+        }
+      } else if (!tackle.depth.includes('shallow')) {
+        isTackleForWeather = false
+      }
+    } else {
+      if (!tackle.waterTemp.includes('cold')) {
+        isTackleForWeather = false
+      }
 
-    if (!tackle.depth.includes('deep')) {
-      return false
+      if (!tackle.type.includes('finesse')) {
+        isTackleForWeather = false
+      }
+
+      if (!tackle.depth.includes('deep')) {
+        isTackleForWeather = false
+      }
     }
   }
 
-  return true
+  return isTackleForWeather
 }
 
 export function getWeatherValues(weather: any, seasons: string): WeatherData {

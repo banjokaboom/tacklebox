@@ -91,10 +91,10 @@ export default function FishingDataContent({ data }: Props) {
               isExpandedByDefault={true}
             ></ContentSection>
 
-            {data.baitRecommendations.colorsToUse !== '' && (
+            {data.baitRecommendations.stylesToUse !== '' && (
               <ContentSection
                 title="Lure colors and styles to use now"
-                content={data.baitRecommendations.colorsToUse}
+                content={data.baitRecommendations.stylesToUse}
                 isExpandedByDefault={true}
               ></ContentSection>
             )}

@@ -437,7 +437,7 @@ describe('useFishingData', () => {
     )
 
     expect(
-      result.baitRecommendations.colorsToUse.includes('natural')
+      result.baitRecommendations.stylesToUse.includes('natural')
     ).toBeTruthy()
   })
 
@@ -454,7 +454,7 @@ describe('useFishingData', () => {
       'freshwater bank'
     )
 
-    expect(result.baitRecommendations.colorsToUse.includes('dark')).toBeTruthy()
+    expect(result.baitRecommendations.stylesToUse.includes('dark')).toBeTruthy()
   })
 
   it("doesn't load when state not selected and zip length < 5", async () => {

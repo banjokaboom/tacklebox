@@ -13,16 +13,16 @@ import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
 function pickBaitRecommendations(): BaitRecommendations {
   let baitRecommendations = new BaitRecommendations()
-  let colorsToUse: string[] = []
+  let stylesToUse: string[] = []
   let baitToUse: string[] = []
 
   baitToUse.push('live sand worms', 'shrimp', 'squid', 'crab')
 
-  let colorString = convertArrayToCommaSeparatedString(colorsToUse)
+  let colorString = convertArrayToCommaSeparatedString(stylesToUse)
 
   let baitString = convertArrayToCommaSeparatedString(baitToUse)
 
-  baitRecommendations.colorsToUse = colorString
+  baitRecommendations.stylesToUse = colorString
   baitRecommendations.baitsToUse = baitString
 
   return baitRecommendations
@@ -70,7 +70,8 @@ export async function getSaltwaterFishingData(
       fishingData.seasons,
       fishingData.species,
       waterTemp,
-      waterType
+      waterType,
+      fishingData.baitRecommendations.stylesToUse
     )
 
     fishingData.fishingConditions = getFishingConditions(

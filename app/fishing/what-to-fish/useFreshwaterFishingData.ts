@@ -17,7 +17,7 @@ function pickBaitRecommendations(
   seasons: string
 ): BaitRecommendations {
   let baitRecommendations = new BaitRecommendations()
-  let colorsToUse: string[] = []
+  let stylesToUse: string[] = []
   let baitToUse: string[] = []
 
   baitToUse.push('live worms, soft plastic worms')
@@ -36,10 +36,10 @@ function pickBaitRecommendations(
       species.includes('smallmouth bass') ||
       species.includes('catfish')
     ) {
-      colorsToUse.push('craw')
+      stylesToUse.push('craw')
       baitToUse.push('soft plastic craws')
     }
-    colorsToUse.push('orange', 'bug', 'beetle', 'grub')
+    stylesToUse.push('orange', 'bug', 'beetle', 'grub', 'insect')
     baitToUse.push('powerbait', 'soft plastic insects')
   }
 
@@ -48,11 +48,12 @@ function pickBaitRecommendations(
     seasons.includes('fall') ||
     seasons.includes('winter')
   ) {
-    colorsToUse.push('shad', 'baitfish', 'white', 'blue')
+    stylesToUse.push('shad', 'baitfish', 'white', 'blue')
     baitToUse.push('soft plastic swimbaits', 'shiners')
 
     if (seasons.includes('summer')) {
       if (species.includes('largemouth bass')) {
+        stylesToUse.push('frog', 'critter')
         baitToUse.push('soft plastic frogs', 'soft plastic lizards')
       }
     } else {
@@ -61,23 +62,23 @@ function pickBaitRecommendations(
   }
 
   if (weather.current.cloud >= 75 || seasons.includes('spring')) {
-    colorsToUse.push('red')
+    stylesToUse.push('red')
   }
 
   if (weather.current.cloud >= 75) {
-    colorsToUse.push('dark', 'black')
-    if (!colorsToUse.includes('blue')) {
-      colorsToUse.push('blue')
+    stylesToUse.push('dark', 'black')
+    if (!stylesToUse.includes('blue')) {
+      stylesToUse.push('blue')
     }
   } else {
-    colorsToUse.push('natural', 'gold', 'silver', 'green')
+    stylesToUse.push('natural', 'gold', 'silver', 'green')
   }
 
-  let colorString = convertArrayToCommaSeparatedString(colorsToUse)
+  let colorString = convertArrayToCommaSeparatedString(stylesToUse)
 
   let baitString = convertArrayToCommaSeparatedString(baitToUse)
 
-  baitRecommendations.colorsToUse = colorString
+  baitRecommendations.stylesToUse = colorString
   baitRecommendations.baitsToUse = baitString
 
   return baitRecommendations
@@ -345,7 +346,8 @@ export async function getFreshwaterFishingData(
       fishingData.seasons,
       fishingData.species,
       waterTemp,
-      waterType
+      waterType,
+      fishingData.baitRecommendations.stylesToUse
     )
     fishingData.fishingConditions = getFishingConditions(
       weather,
@@ -368,6 +370,9 @@ function getSpecies(waterTemp: number, seasons: string): string {
   let species = ''
 
   if (waterTemp >= 31.5 && waterTemp <= 82.5) {
+    if (waterTemp >= 42.5) {
+      species += 'perch, '
+    }
     if (waterTemp >= 58.5) {
       species += 'largemouth bass, catfish, '
     }
