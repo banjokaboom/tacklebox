@@ -103,26 +103,29 @@ export default function FishingDataContent({ data }: Props) {
                     index < 5 && (
                       <div key={index} className="mb-4 last:mb-0">
                         <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-row items-center basis-2/3">
-                            {t.tip && (
-                              <button
-                                className="flex flex-row items-center text-left w-full"
-                                title="Click to learn how to use this"
-                                onClick={() => {
-                                  setModalContent(t.tip)
-                                  setIsModalOpen(true)
-                                }}
-                              >
-                                <span className="sm:break-words break-all">
-                                  {t.name}
-                                </span>
-                                <FontAwesomeIcon
-                                  icon={faCircleQuestion}
-                                  className="ml-2"
-                                />
-                              </button>
-                            )}
-                            {!t.tip && <p>{t.name}</p>}
+                          <div className="flex flex-col">
+                            <div className="flex flex-row items-center basis-2/3">
+                              {t.tip && (
+                                <button
+                                  className="flex flex-row items-center text-left w-full"
+                                  title="Click to learn how to use this"
+                                  onClick={() => {
+                                    setModalContent(t.tip)
+                                    setIsModalOpen(true)
+                                  }}
+                                >
+                                  <span className="sm:break-words break-all">
+                                    {t.name}
+                                  </span>
+                                  <FontAwesomeIcon
+                                    icon={faCircleQuestion}
+                                    className="ml-2"
+                                  />
+                                </button>
+                              )}
+                              {!t.tip && <p>{t.name}</p>}
+                            </div>
+                            <p className="text-sm">{getTackleSpecies(t)}</p>
                           </div>
                           {!t.name.toUpperCase().includes('RIG') && (
                             <div>
@@ -149,7 +152,6 @@ export default function FishingDataContent({ data }: Props) {
                             </div>
                           )}
                         </div>
-                        <p className="text-sm">{getTackleSpecies(t)}</p>
                       </div>
                     )
                 )}
@@ -163,28 +165,33 @@ export default function FishingDataContent({ data }: Props) {
                 content={
                   <div className="mb-4 last:mb-0">
                     <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-row items-center basis-2/3">
-                        {lowConfidenceTackle.tip && (
-                          <button
-                            className="flex flex-row items-center text-left basis-2/3"
-                            title="Click to learn how to use this"
-                            onClick={() => {
-                              setModalContent(lowConfidenceTackle.tip)
-                              setIsModalOpen(true)
-                            }}
-                          >
-                            <span className="sm:break-words break-all">
-                              {lowConfidenceTackle.name}
-                            </span>
-                            <FontAwesomeIcon
-                              icon={faCircleQuestion}
-                              className="ml-2"
-                            />
-                          </button>
-                        )}
-                        {!lowConfidenceTackle.tip && (
-                          <p>{lowConfidenceTackle.name}</p>
-                        )}
+                      <div className="flex flex-col">
+                        <div className="flex flex-row items-center basis-2/3">
+                          {lowConfidenceTackle.tip && (
+                            <button
+                              className="flex flex-row items-center text-left basis-2/3"
+                              title="Click to learn how to use this"
+                              onClick={() => {
+                                setModalContent(lowConfidenceTackle.tip)
+                                setIsModalOpen(true)
+                              }}
+                            >
+                              <span className="sm:break-words break-all">
+                                {lowConfidenceTackle.name}
+                              </span>
+                              <FontAwesomeIcon
+                                icon={faCircleQuestion}
+                                className="ml-2"
+                              />
+                            </button>
+                          )}
+                          {!lowConfidenceTackle.tip && (
+                            <p>{lowConfidenceTackle.name}</p>
+                          )}
+                        </div>
+                        <p className="text-sm">
+                          {getTackleSpecies(lowConfidenceTackle)}
+                        </p>
                       </div>
                       {!lowConfidenceTackle.name
                         .toUpperCase()
@@ -213,9 +220,6 @@ export default function FishingDataContent({ data }: Props) {
                         </div>
                       )}
                     </div>
-                    <p className="text-sm">
-                      {getTackleSpecies(lowConfidenceTackle)}
-                    </p>
                   </div>
                 }
                 isExpandedByDefault={true}
@@ -283,26 +287,29 @@ export default function FishingDataContent({ data }: Props) {
                 content={tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
                     <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-row items-center basis-2/3">
-                        {t.tip && (
-                          <button
-                            className="flex flex-row items-center text-left w-full"
-                            title="Click to learn how to use this"
-                            onClick={() => {
-                              setModalContent(t.tip)
-                              setIsModalOpen(true)
-                            }}
-                          >
-                            <span className="sm:break-words break-all">
-                              {t.name}
-                            </span>
-                            <FontAwesomeIcon
-                              icon={faCircleQuestion}
-                              className="ml-2"
-                            />
-                          </button>
-                        )}
-                        {!t.tip && <p>{t.name}</p>}
+                      <div className="flex flex-col">
+                        <div className="flex flex-row items-center basis-2/3">
+                          {t.tip && (
+                            <button
+                              className="flex flex-row items-center text-left w-full"
+                              title="Click to learn how to use this"
+                              onClick={() => {
+                                setModalContent(t.tip)
+                                setIsModalOpen(true)
+                              }}
+                            >
+                              <span className="sm:break-words break-all">
+                                {t.name}
+                              </span>
+                              <FontAwesomeIcon
+                                icon={faCircleQuestion}
+                                className="ml-2"
+                              />
+                            </button>
+                          )}
+                          {!t.tip && <p>{t.name}</p>}
+                        </div>
+                        <p className="text-sm">{getTackleSpecies(t)}</p>
                       </div>
                       {!t.name.toUpperCase().includes('RIG') && (
                         <div>
@@ -327,7 +334,6 @@ export default function FishingDataContent({ data }: Props) {
                         </div>
                       )}
                     </div>
-                    <p className="text-sm">{getTackleSpecies(t)}</p>
                   </div>
                 ))}
               ></ContentSection>

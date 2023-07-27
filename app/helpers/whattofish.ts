@@ -270,10 +270,29 @@ export function isTackleForWeather(
   seasons: string,
   waterTemp: number
 ): boolean {
-  if (seasons.includes('pre-spawn') || seasons.includes('fall')) {
-    if (tackle.type.includes('reaction') && tackle.depth.includes('shallow')) {
-      return true
+  const seasonsArray: string[] = seasons.split(',').map((s) => s.trim())
+
+  let spawnSeasonTackle = false
+  seasonsArray.forEach((season) => {
+    if (
+      season.includes('pre-spawn') &&
+      tackle.species.includes(season.split(' ')[0]) &&
+      tackle.type.includes('reaction')
+    ) {
+      spawnSeasonTackle == true
     }
+
+    if (
+      seasons.includes('fall') &&
+      tackle.type.includes('reaction') &&
+      tackle.species.includes('largemouth bass')
+    ) {
+      spawnSeasonTackle == true
+    }
+  })
+
+  if (spawnSeasonTackle) {
+    return true
   }
 
   if (tackle.type.includes('still')) {
