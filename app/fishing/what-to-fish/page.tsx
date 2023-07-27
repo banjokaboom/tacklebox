@@ -37,6 +37,44 @@ export default function WhatToFish() {
       href: '/fishing/what-to-fish',
     },
   ]
+  const tips = [
+    "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
+    'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
+    'The day before a storm or similar major weather shift is the best time to fish. The day after is generally the worst.',
+    'If the fishing gets tough, fish less traveled spots.',
+    "If you're catching panfish left and right and then suddenly the bites stop, chances are a bigger predator just swam by. Time to bring out the big(ger) guns!",
+    'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
+    'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top. Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
+    'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
+    "If you gut hook a fish, absolutely try to dislodge it, but if you can't get it out through relatively easy means and within roughly 15 seconds, cut the line as close as you can to the fish's mouth and let the fish go. The hook will rust and deteriorate naturally, and the fish has a much greater chance for survival than if you continued to try and yank the hook out.",
+    'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
+    'Trout and related species are sight feeders and look up for food. Fish top half of the water column.',
+    'To avoid gut-hooking a fish, watch your line carefully and set the hook as soon as you see a fish take the bait. Also, make sure you are using an appropriately-sized hook for the fish that you are targeting.',
+    'Fixed Bobber: Pinch bobber onto the line, pinch a split shot between the bobber and hook, and add a wacky-rigged worm or a grub lure to the hook. Cast out, let the lure fall, then jerk it every few seconds to give it some action. Can also use plastic minnows or live bait of course',
+    "If you're casting over and over and not getting any bites, try using a bobber or Carolina rig with some live bait just to see what's in the area. That may help to determine where to move next to find the bass.",
+    "Don't forget: live bait moves on its own, but you need to make the action with lures and soft plastics.",
+    'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
+    'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
+    'Before you head out, decide if you want to land a big fish or just to catch whatever you can. If it is the latter, make sure to bring some nightcrawlers just in case.',
+    "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
+    'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
+    'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
+  ]
+
+  const today = new Date()
+  let ti = 0
+
+  if (today.getDate() > tips.length) {
+    ti = today.getDate() - Math.trunc(today.getDate() / 10) * 10
+  } else {
+    ti = today.getDate()
+  }
+
+  while (ti >= tips.length) {
+    ti--
+  }
+
+  let [tipIndex, setTipIndex] = useState(ti)
 
   useEffect(() => {
     const logger = Logger({})
@@ -202,47 +240,6 @@ export default function WhatToFish() {
     }
   }
 
-  function getFishingTip() {
-    const tips = [
-      "When using a noisy lure, cast 5 to 10 times in the same spot before moving on. Even if a bass isn't hungry, annoying the bass is an equally efficient way to get a bite.",
-      'Use colored baits that match the season, i.e. whites/silvers in winter, yellows/reds in summer.',
-      'The day before a storm or similar major weather shift is the best time to fish. The day after is generally the worst.',
-      'If the fishing gets tough, fish less traveled spots.',
-      "If you're catching panfish left and right and then suddenly the bites stop, chances are a bigger predator just swam by. Time to bring out the big(ger) guns!",
-      'Bass like moving water for the oxygen levels. Spots near moving water that are also near weeds and weed beds are key fishing spots.',
-      'Drop shot: Similar to bobber fishing, drop shot gets pinched at the end of the line but keeps the hook suspended above the bottom of the water, as opposed to from the top. Fish with live bait or soft plastics that have action like curly tail grubs, swim baits, and stick worms.',
-      'Crankbaits: Cast out, reel in to sink and generate motion and sound. You can also pull to crank up and wobble.',
-      "If you gut hook a fish, absolutely try to dislodge it, but if you can't get it out through relatively easy means and within roughly 15 seconds, cut the line as close as you can to the fish's mouth and let the fish go. The hook will rust and deteriorate naturally, and the fish has a much greater chance for survival than if you continued to try and yank the hook out.",
-      'Hook size correlates to fish size. Size #6 will cover most smaller fish, size #1 will cover most medium size fish, and size 2/0 will be good for bigger bass.',
-      'Trout and related species are sight feeders and look up for food. Fish top half of the water column.',
-      'To avoid gut-hooking a fish, watch your line carefully and set the hook as soon as you see a fish take the bait. Also, make sure you are using an appropriately-sized hook for the fish that you are targeting.',
-      'Fixed Bobber: Pinch bobber onto the line, pinch a split shot between the bobber and hook, and add a wacky-rigged worm or a grub lure to the hook. Cast out, let the lure fall, then jerk it every few seconds to give it some action. Can also use plastic minnows or live bait of course',
-      "If you're casting over and over and not getting any bites, try using a bobber or Carolina rig with some live bait just to see what's in the area. That may help to determine where to move next to find the bass.",
-      "Don't forget: live bait moves on its own, but you need to make the action with lures and soft plastics.",
-      'Plastic worms or creature baits: Can rig wacky, Ned, or Texas.',
-      'Poppers and other noisy topwater lures: Cast out, let the water calm, then start to jerk/reel to generate the action. Start slow to prevent spooking the fish.',
-      'Before you head out, decide if you want to land a big fish or just to catch whatever you can. If it is the latter, make sure to bring some nightcrawlers just in case.',
-      "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
-      'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
-      'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
-    ]
-
-    const today = new Date()
-    let tipIndex = 0
-
-    if (today.getDate() > tips.length) {
-      tipIndex = today.getDate() - Math.trunc(today.getDate() / 10) * 10
-    } else {
-      tipIndex = today.getDate()
-    }
-
-    while (tipIndex >= tips.length) {
-      tipIndex--
-    }
-
-    return tips[tipIndex]
-  }
-
   return (
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
@@ -406,7 +403,39 @@ export default function WhatToFish() {
         <div>
           <ContentSection
             title="Tip of the Day"
-            content={getFishingTip()}
+            content={
+              <div>
+                <div>{tips[tipIndex]}</div>
+                <div className="flex flex-row justify-between">
+                  <button
+                    onClick={() => {
+                      if (tipIndex == 0) {
+                        setTipIndex(tips.length - 1)
+                      } else {
+                        setTipIndex(tipIndex - 1)
+                      }
+                    }}
+                    className="text-sm pt-4 w-fit"
+                    title="Previous Tip"
+                  >
+                    &lt;&lt;
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (tipIndex == tips.length - 1) {
+                        setTipIndex(0)
+                      } else {
+                        setTipIndex(tipIndex + 1)
+                      }
+                    }}
+                    className="text-sm pt-4 w-fit"
+                    title="Next Tip"
+                  >
+                    &gt;&gt;
+                  </button>
+                </div>
+              </div>
+            }
             isExpandedByDefault={true}
           ></ContentSection>
         </div>
