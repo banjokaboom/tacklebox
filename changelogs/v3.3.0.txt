@@ -1,0 +1,21 @@
+df2df67 added additional bait types such as insect, craw, and baitfish
+58eb660 added link to tackle by species when conditions are not ideal
+fe85e44 added link to tackle by species when conditions are not ideal
+f2bf2ba added nav buttons to fishing tips
+8f88581 fine-tuned spawn season lures recommendations, tweaked buy button display
+81215a0 refined spawning seasons
+29dca45 refactored some code, show more data when fishing not ideal, improved boat vs bank fishing recommendations
+4d1f87b finalized some test updates
+6e5a276 imporved some tests, back over 80%
+454bbbc improved a few more tests
+acd4ef0 updated fishing conditions display
+bb2670e improved a few tests
+fd778b5 adjusted water temp calculation
+911d18a fixed build error
+09ad370 tweaked the conditions quality algorithm
+5d56985 improved mobile display of long names in content lists
+bf09caf fix overflow issue
+900beda fix overflow issue
+f6a46c9 updated tackle by species
+c8d6463 updated lawn care buy buttons for consistency
+3662129 added full list of oil prices sorted by cheapest, improved buy button display and consistency

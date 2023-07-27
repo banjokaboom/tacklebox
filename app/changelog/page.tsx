@@ -1,7 +1,7 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.1.0 > changelogs/v3.2.0.txt
+ * git log --oneline --decorate=no HEAD...v3.2.0 > changelogs/v3.3.0.txt
  *
  * To count for version tag
  *
@@ -25,6 +25,45 @@ export default function ChangeLog() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
+        <ContentSection
+          title="v3.3.0"
+          content={
+            <div>
+              <p className="mb-4">
+                added additional bait types such as insect, craw, and baitfish
+              </p>
+              <p className="mb-4">
+                added link to tackle by species when conditions are not ideal
+              </p>
+              <p className="mb-4">added nav buttons to fishing tips</p>
+              <p className="mb-4">
+                fine-tuned spawn season lures recommendations, tweaked buy
+                button display
+              </p>
+              <p className="mb-4">refined spawning seasons</p>
+              <p className="mb-4">
+                refactored some code, show more data when fishing not ideal,
+                improved boat vs bank fishing recommendations
+              </p>
+              <p className="mb-4">updated fishing conditions display</p>
+              <p className="mb-4">adjusted water temp calculation</p>
+              <p className="mb-4">tweaked the conditions quality algorithm</p>
+              <p className="mb-4">
+                improved mobile display of long names in content lists
+              </p>
+              <p className="mb-4">fix overflow issue</p>
+              <p className="mb-4">updated tackle by species</p>
+              <p className="mb-4">
+                updated lawn care buy buttons for consistency
+              </p>
+              <p>
+                added full list of oil prices sorted by cheapest, improved buy
+                button display and consistency
+              </p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
 
         <ContentSection
           title="v3.2.0"
@@ -71,7 +110,6 @@ export default function ChangeLog() {
               <p>fixed alignment on hardbody swimbaits</p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection
