@@ -6,7 +6,7 @@ f2bf2ba added nav buttons to fishing tips
 81215a0 refined spawning seasons
 29dca45 refactored some code, show more data when fishing not ideal, improved boat vs bank fishing recommendations
 4d1f87b finalized some test updates
-6e5a276 imporved some tests, back over 80%
+6e5a276 improved some tests, back over 80%
 454bbbc improved a few more tests
 acd4ef0 updated fishing conditions display
 bb2670e improved a few tests

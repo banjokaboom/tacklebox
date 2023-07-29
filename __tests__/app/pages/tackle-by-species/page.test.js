@@ -50,9 +50,11 @@ describe('TackleBySpecies', () => {
       target: { value: 'largemouth bass' },
     })
 
-    const heading = await screen.findByText('Lures and rigs to use')
+    const heading = await screen.findAllByText('lures and rigs', {
+      exact: false,
+    })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading[0]).toBeInTheDocument()
   })
 
   it('opens tip modals when clicked', async () => {
@@ -65,9 +67,11 @@ describe('TackleBySpecies', () => {
       target: { value: 'largemouth bass' },
     })
 
-    const heading = await screen.findByText('Lures and rigs to use')
+    const heading = await screen.findAllByText('lures and rigs', {
+      exact: false,
+    })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading[0]).toBeInTheDocument()
 
     const tipButton = await screen.findAllByTitle(
       'Click to learn how to use this'
@@ -90,9 +94,11 @@ describe('TackleBySpecies', () => {
       target: { value: 'largemouth bass' },
     })
 
-    const heading = await screen.findByText('Lures and rigs to use')
+    const heading = await screen.findAllByText('lures and rigs', {
+      exact: false,
+    })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading[0]).toBeInTheDocument()
 
     const tipButton = await screen.findAllByTitle(
       'Click to learn how to use this'
@@ -121,9 +127,11 @@ describe('TackleBySpecies', () => {
       target: { value: 'largemouth bass' },
     })
 
-    const heading = await screen.findByText('Lures and rigs to use')
+    const heading = await screen.findAllByText('lures and rigs', {
+      exact: false,
+    })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading[0]).toBeInTheDocument()
 
     const tipButtons = await screen.findAllByTitle(
       'Click to learn how to use this'
@@ -154,9 +162,11 @@ describe('TackleBySpecies', () => {
       target: { value: 'largemouth bass' },
     })
 
-    const heading = await screen.findByText('Lures and rigs to use')
+    const heading = await screen.findAllByText('lures and rigs', {
+      exact: false,
+    })
 
-    expect(heading).toBeInTheDocument()
+    expect(heading[0]).toBeInTheDocument()
 
     const button = await screen.getByText('Help me pick!')
 

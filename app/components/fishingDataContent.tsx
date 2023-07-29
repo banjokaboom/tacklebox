@@ -36,6 +36,21 @@ export default function FishingDataContent({ data }: Props) {
     return 0
   })
 
+  let hasFinesseTackle = false
+  data.tackle.forEach((t) => {
+    if (t.type.includes('finesse')) {
+      hasFinesseTackle = true
+    }
+  })
+  let hasReactionTackle = false
+  data.tackle.forEach((t) => {
+    if (t.type.includes('reaction')) {
+      hasReactionTackle = true
+    }
+  })
+  let finesseTackleCount = 0
+  let reactionTackleCount = 0
+
   useEffect(() => {
     function getLowConfidenceTackle() {
       let tackleIndex = 0
@@ -99,12 +114,16 @@ export default function FishingDataContent({ data }: Props) {
               ></ContentSection>
             )}
 
-            {data.tackle.length > 0 && (
+            {hasReactionTackle && (
               <ContentSection
-                title="Suggested lures and rigs to use"
-                content={tackleByConfidence.map(
-                  (t, index) =>
-                    index < 5 && (
+                title="Best reaction lures and rigs"
+                content={tackleByConfidence.map((t, index) => {
+                  if (!t.type.includes('reaction')) {
+                    return
+                  }
+                  reactionTackleCount++
+                  return (
+                    reactionTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
                         <div className="flex flex-row items-center justify-between space-x-2">
                           <div className="flex flex-col">
@@ -158,7 +177,77 @@ export default function FishingDataContent({ data }: Props) {
                         </div>
                       </div>
                     )
-                )}
+                  )
+                })}
+                isExpandedByDefault={true}
+              ></ContentSection>
+            )}
+
+            {hasFinesseTackle && (
+              <ContentSection
+                title="Best finesse lures and rigs"
+                content={tackleByConfidence.map((t, index) => {
+                  if (!t.type.includes('finesse')) {
+                    return
+                  }
+                  finesseTackleCount++
+                  return (
+                    finesseTackleCount <= 5 && (
+                      <div key={index} className="mb-4 last:mb-0">
+                        <div className="flex flex-row items-center justify-between space-x-2">
+                          <div className="flex flex-col">
+                            <div className="flex flex-row items-center basis-2/3">
+                              {t.tip && (
+                                <button
+                                  className="flex flex-row items-center text-left w-full"
+                                  title="Click to learn how to use this"
+                                  onClick={() => {
+                                    setModalContent(t.tip)
+                                    setIsModalOpen(true)
+                                  }}
+                                >
+                                  <span className="sm:break-words break-all">
+                                    {t.name}
+                                  </span>
+                                  <FontAwesomeIcon
+                                    icon={faCircleQuestion}
+                                    className="ml-2"
+                                  />
+                                </button>
+                              )}
+                              {!t.tip && <p>{t.name}</p>}
+                            </div>
+                            <p className="text-sm">{getTackleSpecies(t)}</p>
+                          </div>
+                          {!t.name.toUpperCase().includes('RIG') && (
+                            <div>
+                              <a
+                                title={
+                                  'Amazon Buy link for ' +
+                                  t.name +
+                                  ' fishing lures'
+                                }
+                                target="_blank"
+                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                href={
+                                  'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                                  t.name +
+                                  ' fishing lures'
+                                }
+                              >
+                                <span>Buy</span>
+                                <FontAwesomeIcon
+                                  icon={faArrowUpRightFromSquare}
+                                  className="ml-2 max-h-4"
+                                />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  )
+                })}
                 isExpandedByDefault={true}
               ></ContentSection>
             )}
