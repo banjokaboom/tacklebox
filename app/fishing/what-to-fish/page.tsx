@@ -272,7 +272,7 @@ export default function WhatToFish() {
                 />
                 <button
                   onClick={getGeolocation}
-                  className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                  className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-row items-center"
                 >
                   Use Current Location
                   <FontAwesomeIcon
@@ -325,7 +325,10 @@ export default function WhatToFish() {
         {!loading && data.weather.location !== '' && (
           <div className="mb-4">
             <p className="mb-4 flex flex-row">
-              <span>Data loaded for {data.weather.location}</span>
+              <span>
+                Data loaded for{' '}
+                <span className="font-bold">{data.weather.location}</span>
+              </span>
               <button
                 onClick={() => {
                   setData(new FishingData())
@@ -380,9 +383,11 @@ export default function WhatToFish() {
           </div>
         )}
         {!loading && data.species !== '' && (
-          <h2 className="text-3xl mb-4">
+          <h2 className="text-3xl mb-8">
             {useCurrentWeather ? 'Current ' : "Today's "} conditions are{' '}
-            {data.fishingConditions.conditionsText}
+            <span className="text-yellow-400 font-bold">
+              {data.fishingConditions.conditionsText}
+            </span>
             <div className="text-sm">
               (
               {(data.fishingConditions.conditionsText !== 'Not Ideal'

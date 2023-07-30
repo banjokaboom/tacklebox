@@ -75,7 +75,7 @@ describe('WhatToFish', () => {
 
     await user.type(input, '01516')
 
-    const heading = await screen.findByText('Basic Fishing Info')
+    const heading = await screen.findByText('Fish and Bait')
 
     expect(heading).toBeInTheDocument()
   })
@@ -89,7 +89,7 @@ describe('WhatToFish', () => {
 
     await user.selectOptions(combobox, 'Boston,Massachusetts')
 
-    const heading = await screen.findByText('Basic Fishing Info')
+    const heading = await screen.findByText('Fish and Bait')
 
     expect(heading).toBeInTheDocument()
   })
@@ -103,7 +103,7 @@ describe('WhatToFish', () => {
 
     await user.click(button)
 
-    const message = await screen.findByText('Basic Fishing Info')
+    const message = await screen.findByText('Fish and Bait')
 
     expect(message).toBeInTheDocument()
   })
@@ -121,7 +121,7 @@ describe('WhatToFish', () => {
 
     await user.selectOptions(combobox, 'freshwater boat')
 
-    const heading = await screen.findByText('Basic Fishing Info')
+    const heading = await screen.findByText('Fish and Bait')
 
     expect(heading).toBeInTheDocument()
   })
@@ -139,7 +139,7 @@ describe('WhatToFish', () => {
 
     await user.selectOptions(combobox, 'saltwater boat')
 
-    const heading = await screen.findByText('Basic Fishing Info')
+    const heading = await screen.findByText('Fish and Bait')
 
     expect(heading).toBeInTheDocument()
   })

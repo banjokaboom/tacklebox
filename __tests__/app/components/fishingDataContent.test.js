@@ -11,7 +11,7 @@ describe('FishingDataContent', () => {
   it('renders component', () => {
     render(<FishingDataContent data={data} />)
 
-    const title = screen.getByText('Basic Fishing Info')
+    const title = screen.getByText('Fish and Bait')
 
     expect(title).toBeInTheDocument()
   })

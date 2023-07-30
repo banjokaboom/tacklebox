@@ -11,6 +11,9 @@ import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
 import {
   faArrowUpRightFromSquare,
   faFish,
+  faCircleHalfStroke,
+  faCalendar,
+  faCloud,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 
@@ -95,25 +98,45 @@ export default function FishingDataContent({ data }: Props) {
   }
 
   return (
-    <div>
-      <div className="lg:p-4 lg:rounded-md lg:border mb-8">
-        <h2 className="text-2xl mb-4 underline">Basic Fishing Info</h2>
-        <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
-          <div>
+    <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
+      <div>
+        <div className="mb-8">
+          <h2 className="text-2xl underline flex flex-row items-center">
+            <FontAwesomeIcon icon={faFish} className="mr-2" />
+            <span>Fish and Bait</span>
+          </h2>
+          <div className="lg:ml-8">
             <ContentSection
               title="Species to target"
               content={data.species}
               isExpandedByDefault={true}
             ></ContentSection>
 
+            {data.baitRecommendations.baitsToUse !== '' && (
+              <ContentSection
+                title="Baits to use now"
+                content={data.baitRecommendations.baitsToUse}
+              ></ContentSection>
+            )}
+
             {data.baitRecommendations.stylesToUse !== '' && (
               <ContentSection
                 title="Lure colors and styles to use now"
                 content={data.baitRecommendations.stylesToUse}
-                isExpandedByDefault={true}
               ></ContentSection>
             )}
+          </div>
+        </div>
 
+        <div className="mb-8">
+          <h2 className="text-2xl underline flex flex-row items-center">
+            <FontAwesomeIcon
+              icon={faCircleHalfStroke}
+              className="mr-2 -rotate-90"
+            />
+            <span>Lures and Rigs</span>
+          </h2>
+          <div className="lg:ml-8">
             {hasReactionTackle && (
               <ContentSection
                 title="Best reaction lures and rigs"
@@ -125,28 +148,34 @@ export default function FishingDataContent({ data }: Props) {
                   return (
                     reactionTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-col">
-                            <div className="flex flex-row items-center basis-2/3">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div
+                            className={
+                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                            }
+                          >
+                            <div className="flex flex-row items-center">
                               {t.tip && (
                                 <button
-                                  className="flex flex-row items-center text-left w-full"
+                                  className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
                                   title="Click to learn how to use this"
                                   onClick={() => {
                                     setModalContent(t.tip)
                                     setIsModalOpen(true)
                                   }}
                                 >
-                                  <span className="sm:break-words break-all">
-                                    {t.name}
-                                  </span>
+                                  <span>{t.name}</span>
                                   <FontAwesomeIcon
                                     icon={faCircleQuestion}
                                     className="ml-2"
                                   />
                                 </button>
                               )}
-                              {!t.tip && <p>{t.name}</p>}
+                              {!t.tip && (
+                                <p className="text-yellow-400 font-bold">
+                                  {t.name}
+                                </p>
+                              )}
                             </div>
                             <p className="text-sm">{getTackleSpecies(t)}</p>
                           </div>
@@ -159,7 +188,7 @@ export default function FishingDataContent({ data }: Props) {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -194,19 +223,23 @@ export default function FishingDataContent({ data }: Props) {
                   return (
                     finesseTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-col">
-                            <div className="flex flex-row items-center basis-2/3">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div
+                            className={
+                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                            }
+                          >
+                            <div className="flex flex-row items-center">
                               {t.tip && (
                                 <button
-                                  className="flex flex-row items-center text-left w-full"
+                                  className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
                                   title="Click to learn how to use this"
                                   onClick={() => {
                                     setModalContent(t.tip)
                                     setIsModalOpen(true)
                                   }}
                                 >
-                                  <span className="sm:break-words break-all">
+                                  <span className="text-yellow-400">
                                     {t.name}
                                   </span>
                                   <FontAwesomeIcon
@@ -215,7 +248,11 @@ export default function FishingDataContent({ data }: Props) {
                                   />
                                 </button>
                               )}
-                              {!t.tip && <p>{t.name}</p>}
+                              {!t.tip && (
+                                <p className="text-yellow-400 font-bold">
+                                  {t.name}
+                                </p>
+                              )}
                             </div>
                             <p className="text-sm">{getTackleSpecies(t)}</p>
                           </div>
@@ -228,7 +265,7 @@ export default function FishingDataContent({ data }: Props) {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -254,24 +291,92 @@ export default function FishingDataContent({ data }: Props) {
 
             {data.tackle.length > 0 && (
               <ContentSection
+                title="All lures and rigs for conditions"
+                content={tackleAlphabetized.map((t, index) => (
+                  <div key={index} className="mb-4 last:mb-0">
+                    <div className="flex flex-col md:flex-row justify-between">
+                      <div
+                        className={
+                          'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                        }
+                      >
+                        <div className="flex flex-row items-center">
+                          {t.tip && (
+                            <button
+                              className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
+                              title="Click to learn how to use this"
+                              onClick={() => {
+                                setModalContent(t.tip)
+                                setIsModalOpen(true)
+                              }}
+                            >
+                              <span className="text-yellow-400">{t.name}</span>
+                              <FontAwesomeIcon
+                                icon={faCircleQuestion}
+                                className="ml-2"
+                              />
+                            </button>
+                          )}
+                          {!t.tip && (
+                            <p className="text-yellow-400 font-bold">
+                              {t.name}
+                            </p>
+                          )}
+                        </div>
+                        <p className="text-sm">{getTackleSpecies(t)}</p>
+                      </div>
+                      {!t.name.toUpperCase().includes('RIG') && (
+                        <div>
+                          <a
+                            title={
+                              'Amazon Buy link for ' + t.name + ' fishing lures'
+                            }
+                            target="_blank"
+                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                            href={
+                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                              t.name +
+                              ' fishing lures'
+                            }
+                          >
+                            <span>Buy</span>
+                            <FontAwesomeIcon
+                              icon={faArrowUpRightFromSquare}
+                              className="ml-2 max-h-4"
+                            />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              ></ContentSection>
+            )}
+
+            {data.tackle.length > 0 && (
+              <ContentSection
                 title="Try something new"
                 content={
                   <div className="mb-4 last:mb-0">
-                    <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row items-center basis-2/3">
+                    <div className="flex flex-col md:flex-row justify-between">
+                      <div
+                        className={
+                          'flex flex-col' + lowConfidenceTackle.tip
+                            ? ' mb-4 md:mb-0'
+                            : ''
+                        }
+                      >
+                        <div className="flex flex-row items-center">
                           {lowConfidenceTackle.tip && (
                             <button
-                              className="flex flex-row items-center text-left basis-2/3"
+                              className="flex flex-row items-center text-left text-yellow-400 font-bold"
                               title="Click to learn how to use this"
                               onClick={() => {
                                 setModalContent(lowConfidenceTackle.tip)
                                 setIsModalOpen(true)
                               }}
                             >
-                              <span className="sm:break-words break-all">
-                                {lowConfidenceTackle.name}
-                              </span>
+                              <span>{lowConfidenceTackle.name}</span>
                               <FontAwesomeIcon
                                 icon={faCircleQuestion}
                                 className="ml-2"
@@ -279,7 +384,9 @@ export default function FishingDataContent({ data }: Props) {
                             </button>
                           )}
                           {!lowConfidenceTackle.tip && (
-                            <p>{lowConfidenceTackle.name}</p>
+                            <p className="text-yellow-400 font-bold">
+                              {lowConfidenceTackle.name}
+                            </p>
                           )}
                         </div>
                         <p className="text-sm">
@@ -297,7 +404,7 @@ export default function FishingDataContent({ data }: Props) {
                               ' fishing lures'
                             }
                             target="_blank"
-                            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                             href={
                               'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                               lowConfidenceTackle.name +
@@ -315,7 +422,6 @@ export default function FishingDataContent({ data }: Props) {
                     </div>
                   </div>
                 }
-                isExpandedByDefault={true}
               ></ContentSection>
             )}
 
@@ -336,120 +442,15 @@ export default function FishingDataContent({ data }: Props) {
               </div>
             )}
           </div>
-          <div className="basis-4/12 shrink-0">
-            <ContentSection
-              title="Current Weather"
-              content={
-                <div>
-                  <p className="mb-4">
-                    Outdoor Temperature: {data.weather.current.outdoorTemp}
-                  </p>
-                  <p className="mb-4">
-                    Estimated Water Temperature:{' '}
-                    {data.weather.current.waterTemp}
-                  </p>
-                  <p className="mb-4">
-                    Conditions: {data.weather.current.conditions}
-                  </p>
-                  <p className="mb-4">Wind: {data.weather.current.wind}</p>
-                  <p>Pressure: {data.weather.pressure}in.</p>
-                </div>
-              }
-              isExpandedByDefault={true}
-            ></ContentSection>
-
-            <ContentSection
-              title="Today's Weather"
-              content={
-                <div>
-                  <p className="mb-4">
-                    Outdoor Temperature: {data.weather.forecast.outdoorTemp}
-                  </p>
-                  <p className="mb-4">
-                    Estimated Water Temperature:{' '}
-                    {data.weather.forecast.waterTemp}
-                  </p>
-                  <p className="mb-4">
-                    Conditions: {data.weather.forecast.conditions}
-                  </p>
-                  <p>Wind: {data.weather.forecast.wind}</p>
-                </div>
-              }
-              isExpandedByDefault={true}
-            ></ContentSection>
-          </div>
         </div>
       </div>
-      <div className="lg:p-4 lg:rounded-md lg:border">
-        <h2 className="text-2xl mb-4 underline">Advanced Fishing Info</h2>
-        <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
-          <div>
-            {data.baitRecommendations.baitsToUse !== '' && (
-              <ContentSection
-                title="Baits to use now"
-                content={data.baitRecommendations.baitsToUse}
-              ></ContentSection>
-            )}
-
-            {data.tackle.length > 0 && (
-              <ContentSection
-                title="All lures and rigs for conditions"
-                content={tackleAlphabetized.map((t, index) => (
-                  <div key={index} className="mb-4 last:mb-0">
-                    <div className="flex flex-row items-center justify-between space-x-2">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row items-center basis-2/3">
-                          {t.tip && (
-                            <button
-                              className="flex flex-row items-center text-left w-full"
-                              title="Click to learn how to use this"
-                              onClick={() => {
-                                setModalContent(t.tip)
-                                setIsModalOpen(true)
-                              }}
-                            >
-                              <span className="sm:break-words break-all">
-                                {t.name}
-                              </span>
-                              <FontAwesomeIcon
-                                icon={faCircleQuestion}
-                                className="ml-2"
-                              />
-                            </button>
-                          )}
-                          {!t.tip && <p>{t.name}</p>}
-                        </div>
-                        <p className="text-sm">{getTackleSpecies(t)}</p>
-                      </div>
-                      {!t.name.toUpperCase().includes('RIG') && (
-                        <div>
-                          <a
-                            title={
-                              'Amazon Buy link for ' + t.name + ' fishing lures'
-                            }
-                            target="_blank"
-                            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                            href={
-                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                              t.name +
-                              ' fishing lures'
-                            }
-                          >
-                            <span>Buy</span>
-                            <FontAwesomeIcon
-                              icon={faArrowUpRightFromSquare}
-                              className="ml-2 max-h-4"
-                            />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              ></ContentSection>
-            )}
-          </div>
-          <div className="basis-4/12 shrink-0">
+      <div className="basis-4/12 shrink-0">
+        <div className="mb-8">
+          <h2 className="text-2xl underline flex flex-row items-center">
+            <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+            <span>Seasonal Info</span>
+          </h2>
+          <div className="lg:ml-8">
             <ContentSection
               title="Season"
               content={data.seasons}
@@ -496,20 +497,69 @@ export default function FishingDataContent({ data }: Props) {
           </div>
         </div>
 
-        <Modal isOpen={isModalOpen} contentLabel="Tackle Modal">
-          <div className="text-slate-700 mb-4">
-            {ReactHtmlParser(modalContent)}
+        <div className="mb-8">
+          <h2 className="text-2xl underline flex flex-row items-center">
+            <FontAwesomeIcon icon={faCloud} className="mr-2" />
+            <span>Weather</span>
+          </h2>
+          <div className="lg:ml-8">
+            <ContentSection
+              title="Current Weather"
+              content={
+                <div>
+                  <p className="mb-4">
+                    Outdoor Temperature: {data.weather.current.outdoorTemp}
+                  </p>
+                  <p className="mb-4">
+                    Estimated Water Temperature:{' '}
+                    {data.weather.current.waterTemp}
+                  </p>
+                  <p className="mb-4">
+                    Conditions: {data.weather.current.conditions}
+                  </p>
+                  <p className="mb-4">Wind: {data.weather.current.wind}</p>
+                  <p>Pressure: {data.weather.pressure}in.</p>
+                </div>
+              }
+              isExpandedByDefault={true}
+            ></ContentSection>
+
+            <ContentSection
+              title="Today's Weather"
+              content={
+                <div>
+                  <p className="mb-4">
+                    Outdoor Temperature: {data.weather.forecast.outdoorTemp}
+                  </p>
+                  <p className="mb-4">
+                    Estimated Water Temperature:{' '}
+                    {data.weather.forecast.waterTemp}
+                  </p>
+                  <p className="mb-4">
+                    Conditions: {data.weather.forecast.conditions}
+                  </p>
+                  <p>Wind: {data.weather.forecast.wind}</p>
+                </div>
+              }
+              isExpandedByDefault={true}
+            ></ContentSection>
           </div>
-          <button
-            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
-            onClick={() => {
-              setIsModalOpen(false)
-            }}
-          >
-            Close
-          </button>
-        </Modal>
+        </div>
       </div>
+
+      <Modal isOpen={isModalOpen} contentLabel="Tackle Modal">
+        <div className="text-slate-700 mb-4">
+          {ReactHtmlParser(modalContent)}
+        </div>
+        <button
+          className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md"
+          onClick={() => {
+            setIsModalOpen(false)
+          }}
+        >
+          Close
+        </button>
+      </Modal>
     </div>
   )
 }

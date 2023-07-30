@@ -200,7 +200,7 @@ export default function OilPrices() {
                   </div>
                   <a
                     title={'Buy heating oil from ' + data.company}
-                    className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                    className="p-2 block w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md"
                     href={data.url}
                     target="_blank"
                   >
@@ -228,7 +228,7 @@ export default function OilPrices() {
                   </div>
                   <a
                     title={'Buy heating oil from ' + oil.company}
-                    className="p-2 block w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                    className="p-2 block w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md"
                     href={oil.url}
                     target="_blank"
                   >

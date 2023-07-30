@@ -201,7 +201,7 @@ export default function TackleBySpecies() {
         {data.tackle.length > 0 && (
           <div>
             <button
-              className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+              className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-row items-center"
               onClick={chooseRandomTackle}
             >
               Help me pick!
@@ -226,9 +226,13 @@ export default function TackleBySpecies() {
                   return (
                     reactionTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-col">
-                            <div className="flex flex-row items-center basis-2/3">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div
+                            className={
+                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                            }
+                          >
+                            <div className="flex flex-row items-center">
                               {t.tip && (
                                 <button
                                   className="flex flex-row items-center text-left w-full"
@@ -259,7 +263,7 @@ export default function TackleBySpecies() {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -294,9 +298,13 @@ export default function TackleBySpecies() {
                   return (
                     finesseTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-col">
-                            <div className="flex flex-row items-center basis-2/3">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div
+                            className={
+                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                            }
+                          >
+                            <div className="flex flex-row items-center">
                               {t.tip && (
                                 <button
                                   className="flex flex-row items-center text-left w-full"
@@ -327,7 +335,7 @@ export default function TackleBySpecies() {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -362,9 +370,13 @@ export default function TackleBySpecies() {
                   return (
                     stillTackleCount <= 5 && (
                       <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-row items-center justify-between space-x-2">
-                          <div className="flex flex-col">
-                            <div className="flex flex-row items-center basis-2/3">
+                        <div className="flex flex-col md:flex-row justify-between">
+                          <div
+                            className={
+                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                            }
+                          >
+                            <div className="flex flex-row items-center">
                               {t.tip && (
                                 <button
                                   className="flex flex-row items-center text-left w-full"
@@ -395,7 +407,7 @@ export default function TackleBySpecies() {
                                   ' fishing lures'
                                 }
                                 target="_blank"
-                                className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
                                 href={
                                   'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
                                   t.name +
@@ -434,7 +446,7 @@ export default function TackleBySpecies() {
           {ReactHtmlParser(modalContent)}
         </div>
         <button
-          className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+          className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md"
           onClick={() => {
             setIsModalOpen(false)
           }}

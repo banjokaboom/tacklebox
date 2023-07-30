@@ -194,7 +194,7 @@ export default function WhatToMake() {
           />
           <button
             onClick={refresh}
-            className="p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-flow items-center"
+            className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-flow items-center"
           >
             <span>Randomize recipes</span>
             <FontAwesomeIcon icon={faDiceSix} className="ml-2" />
@@ -271,7 +271,7 @@ export default function WhatToMake() {
               ></ContentSection>
               <button
                 onClick={copyIngredients}
-                className="mt-4 p-2 w-fit bg-amber-600 hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                className="mt-4 p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md"
               >
                 Copy Ingredients
               </button>
