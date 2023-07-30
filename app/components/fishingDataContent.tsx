@@ -69,15 +69,17 @@ export default function FishingDataContent({ data }: Props) {
       moonPhaseOuterClassName = 'bg-slate-700'
       break
     case 'Waxing Crescent':
-      moonPhaseInnerClassName = 'bg-slate-700 right-[25%] left-0 rounded-full'
+      moonPhaseInnerClassName =
+        'bg-slate-700 right-[25%] -left-[25%] rounded-full'
       moonPhaseOuterClassName = 'bg-slate-50'
       break
     case 'First Quarter':
-      moonPhaseInnerClassName = 'bg-slate-700 right-[50%] left-0'
+      moonPhaseInnerClassName = 'bg-slate-700 right-[50%] -left-[50%]'
       moonPhaseOuterClassName = 'bg-slate-50'
       break
     case 'Waxing Gibbous':
-      moonPhaseInnerClassName = 'bg-slate-50 left-[25%] right-0 rounded-full'
+      moonPhaseInnerClassName =
+        'bg-slate-50 left-[25%] -right-[25%] rounded-full'
       moonPhaseOuterClassName = 'bg-slate-700'
       break
     case 'Full Moon':
@@ -85,15 +87,17 @@ export default function FishingDataContent({ data }: Props) {
       moonPhaseOuterClassName = 'bg-slate-50'
       break
     case 'Waning Gibbous':
-      moonPhaseInnerClassName = 'bg-slate-50 right-[25%] left-0 rounded-full'
+      moonPhaseInnerClassName =
+        'bg-slate-50 right-[25%] -left-[25%] rounded-full'
       moonPhaseOuterClassName = 'bg-slate-700'
       break
     case 'Last Quarter':
-      moonPhaseInnerClassName = 'bg-slate-700 left-[50%] right-0'
+      moonPhaseInnerClassName = 'bg-slate-700 left-[50%] -right-[50%]'
       moonPhaseOuterClassName = 'bg-slate-50'
       break
     case 'Waning Crescent':
-      moonPhaseInnerClassName = 'bg-slate-700 left-[25%] right-0 rounded-full'
+      moonPhaseInnerClassName =
+        'bg-slate-700 left-[25%] -right-[25%] rounded-full'
       moonPhaseOuterClassName = 'bg-slate-50'
       break
   }
@@ -549,16 +553,18 @@ export default function FishingDataContent({ data }: Props) {
                   <p className="mb-2">
                     Moon phase: {data.weather.astro.moon_phase}
                   </p>
-                  <div
-                    className={
-                      'rounded-full overflow-hidden h-10 w-10 relative border-2 ' +
-                      moonPhaseOuterClassName
-                    }
-                  >
+                  {moonPhaseInnerClassName !== '' && (
                     <div
-                      className={'absolute h-full ' + moonPhaseInnerClassName}
-                    ></div>
-                  </div>
+                      className={
+                        'rounded-full overflow-hidden h-10 w-10 relative border-2 ' +
+                        moonPhaseOuterClassName
+                      }
+                    >
+                      <div
+                        className={'absolute h-full ' + moonPhaseInnerClassName}
+                      ></div>
+                    </div>
+                  )}
                 </div>
               }
             ></ContentSection>
