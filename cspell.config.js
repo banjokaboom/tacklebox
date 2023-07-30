@@ -70,5 +70,7 @@ module.exports = {
     'newhampshire',
     'rhodeisland',
     'Greenview',
+    'jerkbaits',
+    'SWIMBAIT',
   ],
 }

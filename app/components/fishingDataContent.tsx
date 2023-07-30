@@ -16,6 +16,12 @@ import {
   faCloud,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
+import Image from 'next/image'
+import crankbaits from '@/app/assets/images/crankbaits.jpg'
+import jerkbaits from '@/app/assets/images/jerkbaits.jpg'
+import poppers from '@/app/assets/images/poppers.jpg'
+import spinners from '@/app/assets/images/spinners.jpg'
+import swimbaits from '@/app/assets/images/swimbaits.jpg'
 
 interface Props {
   data: FishingData
@@ -90,6 +96,20 @@ export default function FishingDataContent({ data }: Props) {
       moonPhaseInnerClassName = 'bg-slate-700 left-[25%] right-0 rounded-full'
       moonPhaseOuterClassName = 'bg-slate-50'
       break
+  }
+
+  let modalImage = null
+
+  if (modalContent.toUpperCase().includes('CRANKBAIT')) {
+    modalImage = crankbaits
+  } else if (modalContent.toUpperCase().includes('JERKBAIT')) {
+    modalImage = jerkbaits
+  } else if (modalContent.toUpperCase().includes('POPPER')) {
+    modalImage = poppers
+  } else if (modalContent.toUpperCase().includes('SPINNER')) {
+    modalImage = spinners
+  } else if (modalContent.toUpperCase().includes('SWIMBAIT')) {
+    modalImage = swimbaits
   }
 
   useEffect(() => {
@@ -598,6 +618,14 @@ export default function FishingDataContent({ data }: Props) {
       <Modal isOpen={isModalOpen} contentLabel="Tackle Modal">
         <div className="text-slate-700 mb-4">
           {ReactHtmlParser(modalContent)}
+          {modalImage && (
+            <Image
+              src={modalImage}
+              alt="Photo of lures"
+              className="pt-4 max-w-full"
+              width="500"
+            />
+          )}
         </div>
         <button
           className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md"
