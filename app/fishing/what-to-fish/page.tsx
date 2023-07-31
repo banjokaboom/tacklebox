@@ -246,6 +246,11 @@ export default function WhatToFish() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">What to Fish</h1>
         <hr className="mb-4" />
+        <p className="mb-4">
+          Looking to find out what lures or rigs you should use, or what species
+          are best to fish for at your current location with the current
+          weather? You can use this to help figure that out and more!
+        </p>
         {data.weather.location == '' && !loading && (
           <div>
             <p className="mb-4">
