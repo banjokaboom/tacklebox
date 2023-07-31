@@ -44,6 +44,14 @@ function pickBaitRecommendations(
   }
 
   if (
+    species.includes('smallmouth bass') &&
+    (seasons.includes('bass pre-spawn') ||
+      seasons.includes('smallmouth bass spawn'))
+  ) {
+    baitToUse.push('tubes')
+  }
+
+  if (
     seasons.includes('summer') ||
     seasons.includes('fall') ||
     seasons.includes('winter')
