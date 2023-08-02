@@ -59,7 +59,7 @@ nav a {
   background-color: rgba(51 65 85 / 75%) !important;
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (width >= 1024px) {
   /* stylelint-disable */
   .ReactModal__Content {
     /* stylelint-enable */

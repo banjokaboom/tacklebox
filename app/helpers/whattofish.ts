@@ -170,6 +170,15 @@ export function getFishingConditions(
     }
   }
 
+  if (
+    weather.forecast.forecastday[0].astro.moon_phase.includes('New') ||
+    weather.forecast.forecastday[0].astro.moon_phase.includes('Full') ||
+    weather.forecast.forecastday[0].astro.moon_phase.includes('Quarter')
+  ) {
+    starRating++
+    positiveConditionsNotes.push('optimal moon phase')
+  }
+
   const excellentStarRating = useCurrentWeather ? 11 : 5
   const reallyGoodStarRating = useCurrentWeather ? 8 : 3
   const goodStarRating = useCurrentWeather ? 5 : 1

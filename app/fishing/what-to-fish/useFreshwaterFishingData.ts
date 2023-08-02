@@ -106,8 +106,6 @@ function getFishingSeasons(
   const waterTemp =
     waterTempMultiplier * weather.forecast.forecastday[0].day.maxtemp_f
 
-  console.log(waterTemp)
-
   if (cityStateString && cityStateString !== '') {
     state = cityStateString.split(',')[1]
   } else {
