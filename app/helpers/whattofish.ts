@@ -374,7 +374,16 @@ export function getWeatherValues(weather: any, seasons: string): WeatherData {
   astro.sunset = weather.forecast.forecastday[0].astro.sunset
   astro.moonrise = weather.forecast.forecastday[0].astro.moonrise
   astro.moonset = weather.forecast.forecastday[0].astro.moonset
-  astro.moon_phase = weather.forecast.forecastday[0].astro.moon_phase
+
+  let moonPhase = ''
+  if (weather.forecast.forecastday[0].astro.moon_illumination >= 95) {
+    moonPhase = 'Full Moon'
+  } else if (weather.forecast.forecastday[0].astro.moon_illumination <= 5) {
+    moonPhase = 'New Moon'
+  } else {
+    moonPhase = weather.forecast.forecastday[0].astro.moon_phase
+  }
+  astro.moon_phase = moonPhase
 
   weatherData.current = current
   weatherData.forecast = forecast
