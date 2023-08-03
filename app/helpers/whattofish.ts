@@ -171,8 +171,8 @@ export function getFishingConditions(
   }
 
   if (
-    weather.forecast.forecastday[0].astro.moon_phase.includes('New') ||
-    weather.forecast.forecastday[0].astro.moon_phase.includes('Full') ||
+    weather.forecast.forecastday[0].astro.moon_illumination >= 95 ||
+    weather.forecast.forecastday[0].astro.moon_illumination <= 5 ||
     weather.forecast.forecastday[0].astro.moon_phase.includes('Quarter')
   ) {
     starRating++
