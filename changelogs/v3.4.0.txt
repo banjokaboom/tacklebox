@@ -1,0 +1,12 @@
+050d325 adjusted optimal moon phase condition logic
+daea4e4 fixed new and full moon phases
+f340eb5 resolved stylelint error, added moon phase to conditions logic
+b07ed1a added tubes to baits to use for smallies
+7f1e5eb added some helper text to What to Fish app
+237284e improved display of moon phase
+c28ce8d added lure images
+b6841f9 added visual for moon phases
+8352559 added lg media query
+203144d tweaked modal styles
+4a9d8fa slight rebranding around amber color, changed to yellow-400
+00e9299 reorganized lures on what to fish and tackle by species pages

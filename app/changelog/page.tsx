@@ -1,11 +1,11 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.2.0 > changelogs/v3.3.0.txt
+ * git log --oneline --decorate=no HEAD...v3.3.0 > changelogs/v3.4.0.txt
  *
  * To count for version tag
  *
- * git rev-list HEAD...v3.1.0 --count
+ * git rev-list HEAD...v3.3.0 --count
  */
 
 import ContentSection from '@/app/components/content'
@@ -25,6 +25,39 @@ export default function ChangeLog() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
+
+        <ContentSection
+          title="v3.4.0"
+          content={
+            <div>
+              <p className="mb-4 last:mb-0">
+                adjusted optimal moon phase condition logic
+              </p>
+              <p className="mb-4 last:mb-0">fixed new and full moon phases</p>
+              <p className="mb-4 last:mb-0">
+                added moon phase to conditions logic
+              </p>
+              <p className="mb-4 last:mb-0">
+                added tubes to baits to use for smallies
+              </p>
+              <p className="mb-4 last:mb-0">
+                added some helper text to What to Fish app
+              </p>
+              <p className="mb-4 last:mb-0">improved display of moon phase</p>
+              <p className="mb-4 last:mb-0">added lure images</p>
+              <p className="mb-4 last:mb-0">added visual for moon phases</p>
+              <p className="mb-4 last:mb-0">tweaked modal styles</p>
+              <p className="mb-4 last:mb-0">
+                slight rebranding around amber color, changed to yellow-400
+              </p>
+              <p className="mb-4 last:mb-0">
+                reorganized lures on what to fish and tackle by species pages
+              </p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
+
         <ContentSection
           title="v3.3.0"
           content={
@@ -62,7 +95,6 @@ export default function ChangeLog() {
               </p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection
