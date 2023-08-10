@@ -11,7 +11,7 @@ export function getFishingConditions(
   weather: any,
   species: string,
   seasons: string,
-  useCurrentWeather: boolean
+  weatherForecastToUse: string
 ) {
   let fishingConditionsText: string = ''
   let positiveConditionsNotes: string[] = []
@@ -36,7 +36,7 @@ export function getFishingConditions(
     positiveConditionsNotes.push('a few active species')
   }
 
-  if (useCurrentWeather) {
+  if (weatherForecastToUse == 'current') {
     const now = new Date()
     let sunrise = new Date()
     sunrise.setHours(
@@ -147,13 +147,18 @@ export function getFishingConditions(
       positiveConditionsNotes.push('partly cloudy')
     }
   } else {
-    if (weather.forecast.forecastday[0].day.maxwind_mph < 6) {
+    let forecastDayIndex = weatherForecastToUse == 'today' ? 0 : 1
+    if (weather.forecast.forecastday[forecastDayIndex].day.maxwind_mph < 6) {
       starRating += 3
       positiveConditionsNotes.push('not too windy')
-    } else if (weather.forecast.forecastday[0].day.maxwind_mph < 10) {
+    } else if (
+      weather.forecast.forecastday[forecastDayIndex].day.maxwind_mph < 10
+    ) {
       starRating += 2
       positiveConditionsNotes.push('fairly windy')
-    } else if (weather.forecast.forecastday[0].day.maxwind_mph < 13) {
+    } else if (
+      weather.forecast.forecastday[forecastDayIndex].day.maxwind_mph < 13
+    ) {
       starRating++
       positiveConditionsNotes.push('pretty windy')
     } else {
@@ -161,7 +166,10 @@ export function getFishingConditions(
       negativeConditionsNotes.push('very windy')
     }
 
-    if (weather.forecast.forecastday[0].day.daily_chance_of_rain < 70) {
+    if (
+      weather.forecast.forecastday[forecastDayIndex].day.daily_chance_of_rain <
+      70
+    ) {
       starRating++
       positiveConditionsNotes.push('low to no chance of rain')
     } else {
@@ -179,10 +187,10 @@ export function getFishingConditions(
     positiveConditionsNotes.push('optimal moon phase')
   }
 
-  const excellentStarRating = useCurrentWeather ? 11 : 5
-  const reallyGoodStarRating = useCurrentWeather ? 8 : 3
-  const goodStarRating = useCurrentWeather ? 5 : 1
-  const okStarRating = useCurrentWeather ? 2 : 1
+  const excellentStarRating = weatherForecastToUse ? 11 : 5
+  const reallyGoodStarRating = weatherForecastToUse ? 8 : 3
+  const goodStarRating = weatherForecastToUse ? 5 : 1
+  const okStarRating = weatherForecastToUse ? 2 : 1
 
   if (starRating > excellentStarRating) {
     fishingConditionsText += 'Excellent'
@@ -341,7 +349,9 @@ export function isTackleForWeather(tackle: Tackle, waterTemp: number): boolean {
 export function getWeatherValues(weather: any, seasons: string): WeatherData {
   let weatherData = new WeatherData()
   let current = new WeatherDataChild()
-  let forecast = new WeatherDataChild()
+  let forecast: WeatherDataChild[] = []
+  let forecastDayOne = new WeatherDataChild()
+  let forecastDayTwo = new WeatherDataChild()
   let astro = new AstroData()
   const mainSeasons = []
   seasons.split(',').forEach((season) => {
@@ -362,13 +372,23 @@ export function getWeatherValues(weather: any, seasons: string): WeatherData {
   current.conditions = weather.current.condition.text
   current.wind = weather.current.wind_mph + 'mph'
 
-  forecast.outdoorTemp = weather.forecast.forecastday[0].day.maxtemp_f + 'F'
-  forecast.waterTemp =
+  forecastDayOne.outdoorTemp =
+    weather.forecast.forecastday[0].day.maxtemp_f + 'F'
+  forecastDayOne.waterTemp =
     (
       weather.forecast.forecastday[0].day.maxtemp_f * waterTempMultiplier
     ).toFixed(0) + 'F'
-  forecast.conditions = weather.forecast.forecastday[0].day.condition.text
-  forecast.wind = weather.forecast.forecastday[0].day.maxwind_mph + 'mph'
+  forecastDayOne.conditions = weather.forecast.forecastday[0].day.condition.text
+  forecastDayOne.wind = weather.forecast.forecastday[0].day.maxwind_mph + 'mph'
+
+  forecastDayTwo.outdoorTemp =
+    weather.forecast.forecastday[1].day.maxtemp_f + 'F'
+  forecastDayTwo.waterTemp =
+    (
+      weather.forecast.forecastday[1].day.maxtemp_f * waterTempMultiplier
+    ).toFixed(0) + 'F'
+  forecastDayTwo.conditions = weather.forecast.forecastday[1].day.condition.text
+  forecastDayTwo.wind = weather.forecast.forecastday[1].day.maxwind_mph + 'mph'
 
   astro.sunrise = weather.forecast.forecastday[0].astro.sunrise
   astro.sunset = weather.forecast.forecastday[0].astro.sunset
@@ -386,6 +406,7 @@ export function getWeatherValues(weather: any, seasons: string): WeatherData {
   astro.moon_phase = moonPhase
 
   weatherData.current = current
+  forecast.push(forecastDayOne, forecastDayTwo)
   weatherData.forecast = forecast
   weatherData.location = weather.location.name + ', ' + weather.location.region
   weatherData.pressure = weather.current.pressure_in

@@ -317,7 +317,7 @@ function getFishingSeasons(
 export async function getFreshwaterFishingData(
   zip: string,
   cityState: string,
-  useCurrentWeather: boolean,
+  weatherForecastToUse: string,
   tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
@@ -337,9 +337,14 @@ export async function getFreshwaterFishingData(
     fishingData.seasons = getFishingSeasons(weather, cityState, cityStateList)
     fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
-    const waterTemp = useCurrentWeather
-      ? parseFloat(fishingData.weather.current.waterTemp)
-      : parseFloat(fishingData.weather.forecast.waterTemp)
+    const waterTemp =
+      weatherForecastToUse == 'current'
+        ? parseFloat(fishingData.weather.current.waterTemp)
+        : parseFloat(
+            fishingData.weather.forecast[
+              weatherForecastToUse == 'today' ? 0 : 1
+            ].waterTemp
+          )
 
     fishingData.species = getSpecies(waterTemp, fishingData.seasons)
     fishingData.baitRecommendations = pickBaitRecommendations(
@@ -359,7 +364,7 @@ export async function getFreshwaterFishingData(
       weather,
       fishingData.species,
       fishingData.seasons,
-      useCurrentWeather
+      weatherForecastToUse
     )
   } else if (
     geolocation !== '' ||

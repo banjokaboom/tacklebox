@@ -603,16 +603,36 @@ export default function FishingDataContent({ data }: Props) {
               content={
                 <div>
                   <p className="mb-4">
-                    Outdoor Temperature: {data.weather.forecast.outdoorTemp}
+                    Outdoor Temperature: {data.weather.forecast[0].outdoorTemp}
                   </p>
                   <p className="mb-4">
                     Estimated Water Temperature:{' '}
-                    {data.weather.forecast.waterTemp}
+                    {data.weather.forecast[0].waterTemp}
                   </p>
                   <p className="mb-4">
-                    Conditions: {data.weather.forecast.conditions}
+                    Conditions: {data.weather.forecast[0].conditions}
                   </p>
-                  <p>Wind: {data.weather.forecast.wind}</p>
+                  <p>Wind: {data.weather.forecast[0].wind}</p>
+                </div>
+              }
+              isExpandedByDefault={true}
+            ></ContentSection>
+
+            <ContentSection
+              title="Tomorrow's Weather"
+              content={
+                <div>
+                  <p className="mb-4">
+                    Outdoor Temperature: {data.weather.forecast[1].outdoorTemp}
+                  </p>
+                  <p className="mb-4">
+                    Estimated Water Temperature:{' '}
+                    {data.weather.forecast[1].waterTemp}
+                  </p>
+                  <p className="mb-4">
+                    Conditions: {data.weather.forecast[1].conditions}
+                  </p>
+                  <p>Wind: {data.weather.forecast[1].wind}</p>
                 </div>
               }
               isExpandedByDefault={true}

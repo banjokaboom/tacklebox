@@ -39,7 +39,7 @@ function getFishingSeasons(): string {
 export async function getSaltwaterFishingData(
   zip: string,
   cityState: string,
-  useCurrentWeather: boolean,
+  weatherForecastToUse: string,
   tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
@@ -59,9 +59,14 @@ export async function getSaltwaterFishingData(
     fishingData.seasons = getFishingSeasons()
     fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
-    const waterTemp = useCurrentWeather
-      ? parseFloat(fishingData.weather.current.waterTemp)
-      : parseFloat(fishingData.weather.forecast.waterTemp)
+    const waterTemp =
+      weatherForecastToUse == 'current'
+        ? parseFloat(fishingData.weather.current.waterTemp)
+        : parseFloat(
+            fishingData.weather.forecast[
+              weatherForecastToUse == 'today' ? 0 : 1
+            ].waterTemp
+          )
 
     fishingData.species = getSpecies(waterTemp)
     fishingData.baitRecommendations = pickBaitRecommendations()
@@ -78,7 +83,7 @@ export async function getSaltwaterFishingData(
       weather,
       fishingData.species,
       fishingData.seasons,
-      useCurrentWeather
+      weatherForecastToUse
     )
   } else if (
     geolocation !== '' ||

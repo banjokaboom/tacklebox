@@ -9,7 +9,7 @@ export default class WeatherData {
   public location: string
   public pressure: number
   public current: WeatherDataChild
-  public forecast: WeatherDataChild
+  public forecast: WeatherDataChild[]
   public astro: AstroData
 
   constructor() {
@@ -20,7 +20,7 @@ export default class WeatherData {
     this.location = ''
     this.pressure = 0
     this.current = new WeatherDataChild()
-    this.forecast = new WeatherDataChild()
+    this.forecast = []
     this.astro = new AstroData()
   }
 }

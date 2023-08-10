@@ -467,12 +467,20 @@
       "conditions": "Sunny",
       "wind": "2.2mph"
     },
-    "forecast": {
-      "outdoorTemp": "85.5F",
-      "waterTemp": "81F",
-      "conditions": "Patchy rain possible",
-      "wind": "10.1mph"
-    },
+    "forecast": [
+      {
+        "outdoorTemp": "85.5F",
+        "waterTemp": "81F",
+        "conditions": "Patchy rain possible",
+        "wind": "10.1mph"
+      },
+      {
+        "outdoorTemp": "85.5F",
+        "waterTemp": "81F",
+        "conditions": "Patchy rain possible",
+        "wind": "10.1mph"
+      }
+    ],
     "astro": {
       "sunrise": "05:32 AM",
       "sunset": "08:14 PM",

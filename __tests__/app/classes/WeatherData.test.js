@@ -14,6 +14,6 @@ describe('WeatherData', () => {
     expect(weatherData.location).toBe('')
     expect(weatherData.pressure).toBe(0)
     expect(weatherData.current).toStrictEqual(new WeatherDataChild())
-    expect(weatherData.forecast).toStrictEqual(new WeatherDataChild())
+    expect(weatherData.forecast.length).toBe(0)
   })
 })

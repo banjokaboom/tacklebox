@@ -12,6 +12,7 @@ import '@testing-library/jest-dom'
 import { getSaltwaterFishingData } from '@/app/fishing/what-to-fish/useSaltwaterFishingData'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
+import weatherJSON from '../../../mockData/weather.json'
 
 let tackleList = []
 let cityStatesList = []
@@ -40,55 +41,52 @@ function resetTestData() {
 
   tackleList = tackleJSON.tackle
   cityStatesList = cityStateJSON.cityStates
-
-  /* cSpell:disable */
-  weatherData = {
-    location: {
-      name: 'Boston',
-      region: 'Massachusetts',
-    },
-    current: {
-      temp_f: 75,
-      condition: {
-        text: 'Partly cloudy',
-        icon: '//cdn.weatherapi.com/weather/64x64/night/116.png',
-        code: 1003,
-      },
-      wind_mph: 6.9,
-      cloud: 0,
-      feelslike_f: 75,
-    },
-    forecast: {
-      forecastday: [
-        {
-          day: {
-            maxtemp_f: 75,
-            mintemp_f: 60,
-            avgtemp_f: 62.5,
-            maxwind_mph: 8.9,
-            condition: {
-              text: 'Mist',
-            },
-          },
-          astro: {
-            sunrise: '05:22 AM',
-            sunset: '08:23 PM',
-            moonrise: '01:13 AM',
-            moonset: '04:08 PM',
-            moon_phase: 'Waning Crescent',
-            moon_illumination: '30',
-            is_moon_up: 0,
-            is_sun_up: 1,
-          },
-          hour: [],
-        },
-      ],
-    },
-  }
-  /* cSpell:enable */
+  weatherData = weatherJSON
 }
 
 describe('useFishingData', () => {
+  it('loads recommendations for current weather', async () => {
+    const result = await getSaltwaterFishingData(
+      '01516',
+      '',
+      'current',
+      tackleList,
+      cityStatesList,
+      '',
+      'saltwater bank'
+    )
+
+    expect(result.tackle.length).toBeGreaterThan(0)
+  })
+
+  it("loads recommendations for today's weather", async () => {
+    const result = await getSaltwaterFishingData(
+      '01516',
+      '',
+      'today',
+      tackleList,
+      cityStatesList,
+      '',
+      'saltwater bank'
+    )
+
+    expect(result.tackle.length).toBeGreaterThan(0)
+  })
+
+  it("loads recommendations for tomorrow's weather", async () => {
+    const result = await getSaltwaterFishingData(
+      '01516',
+      '',
+      'tomorrow',
+      tackleList,
+      cityStatesList,
+      '',
+      'saltwater bank'
+    )
+
+    expect(result.tackle.length).toBeGreaterThan(0)
+  })
+
   it('loads recommendations for spring:3', async () => {
     date.setMonth('2')
     // eslint-disable-next-line
@@ -97,7 +95,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -115,7 +113,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -133,7 +131,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -151,7 +149,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -169,7 +167,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -187,7 +185,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -205,7 +203,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -223,7 +221,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -241,7 +239,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -259,7 +257,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -277,7 +275,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -295,7 +293,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -313,7 +311,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -331,7 +329,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -349,7 +347,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -367,7 +365,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -383,7 +381,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -394,12 +392,12 @@ describe('useFishingData', () => {
   })
 
   it('warning for cold water', async () => {
-    weatherData.current.feelslike_f = 32
+    weatherData.current.feelslike_f = 30
 
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -443,7 +441,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -472,7 +470,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -501,7 +499,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -530,7 +528,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -559,7 +557,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -588,7 +586,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -617,7 +615,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',
@@ -646,7 +644,7 @@ describe('useFishingData', () => {
     const result = await getSaltwaterFishingData(
       '01516',
       '',
-      true,
+      'current',
       tackleList,
       cityStatesList,
       '',

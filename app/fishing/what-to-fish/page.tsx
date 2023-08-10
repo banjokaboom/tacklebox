@@ -20,7 +20,7 @@ export default function WhatToFish() {
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [waterType, setWaterType] = useState('freshwater bank')
-  let [useCurrentWeather, setUseCurrentWeather] = useState(true)
+  let [weatherForecastToUse, setWeatherForecastToUse] = useState('current')
   let [loading, setLoading] = useState(true)
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
@@ -157,7 +157,7 @@ export default function WhatToFish() {
             fishingData = await getFreshwaterFishingData(
               zip,
               cityState,
-              useCurrentWeather,
+              weatherForecastToUse,
               tackleList,
               cityStateList,
               geolocation,
@@ -167,7 +167,7 @@ export default function WhatToFish() {
             fishingData = await getSaltwaterFishingData(
               zip,
               cityState,
-              useCurrentWeather,
+              weatherForecastToUse,
               tackleList,
               cityStateList,
               geolocation,
@@ -214,7 +214,7 @@ export default function WhatToFish() {
   }, [
     zip,
     cityState,
-    useCurrentWeather,
+    weatherForecastToUse,
     geolocation,
     tackleList,
     cityStateList,
@@ -368,20 +368,21 @@ export default function WhatToFish() {
                 </select>
               </div>
               <div>
-                <label htmlFor="useCurrentWeather" className="mb-4 block">
+                <label htmlFor="weatherForecastToUse" className="mb-4 block">
                   Use current weather or forecast?
                 </label>
                 <select
-                  name="useCurrentWeather"
-                  id="useCurrentWeather"
+                  name="weatherForecastToUse"
+                  id="weatherForecastToUse"
                   onChange={(e) => {
-                    setUseCurrentWeather(e.target.value == 'true')
+                    setWeatherForecastToUse(e.target.value)
                   }}
                   className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
-                  value={'' + useCurrentWeather}
+                  value={'' + weatherForecastToUse}
                 >
-                  <option value="true">Current</option>
-                  <option value="false">Forecast</option>
+                  <option value="current">Current</option>
+                  <option value="today">Today&apos;s Forecast</option>
+                  <option value="tomorrow">Tomorrow&apos;s Forecast</option>
                 </select>
               </div>
             </div>
@@ -389,7 +390,9 @@ export default function WhatToFish() {
         )}
         {!loading && data.species !== '' && (
           <h2 className="text-3xl mb-8">
-            {useCurrentWeather ? 'Current ' : "Today's "} conditions are{' '}
+            {weatherForecastToUse.charAt(0).toUpperCase() +
+              weatherForecastToUse.slice(1)}
+            {weatherForecastToUse == 'current' ?? "'s "} conditions are{' '}
             <span className="text-yellow-400 font-bold">
               {data.fishingConditions.conditionsText}
             </span>
