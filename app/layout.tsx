@@ -1,3 +1,5 @@
+'use client'
+
 import './assets/css/globals.css'
 import { Inter } from 'next/font/google'
 import Header from './components/header'
@@ -5,13 +7,9 @@ import Footer from './components/footer'
 import React, { Suspense } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import Loader from './components/loader'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Tacklebox',
-  description: 'Helping anglers and homeowners with their daily lives.',
-}
 
 export default function RootLayout({
   children,
@@ -28,22 +26,24 @@ export default function RootLayout({
         ></script>
       </head>
       <body className={inter.className}>
-        <Header></Header>
-        <main className="p-12 pt-6 pb-6 lg:p-24 lg:pt-8 lg:pb-8 bg-cyan-700 mx-auto">
-          <Suspense
-            fallback={
-              <div className="flex flex-col items-center justify-between">
-                <div className="max-w-5xl w-full">
-                  <Loader />
+        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID || ''}>
+          <Header></Header>
+          <main className="p-12 pt-6 pb-6 lg:p-24 lg:pt-8 lg:pb-8 bg-cyan-700 mx-auto">
+            <Suspense
+              fallback={
+                <div className="flex flex-col items-center justify-between">
+                  <div className="max-w-5xl w-full">
+                    <Loader />
+                  </div>
                 </div>
-              </div>
-            }
-          >
-            {children}
-          </Suspense>
-        </main>
-        <Footer></Footer>
-        <Analytics />
+              }
+            >
+              {children}
+            </Suspense>
+          </main>
+          <Footer></Footer>
+          <Analytics />
+        </GoogleOAuthProvider>
       </body>
     </html>
   )

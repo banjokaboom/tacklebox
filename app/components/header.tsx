@@ -1,7 +1,10 @@
+'use client'
+
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFishFins } from '@fortawesome/free-solid-svg-icons'
 import Menu from './menu'
+import { GoogleLogin } from '@react-oauth/google'
 
 export default function Header() {
   return (
@@ -21,6 +24,15 @@ export default function Header() {
             <span className="text-xs">an app by beardedfishapps</span>
           </div>
           <Menu />
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              console.log(credentialResponse)
+            }}
+            onError={() => {
+              console.log('Login Failed')
+            }}
+            useOneTap
+          />
         </div>
       </div>
     </header>
