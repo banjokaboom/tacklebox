@@ -398,10 +398,10 @@ export default function WhatToFish() {
             </span>
             <div className="text-sm">
               (
-              {(data.fishingConditions.conditionsText !== 'Not Ideal'
-                ? data.fishingConditions.positiveConditionsNotes
-                : data.fishingConditions.negativeConditionsNotes
-              ).map((note, fcIndex) => (
+              {[
+                ...data.fishingConditions.positiveConditionsNotes,
+                ...data.fishingConditions.negativeConditionsNotes,
+              ].map((note, fcIndex) => (
                 <span key={note}>
                   {fcIndex !== 0 ? ', ' : ''}
                   {note}
