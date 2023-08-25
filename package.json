@@ -49,6 +49,7 @@
     "vercel": "^30.2.3"
   },
   "devDependencies": {
+    "@nuxt/test-utils": "^3.6.5",
     "@testing-library/dom": "^9.3.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",

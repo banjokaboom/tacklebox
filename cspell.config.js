@@ -72,5 +72,6 @@ module.exports = {
     'Greenview',
     'jerkbaits',
     'SWIMBAIT',
+    'smallies',
   ],
 }

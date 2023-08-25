@@ -31,6 +31,7 @@ export default function FishingDataContent({ data }: Props) {
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
   let [lowConfidenceTackle, setLowConfidenceTackle] = useState(new Tackle())
+  let [activeTab, setActiveTab] = useState('fishAndBait')
   const tackleAlphabetized = [...data.tackle].sort((ta, tb) =>
     ta.name.localeCompare(tb.name)
   )
@@ -160,14 +161,83 @@ export default function FishingDataContent({ data }: Props) {
   }
 
   return (
-    <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
-      <div>
-        <div className="mb-8">
-          <h2 className="text-2xl underline flex flex-row items-center">
+    <div>
+      <div className="flex flex-row justify-between">
+        <button
+          title="Fish and Bait Tab Button"
+          disabled={activeTab == 'fishAndBait'}
+          onClick={() => {
+            setActiveTab('fishAndBait')
+          }}
+        >
+          <div
+            className={
+              'md:text-xl text-3xl flex flex-row items-center ' +
+              (activeTab == 'fishAndBait' ? 'text-yellow-400 underline' : '')
+            }
+          >
             <FontAwesomeIcon icon={faFish} className="mr-2" />
-            <span>Fish and Bait</span>
-          </h2>
-          <div className="lg:ml-8">
+            <span className="md:inline hidden">Fish and Bait</span>
+          </div>
+        </button>
+        <button
+          title="Lures and Rigs Tab Button"
+          disabled={activeTab == 'luresAndRigs'}
+          onClick={() => {
+            setActiveTab('luresAndRigs')
+          }}
+        >
+          <div
+            className={
+              'md:text-xl text-3xl flex flex-row items-center ' +
+              (activeTab == 'luresAndRigs' ? 'text-yellow-400 underline' : '')
+            }
+          >
+            <FontAwesomeIcon
+              icon={faCircleHalfStroke}
+              className="mr-2 -rotate-90"
+            />
+            <span className="md:inline hidden">Lures and Rigs</span>
+          </div>
+        </button>
+        <button
+          title="Seasonal Info Tab Button"
+          disabled={activeTab == 'seasonalInfo'}
+          onClick={() => {
+            setActiveTab('seasonalInfo')
+          }}
+        >
+          <div
+            className={
+              'md:text-xl text-3xl flex flex-row items-center ' +
+              (activeTab == 'seasonalInfo' ? 'text-yellow-400 underline' : '')
+            }
+          >
+            <FontAwesomeIcon icon={faCalendar} className="mr-2" />
+            <span className="md:inline hidden">Seasonal Info</span>
+          </div>
+        </button>
+        <button
+          title="Weather Tab Button"
+          disabled={activeTab == 'weather'}
+          onClick={() => {
+            setActiveTab('weather')
+          }}
+        >
+          <div
+            className={
+              'md:text-xl text-3xl flex flex-row items-center ' +
+              (activeTab == 'weather' ? 'text-yellow-400 underline' : '')
+            }
+          >
+            <FontAwesomeIcon icon={faCloud} className="mr-2" />
+            <span className="md:inline hidden">Weather</span>
+          </div>
+        </button>
+      </div>
+      {activeTab == 'fishAndBait' && (
+        <div className="mb-8">
+          <div>
             <ContentSection
               title="Species to target"
               content={data.species}
@@ -178,6 +248,7 @@ export default function FishingDataContent({ data }: Props) {
               <ContentSection
                 title="Baits to use now"
                 content={data.baitRecommendations.baitsToUse}
+                isExpandedByDefault={true}
               ></ContentSection>
             )}
 
@@ -185,20 +256,15 @@ export default function FishingDataContent({ data }: Props) {
               <ContentSection
                 title="Lure colors and styles to use now"
                 content={data.baitRecommendations.stylesToUse}
+                isExpandedByDefault={true}
               ></ContentSection>
             )}
           </div>
         </div>
-
+      )}
+      {activeTab == 'luresAndRigs' && (
         <div className="mb-8">
-          <h2 className="text-2xl underline flex flex-row items-center">
-            <FontAwesomeIcon
-              icon={faCircleHalfStroke}
-              className="mr-2 -rotate-90"
-            />
-            <span>Lures and Rigs</span>
-          </h2>
-          <div className="lg:ml-8">
+          <div>
             {hasReactionTackle && (
               <ContentSection
                 title="Best reaction lures and rigs"
@@ -505,17 +571,15 @@ export default function FishingDataContent({ data }: Props) {
             )}
           </div>
         </div>
-      </div>
-      <div className="basis-4/12 shrink-0">
+      )}
+
+      {activeTab == 'seasonalInfo' && (
         <div className="mb-8">
-          <h2 className="text-2xl underline flex flex-row items-center">
-            <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-            <span>Seasonal Info</span>
-          </h2>
-          <div className="lg:ml-8">
+          <div>
             <ContentSection
               title="Season"
               content={data.seasons}
+              isExpandedByDefault={true}
             ></ContentSection>
 
             <ContentSection
@@ -539,6 +603,7 @@ export default function FishingDataContent({ data }: Props) {
                   <p>Great: late afternoon/early evening</p>
                 </div>
               }
+              isExpandedByDefault={true}
             ></ContentSection>
             <ContentSection
               title="Astrological Info"
@@ -567,16 +632,14 @@ export default function FishingDataContent({ data }: Props) {
                   )}
                 </div>
               }
+              isExpandedByDefault={true}
             ></ContentSection>
           </div>
         </div>
-
+      )}
+      {activeTab == 'weather' && (
         <div className="mb-8">
-          <h2 className="text-2xl underline flex flex-row items-center">
-            <FontAwesomeIcon icon={faCloud} className="mr-2" />
-            <span>Weather</span>
-          </h2>
-          <div className="lg:ml-8">
+          <div>
             <ContentSection
               title="Current Weather"
               content={
@@ -639,7 +702,7 @@ export default function FishingDataContent({ data }: Props) {
             ></ContentSection>
           </div>
         </div>
-      </div>
+      )}
 
       <Modal isOpen={isModalOpen} contentLabel="Tackle Modal">
         <div className="text-slate-700 mb-4">
