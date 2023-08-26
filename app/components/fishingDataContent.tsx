@@ -162,6 +162,7 @@ export default function FishingDataContent({ data }: Props) {
 
   return (
     <div>
+      <hr className="mb-8" />
       <div className="flex flex-row justify-between">
         <button
           title="Fish and Bait Tab Button"
@@ -172,14 +173,18 @@ export default function FishingDataContent({ data }: Props) {
         >
           <div
             className={
-              'md:text-xl text-3xl flex flex-row items-center ' +
+              'flex md:flex-row flex-col items-center ' +
               (activeTab == 'fishAndBait' ? 'text-yellow-400 underline' : '')
             }
           >
-            <FontAwesomeIcon icon={faFish} className="mr-2" />
-            <span className="md:inline hidden">Fish and Bait</span>
+            <FontAwesomeIcon
+              icon={faFish}
+              className="md:mr-2 md:text-xl text-3xl"
+            />
+            <span className="md:text-xl text-sm">Fish &amp; Bait</span>
           </div>
         </button>
+        <div className="border border-slate-50"></div>
         <button
           title="Lures and Rigs Tab Button"
           disabled={activeTab == 'luresAndRigs'}
@@ -189,17 +194,18 @@ export default function FishingDataContent({ data }: Props) {
         >
           <div
             className={
-              'md:text-xl text-3xl flex flex-row items-center ' +
+              'flex md:flex-row flex-col items-center ' +
               (activeTab == 'luresAndRigs' ? 'text-yellow-400 underline' : '')
             }
           >
             <FontAwesomeIcon
               icon={faCircleHalfStroke}
-              className="mr-2 -rotate-90"
+              className="md:mr-2 md:text-xl text-3xl -rotate-90"
             />
-            <span className="md:inline hidden">Lures and Rigs</span>
+            <span className="md:text-xl text-sm">Lures &amp; Rigs</span>
           </div>
         </button>
+        <div className="border border-slate-50"></div>
         <button
           title="Seasonal Info Tab Button"
           disabled={activeTab == 'seasonalInfo'}
@@ -209,14 +215,18 @@ export default function FishingDataContent({ data }: Props) {
         >
           <div
             className={
-              'md:text-xl text-3xl flex flex-row items-center ' +
+              'flex md:flex-row flex-col items-center ' +
               (activeTab == 'seasonalInfo' ? 'text-yellow-400 underline' : '')
             }
           >
-            <FontAwesomeIcon icon={faCalendar} className="mr-2" />
-            <span className="md:inline hidden">Seasonal Info</span>
+            <FontAwesomeIcon
+              icon={faCalendar}
+              className="md:mr-2 md:text-xl text-3xl"
+            />
+            <span className="md:text-xl text-sm">Seasonal Info</span>
           </div>
         </button>
+        <div className="border border-slate-50"></div>
         <button
           title="Weather Tab Button"
           disabled={activeTab == 'weather'}
@@ -226,12 +236,15 @@ export default function FishingDataContent({ data }: Props) {
         >
           <div
             className={
-              'md:text-xl text-3xl flex flex-row items-center ' +
+              'flex md:flex-row flex-col items-center ' +
               (activeTab == 'weather' ? 'text-yellow-400 underline' : '')
             }
           >
-            <FontAwesomeIcon icon={faCloud} className="mr-2" />
-            <span className="md:inline hidden">Weather</span>
+            <FontAwesomeIcon
+              icon={faCloud}
+              className="md:mr-2 md:text-xl text-3xl"
+            />
+            <span className="md:text-xl text-sm">Weather</span>
           </div>
         </button>
       </div>

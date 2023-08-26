@@ -411,6 +411,7 @@ export default function WhatToFish() {
             </div>
           </h2>
         )}
+
         {!loading && data.species !== '' && <FishingDataContent data={data} />}
 
         <div>
