@@ -165,7 +165,7 @@ export default function FishingDataContent({ data }: Props) {
       <hr className="mb-8" />
       <div className="flex flex-row justify-between">
         <button
-          title="Fish and Bait Tab Button"
+          title="Fish & Bait Tab Button"
           disabled={activeTab == 'fishAndBait'}
           onClick={() => {
             setActiveTab('fishAndBait')
