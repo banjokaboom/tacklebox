@@ -31,9 +31,13 @@ export default function ChangeLog() {
           content={
             <div>
               <p className="mb-4 last:mb-0">improved tab interface</p>
-              <p className="mb-4 last:mb-0">added tab interface on what to fish page</p>
+              <p className="mb-4 last:mb-0">
+                added tab interface on what to fish page
+              </p>
               <p className="mb-4 last:mb-0">show all conditions text</p>
-              <p className="mb-4 last:mb-0">added tomorrow forecast to dropdown #1</p>
+              <p className="mb-4 last:mb-0">
+                added tomorrow forecast to dropdown #1
+              </p>
             </div>
           }
           isExpandedByDefault={true}
