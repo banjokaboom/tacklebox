@@ -1,0 +1,5 @@
+9b08cf7 fixed failing tests
+58b5da6 improved tab interface
+0a807df added tab interface on what to fish page
+8c701ff show all conditions text
+82e23ae added tomorrow forecast to dropdown #1

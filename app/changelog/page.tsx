@@ -1,11 +1,11 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.3.0 > changelogs/v3.4.0.txt
+ * git log --oneline --decorate=no HEAD...v3.4.0 > changelogs/v3.5.0.txt
  *
  * To count for version tag
  *
- * git rev-list HEAD...v3.3.0 --count
+ * git rev-list HEAD...v3.4.0 --count
  */
 
 import ContentSection from '@/app/components/content'
@@ -25,6 +25,19 @@ export default function ChangeLog() {
         <Breadcrumbs links={breadcrumbs} />
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
+
+        <ContentSection
+          title="v3.5.0"
+          content={
+            <div>
+              <p className="mb-4 last:mb-0">improved tab interface</p>
+              <p className="mb-4 last:mb-0">added tab interface on what to fish page</p>
+              <p className="mb-4 last:mb-0">show all conditions text</p>
+              <p className="mb-4 last:mb-0">added tomorrow forecast to dropdown #1</p>
+            </div>
+          }
+          isExpandedByDefault={true}
+        ></ContentSection>
 
         <ContentSection
           title="v3.4.0"
@@ -55,7 +68,6 @@ export default function ChangeLog() {
               </p>
             </div>
           }
-          isExpandedByDefault={true}
         ></ContentSection>
 
         <ContentSection
