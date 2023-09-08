@@ -5,7 +5,7 @@ import '@testing-library/jest-dom'
 
 describe('Content', () => {
   it('renders component', () => {
-    render(<Content title="Test Title" content="Test Content" />)
+    render(<Content title="Test Title">Test Content</Content>)
 
     const title = screen.getByText('Test Title')
     const content = screen.getByText('Test Content')
@@ -15,7 +15,7 @@ describe('Content', () => {
   })
 
   it('expands when title is clicked', () => {
-    render(<Content title="Test Title" content="Test Content" />)
+    render(<Content title="Test Title">Test Content</Content>)
 
     const button = screen.getByText('Test Title')
     const content = screen.getByText('Test Content')
@@ -29,7 +29,7 @@ describe('Content', () => {
   })
 
   it('expands when subtitle is clicked when there is no title', () => {
-    render(<Content subtitle="Test Title" content="Test Content" />)
+    render(<Content subtitle="Test Title">Test Content</Content>)
 
     const button = screen.getByText('Test Title')
     const content = screen.getByText('Test Content')
