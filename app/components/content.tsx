@@ -8,15 +8,15 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 interface Props {
   title?: string
   subtitle?: string
-  content: ReactNode
   isExpandedByDefault?: boolean
+  children: ReactNode
 }
 
 export default function ContentSection({
   title,
   subtitle,
-  content,
   isExpandedByDefault,
+  children,
 }: Props) {
   let [isExpanded, setIsExpanded] = useState(isExpandedByDefault || false)
 
@@ -59,14 +59,14 @@ export default function ContentSection({
           <span>{subtitle}</span>
         </h3>
       )}
-      {content && (
+      {children && (
         <div
           className={
             'border border-slate-50 bg-slate-700 p-4 rounded-md transition-all overflow-hidden' +
             (isExpanded ? '' : ' h-0 pt-0 pb-0 border-0')
           }
         >
-          <div>{content}</div>
+          <div>{children}</div>
         </div>
       )}
     </div>

@@ -415,43 +415,39 @@ export default function WhatToFish() {
         {!loading && data.species !== '' && <FishingDataContent data={data} />}
 
         <div>
-          <ContentSection
-            title="Tip of the Day"
-            content={
-              <div>
-                <div>{tips[tipIndex]}</div>
-                <div className="flex flex-row justify-between">
-                  <button
-                    onClick={() => {
-                      if (tipIndex == 0) {
-                        setTipIndex(tips.length - 1)
-                      } else {
-                        setTipIndex(tipIndex - 1)
-                      }
-                    }}
-                    className="text-sm pt-4 w-fit"
-                    title="Previous Tip"
-                  >
-                    &lt;&lt;
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (tipIndex == tips.length - 1) {
-                        setTipIndex(0)
-                      } else {
-                        setTipIndex(tipIndex + 1)
-                      }
-                    }}
-                    className="text-sm pt-4 w-fit"
-                    title="Next Tip"
-                  >
-                    &gt;&gt;
-                  </button>
-                </div>
+          <ContentSection title="Tip of the Day" isExpandedByDefault={true}>
+            <div>
+              <div>{tips[tipIndex]}</div>
+              <div className="flex flex-row justify-between">
+                <button
+                  onClick={() => {
+                    if (tipIndex == 0) {
+                      setTipIndex(tips.length - 1)
+                    } else {
+                      setTipIndex(tipIndex - 1)
+                    }
+                  }}
+                  className="text-sm pt-4 w-fit"
+                  title="Previous Tip"
+                >
+                  &lt;&lt;
+                </button>
+                <button
+                  onClick={() => {
+                    if (tipIndex == tips.length - 1) {
+                      setTipIndex(0)
+                    } else {
+                      setTipIndex(tipIndex + 1)
+                    }
+                  }}
+                  className="text-sm pt-4 w-fit"
+                  title="Next Tip"
+                >
+                  &gt;&gt;
+                </button>
               </div>
-            }
-            isExpandedByDefault={true}
-          ></ContentSection>
+            </div>
+          </ContentSection>
         </div>
 
         {data.tackle.length > 0 && (

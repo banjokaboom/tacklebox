@@ -190,34 +190,29 @@ export default function OilPrices() {
         {data.price == '' && zone !== '' && state !== '' && <Loader />}
         {data.price !== '' && zone !== '' && state !== '' && (
           <div>
-            <ContentSection
-              title="Best Price"
-              content={
-                <div className="flex flex-row items-center justify-between space-x-2 mb-4">
-                  <div className="sm:break-words break-all">
-                    <p>Price: {data.price}</p>
-                    <p>Company: {data.company}</p>
-                  </div>
-                  <a
-                    title={'Buy heating oil from ' + data.company}
-                    className="p-2 block w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md"
-                    href={data.url}
-                    target="_blank"
-                  >
-                    <span>Buy</span>
-                    <FontAwesomeIcon
-                      icon={faArrowUpRightFromSquare}
-                      className="ml-2 max-h-4"
-                    />
-                  </a>
+            <ContentSection title="Best Price" isExpandedByDefault={true}>
+              <div className="flex flex-row items-center justify-between space-x-2 mb-4">
+                <div className="sm:break-words break-all">
+                  <p>Price: {data.price}</p>
+                  <p>Company: {data.company}</p>
                 </div>
-              }
-              isExpandedByDefault={true}
-            ></ContentSection>
+                <a
+                  title={'Buy heating oil from ' + data.company}
+                  className="p-2 block w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md"
+                  href={data.url}
+                  target="_blank"
+                >
+                  <span>Buy</span>
+                  <FontAwesomeIcon
+                    icon={faArrowUpRightFromSquare}
+                    className="ml-2 max-h-4"
+                  />
+                </a>
+              </div>
+            </ContentSection>
 
-            <ContentSection
-              title="All Oil Prices & Companies"
-              content={data.oilPrices.map((oil: any, index) => (
+            <ContentSection title="All Oil Prices & Companies">
+              {data.oilPrices.map((oil: any, index) => (
                 <div
                   className="flex flex-row items-center justify-between space-x-2 mb-4"
                   key={index}
@@ -240,7 +235,7 @@ export default function OilPrices() {
                   </a>
                 </div>
               ))}
-            ></ContentSection>
+            </ContentSection>
           </div>
         )}
       </div>

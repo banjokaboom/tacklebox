@@ -234,39 +234,38 @@ export default function CanIFish() {
                       <div key={fIndex} className="pb-8">
                         <ContentSection
                           subtitle={f.species}
-                          content={
-                            <div>
-                              {f.description &&
-                                f.description.trim() !== f.species.trim() && (
-                                  <p className="mb-4">{f.description}</p>
-                                )}
-                              <p className="mb-4">Fishing dates:</p>
-                              <div className="mb-4">
-                                {f.seasonDates.map(
-                                  (sd: string, sdIndex: number) => (
-                                    <p key={sdIndex} className="indent-4">
-                                      {sd.replace(', ', '').trim()}, Limit:{' '}
-                                      {getCreelLimitForIndex(
-                                        f.seasonLimits,
-                                        sdIndex
-                                      )}
-                                    </p>
-                                  )
-                                )}
-                              </div>
-                              {f.minimumLength && (
-                                <p className="mb-4">
-                                  Min. Length:{' '}
-                                  {/\d+/.test(f.minimumLength) &&
-                                  !f.minimumLength.includes('"')
-                                    ? f.minimumLength + '"'
-                                    : f.minimumLength}
-                                </p>
+                          isExpandedByDefault={true}
+                        >
+                          <div>
+                            {f.description &&
+                              f.description.trim() !== f.species.trim() && (
+                                <p className="mb-4">{f.description}</p>
+                              )}
+                            <p className="mb-4">Fishing dates:</p>
+                            <div className="mb-4">
+                              {f.seasonDates.map(
+                                (sd: string, sdIndex: number) => (
+                                  <p key={sdIndex} className="indent-4">
+                                    {sd.replace(', ', '').trim()}, Limit:{' '}
+                                    {getCreelLimitForIndex(
+                                      f.seasonLimits,
+                                      sdIndex
+                                    )}
+                                  </p>
+                                )
                               )}
                             </div>
-                          }
-                          isExpandedByDefault={true}
-                        ></ContentSection>
+                            {f.minimumLength && (
+                              <p className="mb-4">
+                                Min. Length:{' '}
+                                {/\d+/.test(f.minimumLength) &&
+                                !f.minimumLength.includes('"')
+                                  ? f.minimumLength + '"'
+                                  : f.minimumLength}
+                              </p>
+                            )}
+                          </div>
+                        </ContentSection>
                       </div>
                     )
                 )}
@@ -298,35 +297,34 @@ export default function CanIFish() {
                     <div key={sIndex} className="pb-8">
                       <ContentSection
                         subtitle={s.species}
-                        content={
-                          <div>
-                            {s.description &&
-                              s.description.trim() !== s.species.trim() && (
-                                <p className="mb-4">{s.description}</p>
-                              )}
-                            <p className="mb-4">Fishing dates:</p>
-                            <div className="mb-4">
-                              {s.seasonDates.map(
-                                (sd: string, sdIndex: number) => (
-                                  <p key={sdIndex} className="indent-4">
-                                    {sd.replace(', ', '').trim()}, Limit:{' '}
-                                    {getCreelLimitForIndex(
-                                      s.seasonLimits,
-                                      sdIndex
-                                    )}
-                                  </p>
-                                )
-                              )}
-                            </div>
-                            {s.minimumLength && (
-                              <p className="mb-4">
-                                Min. Length: {s.minimumLength}
-                              </p>
+                        isExpandedByDefault={true}
+                      >
+                        <div>
+                          {s.description &&
+                            s.description.trim() !== s.species.trim() && (
+                              <p className="mb-4">{s.description}</p>
+                            )}
+                          <p className="mb-4">Fishing dates:</p>
+                          <div className="mb-4">
+                            {s.seasonDates.map(
+                              (sd: string, sdIndex: number) => (
+                                <p key={sdIndex} className="indent-4">
+                                  {sd.replace(', ', '').trim()}, Limit:{' '}
+                                  {getCreelLimitForIndex(
+                                    s.seasonLimits,
+                                    sdIndex
+                                  )}
+                                </p>
+                              )
                             )}
                           </div>
-                        }
-                        isExpandedByDefault={true}
-                      ></ContentSection>
+                          {s.minimumLength && (
+                            <p className="mb-4">
+                              Min. Length: {s.minimumLength}
+                            </p>
+                          )}
+                        </div>
+                      </ContentSection>
                     </div>
                   )
               )}

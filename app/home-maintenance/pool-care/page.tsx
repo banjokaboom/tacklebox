@@ -70,13 +70,14 @@ export default function PoolCare() {
         <div>
           <ContentSection
             title="What to do this month"
-            content={recommendations.map((r) => (
+            isExpandedByDefault={true}
+          >
+            {recommendations.map((r) => (
               <p className="mb-4 last:mb-0" key={r}>
                 {r}
               </p>
             ))}
-            isExpandedByDefault={true}
-          ></ContentSection>
+          </ContentSection>
         </div>
       </div>
     </div>

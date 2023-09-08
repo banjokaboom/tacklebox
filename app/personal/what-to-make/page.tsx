@@ -207,34 +207,31 @@ export default function WhatToMake() {
             <div>
               <ContentSection
                 title="Recipes to cook this week"
-                content={
-                  <div>
-                    {data.recipes.map((r) => (
-                      <div className="mb-4 last:mb-0" key={r.name}>
-                        <input
-                          type="checkbox"
-                          name="recipe"
-                          id={
-                            'recipe-' +
-                            r.name.replace(/\s/gim, '-').toLowerCase()
-                          }
-                          defaultChecked={r.frequency == 1 || undefined}
-                        />
-                        <label
-                          htmlFor={
-                            'recipe-' +
-                            r.name.replace(/\s/gim, '-').toLowerCase()
-                          }
-                          className="ml-4"
-                        >
-                          {r.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                }
                 isExpandedByDefault={true}
-              ></ContentSection>
+              >
+                <div>
+                  {data.recipes.map((r) => (
+                    <div className="mb-4 last:mb-0" key={r.name}>
+                      <input
+                        type="checkbox"
+                        name="recipe"
+                        id={
+                          'recipe-' + r.name.replace(/\s/gim, '-').toLowerCase()
+                        }
+                        defaultChecked={r.frequency == 1 || undefined}
+                      />
+                      <label
+                        htmlFor={
+                          'recipe-' + r.name.replace(/\s/gim, '-').toLowerCase()
+                        }
+                        className="ml-4"
+                      >
+                        {r.name}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </ContentSection>
               <p className="pt-4 mb-4 text-sm">
                 *A recipe with a frequency of 1 will always be checked.
               </p>
@@ -242,33 +239,30 @@ export default function WhatToMake() {
             <div>
               <ContentSection
                 title="Ingredients to add to the shopping list"
-                content={
-                  <div>
-                    {data.ingredients.map((i) => (
-                      <div className="mb-4 last:mb-0" key={i}>
-                        <input
-                          type="checkbox"
-                          name="ingredient"
-                          id={
-                            'ingredient-' +
-                            i.replace(/\s/gim, '-').toLowerCase()
-                          }
-                        />
-                        <label
-                          htmlFor={
-                            'ingredient-' +
-                            i.replace(/\s/gim, '-').toLowerCase()
-                          }
-                          className="ml-4"
-                        >
-                          {i}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                }
                 isExpandedByDefault={true}
-              ></ContentSection>
+              >
+                <div>
+                  {data.ingredients.map((i) => (
+                    <div className="mb-4 last:mb-0" key={i}>
+                      <input
+                        type="checkbox"
+                        name="ingredient"
+                        id={
+                          'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()
+                        }
+                      />
+                      <label
+                        htmlFor={
+                          'ingredient-' + i.replace(/\s/gim, '-').toLowerCase()
+                        }
+                        className="ml-4"
+                      >
+                        {i}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </ContentSection>
               <button
                 onClick={copyIngredients}
                 className="mt-4 p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md"

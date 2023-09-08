@@ -253,24 +253,27 @@ export default function FishingDataContent({ data }: Props) {
           <div>
             <ContentSection
               title="Species to target"
-              content={data.species}
               isExpandedByDefault={true}
-            ></ContentSection>
+            >
+              {data.species}
+            </ContentSection>
 
             {data.baitRecommendations.baitsToUse !== '' && (
               <ContentSection
                 title="Baits to use now"
-                content={data.baitRecommendations.baitsToUse}
                 isExpandedByDefault={true}
-              ></ContentSection>
+              >
+                {data.baitRecommendations.baitsToUse}
+              </ContentSection>
             )}
 
             {data.baitRecommendations.stylesToUse !== '' && (
               <ContentSection
                 title="Lure colors and styles to use now"
-                content={data.baitRecommendations.stylesToUse}
                 isExpandedByDefault={true}
-              ></ContentSection>
+              >
+                {data.baitRecommendations.stylesToUse}
+              </ContentSection>
             )}
           </div>
         </div>
@@ -281,7 +284,9 @@ export default function FishingDataContent({ data }: Props) {
             {hasReactionTackle && (
               <ContentSection
                 title="Best reaction lures and rigs"
-                content={tackleByConfidence.map((t, index) => {
+                isExpandedByDefault={true}
+              >
+                {tackleByConfidence.map((t, index) => {
                   if (!t.type.includes('reaction')) {
                     return
                   }
@@ -349,14 +354,15 @@ export default function FishingDataContent({ data }: Props) {
                     )
                   )
                 })}
-                isExpandedByDefault={true}
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {hasFinesseTackle && (
               <ContentSection
                 title="Best finesse lures and rigs"
-                content={tackleByConfidence.map((t, index) => {
+                isExpandedByDefault={true}
+              >
+                {tackleByConfidence.map((t, index) => {
                   if (!t.type.includes('finesse')) {
                     return
                   }
@@ -426,14 +432,12 @@ export default function FishingDataContent({ data }: Props) {
                     )
                   )
                 })}
-                isExpandedByDefault={true}
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {data.tackle.length > 0 && (
-              <ContentSection
-                title="All lures and rigs for conditions"
-                content={tackleAlphabetized.map((t, index) => (
+              <ContentSection title="All lures and rigs for conditions">
+                {tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
                     <div className="flex flex-col md:flex-row justify-between">
                       <div
@@ -491,13 +495,12 @@ export default function FishingDataContent({ data }: Props) {
                     </div>
                   </div>
                 ))}
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {data.tackle.length > 0 && (
-              <ContentSection
-                title="Try something new"
-                content={
+              <ContentSection title="Try something new">
+                {
                   <div className="mb-4 last:mb-0">
                     <div className="flex flex-col md:flex-row justify-between">
                       <div
@@ -563,7 +566,7 @@ export default function FishingDataContent({ data }: Props) {
                     </div>
                   </div>
                 }
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {data.species.includes('Not ideal') && (
@@ -589,130 +592,115 @@ export default function FishingDataContent({ data }: Props) {
       {activeTab == 'seasonalInfo' && (
         <div className="mb-8">
           <div>
-            <ContentSection
-              title="Season"
-              content={data.seasons}
-              isExpandedByDefault={true}
-            ></ContentSection>
+            <ContentSection title="Season" isExpandedByDefault={true}>
+              {data.seasons}
+            </ContentSection>
 
             <ContentSection
               title="Best times to fish"
-              content={
-                <div>
-                  <p>
-                    OK:{' '}
-                    {!data.seasons.includes('summer') &&
-                    !data.seasons.includes('winter')
-                      ? 'early morning'
-                      : 'late morning/early afternoon'}
-                  </p>
-                  <p>
-                    Good:{' '}
-                    {!data.seasons.includes('summer') &&
-                    !data.seasons.includes('winter')
-                      ? 'late morning/early afternoon'
-                      : 'early morning'}
-                  </p>
-                  <p>Great: late afternoon/early evening</p>
-                </div>
-              }
               isExpandedByDefault={true}
-            ></ContentSection>
+            >
+              <div>
+                <p>
+                  OK:{' '}
+                  {!data.seasons.includes('summer') &&
+                  !data.seasons.includes('winter')
+                    ? 'early morning'
+                    : 'late morning/early afternoon'}
+                </p>
+                <p>
+                  Good:{' '}
+                  {!data.seasons.includes('summer') &&
+                  !data.seasons.includes('winter')
+                    ? 'late morning/early afternoon'
+                    : 'early morning'}
+                </p>
+                <p>Great: late afternoon/early evening</p>
+              </div>
+            </ContentSection>
+
             <ContentSection
               title="Astrological Info"
-              content={
-                <div>
-                  <p className="mb-4">Sunrise: {data.weather.astro.sunrise}</p>
-                  <p className="mb-4">Sunset: {data.weather.astro.sunset}</p>
-                  <p className="mb-4">
-                    Moonrise: {data.weather.astro.moonrise}
-                  </p>
-                  <p className="mb-4">Moonset: {data.weather.astro.moonset}</p>
-                  <p className="mb-2">
-                    Moon phase: {data.weather.astro.moon_phase}
-                  </p>
-                  {moonPhaseInnerClassName !== '' && (
-                    <div
-                      className={
-                        'rounded-full overflow-hidden h-10 w-10 relative border-2 ' +
-                        moonPhaseOuterClassName
-                      }
-                    >
-                      <div
-                        className={'absolute h-full ' + moonPhaseInnerClassName}
-                      ></div>
-                    </div>
-                  )}
-                </div>
-              }
               isExpandedByDefault={true}
-            ></ContentSection>
+            >
+              <div>
+                <p className="mb-4">Sunrise: {data.weather.astro.sunrise}</p>
+                <p className="mb-4">Sunset: {data.weather.astro.sunset}</p>
+                <p className="mb-4">Moonrise: {data.weather.astro.moonrise}</p>
+                <p className="mb-4">Moonset: {data.weather.astro.moonset}</p>
+                <p className="mb-2">
+                  Moon phase: {data.weather.astro.moon_phase}
+                </p>
+                {moonPhaseInnerClassName !== '' && (
+                  <div
+                    className={
+                      'rounded-full overflow-hidden h-10 w-10 relative border-2 ' +
+                      moonPhaseOuterClassName
+                    }
+                  >
+                    <div
+                      className={'absolute h-full ' + moonPhaseInnerClassName}
+                    ></div>
+                  </div>
+                )}
+              </div>
+            </ContentSection>
           </div>
         </div>
       )}
       {activeTab == 'weather' && (
         <div className="mb-8">
           <div>
-            <ContentSection
-              title="Current Weather"
-              content={
-                <div>
-                  <p className="mb-4">
-                    Outdoor Temperature: {data.weather.current.outdoorTemp}
-                  </p>
-                  <p className="mb-4">
-                    Estimated Water Temperature:{' '}
-                    {data.weather.current.waterTemp}
-                  </p>
-                  <p className="mb-4">
-                    Conditions: {data.weather.current.conditions}
-                  </p>
-                  <p className="mb-4">Wind: {data.weather.current.wind}</p>
-                  <p>Pressure: {data.weather.pressure}in.</p>
-                </div>
-              }
-              isExpandedByDefault={true}
-            ></ContentSection>
+            <ContentSection title="Current Weather" isExpandedByDefault={true}>
+              <div>
+                <p className="mb-4">
+                  Outdoor Temperature: {data.weather.current.outdoorTemp}
+                </p>
+                <p className="mb-4">
+                  Estimated Water Temperature: {data.weather.current.waterTemp}
+                </p>
+                <p className="mb-4">
+                  Conditions: {data.weather.current.conditions}
+                </p>
+                <p className="mb-4">Wind: {data.weather.current.wind}</p>
+                <p>Pressure: {data.weather.pressure}in.</p>
+              </div>
+            </ContentSection>
 
-            <ContentSection
-              title="Today's Weather"
-              content={
-                <div>
-                  <p className="mb-4">
-                    Outdoor Temperature: {data.weather.forecast[0].outdoorTemp}
-                  </p>
-                  <p className="mb-4">
-                    Estimated Water Temperature:{' '}
-                    {data.weather.forecast[0].waterTemp}
-                  </p>
-                  <p className="mb-4">
-                    Conditions: {data.weather.forecast[0].conditions}
-                  </p>
-                  <p>Wind: {data.weather.forecast[0].wind}</p>
-                </div>
-              }
-              isExpandedByDefault={true}
-            ></ContentSection>
+            <ContentSection title="Today's Weather" isExpandedByDefault={true}>
+              <div>
+                <p className="mb-4">
+                  Outdoor Temperature: {data.weather.forecast[0].outdoorTemp}
+                </p>
+                <p className="mb-4">
+                  Estimated Water Temperature:{' '}
+                  {data.weather.forecast[0].waterTemp}
+                </p>
+                <p className="mb-4">
+                  Conditions: {data.weather.forecast[0].conditions}
+                </p>
+                <p>Wind: {data.weather.forecast[0].wind}</p>
+              </div>
+            </ContentSection>
 
             <ContentSection
               title="Tomorrow's Weather"
-              content={
-                <div>
-                  <p className="mb-4">
-                    Outdoor Temperature: {data.weather.forecast[1].outdoorTemp}
-                  </p>
-                  <p className="mb-4">
-                    Estimated Water Temperature:{' '}
-                    {data.weather.forecast[1].waterTemp}
-                  </p>
-                  <p className="mb-4">
-                    Conditions: {data.weather.forecast[1].conditions}
-                  </p>
-                  <p>Wind: {data.weather.forecast[1].wind}</p>
-                </div>
-              }
               isExpandedByDefault={true}
-            ></ContentSection>
+            >
+              <div>
+                <p className="mb-4">
+                  Outdoor Temperature: {data.weather.forecast[1].outdoorTemp}
+                </p>
+                <p className="mb-4">
+                  Estimated Water Temperature:{' '}
+                  {data.weather.forecast[1].waterTemp}
+                </p>
+                <p className="mb-4">
+                  Conditions: {data.weather.forecast[1].conditions}
+                </p>
+                <p>Wind: {data.weather.forecast[1].wind}</p>
+              </div>
+            </ContentSection>
           </div>
         </div>
       )}

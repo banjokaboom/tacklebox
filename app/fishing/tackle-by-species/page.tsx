@@ -210,15 +210,18 @@ export default function TackleBySpecies() {
             {luckyTackle !== '' && (
               <ContentSection
                 title="You should use..."
-                content={luckyTackle}
                 isExpandedByDefault={true}
-              ></ContentSection>
+              >
+                {luckyTackle}
+              </ContentSection>
             )}
 
             {hasReactionTackle && (
               <ContentSection
                 title="Reaction lures and rigs"
-                content={data.tackle.map((t, index) => {
+                isExpandedByDefault={true}
+              >
+                {data.tackle.map((t, index) => {
                   if (!t.type.includes('reaction')) {
                     return
                   }
@@ -283,14 +286,15 @@ export default function TackleBySpecies() {
                     )
                   )
                 })}
-                isExpandedByDefault={true}
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {hasFinesseTackle && (
               <ContentSection
                 title="Finesse lures and rigs"
-                content={data.tackle.map((t, index) => {
+                isExpandedByDefault={true}
+              >
+                {data.tackle.map((t, index) => {
                   if (!t.type.includes('finesse')) {
                     return
                   }
@@ -355,14 +359,15 @@ export default function TackleBySpecies() {
                     )
                   )
                 })}
-                isExpandedByDefault={true}
-              ></ContentSection>
+              </ContentSection>
             )}
 
             {hasStillTackle && (
               <ContentSection
                 title="Still lures and rigs"
-                content={data.tackle.map((t, index) => {
+                isExpandedByDefault={true}
+              >
+                {data.tackle.map((t, index) => {
                   if (!t.type.includes('still')) {
                     return
                   }
@@ -427,8 +432,7 @@ export default function TackleBySpecies() {
                     )
                   )
                 })}
-                isExpandedByDefault={true}
-              ></ContentSection>
+              </ContentSection>
             )}
           </div>
         )}

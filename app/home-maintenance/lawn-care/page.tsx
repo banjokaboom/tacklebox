@@ -108,7 +108,9 @@ export default function LawnCare() {
         <div>
           <ContentSection
             title="What to do this month"
-            content={recommendations.map((r) => (
+            isExpandedByDefault={true}
+          >
+            {recommendations.map((r) => (
               <div
                 className="flex flex-row items-center justify-between space-x-2 mb-4 last:mb-0"
                 key={r}
@@ -142,16 +144,13 @@ export default function LawnCare() {
                 )}
               </div>
             ))}
-            isExpandedByDefault={true}
-          ></ContentSection>
+          </ContentSection>
         </div>
 
         <div>
-          <ContentSection
-            title="Tip of the Day"
-            content={getLawnCareTip()}
-            isExpandedByDefault={true}
-          ></ContentSection>
+          <ContentSection title="Tip of the Day" isExpandedByDefault={true}>
+            {getLawnCareTip()}
+          </ContentSection>
         </div>
       </div>
     </div>
