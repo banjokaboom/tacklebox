@@ -6,6 +6,7 @@ export default class Tackle {
   public type: string[]
   public depth: string[]
   public tip: string
+  public weather: string
 
   constructor() {
     this.name = ''
@@ -15,5 +16,6 @@ export default class Tackle {
     this.type = []
     this.depth = []
     this.tip = ''
+    this.weather = ''
   }
 }

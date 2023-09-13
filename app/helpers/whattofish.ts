@@ -272,13 +272,7 @@ export function pickTackle(
         isTackleForWaterType = true
       }
 
-      if (waterType.includes('freshwater')) {
-        if (baitStyles.includes(tackle.type[typeIndex])) {
-          isTackleForBaitStyle = true
-        }
-      } else {
-        isTackleForBaitStyle = true
-      }
+      isTackleForBaitStyle = true
     }
 
     seasonsArray.forEach((season) => {

@@ -26,6 +26,7 @@ export default async function handler(req: any, res: any) {
         depth: t.depth,
         type: t.type,
         tip: t.tip,
+        weather: t.weather,
       })
     })
 

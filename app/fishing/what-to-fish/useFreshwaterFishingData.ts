@@ -360,6 +360,28 @@ export async function getFreshwaterFishingData(
       waterType,
       fishingData.baitRecommendations.stylesToUse
     )
+
+    fishingData.tackle.forEach((tackle: Tackle) => {
+      const conditions =
+        weatherForecastToUse == 'current'
+          ? fishingData.weather.current.conditions
+          : fishingData.weather.forecast[
+              weatherForecastToUse == 'today' ? 0 : 1
+            ].conditions
+      console.log(
+        'tackle weather: ' +
+          tackle.weather +
+          ', conditions weather: ' +
+          conditions
+      )
+      if (
+        tackle.weather &&
+        conditions.toUpperCase().includes(tackle.weather.toUpperCase())
+      ) {
+        tackle.confidence += 2
+      }
+    })
+
     fishingData.fishingConditions = getFishingConditions(
       weather,
       fishingData.species,
