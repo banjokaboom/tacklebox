@@ -244,8 +244,7 @@ export function pickTackle(
   seasons: string,
   species: string,
   waterTemp: number,
-  waterType: string,
-  baitStyles: string
+  waterType: string
 ): Tackle[] {
   let tackleToUse: Tackle[] = []
 
