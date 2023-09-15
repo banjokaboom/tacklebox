@@ -357,8 +357,7 @@ export async function getFreshwaterFishingData(
       fishingData.seasons,
       fishingData.species,
       waterTemp,
-      waterType,
-      fishingData.baitRecommendations.stylesToUse
+      waterType
     )
 
     fishingData.tackle.forEach((tackle: Tackle) => {

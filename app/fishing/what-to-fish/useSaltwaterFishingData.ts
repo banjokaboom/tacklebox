@@ -75,8 +75,7 @@ export async function getSaltwaterFishingData(
       fishingData.seasons,
       fishingData.species,
       waterTemp,
-      waterType,
-      fishingData.baitRecommendations.stylesToUse
+      waterType
     )
 
     fishingData.fishingConditions = getFishingConditions(
