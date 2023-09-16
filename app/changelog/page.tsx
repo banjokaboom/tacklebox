@@ -1,11 +1,11 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.4.0 > changelogs/v3.5.0.txt
+ * git log --oneline --decorate=no HEAD...v3.5.0 > changelogs/v3.6.0.txt
  *
  * To count for version tag
  *
- * git rev-list HEAD...v3.4.0 --count
+ * git rev-list HEAD...v3.5.0 --count
  */
 
 import ContentSection from '@/app/components/content'
@@ -26,7 +26,13 @@ export default function ChangeLog() {
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
 
-        <ContentSection title="v3.5.0" isExpandedByDefault={true}>
+        <ContentSection title="v3.6.0" isExpandedByDefault={true}>
+          <div>
+            <p className="mb-4 last:mb-0">added weather to tackle to boost confidence, i.e. ned rig is good for rain</p>
+          </div>
+        </ContentSection>
+
+        <ContentSection title="v3.5.0">
           <div>
             <p className="mb-4 last:mb-0">improved tab interface</p>
             <p className="mb-4 last:mb-0">

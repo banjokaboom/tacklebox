@@ -1,0 +1,6 @@
+8957c96 fixed linting error
+455a20c removed unused var
+bf6263d added weather to tackle to boost confidence, i.e. ned rig is good for rain
+c558fad updated Content test
+1ebfd04 changed Content component to use children
+363053b ran lintfix
