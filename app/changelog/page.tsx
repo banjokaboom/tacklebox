@@ -28,7 +28,10 @@ export default function ChangeLog() {
 
         <ContentSection title="v3.6.0" isExpandedByDefault={true}>
           <div>
-            <p className="mb-4 last:mb-0">added weather to tackle to boost confidence, i.e. ned rig is good for rain</p>
+            <p className="mb-4 last:mb-0">
+              added weather to tackle to boost confidence, i.e. ned rig is good
+              for rain
+            </p>
           </div>
         </ContentSection>
 
