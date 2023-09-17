@@ -1,5 +1,6 @@
 import CookingData from '@/app/classes/CookingData'
 import Recipe from '@/app/classes/Recipe'
+import { getSeasons } from '@/app/helpers/date'
 
 export function pickRecipes(
   numRecipes: number,
@@ -21,6 +22,7 @@ export function pickRecipes(
     'beef short ribs',
     'ground beef',
     'steak tips',
+    'burgers',
   ]
   let countNumOfBeefRecipes = 0
   let countNumOfPastaRecipes = 0
@@ -101,21 +103,13 @@ function isRecipeForSeason(recipe: Recipe) {
     return false
   }
 
-  let todayMonth = new Date().getMonth() + 1
-  const isWinter = todayMonth >= 1 && todayMonth <= 3
-  const isSpring = todayMonth >= 4 && todayMonth <= 6
-  const isSummer = todayMonth >= 7 && todayMonth <= 9
-  const isFall = todayMonth >= 10 && todayMonth <= 12
+  const seasons = getSeasons()
 
-  if (isWinter && !recipe.seasons.includes('winter')) {
-    return false
-  } else if (isSpring && !recipe.seasons.includes('spring')) {
-    return false
-  } else if (isSummer && !recipe.seasons.includes('summer')) {
-    return false
-  } else if (isFall && !recipe.seasons.includes('fall')) {
-    return false
+  for (let seasonCount = 0; seasonCount < seasons.length; seasonCount++) {
+    if (recipe.seasons.includes(seasons[seasonCount])) {
+      return true
+    }
   }
 
-  return true
+  return false
 }
