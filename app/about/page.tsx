@@ -13,8 +13,17 @@ export default function About() {
     <div className="flex flex-col items-center justify-between">
       <div className="max-w-5xl w-full">
         <Breadcrumbs links={breadcrumbs} />
-        <h1 className="text-3xl mb-4">About Tacklebox</h1>
+        <h1 className="text-3xl mb-4">About Bearded Fish</h1>
         <hr className="mb-4" />
+        <p className="mb-4">
+          Bearded Fish is a fishing lifestyle brand created by Andrew Augusto
+          focused on simplifying fishing and making the activity more accessible
+          to newcomers. Nobody is perfect but we try to make life a little
+          easier to minimize frustration and give you a more enjoyable time
+          outdoors!
+        </p>
+
+        <h2 className="text-2xl underline mb-4">About Tacklebox</h2>
         <div className="flex flex-col lg:flex-row justify-between lg:space-x-8">
           <div>
             <p className="mb-4">
