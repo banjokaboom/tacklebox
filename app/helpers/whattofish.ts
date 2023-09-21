@@ -100,7 +100,7 @@ export function getFishingConditions(
       starRating++
       positiveConditionsNotes.push('ideal barometric pressure')
     } else {
-      starRating--
+      starRating -= 2
       negativeConditionsNotes.push('not good barometric pressure')
     }
 
@@ -179,11 +179,11 @@ export function getFishingConditions(
   }
 
   if (
-    weather.forecast.forecastday[0].astro.moon_illumination >= 95 ||
-    weather.forecast.forecastday[0].astro.moon_illumination <= 5 ||
+    weather.forecast.forecastday[0].astro.moon_illumination >= 98 ||
+    weather.forecast.forecastday[0].astro.moon_illumination <= 2 ||
     weather.forecast.forecastday[0].astro.moon_phase.includes('Quarter')
   ) {
-    starRating++
+    starRating += 2
     positiveConditionsNotes.push('optimal moon phase')
   }
 
@@ -389,9 +389,9 @@ export function getWeatherValues(weather: any, seasons: string): WeatherData {
   astro.moonset = weather.forecast.forecastday[0].astro.moonset
 
   let moonPhase = ''
-  if (weather.forecast.forecastday[0].astro.moon_illumination >= 95) {
+  if (weather.forecast.forecastday[0].astro.moon_illumination >= 98) {
     moonPhase = 'Full Moon'
-  } else if (weather.forecast.forecastday[0].astro.moon_illumination <= 5) {
+  } else if (weather.forecast.forecastday[0].astro.moon_illumination <= 2) {
     moonPhase = 'New Moon'
   } else {
     moonPhase = weather.forecast.forecastday[0].astro.moon_phase

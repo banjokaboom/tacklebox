@@ -119,9 +119,8 @@ function getFishingSeasons(
   if (cityState && cityState.location.includes('north')) {
     switch (todayMonth) {
       case 3:
-      case 10:
-      case 11:
         seasons.push('trout stocking')
+        seasons.push('spring transition')
         break
       case 4:
         seasons.push('trout stocking')
@@ -171,6 +170,7 @@ function getFishingSeasons(
         seasons.push('sunfish spawn')
         seasons.push('catfish pre-spawn')
         seasons.push('carp pre-spawn')
+        seasons.push('summer transition')
         break
       case 7:
         if (waterTemp >= 68.5 || today.getDate() > 15) {
@@ -179,6 +179,16 @@ function getFishingSeasons(
           seasons.push('catfish pre-spawn')
         }
         seasons.push('carp spawn')
+        break
+      case 9:
+        seasons.push('trout stocking')
+        seasons.push('fall transition')
+        break
+      case 10:
+        seasons.push('trout stocking')
+        break
+      case 12:
+        seasons.push('winter transition')
         break
       default:
         break
