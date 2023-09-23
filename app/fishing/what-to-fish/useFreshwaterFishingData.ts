@@ -30,7 +30,7 @@ function pickBaitRecommendations(
     baitToUse.push('corn', 'bread')
   }
 
-  if (seasons.includes('spring')) {
+  if (seasons.includes('spring') || seasons.includes('fall')) {
     if (
       species.includes('largemouth bass') ||
       species.includes('smallmouth bass') ||
@@ -69,7 +69,11 @@ function pickBaitRecommendations(
     }
   }
 
-  if (weather.current.cloud >= 75 || seasons.includes('spring')) {
+  if (
+    weather.current.cloud >= 75 ||
+    seasons.includes('spring') ||
+    seasons.includes('fall')
+  ) {
     stylesToUse.push('red')
   }
 

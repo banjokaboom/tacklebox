@@ -59,6 +59,7 @@ export default function WhatToFish() {
     "If fish are pecking at the bait and pulling it but aren't real heavy-feeling, they're little babies and you're not gonna catch them.",
     'Spoons, spinnerbaits, and spinners: Cast out, let the bait fall a bit, then jerk up and reel in to imitate fish.',
     'Swimbaits and jerk baits: Cast out, let the bait fall a bit, then reel in to generate the action. Slow or speed up depending on the need. Can rig wacky for panfish.',
+    'Look for changes in the underwater vegetation to indicate the changing seasons. For example, weeds starting to die in the late summer mean that the fall transition has begun and fish are moving to better waters for shelter and food.',
   ]
 
   const today = new Date()
