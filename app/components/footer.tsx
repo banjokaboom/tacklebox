@@ -84,7 +84,7 @@ export default function Footer() {
           </Link>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
-            href="mailto:tackleboxappfeedback@gmail.com?subject=Tacklebox%20Feedback"
+            href="mailto:beardedfishfishing@gmail.com?subject=Tacklebox%20Feedback"
           >
             Contact
           </Link>
