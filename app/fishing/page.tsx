@@ -25,10 +25,10 @@ export default function Fishing() {
         <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-around items-center mb-4">
           <Link
             className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
-            href="/fishing/can-i-fish"
+            href="/fishing/what-to-fish"
           >
-            <FontAwesomeIcon icon={faThumbsUp} className="mb-4 h-16" />
-            <span>Can I Fish</span>
+            <FontAwesomeIcon icon={faToolbox} className="mb-4 h-16" />
+            <span>What to Fish</span>
           </Link>
           <Link
             className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
@@ -39,10 +39,10 @@ export default function Fishing() {
           </Link>
           <Link
             className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
-            href="/fishing/what-to-fish"
+            href="/fishing/can-i-fish"
           >
-            <FontAwesomeIcon icon={faToolbox} className="mb-4 h-16" />
-            <span>What to Fish</span>
+            <FontAwesomeIcon icon={faThumbsUp} className="mb-4 h-16" />
+            <span>Can I Fish</span>
           </Link>
         </div>
 

@@ -14,12 +14,6 @@ export default function Footer() {
       <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start border-t pt-8">
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <Link
-            className="mb-4 w-fit hover:tracking-wide transition-[letter-spacing]"
-            href="/"
-          >
-            {pathname == '/' ? '> ' : ''}Home
-          </Link>
-          <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="/fishing"
           >
@@ -44,18 +38,6 @@ export default function Footer() {
           >
             {pathname.includes('what-to-fish') ? '> ' : ''}
             What to Fish
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
-            href="/home-maintenance"
-          >
-            {pathname.includes('home-maintenance') ? '> ' : ''}Home Maintenance
-          </Link>
-          <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] lg:mb-4"
-            href="/personal"
-          >
-            {pathname.includes('personal') ? '> ' : ''}Personal
           </Link>
         </div>
         <div className="flex flex-col justify-between lg:mb-0 mb-4 lg:basis-4/12 lg:shrink-0">

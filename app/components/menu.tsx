@@ -36,39 +36,12 @@ export default function Menu() {
       <div className={className}>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
-          href="/"
-          onClick={closeMenu}
-          onMouseOver={openMenu}
-          onFocus={openMenu}
-        >
-          Home
-        </Link>
-        <Link
-          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
           href="/fishing"
           onClick={closeMenu}
           onMouseOver={openMenu}
           onFocus={openMenu}
         >
           Fishing
-        </Link>
-        <Link
-          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
-          href="/home-maintenance"
-          onClick={closeMenu}
-          onMouseOver={openMenu}
-          onFocus={openMenu}
-        >
-          Home Maintenance
-        </Link>
-        <Link
-          className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
-          href="/personal"
-          onClick={closeMenu}
-          onMouseOver={openMenu}
-          onFocus={openMenu}
-        >
-          Personal
         </Link>
         <Link
           className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
