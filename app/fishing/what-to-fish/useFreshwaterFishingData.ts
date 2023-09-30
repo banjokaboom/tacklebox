@@ -393,6 +393,11 @@ export async function getFreshwaterFishingData(
       ) {
         tackle.confidence += 2
       }
+      fishingData.seasons.split(',').forEach((s) => {
+        if (tackle.type.includes(s)) {
+          tackle.confidence += 2
+        }
+      })
     })
 
     fishingData.fishingConditions = getFishingConditions(
