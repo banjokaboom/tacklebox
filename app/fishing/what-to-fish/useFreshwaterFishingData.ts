@@ -11,7 +11,7 @@ import {
 } from '@/app/helpers/whattofish'
 import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
-function pickBaitRecommendations(
+export function pickBaitRecommendations(
   weather: any,
   species: string,
   seasons: string
@@ -413,30 +413,32 @@ export async function getFreshwaterFishingData(
 }
 
 function getSpecies(waterTemp: number, seasons: string): string {
-  let species = ''
+  let species: string[] = []
 
   if (waterTemp >= 31.5 && waterTemp <= 82.5) {
     if (waterTemp >= 42.5) {
-      species += 'perch, '
+      species.push('perch')
     }
     if (waterTemp >= 58.5) {
-      species += 'largemouth bass, catfish, '
+      species.push('largemouth bass', 'catfish')
     }
 
     if (waterTemp >= 47.5 && waterTemp <= 72.5) {
-      species += 'smallmouth bass, carp, '
+      species.push('smallmouth bass', 'carp')
     }
 
     if (waterTemp > 61.5) {
-      species += 'sunfish, '
+      species.push('sunfish')
     }
 
     if (!seasons.includes('summer') && waterTemp <= 66.5) {
-      species += 'trout, '
+      species.push('trout')
     }
 
-    species += 'pickerel, pike, muskie'
+    species.push('pickerel', 'pike', 'muskie')
   }
 
-  return species !== '' ? species : 'Not ideal fishing weather for any species'
+  return species.length > 0
+    ? species.toString()
+    : 'Not ideal fishing weather for any species'
 }

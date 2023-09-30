@@ -16,7 +16,7 @@ function pickBaitRecommendations(): BaitRecommendations {
   let stylesToUse: string[] = []
   let baitToUse: string[] = []
 
-  baitToUse.push('live sand worms', 'shrimp', 'squid', 'crab')
+  baitToUse.push('live sand worms', 'shrimp', 'squid', 'crab', 'clams')
 
   let colorString = convertArrayToCommaSeparatedString(stylesToUse)
 

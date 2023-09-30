@@ -22,18 +22,17 @@ export function getFishingConditions(
 
   if (speciesArray.length >= 8) {
     starRating += 3
-    positiveConditionsNotes.push('at least 8 active species')
   } else if (speciesArray.length > 6) {
     starRating += 2
-    positiveConditionsNotes.push('several active species')
-  } else if (speciesArray.length > 3) {
+  } else if (
+    speciesArray.length > 3 ||
+    (speciesArray.length >= 1 &&
+      !speciesArray[0].includes('Not ideal') &&
+      speciesArray[0] !== '')
+  ) {
     starRating++
-    positiveConditionsNotes.push('more than 3 active species')
-  } else if (speciesArray.length == 1) {
-    starRating--
-    negativeConditionsNotes.push('no active species')
-  } else {
-    positiveConditionsNotes.push('a few active species')
+  } else if (speciesArray[0].includes('Not ideal') || speciesArray[0] == '') {
+    starRating -= 3
   }
 
   if (weatherForecastToUse == 'current') {

@@ -3,11 +3,17 @@
 import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
-import { getFreshwaterFishingData } from './useFreshwaterFishingData'
+import {
+  getFreshwaterFishingData,
+  pickBaitRecommendations,
+} from './useFreshwaterFishingData'
 import { getSaltwaterFishingData } from './useSaltwaterFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faLocationCrosshairs } from '@fortawesome/free-solid-svg-icons'
+import {
+  faLocationCrosshairs,
+  faTriangleExclamation,
+} from '@fortawesome/free-solid-svg-icons'
 import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
@@ -15,6 +21,8 @@ import FishingData from '@/app/classes/FishingData'
 import Tackle from '@/app/classes/Tackle'
 import CityState from '@/app/classes/CityState'
 import FishingDataContent from '@/app/components/fishingDataContent'
+import Species from '@/app/classes/Species'
+import { getFishingConditions, getWeather } from '@/app/helpers/whattofish'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -27,6 +35,9 @@ export default function WhatToFish() {
   let [message, setMessage] = useState(new MessageData())
   let [tackleList, setTackleList] = useState<Tackle[]>([])
   let [cityStateList, setCityStateList] = useState<CityState[]>([])
+  let [speciesList, setSpeciesList] = useState<Species[]>([])
+  let [speciesFilter, setSpeciesFilter] = useState<string[]>([])
+  let [activeSpecies, setActiveSpecies] = useState('')
   let breadcrumbs = [
     {
       title: 'Fishing',
@@ -117,6 +128,19 @@ export default function WhatToFish() {
         setMessage(m)
       }
 
+      try {
+        await fetch('/api/species')
+          .then((res) => res.json())
+          .then((json) => {
+            setSpeciesList(json.species)
+          })
+      } catch (error) {
+        logger.error(error)
+        m.message = 'An error occurred when loading the species filters.'
+        m.severity = 'error'
+        setMessage(m)
+      }
+
       setLoading(false)
     }
 
@@ -148,8 +172,6 @@ export default function WhatToFish() {
         return
       }
 
-      setData(new FishingData())
-
       if (location !== '') {
         try {
           let fishingData = new FishingData()
@@ -176,7 +198,42 @@ export default function WhatToFish() {
             )
           }
 
-          setData(fishingData)
+          if (speciesFilter.length == 0) {
+            setActiveSpecies(fishingData.species)
+            setData(fishingData)
+          } else {
+            setActiveSpecies(fishingData.species)
+            fishingData.species = fishingData.species
+              .split(',')
+              .filter((s) => speciesFilter.includes(s))
+              .toString()
+            fishingData.tackle.filter((t) => {
+              let isForFilteredSpecies = false
+
+              t.species.forEach((s) => {
+                if (speciesFilter.includes(s)) {
+                  isForFilteredSpecies = true
+                }
+              })
+
+              return isForFilteredSpecies
+            })
+
+            const weather = await getWeather(zip, cityState, geolocation)
+
+            fishingData.baitRecommendations = pickBaitRecommendations(
+              weather,
+              fishingData.species,
+              fishingData.seasons
+            )
+            fishingData.fishingConditions = getFishingConditions(
+              weather,
+              fishingData.species,
+              fishingData.seasons,
+              weatherForecastToUse
+            )
+            setData(fishingData)
+          }
 
           if (fishingData.tackle.length > 0) {
             m.message =
@@ -220,6 +277,7 @@ export default function WhatToFish() {
     tackleList,
     cityStateList,
     waterType,
+    speciesFilter,
   ])
 
   function getGeolocation() {
@@ -238,6 +296,19 @@ export default function WhatToFish() {
       })
     } else {
       logger.info('Geolocation is not available')
+    }
+  }
+
+  function handleUpdateSpeciesFilter(e: any) {
+    const species = e.target.value
+    const isChecked = e.target.checked
+
+    setLoading(true)
+
+    if (isChecked) {
+      setSpeciesFilter([...speciesFilter, species])
+    } else {
+      setSpeciesFilter(speciesFilter.filter((s) => s !== species))
     }
   }
 
@@ -327,9 +398,9 @@ export default function WhatToFish() {
             </div>
           </div>
         )}
-        {loading && <Loader />}
-        {!loading && data.weather.location !== '' && (
-          <div className="mb-4">
+        {loading && data.weather.location == '' && <Loader />}
+        {data.weather.location !== '' && (
+          <div className="mb-8">
             <p className="mb-4 flex flex-row">
               <span>
                 Data loaded for{' '}
@@ -363,9 +434,9 @@ export default function WhatToFish() {
                 >
                   <option value="freshwater bank">Lake/Pond (Bank)</option>
                   <option value="freshwater boat">Lake/Pond (Boat)</option>
-                  <option value="saltwater boat">Ocean (Boat)</option>
+                  {/* <option value="saltwater boat">Ocean (Boat)</option> */}
                   <option value="freshwater river">River</option>
-                  <option value="saltwater bank">Surf</option>
+                  {/* <option value="saltwater bank">Surf</option> */}
                 </select>
               </div>
               <div>
@@ -387,9 +458,51 @@ export default function WhatToFish() {
                 </select>
               </div>
             </div>
+            {speciesList.length > 0 && (
+              <div>
+                <div className="flex flex-row mb-4">
+                  <p>Filter by species?</p>
+                  <button
+                    onClick={() => {
+                      setSpeciesFilter([])
+                    }}
+                    className="ml-2 underline hover:no-underline text-sm"
+                  >
+                    Clear
+                  </button>
+                </div>
+                <div className="grid md:grid-cols-3 grid-cols-2">
+                  {speciesList.map(
+                    (s, index) =>
+                      waterType.includes(s.water_type) && (
+                        <div key={s.name + index}>
+                          <input
+                            type="checkbox"
+                            id={s.name + '_species'}
+                            checked={speciesFilter.includes(s.name)}
+                            onChange={handleUpdateSpeciesFilter}
+                            className="p-2 mr-2"
+                            value={s.name}
+                          />
+                          <label htmlFor={s.name + '_species'}>
+                            {s.name}
+                            {activeSpecies.includes(s.name) && (
+                              <FontAwesomeIcon
+                                title="currently active species"
+                                icon={faTriangleExclamation}
+                                className="ml-2"
+                              />
+                            )}
+                          </label>
+                        </div>
+                      )
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
-        {!loading && data.species !== '' && (
+        {!loading && data.fishingConditions.conditionsText !== '' && (
           <h2 className="text-3xl mb-8">
             {weatherForecastToUse.charAt(0).toUpperCase() +
               weatherForecastToUse.slice(1)}
@@ -413,7 +526,10 @@ export default function WhatToFish() {
           </h2>
         )}
 
-        {!loading && data.species !== '' && <FishingDataContent data={data} />}
+        {loading && data.weather.location !== '' && <Loader />}
+        {!loading && data.weather.location !== '' && (
+          <FishingDataContent data={data} />
+        )}
 
         <div>
           <ContentSection title="Tip of the Day" isExpandedByDefault={true}>

@@ -16,7 +16,11 @@ import tackleJSON from '../../../mockData/tackle.json'
 
 const server = setupServer(
   rest.get('/api/species', (req, res, ctx) => {
-    return res(ctx.json({ species: ['largemouth bass'] }))
+    return res(
+      ctx.json({
+        species: [{ name: 'largemouth bass', water_type: 'freshwater' }],
+      })
+    )
   }),
   rest.get('/api/tackle', (req, res, ctx) => {
     return res(ctx.json({ tackle: tackleJSON.tackle }))

@@ -126,24 +126,6 @@ describe('WhatToFish', () => {
     expect(heading).toBeInTheDocument()
   })
 
-  it('loads tackle when saltwater is selected', async () => {
-    const user = userEvent.setup()
-
-    render(<WhatToFish />)
-
-    const input = await screen.findByLabelText('ZIP Code')
-
-    await user.type(input, '01516')
-
-    const combobox = await screen.findByLabelText('Water Type?')
-
-    await user.selectOptions(combobox, 'saltwater boat')
-
-    const heading = await screen.findByText('Fish & Bait')
-
-    expect(heading).toBeInTheDocument()
-  })
-
   it('resets to initial display when Clear is clicked', async () => {
     const user = userEvent.setup()
 

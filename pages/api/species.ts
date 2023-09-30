@@ -1,13 +1,14 @@
 import { sql } from '@vercel/postgres'
+import Species from '@/app/classes/Species'
 
 export default async function handler(req: any, res: any) {
   let retryCount = 0
   try {
     const result = await sql`SELECT * from species order by name asc`
-    let species: string[] = []
+    let species: Species[] = []
 
     result.rows.map((s) => {
-      species.push(s.name)
+      species.push(new Species(s.name, s.water_type))
     })
 
     res.json({ species })

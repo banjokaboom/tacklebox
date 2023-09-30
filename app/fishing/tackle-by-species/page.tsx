@@ -14,6 +14,7 @@ import FishingData from '@/app/classes/FishingData'
 import Modal from 'react-modal'
 import ReactHtmlParser from 'react-html-parser'
 import Tackle from '@/app/classes/Tackle'
+import Species from '@/app/classes/Species'
 
 export default function TackleBySpecies() {
   let [loading, setLoading] = useState(true)
@@ -189,9 +190,9 @@ export default function TackleBySpecies() {
               value={species}
             >
               <option value="">Select Species...</option>
-              {speciesList.map((s: string, sIndex: number) => (
-                <option key={sIndex} value={s}>
-                  {s}
+              {speciesList.map((s: Species, sIndex: number) => (
+                <option key={sIndex} value={s.name}>
+                  {s.name}
                 </option>
               ))}
             </select>

@@ -32,28 +32,28 @@ export default function FishingDataContent({ data }: Props) {
   let [modalContent, setModalContent] = useState('')
   let [lowConfidenceTackle, setLowConfidenceTackle] = useState(new Tackle())
   let [activeTab, setActiveTab] = useState('fishAndBait')
-  const tackleAlphabetized = [...data.tackle].sort((ta, tb) =>
-    ta.name.localeCompare(tb.name)
-  )
-  const tackleByConfidence = [...data.tackle].sort((a, b) => {
-    if (a.confidence < b.confidence) {
-      return 1
-    }
-    if (a.confidence > b.confidence) {
-      return -1
-    }
-    // a must be equal to b
-    return 0
-  })
+  let tackleAlphabetized = [...data.tackle]
+    .sort((ta, tb) => ta.name.localeCompare(tb.name))
+    .filter((t) => getTackleSpecies(t) !== '')
+  let tackleByConfidence = [...data.tackle]
+    .sort((a, b) => {
+      if (a.confidence < b.confidence) {
+        return 1
+      }
+      if (a.confidence > b.confidence) {
+        return -1
+      }
+      // a must be equal to b
+      return 0
+    })
+    .filter((t) => getTackleSpecies(t) !== '')
 
   let hasFinesseTackle = false
-  data.tackle.forEach((t) => {
+  let hasReactionTackle = false
+  tackleAlphabetized.forEach((t) => {
     if (t.type.includes('finesse')) {
       hasFinesseTackle = true
     }
-  })
-  let hasReactionTackle = false
-  data.tackle.forEach((t) => {
     if (t.type.includes('reaction')) {
       hasReactionTackle = true
     }
@@ -147,15 +147,13 @@ export default function FishingDataContent({ data }: Props) {
   }, [data])
 
   function getTackleSpecies(tackle: Tackle) {
-    let tackleSpeciesStr = '('
+    let tackleSpeciesStr = ''
 
     tackle.species.forEach((s) => {
       if (data.species.includes(s)) {
         tackleSpeciesStr += (tackleSpeciesStr.length > 1 ? ', ' : '') + s
       }
     })
-
-    tackleSpeciesStr += ')'
 
     return tackleSpeciesStr
   }
@@ -251,13 +249,6 @@ export default function FishingDataContent({ data }: Props) {
       {activeTab == 'fishAndBait' && (
         <div className="mb-8">
           <div>
-            <ContentSection
-              title="Species to target"
-              isExpandedByDefault={true}
-            >
-              {data.species}
-            </ContentSection>
-
             {data.baitRecommendations.baitsToUse !== '' && (
               <ContentSection
                 title="Baits to use now"
@@ -435,7 +426,7 @@ export default function FishingDataContent({ data }: Props) {
               </ContentSection>
             )}
 
-            {data.tackle.length > 0 && (
+            {tackleAlphabetized.length > 0 && (
               <ContentSection title="All lures and rigs for conditions">
                 {tackleAlphabetized.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
@@ -498,7 +489,7 @@ export default function FishingDataContent({ data }: Props) {
               </ContentSection>
             )}
 
-            {data.tackle.length > 0 && (
+            {tackleAlphabetized.length > 0 && (
               <ContentSection title="Try something new">
                 {
                   <div className="mb-4 last:mb-0">
@@ -533,9 +524,6 @@ export default function FishingDataContent({ data }: Props) {
                             </p>
                           )}
                         </div>
-                        <p className="text-sm">
-                          {getTackleSpecies(lowConfidenceTackle)}
-                        </p>
                       </div>
                       {!lowConfidenceTackle.name
                         .toUpperCase()
@@ -569,11 +557,16 @@ export default function FishingDataContent({ data }: Props) {
               </ContentSection>
             )}
 
-            {data.species.includes('Not ideal') && (
+            {(data.species.includes('Not ideal') ||
+              tackleAlphabetized.length == 0) && (
               <div className="pt-4">
                 <p className="mb-4">
-                  It may not be ideal fishing for any species, but you can still
-                  fish! Get specific lure suggestions by species here:
+                  It may not be ideal fishing for{' '}
+                  {data.species.includes('Not ideal')
+                    ? 'any species'
+                    : 'the filtered species'}
+                  , but you can still fish! Get specific lure suggestions by
+                  species here:
                 </p>
 
                 <Link
