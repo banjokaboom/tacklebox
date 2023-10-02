@@ -12,7 +12,7 @@ import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faLocationCrosshairs,
-  faTriangleExclamation,
+  faFishFins,
 } from '@fortawesome/free-solid-svg-icons'
 import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
@@ -489,7 +489,7 @@ export default function WhatToFish() {
                             {activeSpecies.includes(s.name) && (
                               <FontAwesomeIcon
                                 title="currently active species"
-                                icon={faTriangleExclamation}
+                                icon={faFishFins}
                                 className="ml-2"
                               />
                             )}
