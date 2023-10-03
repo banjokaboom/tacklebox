@@ -408,6 +408,13 @@ export async function getFreshwaterFishingData(
           tackle.confidence++
         }
       })
+
+      tackle.species.forEach((s) => {
+        if (fishingData.seasons.includes(s)) {
+          tackle.confidence++
+        }
+      })
+
       fishingData.baitRecommendations.stylesToUse.split(',').forEach((s) => {
         if (tackle.type.includes(s)) {
           tackle.confidence++
