@@ -14,6 +14,7 @@ import {
   faCircleHalfStroke,
   faCalendar,
   faCloud,
+  faWorm,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -163,7 +164,7 @@ export default function FishingDataContent({ data }: Props) {
       <hr className="mb-8" />
       <div className="flex flex-row justify-between">
         <button
-          title="Fish & Bait Tab Button"
+          title="Bait Tab Button"
           disabled={activeTab == 'fishAndBait'}
           onClick={() => {
             setActiveTab('fishAndBait')
@@ -176,10 +177,10 @@ export default function FishingDataContent({ data }: Props) {
             }
           >
             <FontAwesomeIcon
-              icon={faFish}
+              icon={faWorm}
               className="md:mr-2 md:text-xl text-3xl"
             />
-            <span className="md:text-xl text-sm">Fish &amp; Bait</span>
+            <span className="md:text-xl text-sm">Bait</span>
           </div>
         </button>
         <div className="border border-slate-50"></div>
@@ -200,12 +201,12 @@ export default function FishingDataContent({ data }: Props) {
               icon={faCircleHalfStroke}
               className="md:mr-2 md:text-xl text-3xl -rotate-90"
             />
-            <span className="md:text-xl text-sm">Lures &amp; Rigs</span>
+            <span className="md:text-xl text-sm">Lures/Rigs</span>
           </div>
         </button>
         <div className="border border-slate-50"></div>
         <button
-          title="Seasonal Info Tab Button"
+          title="Season Info Tab Button"
           disabled={activeTab == 'seasonalInfo'}
           onClick={() => {
             setActiveTab('seasonalInfo')
@@ -221,7 +222,7 @@ export default function FishingDataContent({ data }: Props) {
               icon={faCalendar}
               className="md:mr-2 md:text-xl text-3xl"
             />
-            <span className="md:text-xl text-sm">Seasonal Info</span>
+            <span className="md:text-xl text-sm">Season Info</span>
           </div>
         </button>
         <div className="border border-slate-50"></div>
