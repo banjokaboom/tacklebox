@@ -394,17 +394,23 @@ export async function getFreshwaterFishingData(
         tackle.weather &&
         conditions.toUpperCase().includes(tackle.weather.toUpperCase())
       ) {
-        tackle.confidence += 2
+        tackle.confidence++
       }
+
       fishingData.seasons.split(',').forEach((s) => {
         if (tackle.type.includes(s)) {
-          tackle.confidence += 2
+          tackle.confidence++
         }
       })
 
+      fishingData.species.forEach((s) => {
+        if (tackle.species.includes(s)) {
+          tackle.confidence++
+        }
+      })
       fishingData.baitRecommendations.stylesToUse.split(',').forEach((s) => {
         if (tackle.type.includes(s)) {
-          tackle.confidence += 2
+          tackle.confidence++
         }
       })
     })
