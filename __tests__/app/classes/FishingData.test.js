@@ -10,7 +10,7 @@ describe('FishingData', () => {
     expect(fishingData.seasons).toBe('')
     expect(fishingData.tackle.length).toBe(0)
     expect(fishingData.weather).not.toBeUndefined()
-    expect(fishingData.species).toBe('')
+    expect(fishingData.species.length).toBe(0)
     expect(fishingData.fishingConditions).not.toBeUndefined()
   })
 })

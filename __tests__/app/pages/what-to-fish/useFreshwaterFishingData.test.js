@@ -389,7 +389,7 @@ describe('useFishingData', () => {
       'freshwater bank'
     )
 
-    expect(result.species).toBe('Not ideal fishing weather for any species')
+    expect(result.species[0]).toBe('Not ideal fishing weather for any species')
   })
 
   it('warning for cold water', async () => {
@@ -405,7 +405,7 @@ describe('useFishingData', () => {
       'freshwater bank'
     )
 
-    expect(result.species).toBe('Not ideal fishing weather for any species')
+    expect(result.species[0]).toBe('Not ideal fishing weather for any species')
   })
 
   it('loads recommendations using cityState', async () => {

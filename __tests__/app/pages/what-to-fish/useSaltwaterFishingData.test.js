@@ -388,7 +388,7 @@ describe('useFishingData', () => {
       'saltwater bank'
     )
 
-    expect(result.species).toBe('Not ideal fishing weather for any species')
+    expect(result.species[0]).toBe('Not ideal fishing weather for any species')
   })
 
   it('warning for cold water', async () => {
@@ -404,7 +404,7 @@ describe('useFishingData', () => {
       'saltwater bank'
     )
 
-    expect(result.species).toBe('Not ideal fishing weather for any species')
+    expect(result.species[0]).toBe('Not ideal fishing weather for any species')
   })
 
   it("doesn't load when state not selected and zip length < 5", async () => {
