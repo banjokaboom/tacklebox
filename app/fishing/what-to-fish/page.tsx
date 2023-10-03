@@ -3,10 +3,7 @@
 import { default as Logger } from 'pino'
 import { useState, useEffect } from 'react'
 import Loader from '@/app/components/loader'
-import {
-  getFreshwaterFishingData,
-  pickBaitRecommendations,
-} from './useFreshwaterFishingData'
+import { getFreshwaterFishingData } from './useFreshwaterFishingData'
 import { getSaltwaterFishingData } from './useSaltwaterFishingData'
 import ContentSection from '@/app/components/content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -22,7 +19,6 @@ import Tackle from '@/app/classes/Tackle'
 import CityState from '@/app/classes/CityState'
 import FishingDataContent from '@/app/components/fishingDataContent'
 import Species from '@/app/classes/Species'
-import { getFishingConditions, getWeather } from '@/app/helpers/whattofish'
 
 export default function WhatToFish() {
   let [zip, setZip] = useState('')
@@ -37,7 +33,6 @@ export default function WhatToFish() {
   let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let [speciesList, setSpeciesList] = useState<Species[]>([])
   let [speciesFilter, setSpeciesFilter] = useState<string[]>([])
-  let [activeSpecies, setActiveSpecies] = useState('')
   let breadcrumbs = [
     {
       title: 'Fishing',
@@ -184,7 +179,8 @@ export default function WhatToFish() {
               tackleList,
               cityStateList,
               geolocation,
-              waterType
+              waterType,
+              speciesFilter.length > 0 ? speciesFilter : undefined
             )
           } else {
             fishingData = await getSaltwaterFishingData(
@@ -198,42 +194,7 @@ export default function WhatToFish() {
             )
           }
 
-          if (speciesFilter.length == 0) {
-            setActiveSpecies(fishingData.species)
-            setData(fishingData)
-          } else {
-            setActiveSpecies(fishingData.species)
-            fishingData.species = fishingData.species
-              .split(',')
-              .filter((s) => speciesFilter.includes(s))
-              .toString()
-            fishingData.tackle.filter((t) => {
-              let isForFilteredSpecies = false
-
-              t.species.forEach((s) => {
-                if (speciesFilter.includes(s)) {
-                  isForFilteredSpecies = true
-                }
-              })
-
-              return isForFilteredSpecies
-            })
-
-            const weather = await getWeather(zip, cityState, geolocation)
-
-            fishingData.baitRecommendations = pickBaitRecommendations(
-              weather,
-              fishingData.species,
-              fishingData.seasons
-            )
-            fishingData.fishingConditions = getFishingConditions(
-              weather,
-              fishingData.species,
-              fishingData.seasons,
-              weatherForecastToUse
-            )
-            setData(fishingData)
-          }
+          setData(fishingData)
 
           if (fishingData.tackle.length > 0) {
             m.message =
@@ -486,7 +447,7 @@ export default function WhatToFish() {
                           />
                           <label htmlFor={s.name + '_species'}>
                             {s.name}
-                            {activeSpecies.includes(s.name) && (
+                            {data.activeSpecies.includes(s.name) && (
                               <FontAwesomeIcon
                                 title="currently active species"
                                 icon={faFishFins}

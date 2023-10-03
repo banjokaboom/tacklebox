@@ -73,15 +73,13 @@ export async function getSaltwaterFishingData(
     fishingData.tackle = await pickTackle(
       tackleList,
       fishingData.seasons,
-      fishingData.species,
       waterTemp,
       waterType
     )
 
     fishingData.fishingConditions = getFishingConditions(
       weather,
-      fishingData.species,
-      fishingData.seasons,
+      fishingData,
       weatherForecastToUse
     )
   } else if (
@@ -95,13 +93,28 @@ export async function getSaltwaterFishingData(
   return fishingData
 }
 
-function getSpecies(waterTemp: number): string {
-  let species = ''
+function getSpecies(waterTemp: number): string[] {
+  let species: string[] = []
 
   if (waterTemp >= 31.5 && waterTemp <= 82.5) {
-    species +=
-      'shark, drum, striped bass, bluefish, cod, snook, black sea bass, haddock, halibut, mackerel, scup, tautog, flounder'
+    species.push(
+      'shark',
+      'drum',
+      'striped bass',
+      'bluefish',
+      'cod',
+      'snook',
+      'black sea bass',
+      'haddock',
+      'halibut',
+      'mackerel',
+      'scup',
+      'tautog',
+      'flounder'
+    )
   }
 
-  return species !== '' ? species : 'Not ideal fishing weather for any species'
+  return species.length > 0
+    ? species
+    : ['Not ideal fishing weather for any species']
 }

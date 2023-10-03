@@ -8,15 +8,17 @@ export default class FishingData {
   public seasons: string
   public tackle: Tackle[]
   public weather: WeatherData
-  public species: string
+  public species: string[]
   public fishingConditions: FishingConditions
+  public activeSpecies: string[]
 
   constructor() {
     this.baitRecommendations = new BaitRecommendations()
     this.seasons = ''
     this.tackle = []
     this.weather = new WeatherData()
-    this.species = ''
+    this.species = []
     this.fishingConditions = new FishingConditions()
+    this.activeSpecies = []
   }
 }

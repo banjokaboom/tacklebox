@@ -13,7 +13,7 @@ import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
 export function pickBaitRecommendations(
   weather: any,
-  species: string,
+  species: string[],
   seasons: string
 ): BaitRecommendations {
   let baitRecommendations = new BaitRecommendations()
@@ -335,7 +335,8 @@ export async function getFreshwaterFishingData(
   tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
-  waterType: string
+  waterType: string,
+  species?: string[]
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
@@ -360,7 +361,10 @@ export async function getFreshwaterFishingData(
             ].waterTemp
           )
 
-    fishingData.species = getSpecies(waterTemp, fishingData.seasons)
+    fishingData.activeSpecies = getSpecies(waterTemp, fishingData.seasons)
+    fishingData.species =
+      species !== undefined ? species : fishingData.activeSpecies
+
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
       fishingData.species,
@@ -369,7 +373,6 @@ export async function getFreshwaterFishingData(
     fishingData.tackle = await pickTackle(
       tackleList,
       fishingData.seasons,
-      fishingData.species,
       waterTemp,
       waterType
     )
@@ -402,8 +405,7 @@ export async function getFreshwaterFishingData(
 
     fishingData.fishingConditions = getFishingConditions(
       weather,
-      fishingData.species,
-      fishingData.seasons,
+      fishingData,
       weatherForecastToUse
     )
   } else if (
@@ -417,7 +419,7 @@ export async function getFreshwaterFishingData(
   return fishingData
 }
 
-function getSpecies(waterTemp: number, seasons: string): string {
+function getSpecies(waterTemp: number, seasons: string): string[] {
   let species: string[] = []
 
   if (waterTemp >= 31.5 && waterTemp <= 82.5) {
@@ -444,6 +446,6 @@ function getSpecies(waterTemp: number, seasons: string): string {
   }
 
   return species.length > 0
-    ? species.toString()
-    : 'Not ideal fishing weather for any species'
+    ? species
+    : ['Not ideal fishing weather for any species']
 }

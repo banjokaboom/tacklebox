@@ -3,36 +3,67 @@ import WeatherData from '../classes/WeatherData'
 import WeatherDataChild from '../classes/WeatherDataChild'
 import AstroData from '../classes/AstroData'
 import FishingConditions from '../classes/FishingConditions'
+import FishingData from '../classes/FishingData'
 
 const warmWaterMax = 82.5
 const warmWaterMin = 57.5
 
 export function getFishingConditions(
   weather: any,
-  species: string,
-  seasons: string,
+  fishingData: FishingData,
   weatherForecastToUse: string
 ) {
   let fishingConditionsText: string = ''
   let positiveConditionsNotes: string[] = []
   let negativeConditionsNotes: string[] = []
   let starRating = 0
-  const speciesArray = species.split(',').map((s) => s.trim())
   let fishingConditions = new FishingConditions()
+  const activeSpecies = fishingData.activeSpecies
+  const species = fishingData.species
+  const seasons = fishingData.seasons
 
-  if (speciesArray.length >= 8) {
+  if (
+    activeSpecies.length >= 8 ||
+    (activeSpecies.length == 0 && species.length >= 8)
+  ) {
     starRating += 3
-  } else if (speciesArray.length > 6) {
+  } else if (
+    activeSpecies.length > 6 ||
+    (activeSpecies.length == 0 && species.length > 6)
+  ) {
     starRating += 2
   } else if (
-    speciesArray.length > 3 ||
-    (speciesArray.length >= 1 &&
-      !speciesArray[0].includes('Not ideal') &&
-      speciesArray[0] !== '')
+    activeSpecies.length > 3 ||
+    (activeSpecies.length == 0 && species.length > 3)
   ) {
     starRating++
-  } else if (speciesArray[0].includes('Not ideal') || speciesArray[0] == '') {
+  } else if (
+    (activeSpecies[0] && activeSpecies[0].includes('Not ideal')) ||
+    species[0] == '' ||
+    species[0].includes('Not ideal')
+  ) {
     starRating -= 3
+  }
+
+  let isFishingForActiveSpecies = false
+  species.forEach((s) => {
+    if (activeSpecies.includes(s)) {
+      isFishingForActiveSpecies = true
+    }
+  })
+
+  if (isFishingForActiveSpecies) {
+    starRating++
+  } else if (activeSpecies.length > 0 && !isFishingForActiveSpecies) {
+    starRating -= 2
+  }
+
+  if (fishingData.tackle.length >= 5) {
+    starRating += 2
+  } else if (fishingData.tackle.length >= 1) {
+    starRating++
+  } else {
+    starRating -= 2
   }
 
   if (weatherForecastToUse == 'current') {
@@ -186,10 +217,10 @@ export function getFishingConditions(
     positiveConditionsNotes.push('optimal moon phase')
   }
 
-  const excellentStarRating = weatherForecastToUse ? 11 : 5
-  const reallyGoodStarRating = weatherForecastToUse ? 8 : 3
-  const goodStarRating = weatherForecastToUse ? 5 : 1
-  const okStarRating = weatherForecastToUse ? 2 : 1
+  const excellentStarRating = weatherForecastToUse ? 14 : 6
+  const reallyGoodStarRating = weatherForecastToUse ? 11 : 4
+  const goodStarRating = weatherForecastToUse ? 8 : 2
+  const okStarRating = weatherForecastToUse ? 5 : 1
 
   if (starRating > excellentStarRating) {
     fishingConditionsText += 'Excellent'
@@ -241,29 +272,16 @@ export async function getWeather(
 export function pickTackle(
   tackleList: Tackle[],
   seasons: string,
-  species: string,
   waterTemp: number,
   waterType: string
 ): Tackle[] {
   let tackleToUse: Tackle[] = []
 
   tackleList.forEach(function (tackle: Tackle) {
-    let isTackleForSpecies = false
     let isTackleForWaterType = false
     const seasonsArray: string[] = seasons.split(',').map((s) => s.trim())
     let isTackleForSpawnSeason = false
     let isTackleForBaitStyle = false
-
-    for (
-      let speciesIndex = 0;
-      speciesIndex < tackle.species.length;
-      speciesIndex++
-    ) {
-      if (species.includes(tackle.species[speciesIndex])) {
-        isTackleForSpecies = true
-        break
-      }
-    }
 
     for (let typeIndex = 0; typeIndex < tackle.type.length; typeIndex++) {
       if (waterType.includes(tackle.type[typeIndex])) {
@@ -292,7 +310,6 @@ export function pickTackle(
     })
 
     if (
-      isTackleForSpecies &&
       isTackleForWaterType &&
       isTackleForBaitStyle &&
       (isTackleForSpawnSeason || isTackleForWeather(tackle, waterTemp))
