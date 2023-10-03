@@ -32,7 +32,7 @@ export default function FishingDataContent({ data }: Props) {
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
   let [lowConfidenceTackle, setLowConfidenceTackle] = useState(new Tackle())
-  let [activeTab, setActiveTab] = useState('fishAndBait')
+  let [activeTab, setActiveTab] = useState('luresAndRigs')
   let tackleAlphabetized = [...data.tackle]
     .sort((ta, tb) => ta.name.localeCompare(tb.name))
     .filter((t) => getTackleSpecies(t) !== '')
