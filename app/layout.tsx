@@ -24,7 +24,7 @@ export default function RootLayout({
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7012167562751887"
-          crossOrigin="anonymous"
+          crossorigin="anonymous"
         ></script>
       </head>
       <body className={inter.className}>
