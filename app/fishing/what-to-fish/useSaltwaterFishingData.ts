@@ -8,6 +8,7 @@ import {
   getWeather,
   pickTackle,
   getWeatherValues,
+  getSpecies,
 } from '@/app/helpers/whattofish'
 import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
@@ -43,7 +44,8 @@ export async function getSaltwaterFishingData(
   tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
-  waterType: string
+  waterType: string,
+  species?: string[]
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
@@ -68,7 +70,10 @@ export async function getSaltwaterFishingData(
             ].waterTemp
           )
 
-    fishingData.species = getSpecies(waterTemp)
+    fishingData.activeSpecies = await getSpecies(waterTemp, waterType)
+
+    fishingData.species =
+      species !== undefined ? species : fishingData.activeSpecies
     fishingData.baitRecommendations = pickBaitRecommendations()
     fishingData.tackle = await pickTackle(
       tackleList,
@@ -91,30 +96,4 @@ export async function getSaltwaterFishingData(
   }
 
   return fishingData
-}
-
-function getSpecies(waterTemp: number): string[] {
-  let species: string[] = []
-
-  if (waterTemp >= 31.5 && waterTemp <= 82.5) {
-    species.push(
-      'shark',
-      'drum',
-      'striped bass',
-      'bluefish',
-      'cod',
-      'snook',
-      'black sea bass',
-      'haddock',
-      'halibut',
-      'mackerel',
-      'scup',
-      'tautog',
-      'flounder'
-    )
-  }
-
-  return species.length > 0
-    ? species
-    : ['Not ideal fishing weather for any species']
 }

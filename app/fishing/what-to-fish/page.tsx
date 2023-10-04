@@ -190,7 +190,8 @@ export default function WhatToFish() {
               tackleList,
               cityStateList,
               geolocation,
-              waterType
+              waterType,
+              speciesFilter.length > 0 ? speciesFilter : undefined
             )
           }
 
@@ -395,9 +396,9 @@ export default function WhatToFish() {
                 >
                   <option value="freshwater bank">Lake/Pond (Bank)</option>
                   <option value="freshwater boat">Lake/Pond (Boat)</option>
-                  {/* <option value="saltwater boat">Ocean (Boat)</option> */}
+                  <option value="saltwater boat">Ocean (Boat)</option>
                   <option value="freshwater river">River</option>
-                  {/* <option value="saltwater bank">Surf</option> */}
+                  <option value="saltwater bank">Surf</option>
                 </select>
               </div>
               <div>
@@ -423,6 +424,14 @@ export default function WhatToFish() {
               <div>
                 <div className="flex flex-row mb-4">
                   <p>Filter by species?</p>
+                  <button
+                    onClick={() => {
+                      setSpeciesFilter([...data.activeSpecies])
+                    }}
+                    className="ml-2 underline hover:no-underline text-sm"
+                  >
+                    Active
+                  </button>
                   <button
                     onClick={() => {
                       setSpeciesFilter([])

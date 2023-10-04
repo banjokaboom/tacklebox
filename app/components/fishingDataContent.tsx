@@ -51,12 +51,16 @@ export default function FishingDataContent({ data }: Props) {
 
   let hasFinesseTackle = false
   let hasReactionTackle = false
+  let hasBrandedTackle = false
   tackleAlphabetized.forEach((t) => {
     if (t.type.includes('finesse')) {
       hasFinesseTackle = true
     }
     if (t.type.includes('reaction')) {
       hasReactionTackle = true
+    }
+    if (t.type.includes('product')) {
+      hasBrandedTackle = true
     }
   })
   let finesseTackleCount = 0
@@ -273,13 +277,89 @@ export default function FishingDataContent({ data }: Props) {
       {activeTab == 'luresAndRigs' && (
         <div className="mb-8">
           <div>
-            {hasReactionTackle && (
+            {hasBrandedTackle && (
               <ContentSection
-                title="Best reaction lures and rigs"
+                title="Best branded lures and rigs"
                 isExpandedByDefault={true}
               >
                 {tackleByConfidence.map((t, index) => {
-                  if (!t.type.includes('reaction')) {
+                  if (!t.type.includes('product')) {
+                    return
+                  }
+                  return (
+                    <div key={index} className="mb-4 last:mb-0">
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <div
+                          className={
+                            'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
+                          }
+                        >
+                          <div className="flex flex-row items-center">
+                            {t.tip && (
+                              <button
+                                className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
+                                title="Click to learn how to use this"
+                                onClick={() => {
+                                  setModalContent(t.tip)
+                                  setIsModalOpen(true)
+                                }}
+                              >
+                                <span>{t.name}</span>
+                                <FontAwesomeIcon
+                                  icon={faCircleQuestion}
+                                  className="ml-2"
+                                />
+                              </button>
+                            )}
+                            {!t.tip && (
+                              <p className="text-yellow-400 font-bold">
+                                {t.name}
+                              </p>
+                            )}
+                          </div>
+                          <p className="text-sm">{getTackleSpecies(t)}</p>
+                        </div>
+                        {!t.name.toUpperCase().includes('RIG') && (
+                          <div>
+                            <a
+                              title={
+                                'Amazon Buy link for ' +
+                                t.name +
+                                ' fishing lures'
+                              }
+                              target="_blank"
+                              className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                              href={
+                                'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                                t.name +
+                                ' fishing lures'
+                              }
+                            >
+                              <span>Buy</span>
+                              <FontAwesomeIcon
+                                icon={faArrowUpRightFromSquare}
+                                className="ml-2 max-h-4"
+                              />
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )
+                })}
+              </ContentSection>
+            )}
+
+            {hasReactionTackle && (
+              <ContentSection
+                title="Best general reaction lures and rigs"
+                isExpandedByDefault={true}
+              >
+                {tackleByConfidence.map((t, index) => {
+                  if (
+                    !t.type.includes('reaction') ||
+                    t.type.includes('product')
+                  ) {
                     return
                   }
                   reactionTackleCount++
@@ -351,11 +431,14 @@ export default function FishingDataContent({ data }: Props) {
 
             {hasFinesseTackle && (
               <ContentSection
-                title="Best finesse lures and rigs"
+                title="Best general finesse lures and rigs"
                 isExpandedByDefault={true}
               >
                 {tackleByConfidence.map((t, index) => {
-                  if (!t.type.includes('finesse')) {
+                  if (
+                    !t.type.includes('finesse') ||
+                    t.type.includes('product')
+                  ) {
                     return
                   }
                   finesseTackleCount++
@@ -562,12 +645,8 @@ export default function FishingDataContent({ data }: Props) {
               tackleAlphabetized.length == 0) && (
               <div className="pt-4">
                 <p className="mb-4">
-                  It may not be ideal fishing for{' '}
-                  {data.species.includes('Not ideal')
-                    ? 'any species'
-                    : 'the filtered species'}
-                  , but you can still fish! Get specific lure suggestions by
-                  species here:
+                  It may not be ideal fishing for the selected species, but you
+                  can still fish! Get specific lure suggestions by species here:
                 </p>
 
                 <Link

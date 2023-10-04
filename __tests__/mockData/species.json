@@ -1,0 +1,136 @@
+{
+  "species": [
+    {
+      "name": "largemouth bass",
+      "water_type": "freshwater",
+      "min_water_temp": 60,
+      "max_water_temp": 80
+    },
+    {
+      "name": "smallmouth bass",
+      "water_type": "freshwater",
+      "min_water_temp": 50,
+      "max_water_temp": 70
+    },
+    {
+      "name": "carp",
+      "water_type": "freshwater",
+      "min_water_temp": 50,
+      "max_water_temp": 70
+    },
+    {
+      "name": "catfish",
+      "water_type": "freshwater",
+      "min_water_temp": 60,
+      "max_water_temp": 80
+    },
+    {
+      "name": "sunfish",
+      "water_type": "freshwater",
+      "min_water_temp": 64,
+      "max_water_temp": 80
+    },
+    {
+      "name": "trout",
+      "water_type": "freshwater",
+      "min_water_temp": 34,
+      "max_water_temp": 69
+    },
+    {
+      "name": "pickerel",
+      "water_type": "freshwater",
+      "min_water_temp": 45,
+      "max_water_temp": 75
+    },
+    {
+      "name": "pike",
+      "water_type": "freshwater",
+      "min_water_temp": 40,
+      "max_water_temp": 70
+    },
+    {
+      "name": "walleye",
+      "water_type": "freshwater",
+      "min_water_temp": 50,
+      "max_water_temp": 76
+    },
+    {
+      "name": "salmon",
+      "water_type": "freshwater",
+      "min_water_temp": 40,
+      "max_water_temp": 50
+    },
+    {
+      "name": "muskie",
+      "water_type": "freshwater",
+      "min_water_temp": 45,
+      "max_water_temp": 70
+    },
+    {
+      "name": "perch",
+      "water_type": "freshwater",
+      "min_water_temp": 45,
+      "max_water_temp": 80
+    },
+    {
+      "name": "black sea bass",
+      "water_type": "saltwater",
+      "min_water_temp": 58,
+      "max_water_temp": 74
+    },
+    {
+      "name": "bluefish",
+      "water_type": "saltwater",
+      "min_water_temp": 50,
+      "max_water_temp": 84
+    },
+    {
+      "name": "cod",
+      "water_type": "saltwater",
+      "min_water_temp": 31,
+      "max_water_temp": 59
+    },
+    {
+      "name": "drum",
+      "water_type": "saltwater",
+      "min_water_temp": 52,
+      "max_water_temp": 90
+    },
+    {
+      "name": "flounder",
+      "water_type": "saltwater",
+      "min_water_temp": 35,
+      "max_water_temp": 72
+    },
+    {
+      "name": "mackerel",
+      "water_type": "saltwater",
+      "min_water_temp": 65,
+      "max_water_temp": 88
+    },
+    {
+      "name": "scup",
+      "water_type": "saltwater",
+      "min_water_temp": 55,
+      "max_water_temp": 75
+    },
+    {
+      "name": "snook",
+      "water_type": "saltwater",
+      "min_water_temp": 70,
+      "max_water_temp": 82
+    },
+    {
+      "name": "striped bass",
+      "water_type": "saltwater",
+      "min_water_temp": 50,
+      "max_water_temp": 75
+    },
+    {
+      "name": "tautog",
+      "water_type": "saltwater",
+      "min_water_temp": 60,
+      "max_water_temp": 76
+    }
+  ]
+}

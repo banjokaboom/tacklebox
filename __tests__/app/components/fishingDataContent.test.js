@@ -3,7 +3,6 @@ import { describe, it, expect } from '@jest/globals'
 import FishingDataContent from '@/app/components/fishingDataContent'
 import '@testing-library/jest-dom'
 import fishingDataJSON from '../../mockData/fishingData.json'
-import userEvent from '@testing-library/user-event'
 
 const data = fishingDataJSON
 

@@ -1,451 +1,374 @@
 {
   "tackle": [
     {
-      "name": "Fly Fishing Fly",
+      "name": "Booyah Pad Crasher",
       "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "trout",
-        "salmon",
-        "sunfish",
-        "smallmouth bass",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "finesse", "bank", "boat", "river", "insect"],
-      "tip": null
+      "species": "{\"largemouth bass\",pickerel,pike,muskie}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,boat,critter,summer,product}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Topwater Frogs</h2><p>Cast out onto lily pads, let the water calm, then start to jerk or hop. Start slow to prevent spooking the fish, then speed up as needed.</p>",
+      "weather": null
     },
     {
-      "name": "Ned Rig",
-      "confidence": 7,
-      "species": ["largemouth bass", "sunfish", "smallmouth bass"],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow"],
-      "type": ["finesse", "bank", "boat", "river", "insect"],
-      "tip": null
+      "name": "Reaction Tackle Tungsten Jig Heads",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",sunfish,\"smallmouth bass\"}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,boat,river,insect,product}",
+      "tip": null,
+      "weather": "rain"
     },
     {
-      "name": "Buzzbait",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Buzzbaits</h2><p>Cast out, let the bait fall a bit, then reel in to generate vibration just under the surface of the water. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>"
-    },
-    {
-      "name": "Wacky Rig",
-      "confidence": 10,
-      "species": ["largemouth bass", "smallmouth bass"],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["finesse", "bank", "river", "craw"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Wacky Rig</h2><p>Rig a Senko or similar stick worm on a 1/0 hook, hooked through the middle of the worm perpendicular to the hook. Cast it out just like that, no additional tackle required. Let it fall to the bottom, then pull it up and reel in the slack. Repeat as often as necessary. Bites usually occur on the fall.</p>"
+      "name": "Eurotackle Micro Finesse Jigs",
+      "confidence": 4,
+      "species": "{sunfish,trout,perch}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,boat,river,insect,product}",
+      "tip": null,
+      "weather": "rain"
     },
     {
       "name": "Texas Rig",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",\"smallmouth bass\"}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,reaction,bank,boat,river,baitfish,craw,critter}",
+      "tip": null,
+      "weather": null
+    },
+    {
+      "name": "Fly Fishing Fly",
+      "confidence": 1,
+      "species": "{\"largemouth bass\",trout,salmon,sunfish,\"smallmouth bass\",\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,finesse,bank,boat,river,insect}",
+      "tip": null,
+      "weather": null
+    },
+    {
+      "name": "Original Rapala Floater 07",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",trout,pickerel,pike,muskie,snook}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,reaction,bank,boat,river,baitfish,winter,product}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>",
+      "weather": null
+    },
+    {
+      "name": "Ned Rig",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",sunfish,\"smallmouth bass\"}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,boat,river,insect}",
+      "tip": null,
+      "weather": "rain"
+    },
+    {
+      "name": "Wacky Rig",
       "confidence": 5,
-      "species": ["largemouth bass", "smallmouth bass"],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": [
-        "finesse",
-        "reaction",
-        "bank",
-        "boat",
-        "river",
-        "baitfish",
-        "craw",
-        "critter"
-      ],
-      "tip": null
+      "species": "{\"largemouth bass\",\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,river,craw}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Wacky Rig</h2><p>Rig a Senko or similar stick worm on a 1/0 hook, hooked through the middle of the worm perpendicular to the hook. Cast it out just like that, no additional tackle required. Let it fall to the bottom, then pull it up and reel in the slack. Repeat as often as necessary. Bites usually occur on the fall.</p>",
+      "weather": "sunny"
+    },
+    {
+      "name": "Booyah Spinnerbaits",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish,fall,product}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>",
+      "weather": "sunny"
+    },
+    {
+      "name": "Buzzbait",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Buzzbaits</h2><p>Cast out, let the bait fall a bit, then reel in to generate vibration just under the surface of the water. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>",
+      "weather": null
+    },
+    {
+      "name": "Skirted Jig",
+      "confidence": 1,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",catfish,pickerel,pike,muskie,walleye}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,bank,boat,river,insect,baitfish,craw}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jigs</h2><p>A jig is any hook with a weight on the head. Ned rigs use mushroom head jigs. There are also flipping jigs, skirted jigs, and bladed jigs, as well as hundreds of other kinds. The general concept is to cast the jig out and retrieve it almost like you would a spoon. A bladed jig is exactly like a spoon except you usually have a swimbait trailer on it. Other jigs are retrieved after hitting the bottom and are intended to hop along the bottom and imitate prey.</p>",
+      "weather": null
     },
     {
       "name": "Inline Spinner",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "catfish",
-        "sunfish",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie",
-        "perch"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>"
+      "confidence": 3,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",catfish,sunfish,trout,pickerel,pike,muskie,perch}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>",
+      "weather": "sunny"
     },
     {
       "name": "Bladed Jig",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>"
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow,deep}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>",
+      "weather": "sunny"
+    },
+    {
+      "name": "Spoon",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",sunfish,trout,pickerel,pike,muskie,walleye,salmon}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>",
+      "weather": "sunny"
+    },
+    {
+      "name": "Jig",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",catfish,sunfish,trout,pickerel,pike,muskie,walleye,perch}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,reaction,bank,boat,river,insect,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jigs</h2><p>A jig is any hook with a weight on the head. Ned rigs use mushroom head jigs. There are also flipping jigs, skirted jigs, and bladed jigs, as well as hundreds of other kinds. The general concept is to cast the jig out and retrieve it almost like you would a spoon. A bladed jig is exactly like a spoon except you usually have a swimbait trailer on it. Other jigs are retrieved after hitting the bottom and are intended to hop along the bottom and imitate prey.</p>",
+      "weather": null
     },
     {
       "name": "Whopper Plopper",
-      "confidence": 10,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>"
+      "confidence": 5,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish,fall,product}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>",
+      "weather": null
     },
     {
       "name": "Deep-Diving Crankbait",
       "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "walleye",
-        "smallmouth bass",
-        "pike",
-        "pickerel",
-        "muskie"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["deep"],
-      "type": ["reaction", "bank", "boat", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>"
-    },
-    {
-      "name": "Spoon",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "sunfish",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie",
-        "walleye",
-        "salmon"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>"
-    },
-    {
-      "name": "Jig",
-      "confidence": 7,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "catfish",
-        "sunfish",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie",
-        "walleye",
-        "perch"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": [
-        "finesse",
-        "reaction",
-        "bank",
-        "boat",
-        "river",
-        "insect",
-        "baitfish"
-      ],
-      "tip": null
-    },
-    {
-      "name": "Carolina Rig",
-      "confidence": 8,
-      "species": [
-        "largemouth bass",
-        "catfish",
-        "sunfish",
-        "trout",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["finesse", "still", "bank", "river", "insect", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Carolina Rig</h2><p>An alternative to a fixed bobber rig, when you are trying to find the fish and want to fish closer to the bottom. You can hook live bait or soft plastics on this. Cast out, wait a bit, move it a little bit, and keep the line taut.</p>"
+      "species": "{\"largemouth bass\",walleye,\"smallmouth bass\",pike,pickerel,muskie}",
+      "watertemp": "{warm}",
+      "depth": "{deep}",
+      "type": "{reaction,bank,boat,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>",
+      "weather": null
     },
     {
       "name": "Fixed Bobber Rig",
-      "confidence": 10,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "carp",
-        "catfish",
-        "sunfish",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow"],
-      "type": ["still", "bank", "boat", "river", "insect", "baitfish"],
-      "tip": null
+      "confidence": 5,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",carp,catfish,sunfish,trout,pickerel,pike,muskie}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow}",
+      "type": "{still,bank,boat,river,insect,baitfish}",
+      "tip": null,
+      "weather": null
+    },
+    {
+      "name": "Carolina Rig",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",catfish,sunfish,trout,\"smallmouth bass\"}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,still,bank,river,insect,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Carolina Rig</h2><p>An alternative to a fixed bobber rig, when you are trying to find the fish and want to fish closer to the bottom. You can hook live bait or soft plastics on this. Cast out, wait a bit, move it a little bit, and keep the line taut.</p>",
+      "weather": null
     },
     {
       "name": "Popper",
-      "confidence": 6,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "striped bass",
-        "bluefish",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["finesse", "reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>"
+      "confidence": 4,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"striped bass\",bluefish,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,reaction,bank,boat,river,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>",
+      "weather": "cloudy"
     },
     {
-      "name": "Spinnerbait",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>"
-    },
-    {
-      "name": "Dropshot Rig",
-      "confidence": 9,
-      "species": ["largemouth bass", "sunfish", "trout"],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["deep"],
-      "type": ["finesse", "still", "boat", "baitfish", "insect"],
-      "tip": null
+      "name": "Free Line Rig",
+      "confidence": 1,
+      "species": "{carp}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{still,bank,river}",
+      "tip": null,
+      "weather": null
     },
     {
       "name": "Shallow-Diving Crankbait",
       "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "walleye",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>"
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,walleye,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>",
+      "weather": null
     },
     {
       "name": "Split Shot Rig",
-      "confidence": 7,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "sunfish",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie"
-      ],
-      "waterTemp": ["warm", "cold"],
-      "depth": ["shallow"],
-      "type": [
-        "finesse",
-        "reaction",
-        "bank",
-        "boat",
-        "river",
-        "insect",
-        "baitfish"
-      ],
-      "tip": null
+      "confidence": 4,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",sunfish,trout,pickerel,pike,muskie}",
+      "watertemp": "{warm,cold}",
+      "depth": "{shallow}",
+      "type": "{finesse,reaction,bank,boat,river,insect,baitfish}",
+      "tip": null,
+      "weather": null
     },
     {
       "name": "Swimbait",
-      "confidence": 7,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>"
+      "confidence": 4,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>",
+      "weather": null
     },
     {
-      "name": "Free Line Rig",
+      "name": "Spinnerbait",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Spoons, spinnerbaits, and spinners</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish.</p>",
+      "weather": "sunny"
+    },
+    {
+      "name": "Dropshot Rig",
       "confidence": 5,
-      "species": ["carp"],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["still", "bank", "river"],
-      "tip": null
-    },
-    {
-      "name": "Bottom Rig",
-      "confidence": 7,
-      "species": ["scup", "bluefish", "flounder", "cod", "tautog"],
-      "waterTemp": ["warm", "cold"],
-      "depth": ["shallow"],
-      "type": ["still", "bank", "boat"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Bottom Rig</h2><p>Great for rocky bottoms or turbulent surf, use this to catch smaller surf species on the beach, piers, jetties, and inlets. Cast over the first break in the surf or keep close to pylons and rocks when fishing platforms. Keep line taut and monitor small bites as heavier weight leaves no give for small fish.</p>"
+      "species": "{\"largemouth bass\",sunfish,trout}",
+      "watertemp": "{cold,warm}",
+      "depth": "{deep}",
+      "type": "{finesse,still,boat,baitfish,insect,summer}",
+      "tip": null,
+      "weather": null
     },
     {
       "name": "Fish Finder Rig",
-      "confidence": 5,
-      "species": ["drum", "snook", "shark", "striped bass", "bluefish", "cod"],
-      "waterTemp": ["warm", "cold"],
-      "depth": ["shallow"],
-      "type": ["still", "bank", "boat"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Fish Finder Rig</h2><p>Load this up with any type of cut bait and cast it as far as you can. Keep the line taut and place it in a beach spike as you wait for a big hit. Let the fish peel your drag a bit before setting the hook hard.</p>"
+      "confidence": 1,
+      "species": "{drum,snook,shark,\"striped bass\",bluefish,cod}",
+      "watertemp": "{warm,cold}",
+      "depth": "{shallow,deep}",
+      "type": "{still,bank,boat}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Fish Finder Rig</h2><p>Load this up with any type of cut bait and cast it as far as you can. Keep the line taut and place it in a beach spike as you wait for a big hit. Let the fish peel your drag a bit before setting the hook hard.</p>",
+      "weather": null
     },
     {
-      "name": "Crickhopper",
-      "confidence": 6,
-      "species": ["largemouth bass", "smallmouth bass", "sunfish", "trout"],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "river", "insect"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crickhopper</h2><p>Cast out, let the water calm, then start to jerk for popping or reel in to sink and wobble. Start slow to prevent spooking the fish, then speed up as needed. Can fish like a popper or like a crankbait.</p>"
-    },
-    {
-      "name": "Lipless Crankbait",
-      "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "walleye",
-        "smallmouth bass",
-        "pike",
-        "pickerel",
-        "muskie"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>"
-    },
-    {
-      "name": "Chatterbait",
-      "confidence": 5,
-      "species": [
-        "largemouth bass",
-        "pickerel",
-        "pike",
-        "muskie",
-        "smallmouth bass"
-      ],
-      "waterTemp": ["warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>"
-    },
-    {
-      "name": "Suspended Jerkbait",
-      "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie",
-        "snook"
-      ],
-      "waterTemp": ["cold"],
-      "depth": ["shallow", "deep"],
-      "type": ["finesse", "reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>"
+      "name": "Bottom Rig",
+      "confidence": 4,
+      "species": "{scup,bluefish,flounder,cod,tautog}",
+      "watertemp": "{warm,cold}",
+      "depth": "{shallow,deep}",
+      "type": "{still,bank,boat}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Bottom Rig</h2><p>Great for rocky bottoms or turbulent surf, use this to catch smaller surf species on the beach, piers, jetties, and inlets. Cast over the first break in the surf or keep close to pylons and rocks when fishing platforms. Keep line taut and monitor small bites as heavier weight leaves no give for small fish.</p>",
+      "weather": null
     },
     {
       "name": "Jerkbait",
       "confidence": 3,
-      "species": [
-        "largemouth bass",
-        "smallmouth bass",
-        "trout",
-        "pickerel",
-        "pike",
-        "muskie",
-        "snook"
-      ],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["finesse", "reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>"
+      "species": "{\"largemouth bass\",\"smallmouth bass\",trout,pickerel,pike,muskie,snook}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,reaction,bank,boat,river,baitfish,winter}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>",
+      "weather": null
     },
     {
-      "name": "Fish Finder Float Rig",
-      "confidence": 5,
-      "species": ["drum", "shark", "striped bass", "cod"],
-      "waterTemp": ["warm", "cold"],
-      "depth": ["shallow"],
-      "type": ["still", "bank", "boat"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Fish Finder Float Rig</h2><p>Keeping the pests away for mid-sized fish, adding a float keeps your bait elevated. Great for jetties and piers that get you out further. This is a good evening shark rig as it keeps away from the rays.</p>"
-    },
-    {
-      "name": "Topwater Prop Bait",
-      "confidence": 7,
-      "species": ["largemouth bass", "pickerel", "pike", "muskie"],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["reaction", "bank", "boat", "river", "baitfish"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>"
-    },
-    {
-      "name": "Hair Rig",
+      "name": "Suspended Jerkbait",
       "confidence": 2,
-      "species": ["carp"],
-      "waterTemp": ["cold", "warm"],
-      "depth": ["shallow", "deep"],
-      "type": ["still", "bank", "river"],
-      "tip": null
+      "species": "{\"largemouth bass\",\"smallmouth bass\",trout,pickerel,pike,muskie,snook}",
+      "watertemp": "{cold}",
+      "depth": "{shallow,deep}",
+      "type": "{finesse,reaction,bank,boat,river,baitfish,winter}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Jerkbaits</h2><p>Cast out, let the bait fall a bit, then reel in or simply jerk to generate the action. Slow down or speed up depending on the need.</p>",
+      "weather": null
+    },
+    {
+      "name": "Crickhopper",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",\"smallmouth bass\",sunfish,trout}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,river,insect,spring,product}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crickhopper</h2><p>Cast out, let the water calm, then start to jerk for popping or reel in to sink and wobble. Start slow to prevent spooking the fish, then speed up as needed. Can fish like a popper or like a crankbait.</p>",
+      "weather": null
+    },
+    {
+      "name": "Chatterbait",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie,\"smallmouth bass\"}",
+      "watertemp": "{warm}",
+      "depth": "{shallow,deep}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Chatterbaits, Hard Swimbaits, and Bladed Jigs</h2><p>Cast out, let the bait fall a bit, then jerk up and/or reel in to imitate fish. Not necessary, but helpful to add a trailer to bladed jigs and chatterbaits.</p>",
+      "weather": null
+    },
+    {
+      "name": "Lipless Crankbait",
+      "confidence": 3,
+      "species": "{\"largemouth bass\",walleye,\"smallmouth bass\",pike,pickerel,muskie}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{reaction,bank,boat,river,baitfish,fall}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Crankbaits</h2><p>Cast out, reel in to dive and generate motion and sound. You can also pull up with the rod to crank up and wobble aggressively.</p>",
+      "weather": null
     },
     {
       "name": "Frog",
-      "confidence": 5,
-      "species": ["largemouth bass"],
-      "waterTemp": ["warm"],
-      "depth": ["shallow"],
-      "type": ["finesse", "bank", "boat", "critter"],
-      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Topwater Frogs</h2><p>Cast out onto lily pads, let the water calm, then start to jerk or hop. Start slow to prevent spooking the fish, then speed up as needed.</p>"
+      "confidence": 3,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{finesse,bank,boat,critter,summer}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Topwater Frogs</h2><p>Cast out onto lily pads, let the water calm, then start to jerk or hop. Start slow to prevent spooking the fish, then speed up as needed.</p>",
+      "weather": null
+    },
+    {
+      "name": "Topwater Prop Bait",
+      "confidence": 4,
+      "species": "{\"largemouth bass\",pickerel,pike,muskie}",
+      "watertemp": "{warm}",
+      "depth": "{shallow}",
+      "type": "{reaction,bank,boat,river,baitfish}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Poppers and other noisy topwater lures</h2><p>Cast out, let the water calm, then start to jerk or reel in to generate the action. Start slow to prevent spooking the fish, then speed up as needed.</p>",
+      "weather": null
+    },
+    {
+      "name": "Fish Finder Float Rig",
+      "confidence": 1,
+      "species": "{drum,shark,\"striped bass\",cod}",
+      "watertemp": "{warm,cold}",
+      "depth": "{shallow}",
+      "type": "{still,bank,boat}",
+      "tip": "<h2 class=\"text-2xl pb-8 pt-8\">Fish Finder Float Rig</h2><p>Keeping the pests away for mid-sized fish, adding a float keeps your bait elevated. Great for jetties and piers that get you out further. This is a good evening shark rig as it keeps away from the rays.</p>",
+      "weather": null
+    },
+    {
+      "name": "Hair Rig",
+      "confidence": 1,
+      "species": "{carp}",
+      "watertemp": "{cold,warm}",
+      "depth": "{shallow,deep}",
+      "type": "{still,bank,river}",
+      "tip": null,
+      "weather": null
     }
   ]
 }

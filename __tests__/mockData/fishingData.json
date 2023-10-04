@@ -489,7 +489,22 @@
       "moon_phase": "Waxing Crescent"
     }
   },
-  "species": "largemouth bass, catfish, sunfish, pickerel, pike, muskie",
+  "activeSpecies": [
+    "largemouth bass",
+    "catfish",
+    "sunfish",
+    "pickerel",
+    "pike",
+    "muskie"
+  ],
+  "species": [
+    "largemouth bass",
+    "catfish",
+    "sunfish",
+    "pickerel",
+    "pike",
+    "muskie"
+  ],
   "fishingConditions": {
     "conditionsText": "OK",
     "positiveConditionsNotes": [

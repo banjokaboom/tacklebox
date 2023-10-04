@@ -8,8 +8,12 @@ export default async function handler(req: any, res: any) {
     let species: Species[] = []
 
     result.rows.map((s) => {
-      species.push(new Species(s.name, s.water_type))
+      species.push(
+        new Species(s.name, s.water_type, s.min_water_temp, s.max_water_temp)
+      )
     })
+
+    species.sort()
 
     res.json({ species })
   } catch (error) {

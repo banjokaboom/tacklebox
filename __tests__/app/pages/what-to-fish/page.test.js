@@ -15,6 +15,7 @@ import '@testing-library/jest-dom'
 import weatherJSON from '../../../mockData/weather.json'
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
+import speciesJSON from '../../../mockData/species.json'
 
 const server = setupServer(
   rest.get('/api/weather', (req, res, ctx) => {
@@ -25,6 +26,9 @@ const server = setupServer(
   }),
   rest.get('/api/cityStates', (req, res, ctx) => {
     return res(ctx.json({ cityStates: cityStateJSON.cityStates }))
+  }),
+  rest.get('/api/species', (req, res, ctx) => {
+    return res(ctx.json({ species: speciesJSON.species }))
   })
 )
 
@@ -75,7 +79,7 @@ describe('WhatToFish', () => {
 
     await user.type(input, '01516')
 
-    const heading = await screen.findByText('Fish & Bait')
+    const heading = await screen.findByText('Bait')
 
     expect(heading).toBeInTheDocument()
   })
@@ -89,7 +93,7 @@ describe('WhatToFish', () => {
 
     await user.selectOptions(combobox, 'Boston,Massachusetts')
 
-    const heading = await screen.findByText('Fish & Bait')
+    const heading = await screen.findByText('Bait')
 
     expect(heading).toBeInTheDocument()
   })
@@ -103,7 +107,7 @@ describe('WhatToFish', () => {
 
     await user.click(button)
 
-    const message = await screen.findByText('Fish & Bait')
+    const message = await screen.findByText('Bait')
 
     expect(message).toBeInTheDocument()
   })
@@ -121,7 +125,7 @@ describe('WhatToFish', () => {
 
     await user.selectOptions(combobox, 'freshwater boat')
 
-    const heading = await screen.findByText('Fish & Bait')
+    const heading = await screen.findByText('Bait')
 
     expect(heading).toBeInTheDocument()
   })

@@ -13,6 +13,7 @@ import { getSaltwaterFishingData } from '@/app/fishing/what-to-fish/useSaltwater
 import tackleJSON from '../../../mockData/tackle.json'
 import cityStateJSON from '../../../mockData/cityStates.json'
 import weatherJSON from '../../../mockData/weather.json'
+import speciesJSON from '../../../mockData/species.json'
 
 let tackleList = []
 let cityStatesList = []
@@ -22,6 +23,9 @@ let weatherData = {}
 const server = setupServer(
   rest.get('/api/weather', (req, res, ctx) => {
     return res(ctx.json(weatherData))
+  }),
+  rest.get('/api/species', (req, res, ctx) => {
+    return res(ctx.json({ species: speciesJSON.species }))
   })
 )
 

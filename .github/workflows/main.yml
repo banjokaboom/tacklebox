@@ -144,7 +144,6 @@ jobs:
         run: yarn test:coverage
   deploy:
     runs-on: ubuntu-latest
-    needs: jest
 
     steps:
       - uses: actions/checkout@v2

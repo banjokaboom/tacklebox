@@ -4,9 +4,47 @@ import WeatherDataChild from '../classes/WeatherDataChild'
 import AstroData from '../classes/AstroData'
 import FishingConditions from '../classes/FishingConditions'
 import FishingData from '../classes/FishingData'
+import Species from '../classes/Species'
 
 const warmWaterMax = 82.5
 const warmWaterMin = 57.5
+
+export async function getSpecies(
+  waterTemp: number,
+  waterType: string
+): Promise<string[]> {
+  let activeSpecies: string[] = []
+  let species: Species[] = []
+  let wiggle = 2.5
+
+  try {
+    await fetch('/api/species')
+      .then((res) => res.json())
+      .then((json) => {
+        species = json.species
+      })
+  } catch (error) {
+    console.error(error)
+  }
+
+  species.forEach((s) => {
+    if (!s.min_water_temp || !s.max_water_temp) {
+      return
+    }
+
+    if (
+      waterTemp >= s.min_water_temp - wiggle &&
+      waterTemp <= s.max_water_temp + wiggle &&
+      waterType.includes(s.water_type)
+    ) {
+      activeSpecies.push(s.name)
+    }
+  })
+
+  return activeSpecies.length > 0
+    ? activeSpecies
+    : ['Not ideal fishing weather for any species']
+}
 
 export function getFishingConditions(
   weather: any,
@@ -23,18 +61,18 @@ export function getFishingConditions(
   const seasons = fishingData.seasons
 
   if (
-    activeSpecies.length >= 8 ||
-    (activeSpecies.length == 0 && species.length >= 8)
+    activeSpecies.length >= 9 ||
+    (activeSpecies.length == 0 && species.length >= 9)
   ) {
     starRating += 3
   } else if (
-    activeSpecies.length > 6 ||
-    (activeSpecies.length == 0 && species.length > 6)
+    activeSpecies.length >= 6 ||
+    (activeSpecies.length == 0 && species.length >= 6)
   ) {
     starRating += 2
   } else if (
-    activeSpecies.length > 3 ||
-    (activeSpecies.length == 0 && species.length > 3)
+    activeSpecies.length >= 3 ||
+    (activeSpecies.length == 0 && species.length >= 3)
   ) {
     starRating++
   } else if (

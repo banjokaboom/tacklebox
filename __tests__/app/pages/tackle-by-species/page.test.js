@@ -13,12 +13,13 @@ import {
 import TackleBySpecies from '@/app/fishing/tackle-by-species/page'
 import '@testing-library/jest-dom'
 import tackleJSON from '../../../mockData/tackle.json'
+import speciesJSON from '../../../mockData/species.json'
 
 const server = setupServer(
   rest.get('/api/species', (req, res, ctx) => {
     return res(
       ctx.json({
-        species: [{ name: 'largemouth bass', water_type: 'freshwater' }],
+        species: speciesJSON.species,
       })
     )
   }),
