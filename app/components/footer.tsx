@@ -39,8 +39,6 @@ export default function Footer() {
             {pathname.includes('what-to-fish') ? '> ' : ''}
             What to Fish
           </Link>
-        </div>
-        <div className="flex flex-col justify-between lg:mb-0 mb-4 lg:basis-4/12 lg:shrink-0">
           <h4 className="text-lg mb-4 underline">Info</h4>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
@@ -49,11 +47,13 @@ export default function Footer() {
             {pathname.includes('about') ? '> ' : ''}About
           </Link>
           <Link
-            className="w-fit hover:tracking-wide transition-[letter-spacing] mb-4"
+            className="w-fit hover:tracking-wide transition-[letter-spacing]"
             href="/changelog"
           >
             {pathname.includes('changelog') ? '> ' : ''}Changelog
           </Link>
+        </div>
+        <div className="flex flex-col justify-between lg:mb-0 mb-4 lg:basis-4/12 lg:shrink-0">
           <h4 className="text-lg mb-4 underline">Social</h4>
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing] flex flex-row items-center"
