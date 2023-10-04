@@ -1,0 +1,18 @@
+250a96d major updates to support active species with temperature calculations for both salt and freshwater, added branded products
+a01df83 boost confidence if species in seasons
+3823a42 changed default active tab
+988c244 changed bait icon for tab
+9dd148a boosted lures if matches filter species
+29bb1b9 added confidence boost when using lures that match bait styles
+c0869e2 fixed what to fish tests
+5f8be76 refactored some pieces of the filter
+7ff5a2f changed active fish icon
+996a631 added seasons to types to boost confidence
+cc8cacf added species filters
+65fb4de streamlined app and removed links to personal items
+7c1c695 changed contact email
+feee8d0 update fall colors
+b847b53 changed weight of moon phase and barometric pressue, added transitions to seasons
+7bb933e added about bearded fish
+97ba0ed fixed seasons for recipes
+7565c84 ran lintfix

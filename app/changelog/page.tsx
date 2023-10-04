@@ -1,7 +1,7 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.5.0 > changelogs/v3.6.0.txt
+ * git log --oneline --decorate=no HEAD...v3.6.0 > changelogs/v4.0.0.txt
  *
  * To count for version tag
  *
@@ -26,7 +26,46 @@ export default function ChangeLog() {
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
 
-        <ContentSection title="v3.6.0" isExpandedByDefault={true}>
+        <ContentSection title="v4.0.0" isExpandedByDefault={true}>
+          <div>
+            <p className="mb-4 last:mb-0">
+              major updates to support active species with temperature
+              calculations for both salt and freshwater, added branded products
+            </p>
+            <p className="mb-4 last:mb-0">
+              boost confidence if species in seasons
+            </p>
+            <p className="mb-4 last:mb-0">changed default active tab</p>
+            <p className="mb-4 last:mb-0">changed bait icon for tab</p>
+            <p className="mb-4 last:mb-0">
+              boosted lures if matches filter species
+            </p>
+            <p className="mb-4 last:mb-0">
+              added confidence boost when using lures that match bait styles
+            </p>
+            <p className="mb-4 last:mb-0">
+              refactored some pieces of the filter
+            </p>
+            <p className="mb-4 last:mb-0">changed active fish icon</p>
+            <p className="mb-4 last:mb-0">
+              added seasons to types to boost confidence
+            </p>
+            <p className="mb-4 last:mb-0">added species filters</p>
+            <p className="mb-4 last:mb-0">
+              streamlined app and removed links to personal items
+            </p>
+            <p className="mb-4 last:mb-0">changed contact email</p>
+            <p className="mb-4 last:mb-0">update fall colors</p>
+            <p className="mb-4 last:mb-0">
+              changed weight of moon phase and barometric pressue, added
+              transitions to seasons
+            </p>
+            <p className="mb-4 last:mb-0">added about bearded fish</p>
+            <p className="mb-4 last:mb-0">fixed seasons for recipes</p>
+          </div>
+        </ContentSection>
+
+        <ContentSection title="v3.6.0">
           <div>
             <p className="mb-4 last:mb-0">
               added weather to tackle to boost confidence, i.e. ned rig is good
