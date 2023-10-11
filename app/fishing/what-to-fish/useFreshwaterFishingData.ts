@@ -405,12 +405,6 @@ export async function getFreshwaterFishingData(
         }
       })
 
-      fishingData.species.forEach((s) => {
-        if (tackle.species.includes(s)) {
-          tackle.confidence++
-        }
-      })
-
       tackle.species.forEach((s) => {
         if (fishingData.seasons.includes(s)) {
           tackle.confidence++

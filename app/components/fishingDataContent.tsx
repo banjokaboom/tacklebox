@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Modal from 'react-modal'
 import ReactHtmlParser from 'react-html-parser'
 import FishingData from '../classes/FishingData'
 import Tackle from '../classes/Tackle'
 import ContentSection from './content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleQuestion } from '@fortawesome/free-regular-svg-icons'
+import { faCircleQuestion, faStar } from '@fortawesome/free-regular-svg-icons'
 import {
   faArrowUpRightFromSquare,
   faFish,
@@ -15,6 +15,7 @@ import {
   faCalendar,
   faCloud,
   faWorm,
+  faRectangleAd,
 } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -31,11 +32,7 @@ interface Props {
 export default function FishingDataContent({ data }: Props) {
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
-  let [lowConfidenceTackle, setLowConfidenceTackle] = useState(new Tackle())
   let [activeTab, setActiveTab] = useState('luresAndRigs')
-  let tackleAlphabetized = [...data.tackle]
-    .sort((ta, tb) => ta.name.localeCompare(tb.name))
-    .filter((t) => getTackleSpecies(t) !== '')
   let tackleByConfidence = [...data.tackle]
     .sort((a, b) => {
       if (a.confidence < b.confidence) {
@@ -48,23 +45,6 @@ export default function FishingDataContent({ data }: Props) {
       return 0
     })
     .filter((t) => getTackleSpecies(t) !== '')
-
-  let hasFinesseTackle = false
-  let hasReactionTackle = false
-  let hasBrandedTackle = false
-  tackleAlphabetized.forEach((t) => {
-    if (t.type.includes('finesse')) {
-      hasFinesseTackle = true
-    }
-    if (t.type.includes('reaction')) {
-      hasReactionTackle = true
-    }
-    if (t.type.includes('product')) {
-      hasBrandedTackle = true
-    }
-  })
-  let finesseTackleCount = 0
-  let reactionTackleCount = 0
 
   let moonPhaseInnerClassName = ''
   let moonPhaseOuterClassName = ''
@@ -121,35 +101,6 @@ export default function FishingDataContent({ data }: Props) {
   } else if (modalContent.toUpperCase().includes('SWIMBAIT')) {
     modalImage = swimbaits
   }
-
-  useEffect(() => {
-    function getLowConfidenceTackle() {
-      let tackleIndex = 0
-      let lowConfidenceTackleArray: Tackle[] = []
-
-      while (tackleIndex < tackleAlphabetized.length) {
-        if (tackleAlphabetized[tackleIndex].confidence <= 5) {
-          lowConfidenceTackleArray.push(tackleAlphabetized[tackleIndex])
-        }
-
-        tackleIndex++
-      }
-
-      return lowConfidenceTackleArray[
-        Math.floor(Math.random() * lowConfidenceTackleArray.length)
-      ]
-    }
-
-    let isDataLoaded = false
-
-    if (!isDataLoaded) {
-      setLowConfidenceTackle(getLowConfidenceTackle())
-    }
-
-    return () => {
-      isDataLoaded = true
-    }
-  }, [tackleAlphabetized])
 
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = ''
@@ -276,243 +227,10 @@ export default function FishingDataContent({ data }: Props) {
       )}
       {activeTab == 'luresAndRigs' && (
         <div className="mb-8">
-          <div>
-            {hasBrandedTackle && (
-              <ContentSection
-                title="Best branded lures and rigs"
-                isExpandedByDefault={true}
-              >
-                {tackleByConfidence.map((t, index) => {
-                  if (!t.type.includes('product')) {
-                    return
-                  }
-                  return (
-                    <div key={index} className="mb-4 last:mb-0">
-                      <div className="flex flex-col md:flex-row justify-between">
-                        <div
-                          className={
-                            'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
-                          }
-                        >
-                          <div className="flex flex-row items-center">
-                            {t.tip && (
-                              <button
-                                className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
-                                title="Click to learn how to use this"
-                                onClick={() => {
-                                  setModalContent(t.tip)
-                                  setIsModalOpen(true)
-                                }}
-                              >
-                                <span>{t.name}</span>
-                                <FontAwesomeIcon
-                                  icon={faCircleQuestion}
-                                  className="ml-2"
-                                />
-                              </button>
-                            )}
-                            {!t.tip && (
-                              <p className="text-yellow-400 font-bold">
-                                {t.name}
-                              </p>
-                            )}
-                          </div>
-                          <p className="text-sm">{getTackleSpecies(t)}</p>
-                        </div>
-                        {!t.name.toUpperCase().includes(' RIG') && (
-                          <div>
-                            <a
-                              title={
-                                'Amazon Buy link for ' +
-                                t.name +
-                                ' fishing lures'
-                              }
-                              target="_blank"
-                              className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                              href={
-                                'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                                t.name +
-                                ' fishing lures'
-                              }
-                            >
-                              <span>Buy</span>
-                              <FontAwesomeIcon
-                                icon={faArrowUpRightFromSquare}
-                                className="ml-2 max-h-4"
-                              />
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  )
-                })}
-              </ContentSection>
-            )}
-
-            {hasReactionTackle && (
-              <ContentSection
-                title="Best general reaction lures and rigs"
-                isExpandedByDefault={true}
-              >
-                {tackleByConfidence.map((t, index) => {
-                  if (
-                    !t.type.includes('reaction') ||
-                    t.type.includes('product')
-                  ) {
-                    return
-                  }
-                  reactionTackleCount++
-                  return (
-                    reactionTackleCount <= 5 && (
-                      <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-col md:flex-row justify-between">
-                          <div
-                            className={
-                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
-                            }
-                          >
-                            <div className="flex flex-row items-center">
-                              {t.tip && (
-                                <button
-                                  className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
-                                  title="Click to learn how to use this"
-                                  onClick={() => {
-                                    setModalContent(t.tip)
-                                    setIsModalOpen(true)
-                                  }}
-                                >
-                                  <span>{t.name}</span>
-                                  <FontAwesomeIcon
-                                    icon={faCircleQuestion}
-                                    className="ml-2"
-                                  />
-                                </button>
-                              )}
-                              {!t.tip && (
-                                <p className="text-yellow-400 font-bold">
-                                  {t.name}
-                                </p>
-                              )}
-                            </div>
-                            <p className="text-sm">{getTackleSpecies(t)}</p>
-                          </div>
-                          {!t.name.toUpperCase().includes('RIG') && (
-                            <div>
-                              <a
-                                title={
-                                  'Amazon Buy link for ' +
-                                  t.name +
-                                  ' fishing lures'
-                                }
-                                target="_blank"
-                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                                href={
-                                  'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                                  t.name +
-                                  ' fishing lures'
-                                }
-                              >
-                                <span>Buy</span>
-                                <FontAwesomeIcon
-                                  icon={faArrowUpRightFromSquare}
-                                  className="ml-2 max-h-4"
-                                />
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  )
-                })}
-              </ContentSection>
-            )}
-
-            {hasFinesseTackle && (
-              <ContentSection
-                title="Best general finesse lures and rigs"
-                isExpandedByDefault={true}
-              >
-                {tackleByConfidence.map((t, index) => {
-                  if (
-                    !t.type.includes('finesse') ||
-                    t.type.includes('product')
-                  ) {
-                    return
-                  }
-                  finesseTackleCount++
-                  return (
-                    finesseTackleCount <= 5 && (
-                      <div key={index} className="mb-4 last:mb-0">
-                        <div className="flex flex-col md:flex-row justify-between">
-                          <div
-                            className={
-                              'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
-                            }
-                          >
-                            <div className="flex flex-row items-center">
-                              {t.tip && (
-                                <button
-                                  className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
-                                  title="Click to learn how to use this"
-                                  onClick={() => {
-                                    setModalContent(t.tip)
-                                    setIsModalOpen(true)
-                                  }}
-                                >
-                                  <span className="text-yellow-400">
-                                    {t.name}
-                                  </span>
-                                  <FontAwesomeIcon
-                                    icon={faCircleQuestion}
-                                    className="ml-2"
-                                  />
-                                </button>
-                              )}
-                              {!t.tip && (
-                                <p className="text-yellow-400 font-bold">
-                                  {t.name}
-                                </p>
-                              )}
-                            </div>
-                            <p className="text-sm">{getTackleSpecies(t)}</p>
-                          </div>
-                          {!t.name.toUpperCase().includes('RIG') && (
-                            <div>
-                              <a
-                                title={
-                                  'Amazon Buy link for ' +
-                                  t.name +
-                                  ' fishing lures'
-                                }
-                                target="_blank"
-                                className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                                href={
-                                  'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                                  t.name +
-                                  ' fishing lures'
-                                }
-                              >
-                                <span>Buy</span>
-                                <FontAwesomeIcon
-                                  icon={faArrowUpRightFromSquare}
-                                  className="ml-2 max-h-4"
-                                />
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  )
-                })}
-              </ContentSection>
-            )}
-
-            {tackleAlphabetized.length > 0 && (
-              <ContentSection title="All lures and rigs for conditions">
-                {tackleAlphabetized.map((t, index) => (
+          <div className="mt-4">
+            {tackleByConfidence.length > 0 && (
+              <ContentSection isExpandedByDefault={true}>
+                {tackleByConfidence.map((t, index) => (
                   <div key={index} className="mb-4 last:mb-0">
                     <div className="flex flex-col md:flex-row justify-between">
                       <div
@@ -530,7 +248,15 @@ export default function FishingDataContent({ data }: Props) {
                                 setIsModalOpen(true)
                               }}
                             >
-                              <span className="text-yellow-400">{t.name}</span>
+                              <span className="text-yellow-400">
+                                {t.name}
+                                {t.type.includes('product') && (
+                                  <FontAwesomeIcon
+                                    icon={faRectangleAd}
+                                    className="ml-2"
+                                  />
+                                )}
+                              </span>
                               <FontAwesomeIcon
                                 icon={faCircleQuestion}
                                 className="ml-2"
@@ -540,8 +266,23 @@ export default function FishingDataContent({ data }: Props) {
                           {!t.tip && (
                             <p className="text-yellow-400 font-bold">
                               {t.name}
+                              {t.type.includes('product') && (
+                                <FontAwesomeIcon
+                                  icon={faRectangleAd}
+                                  className="ml-2"
+                                />
+                              )}
                             </p>
                           )}
+                        </div>
+                        <div title={'Confidence rating of ' + t.confidence}>
+                          {[...Array(t.confidence)].map((e, i) => (
+                            <FontAwesomeIcon
+                              key={i}
+                              icon={faStar}
+                              className="ml-1 first:ml-0"
+                            />
+                          ))}
                         </div>
                         <p className="text-sm">{getTackleSpecies(t)}</p>
                       </div>
@@ -573,76 +314,8 @@ export default function FishingDataContent({ data }: Props) {
               </ContentSection>
             )}
 
-            {lowConfidenceTackle && (
-              <ContentSection title="Try something new">
-                {
-                  <div className="mb-4 last:mb-0">
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div
-                        className={
-                          'flex flex-col' + lowConfidenceTackle.tip
-                            ? ' mb-4 md:mb-0'
-                            : ''
-                        }
-                      >
-                        <div className="flex flex-row items-center">
-                          {lowConfidenceTackle.tip && (
-                            <button
-                              className="flex flex-row items-center text-left text-yellow-400 font-bold"
-                              title="Click to learn how to use this"
-                              onClick={() => {
-                                setModalContent(lowConfidenceTackle.tip)
-                                setIsModalOpen(true)
-                              }}
-                            >
-                              <span>{lowConfidenceTackle.name}</span>
-                              <FontAwesomeIcon
-                                icon={faCircleQuestion}
-                                className="ml-2"
-                              />
-                            </button>
-                          )}
-                          {!lowConfidenceTackle.tip && (
-                            <p className="text-yellow-400 font-bold">
-                              {lowConfidenceTackle.name}
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      {!lowConfidenceTackle.name
-                        .toUpperCase()
-                        .includes('RIG') && (
-                        <div>
-                          <a
-                            title={
-                              'Amazon Buy link for ' +
-                              lowConfidenceTackle.name +
-                              ' fishing lures'
-                            }
-                            target="_blank"
-                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                            href={
-                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                              lowConfidenceTackle.name +
-                              ' fishing lures'
-                            }
-                          >
-                            <span>Buy</span>
-                            <FontAwesomeIcon
-                              icon={faArrowUpRightFromSquare}
-                              className="ml-2 max-h-4"
-                            />
-                          </a>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                }
-              </ContentSection>
-            )}
-
             {(data.species.includes('Not ideal') ||
-              tackleAlphabetized.length == 0) && (
+              tackleByConfidence.length == 0) && (
               <div className="pt-4">
                 <p className="mb-4">
                   It may not be ideal fishing for the selected species, but you
