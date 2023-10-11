@@ -309,7 +309,7 @@ export async function getWeather(
 
 export function pickTackle(
   tackleList: Tackle[],
-  seasons: string,
+  fishingData: FishingData,
   waterTemp: number,
   waterType: string
 ): Tackle[] {
@@ -317,7 +317,9 @@ export function pickTackle(
 
   tackleList.forEach(function (tackle: Tackle) {
     let isTackleForWaterType = false
-    const seasonsArray: string[] = seasons.split(',').map((s) => s.trim())
+    const seasonsArray: string[] = fishingData.seasons
+      .split(',')
+      .map((s) => s.trim())
     let isTackleForSpawnSeason = false
     let isTackleForBaitStyle = false
 
@@ -339,11 +341,30 @@ export function pickTackle(
       }
 
       if (
-        seasons.includes('fall') &&
+        season.includes('fall') &&
         tackle.type.includes('reaction') &&
         tackle.species.includes('largemouth bass')
       ) {
         isTackleForSpawnSeason == true
+      }
+    })
+
+    // extras
+    fishingData.seasons.split(',').forEach((s) => {
+      if (tackle.type.includes(s)) {
+        tackle.confidence++
+      }
+    })
+
+    tackle.species.forEach((s) => {
+      if (fishingData.seasons.includes(s)) {
+        tackle.confidence++
+      }
+    })
+
+    fishingData.baitRecommendations.stylesToUse.split(',').forEach((s) => {
+      if (tackle.type.includes(s)) {
+        tackle.confidence++
       }
     })
 

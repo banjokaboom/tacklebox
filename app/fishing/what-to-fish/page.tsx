@@ -15,7 +15,6 @@ import Message from '@/app/components/message'
 import MessageData from '@/app/classes/MessageData'
 import Breadcrumbs from '@/app/components/breadcrumbs'
 import FishingData from '@/app/classes/FishingData'
-import Tackle from '@/app/classes/Tackle'
 import CityState from '@/app/classes/CityState'
 import FishingDataContent from '@/app/components/fishingDataContent'
 import Species from '@/app/classes/Species'
@@ -26,10 +25,10 @@ export default function WhatToFish() {
   let [waterType, setWaterType] = useState('freshwater bank')
   let [weatherForecastToUse, setWeatherForecastToUse] = useState('current')
   let [loading, setLoading] = useState(true)
+  let [loadingText, setLoadingText] = useState('Loading...')
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
   let [message, setMessage] = useState(new MessageData())
-  let [tackleList, setTackleList] = useState<Tackle[]>([])
   let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let [speciesList, setSpeciesList] = useState<Species[]>([])
   let [speciesFilter, setSpeciesFilter] = useState<string[]>([])
@@ -96,20 +95,6 @@ export default function WhatToFish() {
       }
 
       try {
-        await fetch('/api/tackle')
-          .then((res) => res.json())
-          .then((json) => {
-            setTackleList(json.tackle)
-          })
-      } catch (error: any) {
-        logger.error(error)
-        m.message =
-          'An error occurred when loading the tackle list. Please refresh the page to try again.'
-        m.severity = 'error'
-        setMessage(m)
-      }
-
-      try {
         await fetch('/api/cityStates')
           .then((res) => res.json())
           .then((json) => {
@@ -163,7 +148,7 @@ export default function WhatToFish() {
     setMessage(new MessageData())
 
     async function getData() {
-      if (isDataLoaded || tackleList.length == 0 || cityStateList.length == 0) {
+      if (isDataLoaded || cityStateList.length == 0) {
         return
       }
 
@@ -176,10 +161,10 @@ export default function WhatToFish() {
               zip,
               cityState,
               weatherForecastToUse,
-              tackleList,
               cityStateList,
               geolocation,
               waterType,
+              setLoadingText,
               speciesFilter.length > 0 ? speciesFilter : undefined
             )
           } else {
@@ -187,10 +172,10 @@ export default function WhatToFish() {
               zip,
               cityState,
               weatherForecastToUse,
-              tackleList,
               cityStateList,
               geolocation,
               waterType,
+              setLoadingText,
               speciesFilter.length > 0 ? speciesFilter : undefined
             )
           }
@@ -236,7 +221,6 @@ export default function WhatToFish() {
     cityState,
     weatherForecastToUse,
     geolocation,
-    tackleList,
     cityStateList,
     waterType,
     speciesFilter,
@@ -360,7 +344,9 @@ export default function WhatToFish() {
             </div>
           </div>
         )}
-        {loading && data.weather.location == '' && <Loader />}
+        {loading && data.weather.location == '' && (
+          <Loader>{loadingText}</Loader>
+        )}
         {data.weather.location !== '' && (
           <div className="mb-8">
             <p className="mb-4 flex flex-row">
@@ -390,6 +376,7 @@ export default function WhatToFish() {
                   id="waterType"
                   onChange={(e) => {
                     setWaterType(e.target.value)
+                    setSpeciesFilter([])
                   }}
                   className="text-slate-700 leading-4 p-2 block max-w-full mb-4"
                   value={waterType}
@@ -496,7 +483,9 @@ export default function WhatToFish() {
           </h2>
         )}
 
-        {loading && data.weather.location !== '' && <Loader />}
+        {loading && data.weather.location !== '' && (
+          <Loader>{loadingText}</Loader>
+        )}
         {!loading && data.weather.location !== '' && (
           <FishingDataContent data={data} />
         )}

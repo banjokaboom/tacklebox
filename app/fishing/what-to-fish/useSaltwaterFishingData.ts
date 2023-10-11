@@ -41,15 +41,25 @@ export async function getSaltwaterFishingData(
   zip: string,
   cityState: string,
   weatherForecastToUse: string,
-  tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
   waterType: string,
+  setLoadingText: Function,
   species?: string[]
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
+  setLoadingText('Loading weather...')
   const weather = await getWeather(zip, cityState, geolocation)
+
+  setLoadingText('Loading tackle...')
+  let tackleList: Tackle[] = []
+  await fetch('/api/tackle')
+    .then((res) => res.json())
+    .then((json) => {
+      tackleList = json.tackle
+    })
+
   const location =
     geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
 
@@ -58,7 +68,9 @@ export async function getSaltwaterFishingData(
   }
 
   if (weather && weather.location) {
+    setLoadingText('Getting fishing seasons...')
     fishingData.seasons = getFishingSeasons()
+    setLoadingText('Getting weather values...')
     fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
     const waterTemp =
@@ -70,23 +82,31 @@ export async function getSaltwaterFishingData(
             ].waterTemp
           )
 
+    setLoadingText('Getting active species...')
     fishingData.activeSpecies = await getSpecies(waterTemp, waterType)
 
     fishingData.species =
       species !== undefined ? species : fishingData.activeSpecies
+
+    setLoadingText('Picking bait...')
     fishingData.baitRecommendations = pickBaitRecommendations()
+
+    setLoadingText('Picking tackle...')
     fishingData.tackle = await pickTackle(
       tackleList,
-      fishingData.seasons,
+      fishingData,
       waterTemp,
       waterType
     )
 
+    setLoadingText('Determining fishing conditions...')
     fishingData.fishingConditions = getFishingConditions(
       weather,
       fishingData,
       weatherForecastToUse
     )
+
+    setLoadingText('Loading...')
   } else if (
     geolocation !== '' ||
     cityState !== '' ||

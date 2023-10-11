@@ -333,15 +333,24 @@ export async function getFreshwaterFishingData(
   zip: string,
   cityState: string,
   weatherForecastToUse: string,
-  tackleList: Tackle[],
   cityStateList: CityState[],
   geolocation: string,
   waterType: string,
+  setLoadingText: Function,
   species?: string[]
 ): Promise<FishingData> {
   let fishingData = new FishingData()
 
+  setLoadingText('Loading weather...')
   const weather = await getWeather(zip, cityState, geolocation)
+  let tackleList: Tackle[] = []
+  setLoadingText('Loading tackle...')
+  await fetch('/api/tackle')
+    .then((res) => res.json())
+    .then((json) => {
+      tackleList = json.tackle
+    })
+
   const location =
     geolocation !== '' ? geolocation : cityState !== '' ? cityState : zip
 
@@ -350,7 +359,9 @@ export async function getFreshwaterFishingData(
   }
 
   if (weather && weather.location) {
+    setLoadingText('Getting fishing seasons...')
     fishingData.seasons = getFishingSeasons(weather, cityState, cityStateList)
+    setLoadingText('Getting weather values...')
     fishingData.weather = getWeatherValues(weather, fishingData.seasons)
 
     const waterTemp =
@@ -362,23 +373,27 @@ export async function getFreshwaterFishingData(
             ].waterTemp
           )
 
+    setLoadingText('Getting active species...')
     fishingData.activeSpecies = await getSpecies(waterTemp, waterType)
 
     fishingData.species =
       species !== undefined ? species : fishingData.activeSpecies
 
+    setLoadingText('Picking bait...')
     fishingData.baitRecommendations = pickBaitRecommendations(
       weather,
       fishingData.species,
       fishingData.seasons
     )
+    setLoadingText('Picking tackle...')
     fishingData.tackle = await pickTackle(
       tackleList,
-      fishingData.seasons,
+      fishingData,
       waterTemp,
       waterType
     )
 
+    setLoadingText('Adjusting tackle confidence...')
     fishingData.tackle.forEach((tackle: Tackle) => {
       const conditions =
         weatherForecastToUse == 'current'
@@ -386,43 +401,22 @@ export async function getFreshwaterFishingData(
           : fishingData.weather.forecast[
               weatherForecastToUse == 'today' ? 0 : 1
             ].conditions
-      console.log(
-        'tackle weather: ' +
-          tackle.weather +
-          ', conditions weather: ' +
-          conditions
-      )
       if (
         tackle.weather &&
         conditions.toUpperCase().includes(tackle.weather.toUpperCase())
       ) {
         tackle.confidence++
       }
-
-      fishingData.seasons.split(',').forEach((s) => {
-        if (tackle.type.includes(s)) {
-          tackle.confidence++
-        }
-      })
-
-      tackle.species.forEach((s) => {
-        if (fishingData.seasons.includes(s)) {
-          tackle.confidence++
-        }
-      })
-
-      fishingData.baitRecommendations.stylesToUse.split(',').forEach((s) => {
-        if (tackle.type.includes(s)) {
-          tackle.confidence++
-        }
-      })
     })
 
+    setLoadingText('Determining fishing conditions...')
     fishingData.fishingConditions = getFishingConditions(
       weather,
       fishingData,
       weatherForecastToUse
     )
+
+    setLoadingText('Loading...')
   } else if (
     geolocation !== '' ||
     cityState !== '' ||
