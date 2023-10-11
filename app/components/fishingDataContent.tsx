@@ -127,9 +127,9 @@ export default function FishingDataContent({ data }: Props) {
       let tackleIndex = 0
       let lowConfidenceTackleArray: Tackle[] = []
 
-      while (tackleIndex < data.tackle.length) {
-        if (data.tackle[tackleIndex].confidence <= 5) {
-          lowConfidenceTackleArray.push(data.tackle[tackleIndex])
+      while (tackleIndex < tackleAlphabetized.length) {
+        if (tackleAlphabetized[tackleIndex].confidence <= 5) {
+          lowConfidenceTackleArray.push(tackleAlphabetized[tackleIndex])
         }
 
         tackleIndex++
@@ -149,7 +149,7 @@ export default function FishingDataContent({ data }: Props) {
     return () => {
       isDataLoaded = true
     }
-  }, [data])
+  }, [tackleAlphabetized])
 
   function getTackleSpecies(tackle: Tackle) {
     let tackleSpeciesStr = ''
@@ -573,7 +573,7 @@ export default function FishingDataContent({ data }: Props) {
               </ContentSection>
             )}
 
-            {tackleAlphabetized.length > 0 && (
+            {lowConfidenceTackle && (
               <ContentSection title="Try something new">
                 {
                   <div className="mb-4 last:mb-0">
