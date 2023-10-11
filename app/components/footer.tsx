@@ -1,6 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
+import pulseFishingLures from '@/app/assets/images/pulse_fish_team_web.png'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaypal } from '@fortawesome/free-brands-svg-icons'
@@ -10,8 +12,8 @@ export default function Footer() {
   const pathname = usePathname() || ''
 
   return (
-    <footer className="p-12 pt-0 lg:p-24 lg:pt-0 lg:pb-16 bg-cyan-700 mx-auto">
-      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start border-t pt-8">
+    <footer className="p-12 lg:p-24 lg:pt-0 pb-16 pt-0 bg-cyan-700 mx-auto">
+      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start mb-8 border-t pt-8 ">
         <div className="flex flex-col justify-between lg:mb-0 mb-4">
           <Link
             className="w-fit hover:tracking-wide transition-[letter-spacing]"
@@ -89,6 +91,20 @@ export default function Footer() {
             <FontAwesomeIcon icon={faTree} className="max-h-5 h-5 ml-2" />
           </Link>
         </div>
+      </div>
+      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start">
+        <Link
+          className="w-fit hover:tracking-wide transition-[letter-spacing]"
+          target="_blank"
+          href="https://pulsefishlures.com/"
+          title="external link to Pulse Fish Lures website"
+        >
+          <Image
+            src={pulseFishingLures}
+            alt="Pulse Fishing Lures Logo"
+            height="50"
+          />
+        </Link>
       </div>
       <div className="pt-24 mx-auto max-w-5xl text-right hidden">
         <p className="text-xs">{process.env.NODE_ENV}</p>
