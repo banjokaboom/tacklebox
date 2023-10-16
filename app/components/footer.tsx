@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import pulseFishingLures from '@/app/assets/images/pulse_fish_team_web.png'
+import kistlerLogo from '@/app/assets/images/Team_Kistler_logo_Black-04.webp'
 import { usePathname } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPaypal } from '@fortawesome/free-brands-svg-icons'
@@ -92,7 +93,7 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl flex lg:flex-row flex-col justify-between items-start">
+      <div className="mx-auto max-w-5xl flex flex-row flex-wrap items-center">
         <Link
           className="w-fit hover:tracking-wide transition-[letter-spacing]"
           target="_blank"
@@ -104,6 +105,14 @@ export default function Footer() {
             alt="Pulse Fishing Lures Logo"
             height="50"
           />
+        </Link>
+        <Link
+          className="w-fit hover:tracking-wide transition-[letter-spacing]"
+          target="_blank"
+          href="https://kistlerrods.com/"
+          title="external link to Kistler website"
+        >
+          <Image src={kistlerLogo} alt="Kistler Team Logo" height="70" />
         </Link>
       </div>
       <div className="pt-24 mx-auto max-w-5xl text-right hidden">
