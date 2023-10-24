@@ -1,7 +1,7 @@
 /**
  * To generate changelogs
  *
- * git log --oneline --decorate=no HEAD...v3.6.0 > changelogs/v4.0.0.txt
+ * git log --oneline --decorate=no HEAD...v4.0.0 > changelogs/v4.1.0.txt
  *
  * To count for version tag
  *
@@ -26,7 +26,27 @@ export default function ChangeLog() {
         <h1 className="text-3xl mb-4">Changelog</h1>
         <hr className="mb-4" />
 
-        <ContentSection title="v4.0.0" isExpandedByDefault={true}>
+        <ContentSection title="v4.1.0" isExpandedByDefault={true}>
+          <div>
+            <p className="mb-4 last:mb-0">
+              added better color, style, and bait info. updated tab UI
+            </p>
+            <p className="mb-4 last:mb-0">added team kistler logo</p>
+            <p className="mb-4 last:mb-0">
+              updated loading text to help visibility
+            </p>
+            <p className="mb-4 last:mb-0">
+              refined confidence and data renderer
+            </p>
+            <p className="mb-4 last:mb-0">fix try something new section</p>
+            <p className="mb-4 last:mb-0">added pulse fish lures logo</p>
+            <p className="mb-4 last:mb-0">fix buy button</p>
+            <p className="mb-4 last:mb-0">updated google ads for new domain</p>
+            <p className="mb-4 last:mb-0">changed footer layout</p>
+          </div>
+        </ContentSection>
+
+        <ContentSection title="v4.0.0">
           <div>
             <p className="mb-4 last:mb-0">
               major updates to support active species with temperature

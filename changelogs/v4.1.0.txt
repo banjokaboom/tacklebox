@@ -1,0 +1,10 @@
+ff1dfe0 added better color, style, and bait info. updated tab UI
+5a17a68 added team kistler logo
+606cecf updated loading text to help visibility
+c274264 refined confidence and data renderer
+bfea242 fix try something new section
+1bd1f70 added pulse fish lures logo
+146548d fix buy button
+8e65422 updated google ads for new domain
+2dc94b0 updated google ads for new domain
+c790480 changed footer layout
