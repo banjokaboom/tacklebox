@@ -1,7 +1,7 @@
 'use client'
 
 import { default as Logger } from 'pino'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Loader from '@/app/components/loader'
 import { getFreshwaterFishingData } from './useFreshwaterFishingData'
 import { getSaltwaterFishingData } from './useSaltwaterFishingData'
@@ -20,6 +20,7 @@ import FishingDataContent from '@/app/components/fishingDataContent'
 import Species from '@/app/classes/Species'
 
 export default function WhatToFish() {
+  const zipRef = useRef<any>()
   let [zip, setZip] = useState('')
   let [cityState, setCityState] = useState('')
   let [waterType, setWaterType] = useState('freshwater bank')
@@ -281,28 +282,35 @@ export default function WhatToFish() {
                   ZIP Code
                 </label>
                 <input
+                  ref={zipRef}
                   type="text"
                   name="zip"
                   id="zip"
                   inputMode="numeric"
-                  value={zip}
-                  onChange={(e) => {
-                    setZip(e.target.value)
-                    setCityState('')
-                    setGeolocation('')
-                  }}
                   className="text-slate-700 leading-4 p-2 mb-4 max-w-full"
                 />
-                <button
-                  onClick={getGeolocation}
-                  className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-row items-center"
-                >
-                  Use Current Location
-                  <FontAwesomeIcon
-                    icon={faLocationCrosshairs}
-                    className="ml-2"
-                  />
-                </button>
+                <div className="flex flex-row">
+                  <button
+                    onClick={() => {
+                      setZip(zipRef.current?.value)
+                      setCityState('')
+                      setGeolocation('')
+                    }}
+                    className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-row items-center"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    onClick={getGeolocation}
+                    className="p-2 w-fit bg-yellow-400 hover:bg-slate-50 text-slate-700 rounded-md flex flex-row items-center ml-2"
+                  >
+                    Use Current Location
+                    <FontAwesomeIcon
+                      icon={faLocationCrosshairs}
+                      className="ml-2"
+                    />
+                  </button>
+                </div>
               </div>
               {cityStateList.length > 0 && (
                 <div>

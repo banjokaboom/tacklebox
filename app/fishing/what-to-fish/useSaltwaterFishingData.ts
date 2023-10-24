@@ -14,17 +14,19 @@ import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
 function pickBaitRecommendations(): BaitRecommendations {
   let baitRecommendations = new BaitRecommendations()
-  let stylesToUse: string[] = []
-  let baitToUse: string[] = []
+  let stylesToUse: any[] = []
+  let baitsToUse: any[] = []
 
-  baitToUse.push('live sand worms', 'shrimp', 'squid', 'crab', 'clams')
+  baitsToUse.push(
+    { name: 'live sand worms' },
+    { name: 'shrimp' },
+    { name: 'squid' },
+    { name: 'crab' },
+    { name: 'clams' }
+  )
 
-  let colorString = convertArrayToCommaSeparatedString(stylesToUse)
-
-  let baitString = convertArrayToCommaSeparatedString(baitToUse)
-
-  baitRecommendations.stylesToUse = colorString
-  baitRecommendations.baitsToUse = baitString
+  baitRecommendations.stylesToUse = stylesToUse
+  baitRecommendations.baitsToUse = baitsToUse
 
   return baitRecommendations
 }

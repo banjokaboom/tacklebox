@@ -12,87 +12,101 @@ import {
 } from '@/app/helpers/whattofish'
 import { convertArrayToCommaSeparatedString } from '@/app/helpers/string'
 
-export function pickBaitRecommendations(
+export async function pickBaitRecommendations(
   weather: any,
   species: string[],
   seasons: string
-): BaitRecommendations {
+): Promise<BaitRecommendations> {
   let baitRecommendations = new BaitRecommendations()
   let stylesToUse: string[] = []
-  let baitToUse: string[] = []
+  let baitsToUse: string[] = []
 
-  baitToUse.push('live worms, soft plastic worms')
+  const baits = await fetch('/api/baits').then((res) => res.json())
+  const colors = await fetch('/api/colors').then((res) => res.json())
+  const styles = await fetch('/api/styles').then((res) => res.json())
 
-  if (species.includes('catfish')) {
-    baitToUse.push('stinky bait')
-  }
-
-  if (species.includes('carp')) {
-    baitToUse.push('corn', 'bread')
-  }
-
-  if (seasons.includes('spring') || seasons.includes('fall')) {
-    if (
-      species.includes('largemouth bass') ||
-      species.includes('smallmouth bass') ||
-      species.includes('catfish')
-    ) {
-      stylesToUse.push('craw')
-      baitToUse.push('soft plastic craws')
-    }
-    stylesToUse.push('orange', 'bug', 'beetle', 'grub', 'insect')
-    baitToUse.push('powerbait', 'soft plastic insects')
-  }
-
-  if (
-    species.includes('smallmouth bass') &&
-    (seasons.includes('bass pre-spawn') ||
-      seasons.includes('smallmouth bass spawn'))
-  ) {
-    baitToUse.push('tubes')
-  }
-
-  if (
-    seasons.includes('summer') ||
-    seasons.includes('fall') ||
-    seasons.includes('winter')
-  ) {
-    stylesToUse.push('shad', 'baitfish', 'white', 'blue')
-    baitToUse.push('soft plastic swimbaits', 'shiners')
-
-    if (seasons.includes('summer')) {
-      if (species.includes('largemouth bass')) {
-        stylesToUse.push('frog', 'critter')
-        baitToUse.push('soft plastic frogs', 'soft plastic lizards')
+  baits.baits.forEach((bait: any) => {
+    bait.type?.forEach((t: any) => {
+      if (seasons.includes(t)) {
+        bait.confidence++
       }
+      if (t.includes('product')) {
+        bait.confidence++
+      }
+      if (t.includes('ambassador')) {
+        bait.confidence++
+      }
+    })
+
+    if (!bait.species) {
+      bait.confidence++
+      baitsToUse.push(bait)
     } else {
-      baitToUse.push('powerbait')
+      const baitConfidence = bait.confidence
+      bait.species.forEach((s: any) => {
+        if (species.includes(s)) {
+          bait.confidence++
+        }
+      })
+
+      if (baitConfidence < bait.confidence && !baitsToUse.includes(bait)) {
+        baitsToUse.push(bait)
+      }
     }
-  }
+  })
 
-  if (
-    weather.current.cloud >= 75 ||
-    seasons.includes('spring') ||
-    seasons.includes('fall')
-  ) {
-    stylesToUse.push('red')
-  }
+  colors.colors.forEach((color: any) => {
+    color.type?.forEach((t: any) => {
+      if (seasons.includes(t)) {
+        color.confidence++
+      }
+    })
 
-  if (weather.current.cloud >= 75) {
-    stylesToUse.push('dark', 'black')
-    if (!stylesToUse.includes('blue')) {
-      stylesToUse.push('blue')
+    if (weather.current.cloud >= 75 && color.weather == 'cloudy') {
+      color.confidence++
     }
-  } else {
-    stylesToUse.push('natural', 'gold', 'silver', 'green')
-  }
 
-  let colorString = convertArrayToCommaSeparatedString(stylesToUse)
+    stylesToUse.push(color)
+  })
 
-  let baitString = convertArrayToCommaSeparatedString(baitToUse)
+  styles.styles.forEach((style: any) => {
+    style.type?.forEach((t: any) => {
+      if (seasons.includes(t)) {
+        style.confidence++
+      }
+    })
 
-  baitRecommendations.stylesToUse = colorString
-  baitRecommendations.baitsToUse = baitString
+    style.species.forEach((s: any) => {
+      if (species.includes(s) && !stylesToUse.includes(style)) {
+        stylesToUse.push(style)
+      }
+    })
+  })
+
+  stylesToUse.sort((a: any, b: any) => {
+    if (a.confidence < b.confidence) {
+      return 1
+    }
+    if (a.confidence > b.confidence) {
+      return -1
+    }
+    // a must be equal to b
+    return 0
+  })
+
+  baitsToUse.sort((a: any, b: any) => {
+    if (a.confidence < b.confidence) {
+      return 1
+    }
+    if (a.confidence > b.confidence) {
+      return -1
+    }
+    // a must be equal to b
+    return 0
+  })
+
+  baitRecommendations.stylesToUse = stylesToUse
+  baitRecommendations.baitsToUse = baitsToUse
 
   return baitRecommendations
 }
@@ -380,7 +394,7 @@ export async function getFreshwaterFishingData(
       species !== undefined ? species : fishingData.activeSpecies
 
     setLoadingText('Picking bait...')
-    fishingData.baitRecommendations = pickBaitRecommendations(
+    fishingData.baitRecommendations = await pickBaitRecommendations(
       weather,
       fishingData.species,
       fishingData.seasons

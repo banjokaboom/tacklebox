@@ -362,8 +362,8 @@ export function pickTackle(
       }
     })
 
-    fishingData.baitRecommendations.stylesToUse.split(',').forEach((s) => {
-      if (tackle.type.includes(s)) {
+    fishingData.baitRecommendations.stylesToUse.forEach((s) => {
+      if (tackle.type.includes(s.name)) {
         tackle.confidence++
       }
     })

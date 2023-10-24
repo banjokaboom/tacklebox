@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Modal from 'react-modal'
 import ReactHtmlParser from 'react-html-parser'
 import FishingData from '../classes/FishingData'
-import Tackle from '../classes/Tackle'
 import ContentSection from './content'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleQuestion, faStar } from '@fortawesome/free-regular-svg-icons'
@@ -44,7 +43,7 @@ export default function FishingDataContent({ data }: Props) {
       // a must be equal to b
       return 0
     })
-    .filter((t) => getTackleSpecies(t) !== '')
+    .filter((t) => getTackleSubtext(t) !== '')
 
   let moonPhaseInnerClassName = ''
   let moonPhaseOuterClassName = ''
@@ -102,45 +101,61 @@ export default function FishingDataContent({ data }: Props) {
     modalImage = swimbaits
   }
 
-  function getTackleSpecies(tackle: Tackle) {
-    let tackleSpeciesStr = ''
+  function getTackleSubtext(tackle: any) {
+    let tackleSubtext = []
 
-    tackle.species.forEach((s) => {
-      if (data.species.includes(s)) {
-        tackleSpeciesStr += (tackleSpeciesStr.length > 1 ? ', ' : '') + s
-      }
-    })
+    if (!tackle.species) {
+      tackleSubtext.push('all species')
+    } else {
+      tackle.species.forEach((s: any) => {
+        if (data.species.includes(s)) {
+          tackleSubtext.push(s)
+        }
+      })
+    }
 
-    return tackleSpeciesStr
+    if (tackle.waterClarity) {
+      tackleSubtext.push(tackle.waterClarity + ' water')
+    }
+
+    if (tackle.type && tackle.type.includes('natural')) {
+      tackleSubtext.push('natural color')
+    }
+
+    return tackleSubtext.toString().replaceAll(',', ', ')
   }
 
   return (
     <div>
       <hr className="mb-8" />
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-row justify-between pt-4 pb-4 border border-slate-50 rounded-md">
         <button
-          title="Bait Tab Button"
-          disabled={activeTab == 'fishAndBait'}
+          title="Baits, Styles, and Colors Tab Button"
+          className="max-w-[20%] word-wrap mx-auto"
+          disabled={activeTab == 'baitsStylesColors'}
           onClick={() => {
-            setActiveTab('fishAndBait')
+            setActiveTab('baitsStylesColors')
           }}
         >
           <div
             className={
               'flex md:flex-row flex-col items-center ' +
-              (activeTab == 'fishAndBait' ? 'text-yellow-400 underline' : '')
+              (activeTab == 'baitsStylesColors'
+                ? 'text-yellow-400 underline'
+                : '')
             }
           >
             <FontAwesomeIcon
               icon={faWorm}
-              className="md:mr-2 md:text-xl text-3xl"
+              className="md:mr-2 md:text-xl text-3xl md:mb-0 mb-2"
             />
-            <span className="md:text-xl text-sm">Bait</span>
+            <span className="md:text-xl text-sm">Baits &amp; Styles</span>
           </div>
         </button>
         <div className="border border-slate-50"></div>
         <button
           title="Lures and Rigs Tab Button"
+          className="max-w-[20%] word-wrap mx-auto"
           disabled={activeTab == 'luresAndRigs'}
           onClick={() => {
             setActiveTab('luresAndRigs')
@@ -154,14 +169,15 @@ export default function FishingDataContent({ data }: Props) {
           >
             <FontAwesomeIcon
               icon={faCircleHalfStroke}
-              className="md:mr-2 md:text-xl text-3xl -rotate-90"
+              className="md:mr-2 md:text-xl text-3xl md:mb-0 mb-2 -rotate-90"
             />
-            <span className="md:text-xl text-sm">Lures/Rigs</span>
+            <span className="md:text-xl text-sm">Lures &amp; Rigs</span>
           </div>
         </button>
         <div className="border border-slate-50"></div>
         <button
           title="Season Info Tab Button"
+          className="max-w-[20%] word-wrap mx-auto"
           disabled={activeTab == 'seasonalInfo'}
           onClick={() => {
             setActiveTab('seasonalInfo')
@@ -175,7 +191,7 @@ export default function FishingDataContent({ data }: Props) {
           >
             <FontAwesomeIcon
               icon={faCalendar}
-              className="md:mr-2 md:text-xl text-3xl"
+              className="md:mr-2 md:text-xl text-3xl md:mb-0 mb-2"
             />
             <span className="md:text-xl text-sm">Season Info</span>
           </div>
@@ -183,6 +199,7 @@ export default function FishingDataContent({ data }: Props) {
         <div className="border border-slate-50"></div>
         <button
           title="Weather Tab Button"
+          className="max-w-[20%] word-wrap mx-auto"
           disabled={activeTab == 'weather'}
           onClick={() => {
             setActiveTab('weather')
@@ -196,30 +213,112 @@ export default function FishingDataContent({ data }: Props) {
           >
             <FontAwesomeIcon
               icon={faCloud}
-              className="md:mr-2 md:text-xl text-3xl"
+              className="md:mr-2 md:text-xl text-3xl md:mb-0 mb-2"
             />
             <span className="md:text-xl text-sm">Weather</span>
           </div>
         </button>
       </div>
-      {activeTab == 'fishAndBait' && (
+      {activeTab == 'baitsStylesColors' && (
         <div className="mb-8">
-          <div>
-            {data.baitRecommendations.baitsToUse !== '' && (
-              <ContentSection
-                title="Baits to use now"
-                isExpandedByDefault={true}
-              >
-                {data.baitRecommendations.baitsToUse}
+          <div className="grid gap-4 lg:grid-cols-2 grid-cols-1">
+            {data.baitRecommendations.baitsToUse.length > 0 && (
+              <ContentSection title="Baits" isExpandedByDefault={true}>
+                {data.baitRecommendations.baitsToUse.map((b, index) => (
+                  <div key={index} className="mb-4 last:mb-0">
+                    <div className="flex flex-col md:flex-row justify-between">
+                      <div
+                        className={
+                          'flex flex-col' +
+                          (!b.name.toUpperCase().includes('LIVE')
+                            ? ' md:mb-0 mb-4'
+                            : '')
+                        }
+                      >
+                        <div className="flex flex-row items-center">
+                          <p className="text-yellow-400 font-bold">
+                            {b.name}
+                            {b.type?.includes('product') && (
+                              <FontAwesomeIcon
+                                icon={faRectangleAd}
+                                className="ml-2"
+                              />
+                            )}
+                          </p>
+                        </div>
+                        <div title={'Confidence rating of ' + b.confidence}>
+                          {[...Array(b.confidence)].map((e, i) => (
+                            <FontAwesomeIcon
+                              key={i}
+                              icon={faStar}
+                              className="ml-1 first:ml-0"
+                            />
+                          ))}
+                        </div>
+                        <p className="text-sm">{getTackleSubtext(b)}</p>
+                      </div>
+                      {!b.name.toUpperCase().includes('LIVE') && (
+                        <div>
+                          <a
+                            title={
+                              'Amazon Buy link for ' + b.name + ' fishing lures'
+                            }
+                            target="_blank"
+                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                            href={
+                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                              b.name +
+                              ' fishing lures'
+                            }
+                          >
+                            <span>Buy</span>
+                            <FontAwesomeIcon
+                              icon={faArrowUpRightFromSquare}
+                              className="ml-2 max-h-4"
+                            />
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </ContentSection>
             )}
 
-            {data.baitRecommendations.stylesToUse !== '' && (
+            {data.baitRecommendations.stylesToUse.length > 0 && (
               <ContentSection
-                title="Lure colors and styles to use now"
+                title="Colors & Styles"
                 isExpandedByDefault={true}
               >
-                {data.baitRecommendations.stylesToUse}
+                {data.baitRecommendations.stylesToUse.map((s, index) => (
+                  <div key={index} className="mb-4 last:mb-0">
+                    <div className="flex flex-col md:flex-row justify-between">
+                      <div className="flex flex-col">
+                        <div className="flex flex-row items-center">
+                          <p className="text-yellow-400 font-bold">
+                            {s.name}
+                            {s.type?.includes('product') && (
+                              <FontAwesomeIcon
+                                icon={faRectangleAd}
+                                className="ml-2"
+                              />
+                            )}
+                          </p>
+                        </div>
+                        <div title={'Confidence rating of ' + s.confidence}>
+                          {[...Array(s.confidence)].map((e, i) => (
+                            <FontAwesomeIcon
+                              key={i}
+                              icon={faStar}
+                              className="ml-1 first:ml-0"
+                            />
+                          ))}
+                        </div>
+                        <p className="text-sm">{getTackleSubtext(s)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </ContentSection>
             )}
           </div>
@@ -284,7 +383,7 @@ export default function FishingDataContent({ data }: Props) {
                             />
                           ))}
                         </div>
-                        <p className="text-sm">{getTackleSpecies(t)}</p>
+                        <p className="text-sm">{getTackleSubtext(t)}</p>
                       </div>
                       {!t.name.toUpperCase().includes('RIG') && (
                         <div>
