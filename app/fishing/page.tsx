@@ -131,6 +131,15 @@ export default function Fishing() {
               On The Water
             </Link>
           </li>
+          <li>
+            <Link
+              className="w-fit underline hover:no-underline hover:tracking-wide transition-[letter-spacing]"
+              target="_blank"
+              href="https://www.bassresource.com/"
+            >
+              Bass Resource
+            </Link>
+          </li>
         </ul>
       </div>
     </div>
