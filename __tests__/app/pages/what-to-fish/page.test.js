@@ -144,7 +144,7 @@ describe('WhatToFish', () => {
     await user.click(button)
 
     const starterText = await screen.findByText(
-      'To start, provide a ZIP, choose a State, or use your current location.'
+      "Enter a US ZIP code or use your current location to start. You can also choose a state instead to see general information based on the state's capital."
     )
 
     expect(starterText).toBeInTheDocument()

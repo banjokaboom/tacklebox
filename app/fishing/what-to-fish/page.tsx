@@ -273,8 +273,9 @@ export default function WhatToFish() {
         {data.weather.location == '' && !loading && (
           <div>
             <p className="mb-4">
-              To start, provide a ZIP, choose a State, or use your current
-              location.
+              Enter a US ZIP code or use your current location to start. You can
+              also choose a state instead to see general information based on
+              the state&apos;s capital.
             </p>
             <div className="flex flex-col lg:flex-row justify-between lg:items-start">
               <div className="mb-4">
