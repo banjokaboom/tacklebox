@@ -127,21 +127,19 @@ export function getFishingConditions(
       sunset.getHours() - now.getHours() > 0
     ) {
       starRating += 2
-      positiveConditionsNotes.push('within the last three hours until sunset')
     } else if (
       (seasons.includes('summer') || seasons.includes('winter')) &&
       now.getHours() - sunrise.getHours() <= 3 &&
       now.getHours() - sunrise.getHours() > 0
     ) {
       starRating++
-      positiveConditionsNotes.push('within the first three hours after sunrise')
     } else if (
       !seasons.includes('summer') &&
       !seasons.includes('winter') &&
-      now.getHours() - sunrise.getHours() > 3
+      now.getHours() - sunrise.getHours() > 3 &&
+      sunset.getHours() - now.getHours() > 0
     ) {
       starRating++
-      positiveConditionsNotes.push('at least three hours after sunrise')
     }
 
     if (weather.current.wind_mph < 6) {
@@ -192,14 +190,12 @@ export function getFishingConditions(
       // if it will rain within the next two hours, no good
       if (forecastHour.will_it_rain == 1 && hourIndex < now.getHours() + 2) {
         starRating--
-        negativeConditionsNotes.push('will rain within the next two hours')
         break
       }
 
       // if it will rain in exactly three hours, good
       if (forecastHour.will_it_rain == 1 && hourIndex == now.getHours() + 3) {
         starRating++
-        positiveConditionsNotes.push('will rain in three hours but not before')
         break
       }
     }
