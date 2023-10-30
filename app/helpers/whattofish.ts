@@ -6,8 +6,8 @@ import FishingConditions from '../classes/FishingConditions'
 import FishingData from '../classes/FishingData'
 import Species from '../classes/Species'
 
-const warmWaterMax = 82.5
-const warmWaterMin = 57.5
+const warmWaterMax = 78.5
+const warmWaterMin = 51.5
 
 export async function getSpecies(
   waterTemp: number,
@@ -158,14 +158,14 @@ export function getFishingConditions(
       negativeConditionsNotes.push('very windy')
     }
 
-    if (weather.current.pressure_in < 29.8) {
-      starRating += 2
+    if (weather.current.pressure_in < 29.7) {
+      starRating++
       positiveConditionsNotes.push('very good barometric pressure')
     } else if (
-      weather.current.pressure_in >= 29.8 &&
-      weather.current.pressure_in <= 30.2
+      weather.current.pressure_in >= 29.7 &&
+      weather.current.pressure_in <= 30.4
     ) {
-      starRating++
+      starRating += 2
       positiveConditionsNotes.push('ideal barometric pressure')
     } else {
       starRating -= 2
