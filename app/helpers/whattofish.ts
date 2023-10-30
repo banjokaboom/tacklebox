@@ -358,7 +358,7 @@ export function pickTackle(
 
     tackle.species.forEach((s) => {
       if (fishingData.seasons.includes(s)) {
-        tackle.confidence++
+        tackle.confidence += 2
       }
     })
 
