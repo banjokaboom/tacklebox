@@ -23,6 +23,7 @@ import jerkbaits from '@/app/assets/images/jerkbaits.jpg'
 import poppers from '@/app/assets/images/poppers.jpg'
 import spinners from '@/app/assets/images/spinners.jpg'
 import swimbaits from '@/app/assets/images/swimbaits.jpg'
+import FilterSort from './filterSort'
 
 interface Props {
   data: FishingData
@@ -32,18 +33,26 @@ export default function FishingDataContent({ data }: Props) {
   let [isModalOpen, setIsModalOpen] = useState(false)
   let [modalContent, setModalContent] = useState('')
   let [activeTab, setActiveTab] = useState('luresAndRigs')
-  let tackleByConfidence = [...data.tackle]
-    .sort((a, b) => {
-      if (a.confidence < b.confidence) {
-        return 1
-      }
-      if (a.confidence > b.confidence) {
-        return -1
-      }
-      // a must be equal to b
-      return 0
-    })
-    .filter((t) => getTackleSubtext(t) !== '')
+  let [tackleFilteredSorted, setTackleFilteredSorted] = useState(
+    [...data.tackle]
+      .sort((a, b) => {
+        if (a.confidence < b.confidence) {
+          return 1
+        }
+        if (a.confidence > b.confidence) {
+          return -1
+        }
+        // a must be equal to b
+        return 0
+      })
+      .filter((t) => getTackleSubtext(t) !== '')
+  )
+  let [baitsToUseFilteredSorted, setBaitsToUseFilteredSorted] = useState([
+    ...data.baitRecommendations.baitsToUse,
+  ])
+  let [stylesToUseFilteredSorted, setStylesToUseFilteredSorted] = useState([
+    ...data.baitRecommendations.stylesToUse,
+  ])
 
   let moonPhaseInnerClassName = ''
   let moonPhaseOuterClassName = ''
@@ -123,6 +132,23 @@ export default function FishingDataContent({ data }: Props) {
     }
 
     return tackleSubtext.toString().replaceAll(',', ', ')
+  }
+
+  function resetTackleData() {
+    setTackleFilteredSorted(
+      [...data.tackle]
+        .sort((a, b) => {
+          if (a.confidence < b.confidence) {
+            return 1
+          }
+          if (a.confidence > b.confidence) {
+            return -1
+          }
+          // a must be equal to b
+          return 0
+        })
+        .filter((t) => getTackleSubtext(t) !== '')
+    )
   }
 
   return (
@@ -222,148 +248,161 @@ export default function FishingDataContent({ data }: Props) {
       {activeTab == 'baitsStylesColors' && (
         <div className="mb-8">
           <div className="grid gap-4 lg:grid-cols-2 grid-cols-1">
-            {data.baitRecommendations.baitsToUse.length > 0 && (
-              <ContentSection title="Baits" isExpandedByDefault={true}>
-                {data.baitRecommendations.baitsToUse.map((b, index) => (
-                  <div key={index} className="mb-4 last:mb-0">
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div
-                        className={
-                          'flex flex-col' +
-                          (!b.name.toUpperCase().includes('LIVE')
-                            ? ' md:mb-0 mb-4'
-                            : '')
-                        }
-                      >
-                        <div className="flex flex-row items-center">
-                          <p className="text-yellow-400 font-bold">
-                            {b.name}
-                            {b.type?.includes('product') && (
+            <div className="pt-4">
+              <FilterSort
+                data={data.baitRecommendations.baitsToUse}
+                sortedFilteredData={baitsToUseFilteredSorted}
+                setData={setBaitsToUseFilteredSorted}
+                resetData={() =>
+                  setBaitsToUseFilteredSorted([
+                    ...data.baitRecommendations.baitsToUse,
+                  ])
+                }
+              />
+              {baitsToUseFilteredSorted.length > 0 && (
+                <ContentSection title="Baits" isExpandedByDefault={true}>
+                  {baitsToUseFilteredSorted.map((b, index) => (
+                    <div key={index} className="mb-4 last:mb-0">
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <div
+                          className={
+                            'flex flex-col' +
+                            (!b.name.toUpperCase().includes('LIVE')
+                              ? ' md:mb-0 mb-4'
+                              : '')
+                          }
+                        >
+                          <div className="flex flex-row items-center">
+                            <p className="text-yellow-400 font-bold">
+                              {b.name}
+                              {b.type?.includes('product') && (
+                                <FontAwesomeIcon
+                                  icon={faRectangleAd}
+                                  className="ml-2"
+                                />
+                              )}
+                            </p>
+                          </div>
+                          <div title={'Confidence rating of ' + b.confidence}>
+                            {[...Array(b.confidence)].map((e, i) => (
                               <FontAwesomeIcon
-                                icon={faRectangleAd}
-                                className="ml-2"
+                                key={i}
+                                icon={faStar}
+                                className="ml-1 first:ml-0"
                               />
-                            )}
-                          </p>
+                            ))}
+                          </div>
+                          <p className="text-sm">{getTackleSubtext(b)}</p>
                         </div>
-                        <div title={'Confidence rating of ' + b.confidence}>
-                          {[...Array(b.confidence)].map((e, i) => (
-                            <FontAwesomeIcon
-                              key={i}
-                              icon={faStar}
-                              className="ml-1 first:ml-0"
-                            />
-                          ))}
-                        </div>
-                        <p className="text-sm">{getTackleSubtext(b)}</p>
+                        {!b.name.toUpperCase().includes('LIVE') && (
+                          <div>
+                            <a
+                              title={
+                                'Amazon Buy link for ' +
+                                b.name +
+                                ' fishing lures'
+                              }
+                              target="_blank"
+                              className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                              href={
+                                'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                                b.name +
+                                ' fishing lures'
+                              }
+                            >
+                              <span>Buy</span>
+                              <FontAwesomeIcon
+                                icon={faArrowUpRightFromSquare}
+                                className="ml-2 max-h-4"
+                              />
+                            </a>
+                          </div>
+                        )}
                       </div>
-                      {!b.name.toUpperCase().includes('LIVE') && (
-                        <div>
-                          <a
-                            title={
-                              'Amazon Buy link for ' + b.name + ' fishing lures'
-                            }
-                            target="_blank"
-                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                            href={
-                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                              b.name +
-                              ' fishing lures'
-                            }
-                          >
-                            <span>Buy</span>
-                            <FontAwesomeIcon
-                              icon={faArrowUpRightFromSquare}
-                              className="ml-2 max-h-4"
-                            />
-                          </a>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                ))}
-              </ContentSection>
-            )}
+                  ))}
+                </ContentSection>
+              )}
+            </div>
 
-            {data.baitRecommendations.stylesToUse.length > 0 && (
-              <ContentSection
-                title="Colors & Styles"
-                isExpandedByDefault={true}
-              >
-                {data.baitRecommendations.stylesToUse.map((s, index) => (
-                  <div key={index} className="mb-4 last:mb-0">
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row items-center">
-                          <p className="text-yellow-400 font-bold">
-                            {s.name}
-                            {s.type?.includes('product') && (
+            <div className="pt-4">
+              <FilterSort
+                data={data.baitRecommendations.stylesToUse}
+                sortedFilteredData={stylesToUseFilteredSorted}
+                setData={setStylesToUseFilteredSorted}
+                resetData={() =>
+                  setStylesToUseFilteredSorted([
+                    ...data.baitRecommendations.stylesToUse,
+                  ])
+                }
+              />
+              {stylesToUseFilteredSorted.length > 0 && (
+                <ContentSection
+                  title="Colors & Styles"
+                  isExpandedByDefault={true}
+                >
+                  {stylesToUseFilteredSorted.map((s, index) => (
+                    <div key={index} className="mb-4 last:mb-0">
+                      <div className="flex flex-col md:flex-row justify-between">
+                        <div className="flex flex-col">
+                          <div className="flex flex-row items-center">
+                            <p className="text-yellow-400 font-bold">
+                              {s.name}
+                              {s.type?.includes('product') && (
+                                <FontAwesomeIcon
+                                  icon={faRectangleAd}
+                                  className="ml-2"
+                                />
+                              )}
+                            </p>
+                          </div>
+                          <div title={'Confidence rating of ' + s.confidence}>
+                            {[...Array(s.confidence)].map((e, i) => (
                               <FontAwesomeIcon
-                                icon={faRectangleAd}
-                                className="ml-2"
+                                key={i}
+                                icon={faStar}
+                                className="ml-1 first:ml-0"
                               />
-                            )}
-                          </p>
+                            ))}
+                          </div>
+                          <p className="text-sm">{getTackleSubtext(s)}</p>
                         </div>
-                        <div title={'Confidence rating of ' + s.confidence}>
-                          {[...Array(s.confidence)].map((e, i) => (
-                            <FontAwesomeIcon
-                              key={i}
-                              icon={faStar}
-                              className="ml-1 first:ml-0"
-                            />
-                          ))}
-                        </div>
-                        <p className="text-sm">{getTackleSubtext(s)}</p>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </ContentSection>
-            )}
+                  ))}
+                </ContentSection>
+              )}
+            </div>
           </div>
         </div>
       )}
       {activeTab == 'luresAndRigs' && (
-        <div className="mb-8">
-          <div className="mt-4">
-            {tackleByConfidence.length > 0 && (
-              <ContentSection isExpandedByDefault={true}>
-                {tackleByConfidence.map((t, index) => (
-                  <div key={index} className="mb-4 last:mb-0">
-                    <div className="flex flex-col md:flex-row justify-between">
-                      <div
-                        className={
-                          'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''
-                        }
-                      >
-                        <div className="flex flex-row items-center">
-                          {t.tip && (
-                            <button
-                              className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
-                              title="Click to learn how to use this"
-                              onClick={() => {
-                                setModalContent(t.tip)
-                                setIsModalOpen(true)
-                              }}
-                            >
-                              <span className="text-yellow-400">
-                                {t.name}
-                                {t.type.includes('product') && (
-                                  <FontAwesomeIcon
-                                    icon={faRectangleAd}
-                                    className="ml-2"
-                                  />
-                                )}
-                              </span>
-                              <FontAwesomeIcon
-                                icon={faCircleQuestion}
-                                className="ml-2"
-                              />
-                            </button>
-                          )}
-                          {!t.tip && (
-                            <p className="text-yellow-400 font-bold">
+        <div className="mb-8 pt-4">
+          <FilterSort
+            data={data.tackle}
+            sortedFilteredData={tackleFilteredSorted}
+            setData={setTackleFilteredSorted}
+            resetData={resetTackleData}
+          />
+          {tackleFilteredSorted.length > 0 && (
+            <ContentSection title="Lures & Rigs" isExpandedByDefault={true}>
+              {tackleFilteredSorted.map((t, index) => (
+                <div key={index} className="mb-4 last:mb-0">
+                  <div className="flex flex-col md:flex-row justify-between">
+                    <div
+                      className={'flex flex-col' + t.tip ? ' mb-4 md:mb-0' : ''}
+                    >
+                      <div className="flex flex-row items-center">
+                        {t.tip && (
+                          <button
+                            className="flex flex-row items-center text-left w-full text-yellow-400 font-bold"
+                            title="Click to learn how to use this"
+                            onClick={() => {
+                              setModalContent(t.tip)
+                              setIsModalOpen(true)
+                            }}
+                          >
+                            <span className="text-yellow-400">
                               {t.name}
                               {t.type.includes('product') && (
                                 <FontAwesomeIcon
@@ -371,66 +410,81 @@ export default function FishingDataContent({ data }: Props) {
                                   className="ml-2"
                                 />
                               )}
-                            </p>
-                          )}
-                        </div>
-                        <div title={'Confidence rating of ' + t.confidence}>
-                          {[...Array(t.confidence)].map((e, i) => (
+                            </span>
                             <FontAwesomeIcon
-                              key={i}
-                              icon={faStar}
-                              className="ml-1 first:ml-0"
+                              icon={faCircleQuestion}
+                              className="ml-2"
                             />
-                          ))}
-                        </div>
-                        <p className="text-sm">{getTackleSubtext(t)}</p>
+                          </button>
+                        )}
+                        {!t.tip && (
+                          <p className="text-yellow-400 font-bold">
+                            {t.name}
+                            {t.type.includes('product') && (
+                              <FontAwesomeIcon
+                                icon={faRectangleAd}
+                                className="ml-2"
+                              />
+                            )}
+                          </p>
+                        )}
                       </div>
-                      {!t.name.toUpperCase().includes('RIG') && (
-                        <div>
-                          <a
-                            title={
-                              'Amazon Buy link for ' + t.name + ' fishing lures'
-                            }
-                            target="_blank"
-                            className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
-                            href={
-                              'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
-                              t.name +
-                              ' fishing lures'
-                            }
-                          >
-                            <span>Buy</span>
-                            <FontAwesomeIcon
-                              icon={faArrowUpRightFromSquare}
-                              className="ml-2 max-h-4"
-                            />
-                          </a>
-                        </div>
-                      )}
+                      <div title={'Confidence rating of ' + t.confidence}>
+                        {[...Array(t.confidence)].map((e, i) => (
+                          <FontAwesomeIcon
+                            key={i}
+                            icon={faStar}
+                            className="ml-1 first:ml-0"
+                          />
+                        ))}
+                      </div>
+                      <p className="text-sm">{getTackleSubtext(t)}</p>
                     </div>
+                    {!t.name.toUpperCase().includes('RIG') && (
+                      <div>
+                        <a
+                          title={
+                            'Amazon Buy link for ' + t.name + ' fishing lures'
+                          }
+                          target="_blank"
+                          className="p-2 w-fit bg-slate-700 border hover:bg-slate-50 hover:text-slate-700 rounded-md flex flex-row items-center"
+                          href={
+                            'https://www.amazon.com/gp/search?ie=UTF8&tag=bearededfisha-20&linkCode=ur2&linkId=9b3fecfa6e628523da72d3db87d3cd35&camp=1789&creative=9325&index=aps&keywords=' +
+                            t.name +
+                            ' fishing lures'
+                          }
+                        >
+                          <span>Buy</span>
+                          <FontAwesomeIcon
+                            icon={faArrowUpRightFromSquare}
+                            className="ml-2 max-h-4"
+                          />
+                        </a>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </ContentSection>
-            )}
+                </div>
+              ))}
+            </ContentSection>
+          )}
 
-            {(data.species.includes('Not ideal') ||
-              tackleByConfidence.length == 0) && (
-              <div className="pt-4">
-                <p className="mb-4">
-                  It may not be ideal fishing for the selected species, but you
-                  can still fish! Get specific lure suggestions by species here:
-                </p>
+          {(data.species.includes('Not ideal') ||
+            tackleFilteredSorted.length == 0) && (
+            <div className="pt-4">
+              <p className="mb-4">
+                It may not be ideal fishing for the selected species, but you
+                can still fish! Get specific lure suggestions by species here:
+              </p>
 
-                <Link
-                  className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
-                  href="/fishing/tackle-by-species"
-                >
-                  <FontAwesomeIcon icon={faFish} className="mb-4 h-16" />
-                  <span>Tackle by Species</span>
-                </Link>
-              </div>
-            )}
-          </div>
+              <Link
+                className="w-full lg:basis-3/12 shrink-0 mb-4 lg:mb-0 flex flex-col p-8 border bg-slate-50 text-slate-700 hover:bg-transparent hover:text-slate-50 text-center rounded-md transition-all"
+                href="/fishing/tackle-by-species"
+              >
+                <FontAwesomeIcon icon={faFish} className="mb-4 h-16" />
+                <span>Tackle by Species</span>
+              </Link>
+            </div>
+          )}
         </div>
       )}
 
