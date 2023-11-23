@@ -161,6 +161,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'baitsStylesColors'}
           onClick={() => {
             setActiveTab('baitsStylesColors')
+            resetTackleData()
           }}
         >
           <div
@@ -185,6 +186,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'luresAndRigs'}
           onClick={() => {
             setActiveTab('luresAndRigs')
+            resetTackleData()
           }}
         >
           <div
@@ -207,6 +209,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'seasonalInfo'}
           onClick={() => {
             setActiveTab('seasonalInfo')
+            resetTackleData()
           }}
         >
           <div
@@ -229,6 +232,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'weather'}
           onClick={() => {
             setActiveTab('weather')
+            resetTackleData()
           }}
         >
           <div
