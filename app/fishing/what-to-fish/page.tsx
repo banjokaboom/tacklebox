@@ -29,6 +29,7 @@ export default function WhatToFish() {
   let [loadingText, setLoadingText] = useState('Loading...')
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
+  let [activeSpecies, setActiveSpecies] = useState<string[]>([])
   let [message, setMessage] = useState(new MessageData())
   let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let [speciesList, setSpeciesList] = useState<Species[]>([])
@@ -182,6 +183,7 @@ export default function WhatToFish() {
           }
 
           setData(fishingData)
+          setActiveSpecies(fishingData.activeSpecies)
 
           if (fishingData.tackle.length > 0) {
             m.message =
@@ -226,6 +228,12 @@ export default function WhatToFish() {
     waterType,
     speciesFilter,
   ])
+
+  useEffect(() => {
+    if (activeSpecies.length > 0 && speciesFilter.length == 0) {
+      setSpeciesFilter([...activeSpecies])
+    }
+  }, [activeSpecies, speciesFilter])
 
   function getGeolocation() {
     const logger = Logger({})
@@ -419,23 +427,33 @@ export default function WhatToFish() {
             {speciesList.length > 0 && (
               <div>
                 <div className="flex flex-row mb-4">
-                  <p>Filter by species?</p>
-                  <button
-                    onClick={() => {
-                      setSpeciesFilter([...data.activeSpecies])
-                    }}
-                    className="ml-2 underline hover:no-underline text-sm"
-                  >
-                    Active
-                  </button>
-                  <button
-                    onClick={() => {
-                      setSpeciesFilter([])
-                    }}
-                    className="ml-2 underline hover:no-underline text-sm"
-                  >
-                    Clear
-                  </button>
+                  <div>
+                    <div className="flex flex-row">
+                      <p>What are you fishing for?</p>
+                      <button
+                        onClick={() => {
+                          setSpeciesFilter([...data.activeSpecies])
+                        }}
+                        className="ml-2 underline hover:no-underline text-sm"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                    <p className="text-sm relative">
+                      All active species are filtered by default. Active species
+                      noted with{' '}
+                      <FontAwesomeIcon
+                        title="currently active species"
+                        icon={faFishFins}
+                        className="text-sm animate-ping text-yellow-400 absolute top-0.5 right-0.5"
+                      />
+                      <FontAwesomeIcon
+                        title="currently active species"
+                        icon={faFishFins}
+                      />
+                      .
+                    </p>
+                  </div>
                 </div>
                 <div className="grid md:grid-cols-3 grid-cols-2">
                   {speciesList.map(
@@ -453,11 +471,18 @@ export default function WhatToFish() {
                           <label htmlFor={s.name + '_species'}>
                             {s.name}
                             {data.activeSpecies.includes(s.name) && (
-                              <FontAwesomeIcon
-                                title="currently active species"
-                                icon={faFishFins}
-                                className="ml-2"
-                              />
+                              <span className="relative">
+                                <FontAwesomeIcon
+                                  title="currently active species"
+                                  icon={faFishFins}
+                                  className="ml-2 animate-ping text-yellow-400 absolute top-0.5 right-0.5"
+                                />
+                                <FontAwesomeIcon
+                                  title="currently active species"
+                                  icon={faFishFins}
+                                  className="ml-2"
+                                />
+                              </span>
                             )}
                           </label>
                         </div>

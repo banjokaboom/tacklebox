@@ -11,6 +11,7 @@ import {
   faArrowDown91,
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
+import Tackle from '../classes/Tackle'
 
 interface Props {
   data: any[]
@@ -36,10 +37,18 @@ export default function FilterSort({
     ALL: 'all',
     PRODUCT: 'product',
     GENERIC: 'generic',
+    RIG: ' rig', // space intentional
+    LURE: 'lure',
   }
 
+  const isArrayOfTackle = data.find((item) =>
+    item.name?.toUpperCase().includes('RIG')
+  )
+
   let [isExpanded, setIsExpanded] = useState(false)
-  let [activeSort, setActiveSort] = useState('')
+  let [activeSort, setActiveSort] = useState(
+    'confidence|' + SORT_DIRECTIONS.DESC
+  )
   let [activeFilters, setActiveFilters] = useState([FILTER_VALUES.ALL])
 
   let className =
@@ -55,8 +64,8 @@ export default function FilterSort({
   }
 
   function reset() {
-    resetData()
-    setActiveSort('')
+    setData(resetData())
+    setActiveSort('confidence|' + SORT_DIRECTIONS.DESC)
     setActiveFilters([FILTER_VALUES.ALL])
   }
 
@@ -94,7 +103,7 @@ export default function FilterSort({
     const isAddingFilter = !activeFilters.includes(value)
 
     let activeFiltersClone = [...activeFilters]
-    let filteredData = [...data]
+    let filteredData = resetData()
 
     if (isAddingFilter) {
       // remove incompatible filters
@@ -119,6 +128,18 @@ export default function FilterSort({
           1
         )
       }
+      if (
+        value == FILTER_VALUES.RIG &&
+        activeFiltersClone.includes(FILTER_VALUES.LURE)
+      ) {
+        activeFiltersClone.splice(activeFilters.indexOf(FILTER_VALUES.LURE), 1)
+      }
+      if (
+        value == FILTER_VALUES.LURE &&
+        activeFiltersClone.includes(FILTER_VALUES.RIG)
+      ) {
+        activeFiltersClone.splice(activeFilters.indexOf(FILTER_VALUES.RIG), 1)
+      }
 
       activeFiltersClone.push(value)
     } else {
@@ -129,6 +150,8 @@ export default function FilterSort({
       activeFiltersClone.length > 0 ? activeFiltersClone : [FILTER_VALUES.ALL]
 
     activeFiltersClone.forEach((filter) => {
+      const isLureOrRigFilter =
+        filter == FILTER_VALUES.LURE || filter == FILTER_VALUES.RIG
       filteredData = filteredData.filter((obj) => {
         const keys: string[] = Object.keys(obj)
 
@@ -138,9 +161,20 @@ export default function FilterSort({
             break
           }
 
-          const v = obj[keys[index]]
-          if (typeof v == 'string' || Array.isArray(v)) {
-            isFound = v.includes(filter)
+          const key = keys[index]
+          const value = obj[key]
+          if (key == 'name' && isLureOrRigFilter) {
+            isFound =
+              (filter == FILTER_VALUES.RIG &&
+                value.toUpperCase().includes(filter.toUpperCase())) ||
+              (filter == FILTER_VALUES.LURE &&
+                !value.toUpperCase().includes(FILTER_VALUES.RIG.toUpperCase()))
+          } else if (!isLureOrRigFilter) {
+            if (typeof value == 'string') {
+              isFound = value.toUpperCase().includes(filter.toUpperCase())
+            } else if (Array.isArray(value)) {
+              isFound = value.includes(filter)
+            }
           }
         }
 
@@ -209,6 +243,42 @@ export default function FilterSort({
               />
               <span>Generic</span>
             </button>
+            {isArrayOfTackle && (
+              <button
+                className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
+                onClick={() => filterBy(FILTER_VALUES.RIG)}
+                onMouseOver={openFilterSort}
+                onFocus={openFilterSort}
+              >
+                <FontAwesomeIcon
+                  icon={
+                    activeFilters.includes(FILTER_VALUES.RIG)
+                      ? faSquareCheck
+                      : faSquare
+                  }
+                  className="max-h-5 h-5 mr-2"
+                />
+                <span>Rigs</span>
+              </button>
+            )}
+            {isArrayOfTackle && (
+              <button
+                className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
+                onClick={() => filterBy(FILTER_VALUES.LURE)}
+                onMouseOver={openFilterSort}
+                onFocus={openFilterSort}
+              >
+                <FontAwesomeIcon
+                  icon={
+                    activeFilters.includes(FILTER_VALUES.LURE)
+                      ? faSquareCheck
+                      : faSquare
+                  }
+                  className="max-h-5 h-5 mr-2"
+                />
+                <span>Lures</span>
+              </button>
+            )}
           </div>
           <div className="flex flex-col items-start gap-2">
             <strong className="mb-2">Sort By</strong>
@@ -239,7 +309,7 @@ export default function FilterSort({
                           className="max-h-5 h-5 mr-2"
                         />
                         <span>
-                          {sortKeyDisplayName}{' '}
+                          {sortKeyDisplayName}
                           <FontAwesomeIcon
                             title="Ascending"
                             icon={
@@ -264,7 +334,7 @@ export default function FilterSort({
                           className="max-h-5 h-5 mr-2"
                         />
                         <span>
-                          {sortKeyDisplayName}{' '}
+                          {sortKeyDisplayName}
                           <FontAwesomeIcon
                             title="Descending"
                             icon={

@@ -135,20 +135,18 @@ export default function FishingDataContent({ data }: Props) {
   }
 
   function resetTackleData() {
-    setTackleFilteredSorted(
-      [...data.tackle]
-        .sort((a, b) => {
-          if (a.confidence < b.confidence) {
-            return 1
-          }
-          if (a.confidence > b.confidence) {
-            return -1
-          }
-          // a must be equal to b
-          return 0
-        })
-        .filter((t) => getTackleSubtext(t) !== '')
-    )
+    return [...data.tackle]
+      .sort((a, b) => {
+        if (a.confidence < b.confidence) {
+          return 1
+        }
+        if (a.confidence > b.confidence) {
+          return -1
+        }
+        // a must be equal to b
+        return 0
+      })
+      .filter((t) => getTackleSubtext(t) !== '')
   }
 
   return (
@@ -161,7 +159,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'baitsStylesColors'}
           onClick={() => {
             setActiveTab('baitsStylesColors')
-            resetTackleData()
+            setTackleFilteredSorted(resetTackleData())
           }}
         >
           <div
@@ -186,7 +184,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'luresAndRigs'}
           onClick={() => {
             setActiveTab('luresAndRigs')
-            resetTackleData()
+            setTackleFilteredSorted(resetTackleData())
           }}
         >
           <div
@@ -209,7 +207,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'seasonalInfo'}
           onClick={() => {
             setActiveTab('seasonalInfo')
-            resetTackleData()
+            setTackleFilteredSorted(resetTackleData())
           }}
         >
           <div
@@ -232,7 +230,7 @@ export default function FishingDataContent({ data }: Props) {
           disabled={activeTab == 'weather'}
           onClick={() => {
             setActiveTab('weather')
-            resetTackleData()
+            setTackleFilteredSorted(resetTackleData())
           }}
         >
           <div
@@ -257,11 +255,7 @@ export default function FishingDataContent({ data }: Props) {
                 data={data.baitRecommendations.baitsToUse}
                 sortedFilteredData={baitsToUseFilteredSorted}
                 setData={setBaitsToUseFilteredSorted}
-                resetData={() =>
-                  setBaitsToUseFilteredSorted([
-                    ...data.baitRecommendations.baitsToUse,
-                  ])
-                }
+                resetData={() => [...data.baitRecommendations.baitsToUse]}
               />
               {baitsToUseFilteredSorted.length > 0 && (
                 <ContentSection title="Baits" isExpandedByDefault={true}>
@@ -334,11 +328,7 @@ export default function FishingDataContent({ data }: Props) {
                 data={data.baitRecommendations.stylesToUse}
                 sortedFilteredData={stylesToUseFilteredSorted}
                 setData={setStylesToUseFilteredSorted}
-                resetData={() =>
-                  setStylesToUseFilteredSorted([
-                    ...data.baitRecommendations.stylesToUse,
-                  ])
-                }
+                resetData={() => [...data.baitRecommendations.stylesToUse]}
               />
               {stylesToUseFilteredSorted.length > 0 && (
                 <ContentSection
@@ -475,9 +465,10 @@ export default function FishingDataContent({ data }: Props) {
           {(data.species.includes('Not ideal') ||
             tackleFilteredSorted.length == 0) && (
             <div className="pt-4">
-              <p className="mb-4">
-                It may not be ideal fishing for the selected species, but you
-                can still fish! Get specific lure suggestions by species here:
+              <p className="mb-4 max-w-[50%]">
+                It may not be ideal fishing for the selected species, or you can
+                check the filters. Get specific lure suggestions by species
+                here:
               </p>
 
               <Link
