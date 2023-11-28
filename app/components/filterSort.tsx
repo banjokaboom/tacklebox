@@ -47,7 +47,9 @@ export default function FilterSort({
 
   let [isExpanded, setIsExpanded] = useState(false)
   let [activeSort, setActiveSort] = useState(
-    'confidence|' + SORT_DIRECTIONS.DESC
+    sortedFilteredData.length > 0 && sortedFilteredData[0].confidence
+      ? 'confidence|' + SORT_DIRECTIONS.DESC
+      : ''
   )
   let [activeFilters, setActiveFilters] = useState([FILTER_VALUES.ALL])
 
@@ -280,77 +282,86 @@ export default function FilterSort({
               </button>
             )}
           </div>
-          <div className="flex flex-col items-start gap-2">
-            <strong className="mb-2">Sort By</strong>
-            {sortedFilteredData.length > 0 &&
-              Object.keys(sortedFilteredData[0]).map((key) => {
-                if (
-                  !skippedSortKeys.includes(key) &&
-                  (typeof sortedFilteredData[0][key] == 'string' ||
-                    typeof sortedFilteredData[0][key] == 'number')
-                ) {
-                  const sortKeyAsc = `${key}|${SORT_DIRECTIONS.ASC}`
-                  const sortKeyDesc = `${key}|${SORT_DIRECTIONS.DESC}`
-                  const sortKeyDisplayName =
-                    key.charAt(0).toUpperCase() +
-                    key.replaceAll('_', ' ').substring(1)
-                  return (
-                    <div key={key} className="flex flex-col items-start gap-2">
-                      <button
-                        className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
-                        onClick={() => sortBy(sortKeyAsc)}
-                        onMouseOver={openFilterSort}
-                        onFocus={openFilterSort}
+          {sortedFilteredData.length > 0 && (
+            <div className="flex flex-col items-start gap-2">
+              <strong className="mb-2">Sort By</strong>
+              {sortedFilteredData.length > 0 &&
+                Object.keys(sortedFilteredData[0]).map((key) => {
+                  if (
+                    !skippedSortKeys.includes(key) &&
+                    (typeof sortedFilteredData[0][key] == 'string' ||
+                      typeof sortedFilteredData[0][key] == 'number')
+                  ) {
+                    const sortKeyAsc = `${key}|${SORT_DIRECTIONS.ASC}`
+                    const sortKeyDesc = `${key}|${SORT_DIRECTIONS.DESC}`
+                    const sortKeyDisplayName =
+                      key.charAt(0).toUpperCase() +
+                      key.replaceAll('_', ' ').substring(1)
+                    return (
+                      <div
+                        key={key}
+                        className="flex flex-col items-start gap-2"
                       >
-                        <FontAwesomeIcon
-                          icon={
-                            activeSort == sortKeyAsc ? faSquareCheck : faSquare
-                          }
-                          className="max-h-5 h-5 mr-2"
-                        />
-                        <span>
-                          {sortKeyDisplayName}
+                        <button
+                          className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
+                          onClick={() => sortBy(sortKeyAsc)}
+                          onMouseOver={openFilterSort}
+                          onFocus={openFilterSort}
+                        >
                           <FontAwesomeIcon
-                            title="Ascending"
                             icon={
-                              typeof sortedFilteredData[0][key] == 'string'
-                                ? faArrowUpAZ
-                                : faArrowUp19
+                              activeSort == sortKeyAsc
+                                ? faSquareCheck
+                                : faSquare
                             }
-                            className="max-h-4 h-4 ml-2"
+                            className="max-h-5 h-5 mr-2"
                           />
-                        </span>
-                      </button>
-                      <button
-                        className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
-                        onClick={() => sortBy(sortKeyDesc)}
-                        onMouseOver={openFilterSort}
-                        onFocus={openFilterSort}
-                      >
-                        <FontAwesomeIcon
-                          icon={
-                            activeSort == sortKeyDesc ? faSquareCheck : faSquare
-                          }
-                          className="max-h-5 h-5 mr-2"
-                        />
-                        <span>
-                          {sortKeyDisplayName}
+                          <span>
+                            {sortKeyDisplayName}
+                            <FontAwesomeIcon
+                              title="Ascending"
+                              icon={
+                                typeof sortedFilteredData[0][key] == 'string'
+                                  ? faArrowUpAZ
+                                  : faArrowUp19
+                              }
+                              className="max-h-4 h-4 ml-2"
+                            />
+                          </span>
+                        </button>
+                        <button
+                          className="w-fit underline hover:no-underline transition-[letter-spacing] flex flex-row items-center"
+                          onClick={() => sortBy(sortKeyDesc)}
+                          onMouseOver={openFilterSort}
+                          onFocus={openFilterSort}
+                        >
                           <FontAwesomeIcon
-                            title="Descending"
                             icon={
-                              typeof sortedFilteredData[0][key] == 'string'
-                                ? faArrowDownZA
-                                : faArrowDown91
+                              activeSort == sortKeyDesc
+                                ? faSquareCheck
+                                : faSquare
                             }
-                            className="max-h-4 h-4 ml-2"
+                            className="max-h-5 h-5 mr-2"
                           />
-                        </span>
-                      </button>
-                    </div>
-                  )
-                }
-              })}
-          </div>
+                          <span>
+                            {sortKeyDisplayName}
+                            <FontAwesomeIcon
+                              title="Descending"
+                              icon={
+                                typeof sortedFilteredData[0][key] == 'string'
+                                  ? faArrowDownZA
+                                  : faArrowDown91
+                              }
+                              className="max-h-4 h-4 ml-2"
+                            />
+                          </span>
+                        </button>
+                      </div>
+                    )
+                  }
+                })}
+            </div>
+          )}
         </div>
         <div className="flex flex-row justify-end gap-4">
           <button
