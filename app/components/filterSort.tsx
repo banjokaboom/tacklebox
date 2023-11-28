@@ -67,7 +67,11 @@ export default function FilterSort({
 
   function reset() {
     setData(resetData())
-    setActiveSort('confidence|' + SORT_DIRECTIONS.DESC)
+    setActiveSort(
+      sortedFilteredData.length > 0 && sortedFilteredData[0].confidence
+        ? 'confidence|' + SORT_DIRECTIONS.DESC
+        : ''
+    )
     setActiveFilters([FILTER_VALUES.ALL])
   }
 
