@@ -11,7 +11,6 @@ import {
   faArrowDown91,
 } from '@fortawesome/free-solid-svg-icons'
 import { faSquare } from '@fortawesome/free-regular-svg-icons'
-import Tackle from '../classes/Tackle'
 
 interface Props {
   data: any[]

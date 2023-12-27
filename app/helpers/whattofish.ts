@@ -316,6 +316,7 @@ export function pickTackle(
     const seasonsArray: string[] = fishingData.seasons
       .split(',')
       .map((s) => s.trim())
+    let isTackleForSeason = false
     let isTackleForSpawnSeason = false
     let isTackleForBaitStyle = false
 
@@ -333,30 +334,22 @@ export function pickTackle(
         tackle.species.includes(season.split(' ')[0]) &&
         tackle.type.includes('reaction')
       ) {
-        isTackleForSpawnSeason == true
+        isTackleForSpawnSeason = true
       }
 
-      if (
-        season.includes('fall') &&
-        tackle.type.includes('reaction') &&
-        tackle.species.includes('largemouth bass')
-      ) {
-        isTackleForSpawnSeason == true
+      if (tackle.type.includes(season)) {
+        isTackleForSeason = true
       }
     })
 
     // extras
-    fishingData.seasons.split(',').forEach((s) => {
-      if (tackle.type.includes(s)) {
-        tackle.confidence++
-      }
-    })
+    if (isTackleForSpawnSeason) {
+      tackle.confidence += 2
+    }
 
-    tackle.species.forEach((s) => {
-      if (fishingData.seasons.includes(s)) {
-        tackle.confidence += 2
-      }
-    })
+    if (isTackleForWeather(tackle, waterTemp)) {
+      tackle.confidence += 2
+    }
 
     fishingData.baitRecommendations.stylesToUse.forEach((s) => {
       if (tackle.type.includes(s.name)) {
@@ -364,13 +357,15 @@ export function pickTackle(
       }
     })
 
-    if (
-      isTackleForWaterType &&
-      isTackleForBaitStyle &&
-      (isTackleForSpawnSeason || isTackleForWeather(tackle, waterTemp))
-    ) {
+    if (isTackleForWaterType && isTackleForBaitStyle && isTackleForSeason) {
       tackleToUse.push(tackle)
     }
+
+    console.log('tackle:', tackle.name)
+    console.log('isTackleForWaterType:', isTackleForWaterType)
+    console.log('isTackleForSeason:', isTackleForSeason)
+    console.log('isTackleForSpawnSeason:', isTackleForSpawnSeason)
+    console.log('isTackleForBaitStyle:', isTackleForBaitStyle)
   })
 
   return tackleToUse
