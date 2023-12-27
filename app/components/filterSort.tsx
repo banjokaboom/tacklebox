@@ -157,7 +157,7 @@ export default function FilterSort({
     activeFiltersClone.forEach((filter) => {
       const isLureOrRigFilter =
         filter == FILTER_VALUES.LURE || filter == FILTER_VALUES.RIG
-      filteredData = filteredData.filter((obj) => {
+      filteredData = filteredData.filter((obj:any) => {
         const keys: string[] = Object.keys(obj)
 
         let isFound = filter == FILTER_VALUES.ALL || false
