@@ -29,7 +29,6 @@ export default function WhatToFish() {
   let [loadingText, setLoadingText] = useState('Loading...')
   let [geolocation, setGeolocation] = useState('')
   let [data, setData] = useState(new FishingData())
-  let [activeSpecies, setActiveSpecies] = useState<string[]>([])
   let [message, setMessage] = useState(new MessageData())
   let [cityStateList, setCityStateList] = useState<CityState[]>([])
   let [speciesList, setSpeciesList] = useState<Species[]>([])
@@ -183,7 +182,6 @@ export default function WhatToFish() {
           }
 
           setData(fishingData)
-          setActiveSpecies(fishingData.activeSpecies)
 
           if (fishingData.tackle.length > 0) {
             m.message =
@@ -228,12 +226,6 @@ export default function WhatToFish() {
     waterType,
     speciesFilter,
   ])
-
-  useEffect(() => {
-    if (activeSpecies.length > 0 && speciesFilter.length == 0) {
-      setSpeciesFilter([...activeSpecies])
-    }
-  }, [activeSpecies, speciesFilter])
 
   function getGeolocation() {
     const logger = Logger({})
@@ -432,16 +424,16 @@ export default function WhatToFish() {
                       <p>What are you fishing for?</p>
                       <button
                         onClick={() => {
-                          setSpeciesFilter([...data.activeSpecies])
+                          setSpeciesFilter([])
                         }}
                         className="ml-2 underline hover:no-underline text-sm"
                       >
-                        Reset
+                        Clear Checked Species
                       </button>
                     </div>
                     <p className="text-sm relative">
-                      All active species are filtered by default. Active species
-                      noted with{' '}
+                      All active species are filtered by default, or when no
+                      species are selected. Active species noted with{' '}
                       <FontAwesomeIcon
                         title="currently active species"
                         icon={faFishFins}
