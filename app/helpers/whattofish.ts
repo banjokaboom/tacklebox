@@ -360,12 +360,6 @@ export function pickTackle(
     if (isTackleForWaterType && isTackleForBaitStyle && isTackleForSeason) {
       tackleToUse.push(tackle)
     }
-
-    console.log('tackle:', tackle.name)
-    console.log('isTackleForWaterType:', isTackleForWaterType)
-    console.log('isTackleForSeason:', isTackleForSeason)
-    console.log('isTackleForSpawnSeason:', isTackleForSpawnSeason)
-    console.log('isTackleForBaitStyle:', isTackleForBaitStyle)
   })
 
   return tackleToUse
