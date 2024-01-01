@@ -434,7 +434,7 @@ export default function FishingDataContent({ data }: Props) {
                       </div>
                       <p className="text-sm">{getTackleSubtext(t)}</p>
                     </div>
-                    {!t.name.toUpperCase().includes('RIG') && (
+                    {!t.name.toUpperCase().includes(' RIG') && (
                       <div>
                         <a
                           title={
