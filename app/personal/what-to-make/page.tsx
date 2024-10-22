@@ -184,7 +184,6 @@ export default function WhatToMake() {
             name="numRecipes"
             id="numRecipes"
             min="1"
-            max="7"
             value={numRecipes}
             inputMode="numeric"
             onChange={(e) => {
